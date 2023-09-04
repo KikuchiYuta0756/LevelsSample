@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	</meta>
+	<title　th:text="#{user.create.title}"></title>
+	<!--CSS読込-->
+	<link rel="stylesheet" th:href="@{/css/admin/create.css}">
+	<!--JS読込-->
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/bootstrap.min.js}" defer></script>
+</head>
+
+<body>
+	<span layout:fragment="content">
+		<div class="header border-bottom">
+			<h1 th:text="#{user.create.title}" class="h2"></h1>
+		</div>
+		<form id="create-form" method="post" action="/admin/create" class="form-create">
+			<!--ユーザーID-->
+			<div class="form-group">
+				<label for="userId" th:text="#{userId}"></label>
+				<input type="text" class="form-control" />
+			</div>
+			<!--パスワード-->
+			<div class="form-group">
+				<label for="password" th:text="#{password}"></label>
+				<input type="text" class="form-control" />
+			</div>
+			<!--ユーザー名-->
+			<div class="form-group">
+				<label for="birthday" th:text="#{userName}"></label>
+				<input type="text" class="form-control" />
+			</div>
+			<!--部署-->
+			<div class="form-group">
+				<label for="age" th:text="#{department}"></label>
+				<input type="text" class="form-control" />
+			</div>
+			<!--役職-->
+			<div class="form-group">
+				<label for="age" th:text="#{role}"></label>
+				<input type="text" class="form-control" />
+			</div>
+			<!--性別-->
+			<div class="form-group">
+				<div th:each="item:${genderMap}" class="form-check-inline">
+					<input type="radio" class="form-check-input" th:value="${item.value}" />
+					<label class="form-check-label" th:text="${item.key}"></label>
+				</div>
+			</div>
+			<!--登録ボタン-->
+			<input type="submit" th:value="#{user.create.btn}" class="btn btn-primary w-100 mt-3" />
+		</form>
+
+	</span>
+</body>
+
+</html>

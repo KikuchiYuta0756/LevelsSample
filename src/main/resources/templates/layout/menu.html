@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorate="~{layout/layout}">
+<head>
+</head>
+<body>
+	<div layout:fragment="menu" class="bg-light">
+		<ul class="nav nav-pills nav-stacked">
+			<li role="presentation">
+				<a class="nav-link" th:href="@{'/admin/list'}">ユーザーー覧</a>
+				<a class="nav-link" th:href="@{'/admin/create'}">ユーザー登録</a>
+				<a class="nav-link" th:href="@{'/user/list'}">勤怠修正通知</a>
+				<a class="nav-link" th:href="@{'/user/list'}">有給申請通知</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
