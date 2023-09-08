@@ -25,6 +25,11 @@ public class UserCreateController {
 		Map<String, Integer> genderMap = userApplicationService.getGenderMap();
 		model.addAttribute("genderMap", genderMap);
 
+		// ユーザー有効性を取得
+		Map<String, Integer> validationMap = userApplicationService.getValidationMap();
+		model.addAttribute("validationMap", validationMap);
+		
+		
 		// ユーザー登録画面に遷移
 		return "admin/create";
 	}

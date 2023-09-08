@@ -21,7 +21,7 @@
 		<form id="create-form" method="post" action="/admin/create" class="form-create">
 			<!--ユーザーID-->
 			<div class="form-group">
-				<label for="userId" th:text="#{userId}"></label>
+				<label for="userId" th:text="#{loginId}"></label>
 				<input type="text" class="form-control" />
 			</div>
 			<!--パスワード-->
@@ -34,6 +34,11 @@
 				<label for="birthday" th:text="#{userName}"></label>
 				<input type="text" class="form-control" />
 			</div>
+			<!--ユーザー名（フリガナ）-->
+			<div class="form-group">
+				<label for="birthday" th:text="#{userNamekana}"></label>
+				<input type="text" class="form-control" />
+			</div>			
 			<!--部署-->
 			<div class="form-group">
 				<label for="age" th:text="#{department}"></label>
@@ -44,13 +49,24 @@
 				<label for="age" th:text="#{role}"></label>
 				<input type="text" class="form-control" />
 			</div>
+			<!--メモ-->
+			
+			
 			<!--性別-->
 			<div class="form-group">
 				<div th:each="item:${genderMap}" class="form-check-inline">
 					<input type="radio" class="form-check-input" th:value="${item.value}" />
 					<label class="form-check-label" th:text="${item.key}"></label>
 				</div>
+			</div>			
+			<!--ユーザー有効性-->
+			<div class="form-group">
+				<div th:each="item:${validationMap}" class="form-check-inline">
+					<input type="radio" class="form-check-input" th:value="${item.value}" />
+					<label class="form-check-label" th:text="${item.key}"></label>
+				</div>
 			</div>
+			
 			<!--登録ボタン-->
 			<input type="submit" th:value="#{user.create.btn}" class="btn btn-primary w-100 mt-3" />
 		</form>

@@ -18,4 +18,14 @@ public class UserApplicationService {
 		genderMap.put("女性", 2);
 		return genderMap;
 	}
+
+	/**ユーザーの有効性のMapを生成する*/
+	public Map<String, Integer> getValidationMap(){
+		Map<String, Integer > validationMap = new LinkedHashMap <>();
+		validationMap.put("有効", 1);
+		validationMap.put("無効", 2);
+		return validationMap;
+	}
+	
+	
 }
