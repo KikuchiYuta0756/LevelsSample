@@ -1,4 +1,4 @@
-package com.example.config;
+/**package com.example.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -12,3 +12,4 @@ public class JavaConfig {
 		return new ModelMapper();
 	}
 }
+**/

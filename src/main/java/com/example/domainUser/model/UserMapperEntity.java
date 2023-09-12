@@ -1,4 +1,4 @@
-package com.example.domainUser.model;
+/**package com.example.domainUser.model;
 
 import java.util.Date;
 import lombok.Data;
@@ -14,3 +14,4 @@ public class UserMapperEntity {
 	private String role;
 
 }
+**/
