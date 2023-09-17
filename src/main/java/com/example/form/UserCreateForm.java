@@ -12,7 +12,6 @@ public class UserCreateForm {
 	private String mailAddress;
 	private String department;
 	private String role;
-	
 	private Integer gender;
 	private Integer validation;
 }

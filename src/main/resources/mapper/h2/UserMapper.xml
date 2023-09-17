@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
- "http://mybatis.org./dtd/mybatis-3-mapper.dtd">
-
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+-->
  <!--Mapperとxmlのマッピング-->
- <mapper namespace="com.example.repository.UserMapperRepository">
-	 
+<!-- <mapper namespace="com.example.repository.UserMapperRepository">
+-->	 
 <!--ユーザー1件登録-->
-<insert id="insertOne">
+<!--<insert id="insertOne">
 	 insert into m_user(
 	 user_id
 	 ,password
@@ -30,3 +30,4 @@
 	
 </insert>
  </mapper>
+ -->

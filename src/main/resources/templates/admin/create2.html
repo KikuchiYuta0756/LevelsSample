@@ -18,7 +18,8 @@
 			<h1 class="2" th:text="#{user.create.title}"></h1>
 		</div>
 		<form id="create-form" method="post" action="/admin/create"
-		 class="form-create">
+		 class="form-create" th:object="${UserCreateForm}">
+		                                
 			<!--ログインID-->
 			<div class="form-group">
 				<label for="loginId" th:text="#{loginId}"></label>
@@ -55,8 +56,6 @@
 				<input type="text" class="form-control"/>
 			</div>
 			<!--メモ-->
-
-
 			<!--性別-->
 			<div class="form-group">
 				<div th:each="item:${genderMap}" class="form-check-inline">
