@@ -1,4 +1,4 @@
-/**package com.example.domainUser.model;
+package com.example.domainUser.model;
 
 import lombok.Data;
 
@@ -16,4 +16,3 @@ public class UserMapperEntity {
 	private Integer validation;
 
 }
-**/

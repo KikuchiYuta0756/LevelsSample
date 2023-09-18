@@ -1,11 +1,14 @@
-/**package com.example.domainUser.service;
+package com.example.domainUser.service;
+
+import java.util.List;
 
 import com.example.domainUser.model.UserMapperEntity;
-*/
-/**public interface UserService {*/
+
+public interface UserService {
 	
 	/**ユーザー登録*/
-	/**public void signup(UserMapperEntity user);
+	//public void signup(UserMapperEntity user);
 
+	/**ユーザー取得*/
+	public List<UserMapperEntity> getUsers();
 }
-*/
