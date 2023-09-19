@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService{
 	public List<UserMapperEntity> getUsers(){
 		return usermapper.findMany();
 	}
+	/**ユーザー取得(１件)*/
+	@Override
+	public UserMapperEntity getUserOne(String userId) {
+		return usermapper.findOne(userId);
+	}
 }

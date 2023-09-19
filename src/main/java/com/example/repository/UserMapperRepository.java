@@ -13,5 +13,8 @@ public interface UserMapperRepository {
 	
 	/**ユーザー取得*/
 	public List<UserMapperEntity>findMany();
+	
+	/**ユーザー取得（1件）*/
+	public UserMapperEntity findOne(String loginId);
 
 }

@@ -3,8 +3,20 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
  <!--Mapperとxmlのマッピング-->
- 
 <mapper namespace="com.example.repository.UserMapperRepository">
+	
+<!--マッピング定義（ユーザー）-->
+<resultMap type="com.example.domainUser.UserMapperEntity" id="user">
+	<id column="login_id" property="loginId" />
+	<result column="password" property="password" />
+	<result column="user_name" property="userName" />
+	<result column="user_name_kana" property="userNamekana" />
+	<result column="mail_address" property="mailAddress" />
+	<result column="department_id" property="department" />
+	<result column="role_id" property="role" />
+	<result column="gender" property="gender" />
+	<result column="validation" property="validation" />
+</resultMap>
 		 
 <!--ユーザー1件登録-->
 <!--<insert id="insertOne">
@@ -34,4 +46,16 @@
 <select id="findMany" resultType="UserMapperEntity">
 	select * from m_user
 </select>
+
+<!--ユーザー１件検索-->
+<select id="findOne" resultMap="user">
+	select * from m_user where user_id = #{userId}
+</select>
+
+
+
+
+
+
+
  </mapper>

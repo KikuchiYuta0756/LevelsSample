@@ -11,4 +11,7 @@ public interface UserService {
 
 	/**ユーザー取得*/
 	public List<UserMapperEntity> getUsers();
+	
+	/**ユーザー取得(１件)*/
+	public UserMapperEntity getUserOne(String userId);
 }

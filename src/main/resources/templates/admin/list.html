@@ -25,6 +25,7 @@
 					 <th class="th-width">役職</th>
 					 <th class="th-width">性別</th>
 					 <th class="th-width">有効性</th>
+					 <th></th>
 				 </tr>
 				 </thead>
 				 <tbody>
@@ -37,6 +38,9 @@
 					 <td th:text="${item.role}"></td>
 					 <td th:text="${item.gender == 1}?'男性':'女性'"></td>
 					 <td th:text="${item.validation == 1}?'有効':'無効'"></td>
+					 <td>
+						 <a class="btn btn-primary" th:href="@{'/admin/userDatail/'+${item.loginId}}">詳細</a>
+					 </td>
 					 </tr>
 				 </tbody>
 			 </table>
