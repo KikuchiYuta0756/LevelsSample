@@ -2,7 +2,6 @@ package com.example.controller;
 
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,6 @@ import com.example.application.service.UserApplicationService;
 //import com.example.domainUser.service.UserService;
 
 import com.example.form.UserCreateForm;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -50,25 +48,7 @@ public class UserCreateController {
 		// ユーザー登録画面に遷移
 		return "admin/create";
 	}
-	
-	/** ユーザー登録画面を表示 */
-	@GetMapping("/create2")
-	public String getUserCreate2(Model model,
-			@ModelAttribute UserCreateForm form) {
 		
-		// 性別を取得
-		Map<String, Integer> genderMap = userApplicationService.getGenderMap();
-		model.addAttribute("genderMap", genderMap);
-
-		// ユーザー有効性を取得
-		Map<String, Integer> validationMap = userApplicationService.getValidationMap();
-		model.addAttribute("validationMap", validationMap);
-		
-		
-		// ユーザー登録画面に遷移
-		return "admin/create2";
-	}	
-	
 	/**ユーザー登録処理*/
 	@PostMapping("/create")
 	public String postUserCreate(@ModelAttribute UserCreateForm form){

@@ -13,5 +13,5 @@ public interface UserService {
 	public List<UserMapperEntity> getUsers();
 	
 	/**ユーザー取得(１件)*/
-	public UserMapperEntity getUserOne(String userId);
+	public UserMapperEntity getUserOne(String loginId);
 }

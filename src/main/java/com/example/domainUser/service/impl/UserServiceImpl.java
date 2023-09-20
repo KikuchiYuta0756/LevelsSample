@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
 	}
 	/**ユーザー取得(１件)*/
 	@Override
-	public UserMapperEntity getUserOne(String userId) {
-		return usermapper.findOne(userId);
+	public UserMapperEntity getUserOne(String loginId) {
+		return usermapper.findOne(loginId);
 	}
 }

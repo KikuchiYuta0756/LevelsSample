@@ -5,18 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
 import com.example.form.UserDetailForm;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
-@RequestMapping("/user")
-@Slf4j
+@RequestMapping("/admin")
 public class UserDetailController {
 	
 	@Autowired
@@ -26,7 +22,7 @@ public class UserDetailController {
 	private ModelMapper modelMapper;
 	
 	/**ユーザー詳細画面を表示*/
-	@GetMapping("/userDetail/{userId:.+}")
+	@GetMapping("/userDetail/{loginId}")
 	public String getUser(UserDetailForm form,Model model,
 			@PathVariable("loginId")String loginId) {
 		
@@ -41,6 +37,6 @@ public class UserDetailController {
 		model.addAttribute("userDetailForm",form);
 			
 		//ユーザー詳細画面を表示
-		return"user/detail";		
+		return"admin/userDetail";		
 	}
 }

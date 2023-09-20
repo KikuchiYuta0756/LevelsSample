@@ -16,5 +16,4 @@ public interface UserMapperRepository {
 	
 	/**ユーザー取得（1件）*/
 	public UserMapperEntity findOne(String loginId);
-
 }

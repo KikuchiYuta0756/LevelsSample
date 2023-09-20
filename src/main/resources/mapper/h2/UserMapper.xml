@@ -6,7 +6,7 @@
 <mapper namespace="com.example.repository.UserMapperRepository">
 	
 <!--マッピング定義（ユーザー）-->
-<resultMap type="com.example.domainUser.UserMapperEntity" id="user">
+<resultMap type="com.example.domainUser.model.UserMapperEntity" id="user">
 	<id column="login_id" property="loginId" />
 	<result column="password" property="password" />
 	<result column="user_name" property="userName" />
@@ -49,13 +49,6 @@
 
 <!--ユーザー１件検索-->
 <select id="findOne" resultMap="user">
-	select * from m_user where user_id = #{userId}
+	select * from m_user where login_id = #{loginId}
 </select>
-
-
-
-
-
-
-
  </mapper>
