@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
- "http://mybatis.org./dtd/mybatis-3-mapper.dtd">
-
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
  <!--Mapperとxmlのマッピング-->
- <mapper namespace="com.example.repository.UserMapperRepository">
-	 
+<mapper namespace="com.example.repository.UserMapperRepository">
+	
+<!--マッピング定義（ユーザー）-->
+<resultMap type="com.example.domainUser.model.UserMapperEntity" id="user">
+	<id column="login_id" property="loginId" />
+	<result column="password" property="password" />
+	<result column="user_name" property="userName" />
+	<result column="user_name_kana" property="userNamekana" />
+	<result column="mail_address" property="mailAddress" />
+	<result column="department_id" property="department" />
+	<result column="role_id" property="role" />
+	<result column="gender" property="gender" />
+	<result column="validation" property="validation" />
+	<!--<association property="department" resultMap="department" /> -->
+</resultMap>
+
+<!--マッピング定義（部署）-->
+<!--<resultMap type="com.example.domainUser.model.DepartmentEntity" id="department">
+   <id column="department" property="departmentId"/>
+   <result column="department_name" property="departmentName"/>
+</resultMap>   
+-->		 
 <!--ユーザー1件登録-->
-<insert id="insertOne">
+<!--<insert id="insertOne">
 	 insert into m_user(
 	 user_id
 	 ,password
@@ -27,6 +47,18 @@
 	,#{department}
 	,#{role}
 	)
+	-->
 	
-</insert>
+<!--ユーザー複数件取得-->
+<select id="findMany" resultType="UserMapperEntity">
+	select * from m_user
+</select>
+
+<!--ユーザー１件検索-->
+<!--<select id="findOne" resultMap="user">
+	select * from m_user left join m_department 
+	on m_user.department_id = m_department.department_id
+	where login_id = #{loginId}
+</select>
+ -->
  </mapper>
