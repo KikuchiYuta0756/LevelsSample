@@ -1,5 +1,6 @@
 package com.example.form;
 
+//import com.example.domainUser.model.DepartmentEntity;
 
 import lombok.Data;
 
@@ -10,8 +11,8 @@ public class UserCreateForm {
 	private String userName;
 	private String userNamekana;
 	private String mailAddress;
-	private String department;
-	private String role;
+    private Integer departmentId;
+	private Integer roleId;
 	private Integer gender;
 	private Integer validation;
 }

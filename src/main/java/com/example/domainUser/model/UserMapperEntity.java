@@ -9,9 +9,8 @@ public class UserMapperEntity {
 	private String userName;
 	private String userNamekana;
 	private String mailAddress;
-	private DepartmentEntity department;
-	private String role;
-	
+	//private Integer departmentId;
+	//private Integer roleId;
 	private Integer gender;
 	private Integer validation;
 

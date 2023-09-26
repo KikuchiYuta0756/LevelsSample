@@ -31,4 +31,16 @@ public class UserServiceImpl implements UserService{
 	public UserMapperEntity getUserOne(String loginId) {
 		return usermapper.findOne(loginId);
 	}
+	
+	/**ユーザー更新（1件）*/
+	@Override
+	public void updateUserOne(String loginId, String password, String userName) {
+		usermapper.updateOne(loginId, password, userName);
+	}
+	
+	/**ユーザー削除（1件）*/
+	@Override
+	public void deleteUserOne(String loginId) {
+		int count = usermapper.deleteOne(loginId);
+	}
 }

@@ -4,7 +4,7 @@
  
  <!--Mapperとxmlのマッピング-->
 <mapper namespace="com.example.repository.UserMapperRepository">
-	
+
 <!--マッピング定義（ユーザー）-->
 <resultMap type="com.example.domainUser.model.UserMapperEntity" id="user">
 	<id column="login_id" property="loginId" />
@@ -12,19 +12,20 @@
 	<result column="user_name" property="userName" />
 	<result column="user_name_kana" property="userNamekana" />
 	<result column="mail_address" property="mailAddress" />
-	<result column="department_id" property="department" />
-	<result column="role_id" property="role" />
+	<!--<result column="department_id" property="departmentId" />
+	<result column="role_id" property="roleId" />
+	-->
 	<result column="gender" property="gender" />
 	<result column="validation" property="validation" />
-	<!--<association property="department" resultMap="department" /> -->
+    <!--<association property="department" resultMap="department" />-->
 </resultMap>
 
 <!--マッピング定義（部署）-->
-<!--<resultMap type="com.example.domainUser.model.DepartmentEntity" id="department">
-   <id column="department" property="departmentId"/>
-   <result column="department_name" property="departmentName"/>
-</resultMap>   
--->		 
+<resultMap type="com.example.domainUser.model.DepartmentEntity" id="department">
+   <id column="department_id" property="departmentId" />
+   <result column="department_name" property="departmentName" />
+</resultMap>
+
 <!--ユーザー1件登録-->
 <!--<insert id="insertOne">
 	 insert into m_user(
@@ -55,10 +56,26 @@
 </select>
 
 <!--ユーザー１件検索-->
-<!--<select id="findOne" resultMap="user">
-	select * from m_user left join m_department 
-	on m_user.department_id = m_department.department_id
+<select id="findOne" resultMap="user">
+	select * from m_user 
+	left join m_department 
+	on m_user.department_id = m_department.department_id 
 	where login_id = #{loginId}
 </select>
- -->
+
+<!--ユーザー１件更新-->
+<update id="updateOne">
+	update m_user set 
+	password =#{password},
+	password =#{userName} 
+	where 
+	login_id = #{loginId}
+</update>
+
+<!--ユーザー１件削除-->
+<delete id="deleteOne">
+	delete from m_user 
+	where 
+	user_id=#{userId}
+</delete>
  </mapper>
