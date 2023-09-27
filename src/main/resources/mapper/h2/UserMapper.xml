@@ -12,12 +12,12 @@
 	<result column="user_name" property="userName" />
 	<result column="user_name_kana" property="userNamekana" />
 	<result column="mail_address" property="mailAddress" />
-	<!--<result column="department_id" property="departmentId" />
+	<result column="department_id" property="departmentId" />
 	<result column="role_id" property="roleId" />
-	-->
 	<result column="gender" property="gender" />
 	<result column="validation" property="validation" />
-    <!--<association property="department" resultMap="department" />-->
+    <association property="department" resultMap="department" />
+    <association property="role" resultMap="role" />
 </resultMap>
 
 <!--マッピング定義（部署）-->
@@ -26,6 +26,11 @@
    <result column="department_name" property="departmentName" />
 </resultMap>
 
+<!--マッピング定義（役職）-->
+<resultMap type="com.example.domainUser.model.RoleEntity" id="role">
+   <id column="role_id" property="roleId" />
+   <result column="role_name" property="roleName" />
+</resultMap>
 <!--ユーザー1件登録-->
 <!--<insert id="insertOne">
 	 insert into m_user(
@@ -58,8 +63,8 @@
 <!--ユーザー１件検索-->
 <select id="findOne" resultMap="user">
 	select * from m_user 
-	left join m_department 
-	on m_user.department_id = m_department.department_id 
+	left join m_department on m_user.department_id = m_department.department_id 
+	left join m_role on m_user.role_id = m_role.role_id 
 	where login_id = #{loginId}
 </select>
 

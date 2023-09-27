@@ -1,6 +1,7 @@
 package com.example.form;
 
-//import com.example.domainUser.model.DepartmentEntity;
+import com.example.domainUser.model.DepartmentEntity;
+import com.example.domainUser.model.RoleEntity;
 
 import lombok.Data;
 
@@ -11,8 +12,8 @@ public class UserDetailForm {
 	private String userName;
 	private String userNamekana;
 	private String mailAddress;
-	//private DepartmentEntity departmentId;
-	private String roleId;
 	private Integer gender;
 	private Integer validation;
+	private DepartmentEntity department;
+	private RoleEntity role;
 }

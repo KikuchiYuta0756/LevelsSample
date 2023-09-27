@@ -47,21 +47,19 @@
 				</td>				
 			</tr>
 			<tr>
-			<!--<th>部署名</th>
+			 <th>部署名</th>
 				<td>
 					<span th:if="*{department != null}" th:text="*{department.departmentName}">
 					</span>
 				</td>
 			</tr>
-			-->
-			<!--<tr>
-				<th>役職名</th>
+			<tr>
+			 <th>役職名</th>
 				<td>
-					<span th:if="*{role != null}" th:text="*{role.role_name}">
+					<span th:if="*{role != null}" th:text="*{role.roleName}">
 					</span>
 				</td>
 			</tr>
-			-->			
 			<tr>
 				<th>性別</th>
 				<td th:text="*{gender == 1?'男性':'女性'}"></td>
