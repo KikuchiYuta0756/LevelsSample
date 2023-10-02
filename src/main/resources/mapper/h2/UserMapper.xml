@@ -31,29 +31,32 @@
    <id column="role_id" property="roleId" />
    <result column="role_name" property="roleName" />
 </resultMap>
+
 <!--ユーザー1件登録-->
-<!--<insert id="insertOne">
+<insert id="insertOne">
 	 insert into m_user(
-	 user_id
+	  login_id
 	 ,password
 	 ,user_name
-	 ,birthday
-	 ,age
-	 ,gender
+	 ,user_name_kana
+	 ,mail_address
      ,department_id
-	 ,role
+	 ,role_id
+	 ,gender
+	 ,validation
 	 )
 	 value(
-	 #{userId}
+	 #{loginId}
 	,#{password}
 	,#{userName}
-	,#{birthday}
-	,#{age}
+	,#{userNamekana}
+	,#{mailAddress}
+	,#{departmentId}
+	,#{roleId}
 	,#{gender}
-	,#{department}
-	,#{role}
+	,#{validation}
 	)
-	-->
+</insert>
 	
 <!--ユーザー複数件取得-->
 <select id="findMany" resultType="UserMapperEntity">
@@ -70,9 +73,10 @@
 
 <!--ユーザー１件更新-->
 <update id="updateOne">
-	update m_user set 
-	password =#{password},
-	password =#{userName} 
+	update m_user set password =#{password},
+	user_name =#{userName},
+	user_name_kana =#{userNamekana},
+	mail_address =#{mailAddress}
 	where 
 	login_id = #{loginId}
 </update>
@@ -81,6 +85,6 @@
 <delete id="deleteOne">
 	delete from m_user 
 	where 
-	user_id=#{userId}
+	login_id =#{loginId}
 </delete>
  </mapper>

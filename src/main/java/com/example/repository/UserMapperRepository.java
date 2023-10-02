@@ -11,7 +11,7 @@ import com.example.domainUser.model.UserMapperEntity;
 public interface UserMapperRepository {
 	
 	/**ユーザー登録*/
-	//public int insertOne(UserMapperEntity user);
+	public int insertOne(UserMapperEntity user);
 	
 	/**ユーザー取得*/
 	public List<UserMapperEntity>findMany();
@@ -22,7 +22,9 @@ public interface UserMapperRepository {
 	/**ユーザー更新（1件）*/
 	public void updateOne(@Param("loginId")String loginId,
 			@Param("password")String password,
-			@Param("userName")String userName);
+			@Param("userName")String userName,
+			@Param("userNamekana")String userNamekana,
+			@Param("mailAddress")String mailAddress);
 	
 	/**ユーザー削除（1件）*/
 	public int deleteOne(@Param("loginId")String loginId);

@@ -48,7 +48,10 @@ public String updateUser(UserDetailForm form, Model model){
 	//ユーザーを更新
 	userService.updateUserOne(form.getLoginId(),
 			form.getPassword(),
-			form.getUserName());
+			form.getUserName(),
+			form.getUserNamekana(),
+			form.getMailAddress()
+			);
 	
 	//ユーザー一覧画面にリダイレクト
 	return"redirect:/admin/list";

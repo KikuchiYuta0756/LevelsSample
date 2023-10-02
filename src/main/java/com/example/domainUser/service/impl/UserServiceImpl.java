@@ -15,12 +15,13 @@ public class UserServiceImpl implements UserService{
 	private UserMapperRepository usermapper;
 	
 	/**ユーザー登録*/
-/**	@Override
-	public void signup(UserMapperEntity user) {
-		user.setDepartmentId(1);//部署
-		user.setRole("ROLE_GENERAL");//ロール
+	@Override
+	public void userCreate(UserMapperEntity user) {
+		user.setDepartmentId(1); //部署
+		user.setRoleId(1); //ロール
 		usermapper.insertOne(user);
-	}*/
+	}
+	
 	/**ユーザー取得*/
 	@Override
 	public List<UserMapperEntity> getUsers(){
@@ -34,8 +35,8 @@ public class UserServiceImpl implements UserService{
 	
 	/**ユーザー更新（1件）*/
 	@Override
-	public void updateUserOne(String loginId, String password, String userName) {
-		usermapper.updateOne(loginId, password, userName);
+	public void updateUserOne(String loginId, String password, String userName, String userNamekana, String mailAddress) {
+		usermapper.updateOne(loginId, password, userName, userNamekana, mailAddress);
 	}
 	
 	/**ユーザー削除（1件）*/

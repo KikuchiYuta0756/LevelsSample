@@ -1,7 +1,5 @@
 package com.example.form;
 
-//import com.example.domainUser.model.DepartmentEntity;
-
 import lombok.Data;
 
 @Data

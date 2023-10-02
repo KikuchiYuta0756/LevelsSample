@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.Map;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.application.service.UserApplicationService;
-//import com.example.domainUser.model.UserMapperEntity;
-//import com.example.domainUser.service.UserService;
-
+import com.example.domainUser.model.UserMapperEntity;
+import com.example.domainUser.service.UserService;
 import com.example.form.UserCreateForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,10 +26,10 @@ public class UserCreateController {
 	private UserApplicationService userApplicationService;
 	
 	//@Autowired
-	//private UserService userService;
+	private UserService userService;
 	
 	//@Autowired
-	//private ModelMapper modelMapper;
+	private ModelMapper modelMapper;
 
 	/** ユーザー登録画面を表示 */
 	@GetMapping("/create")
@@ -56,13 +56,13 @@ public class UserCreateController {
 		log.info(form.toString());
 		
 		//formをUserMapperEntityクラスに変換
-		//UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
+		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
 		
 		//ユーザー登録
-		//userService.signup(user);
+		userService.userCreate(user);
 		
 		
 		//利用者一覧画面にリダイレクト
-		return "redirect:/list";
+		return "redirect:/login";
 	}
 }
