@@ -51,7 +51,8 @@ public class UserCreateController {
 		
 	/**ユーザー登録処理*/
 	@PostMapping("/create")
-	public String postUserCreate(@ModelAttribute UserCreateForm form){
+	public String postUserCreate(Model model, 
+			@ModelAttribute UserCreateForm form){
 		
 		log.info(form.toString());
 		
