@@ -40,15 +40,19 @@
 		<div class="header border-bottom">
 			<h1 th:text="#{AttendanceEngraving}" class="h2"></h1>
 		</div>
+	
 	<div class="form-clockIn">
 			<span id="RealtimeClock"></span>
 			</br>
 			<span id="RealtimeDay"></span>
 			</br>
+	<form id="clockIn-form" method="post" th:action="@{/admin/clockIn}">
 			<input type="submit" value="出勤" />
 			<input type="submit" value="退勤" />
-	</span>
 	</div>
+	</form>
+	</span>
+	
 </body>
 
 </html>

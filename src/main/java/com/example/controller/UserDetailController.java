@@ -42,7 +42,7 @@ public String getUser(UserDetailForm form,Model model,
 	}
 
 /**ユーザー更新処理*/
-@PostMapping(value = "/detail", params = "update")
+@PostMapping(value = "/userDetail", params = "update")
 public String updateUser(UserDetailForm form, Model model){
 	
 	//ユーザーを更新
@@ -58,7 +58,7 @@ public String updateUser(UserDetailForm form, Model model){
 }
 
 /**ユーザー削除処理*/
-@PostMapping(value = "/detail", params = "delete")
+@PostMapping(value = "/userDetail", params = "delete")
 public String deleteUser(UserDetailForm form, Model model){
 	
 	//ユーザーを削除

@@ -76,7 +76,7 @@
 	update m_user set password =#{password},
 	user_name =#{userName},
 	user_name_kana =#{userNamekana},
-	mail_address =#{mailAddress}
+	mail_address =#{mailAddress} 
 	where 
 	login_id = #{loginId}
 </update>

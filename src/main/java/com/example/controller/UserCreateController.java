@@ -25,10 +25,10 @@ public class UserCreateController {
 	@Autowired
 	private UserApplicationService userApplicationService;
 	
-	//@Autowired
+	@Autowired
 	private UserService userService;
 	
-	//@Autowired
+	@Autowired
 	private ModelMapper modelMapper;
 
 	/** ユーザー登録画面を表示 */
@@ -51,8 +51,7 @@ public class UserCreateController {
 		
 	/**ユーザー登録処理*/
 	@PostMapping("/create")
-	public String postUserCreate(Model model, 
-			@ModelAttribute UserCreateForm form){
+	public String postUserCreate(@ModelAttribute UserCreateForm form){
 		
 		log.info(form.toString());
 		

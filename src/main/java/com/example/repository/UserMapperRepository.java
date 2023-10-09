@@ -20,7 +20,8 @@ public interface UserMapperRepository {
 	public UserMapperEntity findOne(String loginId);
 
 	/**ユーザー更新（1件）*/
-	public void updateOne(@Param("loginId")String loginId,
+	public void updateOne(
+			@Param("loginId")String loginId,
 			@Param("password")String password,
 			@Param("userName")String userName,
 			@Param("userNamekana")String userNamekana,
