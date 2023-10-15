@@ -20,5 +20,11 @@ public interface UserService {
 	
 	/**ユーザー削除（1件）*/
 	public void deleteUserOne(String loginId);
+	
+	/**部署の取得*/
+	public List<UserMapperEntity> getAllDepartment();
+	
+	/**役職の取得*/
+	//public List<UserMapperEntity> getAllRole();
 
 }

@@ -63,6 +63,11 @@
 	select * from m_user
 </select>
 
+<!--部署複数件取得-->
+<select id="findAll" resultType="DepartmentEntity">
+	select * from m_department
+</select>
+
 <!--ユーザー１件検索-->
 <select id="findOne" resultMap="user">
 	select * from m_user 

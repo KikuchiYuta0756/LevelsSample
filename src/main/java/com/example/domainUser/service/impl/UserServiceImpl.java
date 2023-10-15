@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
 import com.example.repository.UserMapperRepository;
@@ -44,4 +45,16 @@ public class UserServiceImpl implements UserService{
 	public void deleteUserOne(String loginId) {
 		int count = usermapper.deleteOne(loginId);
 	}
+	
+	/**部署の取得*/
+	@Override
+	public List<UserMapperEntity> getAllDepartment(){
+	    return usermapper.findAll();
+	}
+	
+	/**役職の取得*/
+	//@Override
+	//public List<UserMapperEntity> getAllRole(){
+	  //  return usermapper.findAllRole();
+	//}
 }

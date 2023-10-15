@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.modelmapper.ModelMapper;
@@ -35,7 +36,15 @@ public class UserCreateController {
 	@GetMapping("/create")
 	public String getUserCreate(Model model, 
 			@ModelAttribute UserCreateForm form) {
-
+		
+		//部署レコードの取得
+		List<UserMapperEntity> departmentList = userService.getAllDepartment();
+		model.addAttribute("departmentList", departmentList);
+		
+		//役職レコードの取得
+		//List<UserMapperEntity> roleList = userService.getAllRole();
+		//model.addAttribute("roleList", roleList);
+		
 		// 性別を取得
 		Map<String, Integer> genderMap = userApplicationService.getGenderMap();
 		model.addAttribute("genderMap", genderMap);

@@ -29,5 +29,12 @@ public interface UserMapperRepository {
 	
 	/**ユーザー削除（1件）*/
 	public int deleteOne(@Param("loginId")String loginId);
+	
+	/**部署の取得*/
+	public List<UserMapperEntity>findAll();
 
+	/**役職の取得*/
+	//public List<UserMapperEntity>findAllRole();
+
+	
 }
