@@ -16,6 +16,7 @@
 	<result column="role_id" property="roleId" />
 	<result column="gender" property="gender" />
 	<result column="validation" property="validation" />
+	<result column="hire_date" property="hire" />
     <association property="department" resultMap="department" />
     <association property="role" resultMap="role" />
 </resultMap>
@@ -44,6 +45,7 @@
 	 ,role_id
 	 ,gender
 	 ,validation
+	 ,hire_date
 	 )
 	 value(
 	 #{loginId}
@@ -55,6 +57,7 @@
 	,#{roleId}
 	,#{gender}
 	,#{validation}
+	,#{hire}
 	)
 </insert>
 	

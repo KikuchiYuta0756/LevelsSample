@@ -1,5 +1,7 @@
 package com.example.form;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -12,5 +14,6 @@ public class UserCreateForm {
     private Integer departmentId;
 	private Integer roleId;
 	private Integer gender;
+	private Date hire;
 	private Integer validation;
 }

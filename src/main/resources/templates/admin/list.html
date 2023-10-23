@@ -21,6 +21,7 @@
 					 <th class="th-width">ユーザー名</th>
 					 <th class="th-width">フリガナ</th>
 					 <th class="th-width">メールアドレス</th>
+					 <th class="th-width">入社日</th>
 					<!-- <th class="th-width">部署</th>
 					 <th class="th-width">役職</th> -->
 					 <th class="th-width">性別</th>
@@ -34,6 +35,7 @@
 					 <td th:text="${item.userName}"></td>
 					 <td th:text="${item.userNamekana}"></td>
 					 <td th:text="${item.mailAddress}"></td>
+					 <td th:text="${item.hire}"></td>
 					 <!--<td th:text="${item.departmentId}"></td>
 					 <td th:text="${item.roleId}"></td>-->
 					 <td th:text="${item.gender == 1}?'男性':'女性'"></td>
