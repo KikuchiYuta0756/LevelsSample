@@ -14,6 +14,6 @@ public class UserCreateForm {
     private Integer departmentId;
 	private Integer roleId;
 	private Integer gender;
-	private Date hire;
 	private Integer validation;
+	private Date hire;
 }

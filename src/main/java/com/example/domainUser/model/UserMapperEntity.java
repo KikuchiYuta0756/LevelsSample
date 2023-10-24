@@ -15,7 +15,7 @@ public class UserMapperEntity {
 	private Integer roleId;
 	private Integer gender;
 	private Integer validation;
+    private Date hire;
 	private DepartmentEntity department;
     private RoleEntity role;
-    private Date hire;
 }

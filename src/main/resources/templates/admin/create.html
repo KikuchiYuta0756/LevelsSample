@@ -101,6 +101,10 @@
 					<label class="form-check-label" th:text="${item.key}"></label>
 				</div>
 			</div>
+		    <!--入社日-->
+			<div class="form-group">
+				<label for="hireDate" th:text="#{hireDate}"></label>
+				<input type="text" class="form-control" th:field="*{hire}"/>
 
 			<!--登録ボタン-->
 			<input type="submit" th:value="#{user.create.btn}" class="btn btn-primary w-100 mt-3" />

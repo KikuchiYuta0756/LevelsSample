@@ -70,7 +70,6 @@ public class UserCreateController {
 		//ユーザー登録
 		userService.userCreate(user);
 		
-		
 		//利用者一覧画面にリダイレクト
 		return "redirect:/login";
 	}
