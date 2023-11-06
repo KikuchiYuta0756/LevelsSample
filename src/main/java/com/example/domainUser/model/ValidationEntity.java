@@ -1,4 +1,4 @@
-package com.example.domainUser.model;
+/*package com.example.domainUser.model;
 
 import lombok.Data;
 
@@ -7,4 +7,4 @@ public class ValidationEntity {
 	private Integer validationId;
 	private String validationName;
 
-}
+}*/

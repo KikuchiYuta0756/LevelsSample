@@ -21,7 +21,7 @@
 					 <th class="th-width">ユーザー名</th>
 					 <th class="th-width">フリガナ</th>
 					 <th class="th-width">メールアドレス</th>
-					 <th class="th-width">性別</th>
+					 <th class="th-width">権限</th>
 					 <th class="th-width">有効性</th>
 					 <th class="th-width">入社日</th>
 					 <th></th>
@@ -33,7 +33,7 @@
 					 <td th:text="${item.userName}"></td>
 					 <td th:text="${item.userNamekana}"></td>
 					 <td th:text="${item.mailAddress}"></td>
-					 <td th:text="${item.gender == 1}?'男性':'女性'"></td>
+					 <td></td>
 					 <td th:text="${item.validation == 1}?'有効':'無効'"></td>
 					 <td th:text="${#dates.format(item.hire,'YYYY/MM/dd')}"></td>
 					 <td>
