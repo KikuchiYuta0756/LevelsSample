@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <!--WorkTimeMapperRepositoryとxmlのマッピング-->
+<mapper namespace="com.example.repository.WorkTimeMapperRepository">
+	
+ <!--出退勤時刻の登録-->
+<!--<insert id="insertTime">
+	insert into m_worktime(
+	work_date,
+	start_time,
+	close_time,
+	work_time,
+	rest_time,
+	over_time
+	)
+	value(
+	 #(workDate)
+    ,#(startTime)
+    ,#(closeTime)
+    ,#(workTime)
+    ,#(restTime)
+    ,#(overTime)
+    )	
+</insert>-->
+
+<!--出勤時間の登録-->
+<insert id="insertStartTime">
+    insert into m_worktime set 
+    worktime_id = 11112,
+    start_time = #{startTime}
+</insert>
+	
+
+	
+
+	
+	
+	
+</mapper>

@@ -40,15 +40,26 @@
 		<div class="header border-bottom">
 			<h1 th:text="#{AttendanceEngraving}" class="h2"></h1>
 		</div>
+	
 	<div class="form-clockIn">
 			<span id="RealtimeClock"></span>
 			</br>
 			<span id="RealtimeDay"></span>
 			</br>
-			<input type="submit" value="出勤" />
-			<input type="submit" value="退勤" />
-	</span>
+	<!--出勤、退勤ボタン-->
+	<form id="clockIn-form" method="post" th:action="@{/user/clockIn}">
+		<div class="text-center">
+			<!--出勤ボタン-->
+			<button class="btn btn-danger" type="submit" name="attendance">出勤</button>
+			<!--<input type="submit" value="出勤" />-->
+			<!--退勤ボタン-->
+			<button class="btn btn-primary" type="submit" name="leaving">退勤</button>
+			<!--<input type="submit" value="退勤" />-->
+		</div>
 	</div>
+	</form>
+	</span>
+	
 </body>
 
 </html>

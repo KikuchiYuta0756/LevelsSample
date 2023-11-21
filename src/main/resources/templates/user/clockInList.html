@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorate="~{layout/layout}">
+<head>
+	<title>勤怠表</title>
+	<!--CSS読込-->
+	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
+</head>
+<body>
+　　　<div layout:fragment="content">
+	　　　<div class="header border-bottom">
+			<h1 class="h2">勤怠表</h1>
+		</div>
+	<!--ユーザー詳細情報-->
+	<table class="table table-striped table-bordered table-hover">
+		<tbody>
+			<tr>
+				<th>月</th>
+				<th>日</th>
+				<th>出勤</th>
+				<th>退勤</th>
+				<th>休憩時間</th>
+				<th>稼働時間</th>
+				<th>ステータス</th>
+				<th>備考</th>
+			</tr>
+			<tr>
+				<th>10月</th>
+				<th>9日</th>
+				<th>9:00</th>
+				<th>18:00</th>
+				<th>1:00</th>
+				<th>8:00</th>
+				<th>-</th>
+				<th>なし</th>
+			</tr>
+		</tbody>
+	</table>
+	<!--ボタンエリア-->
+	<!--<div class="text-center">-->
+		<!--削除ボタン-->
+	<!--<button class="btn btn-danger" type="submit" name="delete">削除</button>-->
+		
+		<!--更新ボタン-->
+		<!--<button class="btn btn-primary" type="submit" name="update">更新</button>-->
+	<!--</div>
+	</form>
+	</div>-->
+</body>
+</html>

@@ -10,21 +10,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserApplicationService {
 	
-	
-	/**性別のMapを生成する*/
-	public Map<String, Integer> getGenderMap(){
-		Map<String, Integer > genderMap = new LinkedHashMap <>();
-		genderMap.put("男性", 1);
-		genderMap.put("女性", 2);
-		return genderMap;
-	}
-
 	/**ユーザーの有効性のMapを生成する*/
 	public Map<String, Integer> getValidationMap(){
 		Map<String, Integer > validationMap = new LinkedHashMap <>();
 		validationMap.put("有効", 1);
 		validationMap.put("無効", 2);
 		return validationMap;
+	}
+	
+	
+	/**ユーザーの権限Mapを生成する*/
+	public Map<String, Integer> getAuthorityMap(){
+		Map<String, Integer > authorityMap = new LinkedHashMap <>();
+		authorityMap.put("general", 1);
+		authorityMap.put("Admin", 2);
+		return authorityMap;
 	}
 	
 	

@@ -1,7 +1,9 @@
 package com.example.controller;
 
+import java.util.List;
 import java.util.Map;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.application.service.UserApplicationService;
-//import com.example.domainUser.model.UserMapperEntity;
-//import com.example.domainUser.service.UserService;
-
+import com.example.domainUser.model.UserMapperEntity;
+import com.example.domainUser.model.DepartmentEntity;
+import com.example.domainUser.model.RoleEntity;
+import com.example.domainUser.service.UserService;
 import com.example.form.UserCreateForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,24 +28,32 @@ public class UserCreateController {
 	@Autowired
 	private UserApplicationService userApplicationService;
 	
-	//@A	utowired
-	//private UserService userService;
+	@Autowired
+	private UserService userService;
 	
-	//@Autowired
-	//private ModelMapper modelMapper;
+	@Autowired
+	private ModelMapper modelMapper;
 
 	/** ユーザー登録画面を表示 */
 	@GetMapping("/create")
 	public String getUserCreate(Model model, 
 			@ModelAttribute UserCreateForm form) {
-
-		// 性別を取得
-		Map<String, Integer> genderMap = userApplicationService.getGenderMap();
-		model.addAttribute("genderMap", genderMap);
+		
+		//部署レコードの取得
+		List<DepartmentEntity> departmentList = userService.getAllDepartment();
+		model.addAttribute("departmentList", departmentList);
+		
+		//役職レコードの取得
+		List<RoleEntity> roleList = userService.getAllRole();
+		model.addAttribute("roleList", roleList);
 
 		// ユーザー有効性を取得
 		Map<String, Integer> validationMap = userApplicationService.getValidationMap();
 		model.addAttribute("validationMap", validationMap);
+		
+		// ユーザー権限を取得
+		Map<String, Integer> authorityMap = userApplicationService.getAuthorityMap();
+		model.addAttribute("authorityMap", authorityMap);
 		
 		
 		// ユーザー登録画面に遷移
@@ -56,13 +67,12 @@ public class UserCreateController {
 		log.info(form.toString());
 		
 		//formをUserMapperEntityクラスに変換
-		//UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
+		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
 		
 		//ユーザー登録
-		//userService.signup(user);
-		
+		userService.userCreate(user);
 		
 		//利用者一覧画面にリダイレクト
-		return "redirect:/list";
+		return "redirect:/login";
 	}
 }

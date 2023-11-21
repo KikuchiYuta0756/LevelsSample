@@ -21,10 +21,9 @@
 					 <th class="th-width">ユーザー名</th>
 					 <th class="th-width">フリガナ</th>
 					 <th class="th-width">メールアドレス</th>
-					 <th class="th-width">部署</th>
-					 <th class="th-width">役職</th>
-					 <th class="th-width">性別</th>
+					 <th class="th-width">権限</th>
 					 <th class="th-width">有効性</th>
+					 <th class="th-width">入社日</th>
 					 <th></th>
 				 </tr>
 				 </thead>
@@ -34,10 +33,9 @@
 					 <td th:text="${item.userName}"></td>
 					 <td th:text="${item.userNamekana}"></td>
 					 <td th:text="${item.mailAddress}"></td>
-					 <td th:text="${item.department}"></td>
-					 <td th:text="${item.role}"></td>
-					 <td th:text="${item.gender == 1}?'男性':'女性'"></td>
+					 <td th:text="${item.authority == 1}?'general':'Admin'"></td>
 					 <td th:text="${item.validation == 1}?'有効':'無効'"></td>
+					 <td th:text="${#dates.format(item.hire,'YYYY/MM/dd')}"></td>
 					 <td>
 						 <a class="btn btn-primary" th:href="@{'/admin/userDetail/'+${item.loginId}}">詳細</a>
 					 </td>

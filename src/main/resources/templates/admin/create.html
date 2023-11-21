@@ -44,26 +44,34 @@
 				<label for="mailAddress" th:text="#{mailAddress}"></label>
 				<input type="text" class="form-control" th:field="*{mailAddress}"/>
 			</div>
-			<!--部署-->
+			<!--部署（仮）-->
 			<div class="form-group">
-				<label for="department" th:text="#{department}"></label>
-				<input type="text" class="form-control" th:field="*{department}"/>
+				<label for="departmentId" th:text="#{departmentId}"></label>
+				</br>
+				<select>
+				<option value="0">部署を選択してください</option>
+				<option 
+				 th:each="item:${departmentList}" 
+				 th:value="${item.departmentId}" 
+				 th:text="${item.departmentName}">
+				 </option>
+				</select>
 			</div>
 			<!--役職-->
 			<div class="form-group">
-				<label for="role" th:text="#{role}"></label>
-				<input type="text" class="form-control" th:field="*{role}"/>
+				<label for="roleId" th:text="#{role}"></label>
+				</br>
+				<select>
+				<option value="0">役職を選択してください</option>
+				<option 
+				 th:each="item:${roleList}" 
+				 th:value="${item.roleId}" 
+				 th:text="${item.roleName}">
+				 </option>
+				</select>
 			</div>
-			<!--メモ-->
 
-
-			<!--性別-->
-			<div class="form-group">
-				<div th:each="item:${genderMap}" class="form-check-inline">
-					<input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{gender}"/>
-					<label class="form-check-label" th:text="${item.key}"></label>
-				</div>
-			</div>
+			
 			<!--ユーザー有効性-->
 			<div class="form-group">
 				<div th:each="item:${validationMap}" class="form-check-inline">
@@ -71,6 +79,21 @@
 					<label class="form-check-label" th:text="${item.key}"></label>
 				</div>
 			</div>
+			
+
+			
+		    <!--入社日-->
+			<div class="form-group">
+				<label for="hireDate" th:text="#{hireDate}"></label>
+				<input type="text" class="form-control" th:field="*{hire}"/>
+				
+			<!--ユーザー権限-->
+			<div class="form-group">
+				<div th:each="item:${authorityMap}" class="form-check-inline">
+					<input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{authority}"/>
+					<label class="form-check-label" th:text="${item.key}"></label>
+				</div>
+　　　　　　　　　</div>
 
 			<!--登録ボタン-->
 			<input type="submit" th:value="#{user.create.btn}" class="btn btn-primary w-100 mt-3" />

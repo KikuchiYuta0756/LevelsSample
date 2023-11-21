@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <!--Mapperとxmlのマッピング-->
+ <!--UserMapperRepositoryとxmlのマッピング-->
 <mapper namespace="com.example.repository.UserMapperRepository">
-	
+
 <!--マッピング定義（ユーザー）-->
 <resultMap type="com.example.domainUser.model.UserMapperEntity" id="user">
 	<id column="login_id" property="loginId" />
@@ -12,53 +12,124 @@
 	<result column="user_name" property="userName" />
 	<result column="user_name_kana" property="userNamekana" />
 	<result column="mail_address" property="mailAddress" />
-	<result column="department_id" property="department" />
-	<result column="role_id" property="role" />
-	<result column="gender" property="gender" />
+	<result column="department_id" property="departmentId" />
+	<result column="role_id" property="roleId" />
 	<result column="validation" property="validation" />
-	<!--<association property="department" resultMap="department" /> -->
+	<result column="hire_date" property="hire" />
+	<result column="authority_flg" property="authority" />
+    <association property="department" resultMap="department" />
+    <association property="role" resultMap="role" />
 </resultMap>
 
 <!--マッピング定義（部署）-->
-<!--<resultMap type="com.example.domainUser.model.DepartmentEntity" id="department">
-   <id column="department" property="departmentId"/>
-   <result column="department_name" property="departmentName"/>
-</resultMap>   
--->		 
+<resultMap type="com.example.domainUser.model.DepartmentEntity" id="department">
+   <id column="department_id" property="departmentId" />
+   <result column="department_name" property="departmentName" />
+</resultMap>
+
+<!--マッピング定義（役職）-->
+<resultMap type="com.example.domainUser.model.RoleEntity" id="role">
+   <id column="role_id" property="roleId" />
+   <result column="role_name" property="roleName" />
+</resultMap>
+
+<!--マッピング定義（有効性）-->
+<!--<resultMap type="com.example.domainUSer.model.ValidationEntity" id="validation">
+	<id column="validation_id" property="validationId" />
+	<result column="validation_name" property="validationName" />
+</resultMap>-->
+
+<!--マッピング定義（有給）-->
+<!--<resultMap type="com.example.domainUSer.model.PaidEntity" id="paid">
+	<id column="paid_id" property="paidId" />
+	<id column="user_id" property="userId" />
+	<result column="paid_days" property="paidDays" />
+    <association property="user" resultMap="user" />
+</resultMap>-->
+
+<!--マッピング定義（勤怠時間）-->
+<!--<resultMap type="com.example.domainUSer.model.WorktimeEntity" id="worktime">
+	<id column="worktime_id" property="worktimeId" />
+	<id column="user_id" property="userId" />
+	<result column="work_date" property="workDate" />
+	<result column="start_time" property="startTime" />
+	<result column="close_time" property="closeTime" />
+	<result column="work_time" property="workTime" />
+	<result column="rest_time" property="restTime" />
+	<result column="over_time" property="overTime" />
+    <association property="user" resultMap="user" />
+</resultMap>-->
+
+
+
 <!--ユーザー1件登録-->
-<!--<insert id="insertOne">
+<insert id="insertOne">
 	 insert into m_user(
-	 user_id
+	  login_id
 	 ,password
 	 ,user_name
-	 ,birthday
-	 ,age
-	 ,gender
+	 ,user_name_kana
+	 ,mail_address
      ,department_id
-	 ,role
+	 ,role_id
+	 ,validation
+	 ,hire_date
+	 ,authority_flg
 	 )
 	 value(
-	 #{userId}
+	 #{loginId}
 	,#{password}
 	,#{userName}
-	,#{birthday}
-	,#{age}
-	,#{gender}
-	,#{department}
-	,#{role}
+	,#{userNamekana}
+	,#{mailAddress}
+	,#{departmentId}
+	,#{roleId}
+	,#{validation}
+	,#{hire}
+	,#{authority}
 	)
-	-->
+</insert>
+
+
 	
 <!--ユーザー複数件取得-->
 <select id="findMany" resultType="UserMapperEntity">
 	select * from m_user
 </select>
 
+<!--部署複数件取得-->
+<select id="findAll" resultType="DepartmentEntity">
+	select * from m_department
+</select>
+
+<!--役職複数件取得-->
+<select id="findAll2" resultType="RoleEntity">
+	select * from m_role
+</select>
+
+
 <!--ユーザー１件検索-->
-<!--<select id="findOne" resultMap="user">
-	select * from m_user left join m_department 
-	on m_user.department_id = m_department.department_id
+<select id="findOne" resultMap="user">
+	select * from m_user 
+	left join m_department on m_user.department_id = m_department.department_id 
+	left join m_role on m_user.role_id = m_role.role_id 
 	where login_id = #{loginId}
 </select>
- -->
+
+<!--ユーザー１件更新-->
+<update id="updateOne">
+	update m_user set password =#{password},
+	user_name =#{userName},
+	user_name_kana =#{userNamekana},
+	mail_address =#{mailAddress} 
+	where 
+	login_id = #{loginId}
+</update>
+
+<!--ユーザー１件削除-->
+<delete id="deleteOne">
+	delete from m_user 
+	where 
+	login_id =#{loginId}
+</delete>
  </mapper>
