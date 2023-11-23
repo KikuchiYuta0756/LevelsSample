@@ -15,56 +15,51 @@ import com.example.form.UserDetailForm;
 @Controller
 @RequestMapping("/admin")
 public class UserDetailController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
-	/**ユーザー詳細画面を表示*/
-@GetMapping("/userDetail/{loginId}")
-public String getUser(UserDetailForm form,Model model,
-			@PathVariable("loginId")String loginId) {
-		
-		//ユーザーを1件取得
+
+	/** ユーザー詳細画面を表示 */
+	@GetMapping("/userDetail/{loginId}")
+	public String getUser(UserDetailForm form, Model model, @PathVariable("loginId") String loginId) {
+
+		// ユーザーを1件取得
 		UserMapperEntity user = userService.getUserOne(loginId);
 		user.setPassword(null);
-		
-		//UserMapperEntityをformに変換
+
+		// UserMapperEntityをformに変換
 		form = modelMapper.map(user, UserDetailForm.class);
-		
-		//Modelに登録
-		model.addAttribute("userDetailForm",form);
-			
-		//ユーザー詳細画面を表示
-		return"admin/userDetail";		
+
+		// Modelに登録
+		model.addAttribute("userDetailForm", form);
+
+		// ユーザー詳細画面を表示
+		return "admin/userDetail";
 	}
 
-/**ユーザー更新処理*/
-@PostMapping(value = "/userDetail", params = "update")
-public String updateUser(UserDetailForm form, Model model){
-	
-	//ユーザーを更新
-	userService.updateUserOne(form.getLoginId(),
-			form.getPassword(),
-			form.getUserName(),
-			form.getUserNamekana(),
-			form.getMailAddress()
-			);
-	
-	//ユーザー一覧画面にリダイレクト
-	return"redirect:/admin/list";
-}
+	/** ユーザー更新処理 */
+	@PostMapping(value = "/userDetail", params = "update")
+	public String updateUser(UserDetailForm form, Model model) {
 
-/**ユーザー削除処理*/
-@PostMapping(value = "/userDetail", params = "delete")
-public String deleteUser(UserDetailForm form, Model model){
-	
-	//ユーザーを削除
-	userService.deleteUserOne(form.getLoginId());
-	
-	//ユーザー一覧画面にリダイレクト
-	return "redirect:/admin/list";
-}
+		// ユーザーを更新
+		userService.updateUserOne(form.getLoginId(), form.getPassword(), form.getUserName(), form.getUserNamekana(),
+				form.getMailAddress());
+
+		// ユーザー一覧画面にリダイレクト
+		return "redirect:/admin/list";
+	}
+
+	/** ユーザー削除処理 */
+	@PostMapping(value = "/userDetail", params = "delete")
+	public String deleteUser(UserDetailForm form, Model model) {
+
+		// ユーザーを削除
+		userService.deleteUserOne(form.getLoginId());
+
+		// ユーザー一覧画面にリダイレクト
+		return "redirect:/admin/list";
+	}
 }
