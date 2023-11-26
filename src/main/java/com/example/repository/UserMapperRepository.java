@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -32,7 +33,12 @@ public interface UserMapperRepository {
 			@Param("password")String password,
 			@Param("userName")String userName,
 			@Param("userNamekana")String userNamekana,
-			@Param("mailAddress")String mailAddress);
+			@Param("mailAddress")String mailAddress,
+	        @Param("department")DepartmentEntity department,
+	        @Param("role")RoleEntity role,
+	        @Param("validation")Integer validation,
+	        @Param("authority")Integer authority,
+            @Param("hire")Date hire);
 	
 	/**ユーザー削除（1件）*/
 	public int deleteOne(@Param("loginId")String loginId);

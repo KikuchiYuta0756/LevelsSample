@@ -1,5 +1,6 @@
 package com.example.domainUser.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.domainUser.model.UserMapperEntity;
@@ -19,7 +20,18 @@ public interface UserService {
 	public UserMapperEntity getUserOne(String loginId);
 	
 	/**ユーザー更新（1件）*/
-	public void updateUserOne(String loignId, String password, String userName, String userNamekana, String mailAddress);
+	public void updateUserOne(
+			String loignId, 
+			String password, 
+			String userName, 
+			String userNamekana, 
+			String mailAddress,
+			DepartmentEntity department,
+			RoleEntity role,
+			Integer validation,
+			Integer authority,
+			Date hire
+			);
 	
 	/**ユーザー削除（1件）*/
 	public void deleteUserOne(String loginId);

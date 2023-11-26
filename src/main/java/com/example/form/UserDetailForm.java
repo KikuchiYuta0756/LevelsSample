@@ -13,10 +13,10 @@ public class UserDetailForm {
 	private String password;
 	private String userName;
 	private String userNamekana;
-	private String mailAddress;
-	private Integer gender;
-	private Integer validation;
+	private String mailAddress;	
 	private DepartmentEntity department;
 	private RoleEntity role;
+	private Integer validation;
+	private Integer authority;
 	private Date hire;
 }

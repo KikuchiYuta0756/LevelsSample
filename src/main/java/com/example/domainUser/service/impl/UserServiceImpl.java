@@ -1,5 +1,6 @@
 package com.example.domainUser.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,32 @@ public class UserServiceImpl implements UserService{
 	
 	/**ユーザー更新（1件）*/
 	@Override
-	public void updateUserOne(String loginId, String password, String userName, String userNamekana, String mailAddress) {
-		usermapper.updateOne(loginId, password, userName, userNamekana, mailAddress);
-	}
+	public void updateUserOne(
+			String loginId, 
+			String password, 
+			String userName, 
+			String userNamekana, 
+			String mailAddress,
+			DepartmentEntity department,
+			RoleEntity role,
+			Integer validation,
+			Integer authority,
+			Date hire
+			) 
+	   {
+		usermapper.updateOne(
+				loginId, 
+				password, 
+				userName, 
+				userNamekana, 
+				mailAddress,
+				department,
+				role,
+				validation,
+				authority,
+				hire
+				);
+		}
 	
 	/**ユーザー削除（1件）*/
 	@Override

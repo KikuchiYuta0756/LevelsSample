@@ -118,10 +118,17 @@
 
 <!--ユーザー１件更新-->
 <update id="updateOne">
-	update m_user set password =#{password},
+	update m_user set 
+	login_id =#{loginId}  
+	password =#{password},
 	user_name =#{userName},
 	user_name_kana =#{userNamekana},
-	mail_address =#{mailAddress} 
+	mail_address =#{mailAddress},
+	department_id =#{department},
+	role_id =#{role},
+	validation =#{validation},
+	authority_flg =#{authority},
+	hire_date =#{hire}
 	where 
 	login_id = #{loginId}
 </update>

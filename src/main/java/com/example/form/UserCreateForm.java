@@ -15,7 +15,8 @@ public class UserCreateForm {
     private Integer departmentId;
 	private Integer roleId;
 	private Integer validation;
+	private Integer authority;
+	
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date hire;
-	private Integer authority;
 }
