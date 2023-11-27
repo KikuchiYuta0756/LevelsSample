@@ -20,8 +20,12 @@
 			<table class="table table-striped table-bordered table-hover">
 				<tbody>
 					<tr>
-						<th class="w-25">ユーザーID</th>
-						<td th:text="*{loginId}"></td>
+						<th class="w-25">ログインID</th>
+						<td>
+							<span th:text="*{loginId}" />
+							<input type="text" class="form-control" th:field="*{loginId}" />
+
+						</td>
 					</tr>
 					<tr>
 						<th>パスワード</th>
@@ -50,67 +54,56 @@
 					<tr>
 						<th>部署名</th>
 						<td>
-			    <span th:text="*{department.departmentName}"/>
-				</br>
-				<select>
-				<option value="0">部署を選択してください</option>
-				<option 
-				 th:each="item:${departmentList}" 
-				 th:value="${item.departmentId}" 
-				 th:text="${item.departmentName}">
-				 </option>
-				</select>
+							<span th:text="*{department.departmentName}" />
+							</br>
+							<select>
+								<option value="0">部署を選択してください</option>
+								<option th:each="item:${departmentList}" th:value="${item.departmentId}"
+									th:text="${item.departmentName}">
+								</option>
+							</select>
 						</td>
 					</tr>
-					<!--<tr>
-						<th>部署名</th>
-						<td>
-							<span th:if="*{department != null}" th:text="*{department.departmentName}">
-							</span>
-						</td>
-					</tr>-->
 					<tr>
 						<th>役職名</th>
 						<td>
-							<span th:text="*{role.roleName}"/>
+							<span th:text="*{role.roleName}" />
 							</br>
 							<select>
 								<option value="0">役職を選択してください</option>
-								<option 
-								th:each="item:${roleList}" 
-								th:value="${item.roleId}" 
-								th:text="${item.roleName}">
+								<option th:each="item:${roleList}" th:value="${item.roleId}" th:text="${item.roleName}">
 								</option>
 							</select>
 							</span>
 						</td>
 					</tr>
-
-
-					<!--<tr>
-			<th>役職名</th>
-				<td>
-					<span th:if="*{role != null}" th:text="*{role.roleName}">
-					</span>
-				</td>
-			</tr>-->
 					<tr>
-					 <th>有効性</th>
-					  <td th:text="*{validation == 1?'有効':'無効'}"></td>
-					    <span th:each="item:${validationMap}" class="form-check-inline">
-					    <input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{validation}"/>
-					    <label class="form-check-label" th:text="${item.key}"></label> 
-				        </span>
+						<th>有効性</th>
+						<td>
+							<div th:text="*{validation == 1?'有効':'無効'}" />
+							<span th:each="item:${validationMap}" class="form-check-inline">
+								<input type="radio" class="form-check-input" th:value="${item.value}"
+									th:field="*{validation}" />
+								<label class="form-check-label" th:text="${item.key}"></label>
+							</span>
+						</td>
 					</tr>
 					<tr>
 						<th>権限</th>
-						<td th:text="*{authority == 1?'general':'Admin'}"></td>
+						<td>
+							<div th:text="*{authority == 1?'general':'Admin'}" />
+							<span th:each="item:${authorityMap}" class="form-check-inline">
+								<input type="radio" class="form-check-input" th:value="${item.value}"
+									th:field="*{authority}" />
+								<label class="form-check-label" th:text="${item.key}"></label>
+							</span>
+						</td>
 					</tr>
 					<tr>
 						<th>入社日</th>
 						<td>
-							<input type="text" class="form-control" th:field="*{hire}"
-								th:text="*{#dates.format(hire,'YYYY/MM/dd')}" />
+							<span th:text="*{#dates.format(hire,'YYYY/MM/dd')}" />
+							<input type="text" class="form-control" th:field="*{hire,'YYYY/MM/dd'}" />
 						</td>
 					</tr>
 
@@ -127,5 +120,22 @@
 		</form>
 	</div>
 </body>
+<!--<tr>
+						<th>部署名</th>
+						<td>
+							<span th:if="*{department != null}" th:text="*{department.departmentName}">
+							</span>
+						</td>
+					</tr>-->
+
+
+<!--<tr>
+			<th>役職名</th>
+				<td>
+					<span th:if="*{role != null}" th:text="*{role.roleName}">
+					</span>
+				</td>
+			</tr>-->
+
 
 </html>

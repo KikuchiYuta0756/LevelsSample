@@ -40,6 +40,7 @@ public String getUser(UserDetailForm form,Model model,
 		//ユーザーを1件取得
 		UserMapperEntity user = userService.getUserOne(loginId);
 		user.setPassword(null);
+		user.setHire(null);
 		
 		//UserMapperEntityをformに変換
 		form = modelMapper.map(user, UserDetailForm.class);
@@ -59,8 +60,6 @@ public String getUser(UserDetailForm form,Model model,
 		// ユーザー権限を取得
 		Map<String, Integer> authorityMap = userApplicationService.getAuthorityMap();
 		model.addAttribute("authorityMap", authorityMap);
-
-		
 		
 		//Modelに登録
 		model.addAttribute("userDetailForm",form);

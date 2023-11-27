@@ -119,7 +119,7 @@
 <!--ユーザー１件更新-->
 <update id="updateOne">
 	update m_user set 
-	login_id =#{loginId}  
+	login_id =#{loginId},
 	password =#{password},
 	user_name =#{userName},
 	user_name_kana =#{userNamekana},
@@ -128,7 +128,7 @@
 	role_id =#{role},
 	validation =#{validation},
 	authority_flg =#{authority},
-	hire_date =#{hire}
+	hire_date =#{hire} 
 	where 
 	login_id = #{loginId}
 </update>
