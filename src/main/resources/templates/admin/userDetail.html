@@ -22,9 +22,7 @@
 					<tr>
 						<th class="w-25">ログインID</th>
 						<td>
-							<span th:text="*{loginId}" />
 							<input type="text" class="form-control" th:field="*{loginId}" />
-
 						</td>
 					</tr>
 					<tr>
@@ -103,7 +101,7 @@
 						<th>入社日</th>
 						<td>
 							<span th:text="*{#dates.format(hire,'YYYY/MM/dd')}" />
-							<input type="text" class="form-control" th:field="*{hire,'YYYY/MM/dd'}" />
+							<input type="text" class="form-control" th:fi	eld="*{hire}" />
 						</td>
 					</tr>
 

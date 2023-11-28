@@ -7,7 +7,8 @@
 
 <!--マッピング定義（ユーザー）-->
 <resultMap type="com.example.domainUser.model.UserMapperEntity" id="user">
-	<id column="login_id" property="loginId" />
+	<id column="user_id" property="userId" />
+	<result column="login_id" property="loginId" />
 	<result column="password" property="password" />
 	<result column="user_name" property="userName" />
 	<result column="user_name_kana" property="userNamekana" />

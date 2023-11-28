@@ -9,6 +9,7 @@ import lombok.Data;
 
 @Data
 public class UserDetailForm {
+	private Integer userId;
 	private String loginId;
 	private String password;
 	private String userName;

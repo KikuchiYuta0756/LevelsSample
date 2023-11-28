@@ -40,7 +40,6 @@ public String getUser(UserDetailForm form,Model model,
 		//ユーザーを1件取得
 		UserMapperEntity user = userService.getUserOne(loginId);
 		user.setPassword(null);
-		user.setHire(null);
 		
 		//UserMapperEntityをformに変換
 		form = modelMapper.map(user, UserDetailForm.class);
@@ -83,7 +82,7 @@ public String updateUser(UserDetailForm form, Model model){
 			form.getRole(),
 			form.getValidation(),
 			form.getAuthority(),
-			form.getHire()			
+			form.getHire()
 			);
 	
 	//ユーザー一覧画面にリダイレクト

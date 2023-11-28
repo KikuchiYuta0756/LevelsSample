@@ -11,7 +11,6 @@ public interface UserService {
 	
 	/**ユーザー登録*/
 	public void userCreate(UserMapperEntity user);
-	
 
 	/**ユーザー取得*/
 	public List<UserMapperEntity> getUsers();

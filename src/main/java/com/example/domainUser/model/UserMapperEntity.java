@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class UserMapperEntity {
+	private Integer userId;
     private String loginId;
 	private String password;
 	private String userName;
