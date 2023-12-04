@@ -25,8 +25,8 @@ public interface UserService {
 			String userName, 
 			String userNamekana, 
 			String mailAddress,
-			DepartmentEntity department,
-			RoleEntity role,
+			Integer departmentId,
+			Integer roleId,
 			Integer validation,
 			Integer authority,
 			Date hire

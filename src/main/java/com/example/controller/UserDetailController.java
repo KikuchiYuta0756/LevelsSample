@@ -78,8 +78,8 @@ public String updateUser(UserDetailForm form, Model model){
 			form.getUserName(),
 			form.getUserNamekana(),
 			form.getMailAddress(),
-			form.getDepartment(),
-			form.getRole(),
+			form.getDepartmentId(),
+			form.getRoleId(),
 			form.getValidation(),
 			form.getAuthority(),
 			form.getHire()

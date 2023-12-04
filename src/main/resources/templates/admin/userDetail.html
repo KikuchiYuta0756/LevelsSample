@@ -21,9 +21,7 @@
 				<tbody>
 					<tr>
 						<th class="w-25">ログインID</th>
-						<td>
-							<input type="text" class="form-control" th:field="*{loginId}" />
-						</td>
+						<td th:text="*{loginId}"></td>
 					</tr>
 					<tr>
 						<th>パスワード</th>
@@ -55,8 +53,10 @@
 							<span th:text="*{department.departmentName}" />
 							</br>
 							<select>
-								<option value="0">部署を選択してください</option>
-								<option th:each="item:${departmentList}" th:value="${item.departmentId}"
+								<!--<option value="0">部署を選択してください</option>-->
+								<option 
+								    th:each="item:${departmentList}" 
+								    th:value="${item.departmentId}"
 									th:text="${item.departmentName}">
 								</option>
 							</select>
@@ -68,7 +68,7 @@
 							<span th:text="*{role.roleName}" />
 							</br>
 							<select>
-								<option value="0">役職を選択してください</option>
+								<!--<option value="0">役職を選択してください</option>-->
 								<option th:each="item:${roleList}" th:value="${item.roleId}" th:text="${item.roleName}">
 								</option>
 							</select>
@@ -101,7 +101,7 @@
 						<th>入社日</th>
 						<td>
 							<span th:text="*{#dates.format(hire,'YYYY/MM/dd')}" />
-							<input type="text" class="form-control" th:fi	eld="*{hire}" />
+							<!--<input type="text" class="form-control" th:field="*{hire}" />-->
 						</td>
 					</tr>
 

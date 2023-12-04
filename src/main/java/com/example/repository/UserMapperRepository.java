@@ -34,8 +34,8 @@ public interface UserMapperRepository {
 			@Param("userName")String userName,
 			@Param("userNamekana")String userNamekana,
 			@Param("mailAddress")String mailAddress,
-	        @Param("department")DepartmentEntity department,
-	        @Param("role")RoleEntity role,
+	        @Param("departmentId")Integer departmentId,
+	        @Param("roleId")Integer roleId,
 	        @Param("validation")Integer validation,
 	        @Param("authority")Integer authority,
             @Param("hire")Date hire);

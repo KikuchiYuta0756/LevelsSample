@@ -14,35 +14,39 @@
 </head>
 <body>
 	<span layout:fragment="content">
-		<div class="header border-bottom">	
-		</div>
+		<div class="header border-bottom"></div>
 		<form id="create-form" method="post" action="/admin/create"
 		 class="form-create" th:object="${userCreateForm}">
 		 <h1 class="2" th:text="#{user.create.title}"></h1>
 			<!--ログインID-->
 			<div class="form-group">
 				<label for="loginId" th:text="#{loginId}"></label>
-				<input type="text" class="form-control" th:field="*{loginId}"/>
+				<input type="text" class="form-control" th:field="*{loginId}" th:errorclass="is-invalid"/>
+				<div class="invalid-feedback" th:errors="*{loginId}"></div>
 			</div>
 			<!--パスワード-->
 			<div class="form-group">
 				<label for="password" th:text="#{password}"></label>
-				<input type="text" class="form-control" th:field="*{password}"/>
+				<input type="text" class="form-control" th:field="*{password}" th:errorclass="is-invalid"/>
+				<div class="invalid-feedback" th:errors="*{password}"></div>
 			</div>
 			<!--ユーザー名-->
 			<div class="form-group">
 				<label for="userName" th:text="#{userName}"></label>
-				<input type="text" class="form-control" th:field="*{userName}"/>
+				<input type="text" class="form-control" th:field="*{userName}" th:errorclass="is-invalid"/>
+				<div class="invalid-feedback" th:errors="*{userName}"></div>
 			</div>
 			<!--ユーザー名（フリガナ）-->
 			<div class="form-group">
 				<label for="userNamekana" th:text="#{userNamekana}"></label>
-				<input type="text" class="form-control" th:field="*{userNamekana}"/>
+				<input type="text" class="form-control" th:field="*{userNamekana}" th:errorclass="is-invalid"/>
+				<div class="invalid-feedback" th:errors="*{userNamekana}"></div> 
 			</div>
 			<!--メールアドレス-->
 			<div class="form-group">
 				<label for="mailAddress" th:text="#{mailAddress}"></label>
-				<input type="text" class="form-control" th:field="*{mailAddress}"/>
+				<input type="text" class="form-control" th:field="*{mailAddress}" th:errorclass="is-invalid"/>
+				<div class="invalid-feedback" th:errors="*{mailAddress}"></div>
 			</div>
 			<!--部署（仮）-->
 			<div class="form-group">
@@ -75,23 +79,23 @@
 			<!--ユーザー有効性-->
 			<div class="form-group">
 				<div th:each="item:${validationMap}" class="form-check-inline">
-					<input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{validation}"/>
+					<input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{validation}" th:errorclass="is-invalid"/>
 					<label class="form-check-label" th:text="${item.key}"></label>
 				</div>
+				<div class="text-danger" th:if="${#fields.hasErrors('validation')}" th:error="*{validation}"></div>
 			</div>
-			
-	
-			
 		    <!--入社日-->
 			<div class="form-group">
-				<label for="hireDate" th:text="#{hireDate}"></label>
-				<input type="text" class="form-control" th:field="*{hire}"/>
-				
+				<label for="hire" th:text="#{hire}"></label>
+				<input type="text" class="form-control" placeholder="yyyy/MM/dd" th:field="*{hire}" th:errorclass="is-invalid"/>
+				<div class="invalid-feedback" th:errors="*{hire}"></div>
+　　　　　　　　　　</div>
 			<!--ユーザー権限-->
 			<div class="form-group">
 				<div th:each="item:${authorityMap}" class="form-check-inline">
-					<input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{authority}"/>
+					<input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{authority}" th:errorclass="is-invalid"/>
 					<label class="form-check-label" th:text="${item.key}"></label>
+					<div class="text-danger" th:if="${#fields.hasErrors('authority')}" th:error="*{authority}"></div>
 				</div>
 　　　　　　　　　</div>
 

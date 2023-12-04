@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService{
 			String userName, 
 			String userNamekana, 
 			String mailAddress,
-			DepartmentEntity department,
-			RoleEntity role,
+			Integer departmentId,
+			Integer roleId,
 			Integer validation,
 			Integer authority,
 			Date hire
@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService{
 				userName, 
 				userNamekana, 
 				mailAddress,
-				department,
-				role,
+				departmentId,
+				roleId,
 				validation,
 				authority,
 				hire
