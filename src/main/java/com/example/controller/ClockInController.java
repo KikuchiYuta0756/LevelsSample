@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.service.WorkTimeService;
+import com.example.form.WorkTimeForm;
 
 
 //import lombok.extern.slf4j.Slf4j;
@@ -34,13 +35,7 @@ public class ClockInController {
 	//勤怠打刻画面の表示
 	@GetMapping("/clockIn")
 	public String getClockIn(){
-		
-		//Calendarクラスで月・日・現在時刻の取得
-       // Calendar calendar = Calendar.getInstance();
-        //System.out.println(calendar.get(Calendar.MONTH) + 1);
-        //System.out.println(calendar.get(Calendar.DATE));
-        //System.out.println(calendar.getTime());
-		
+				
 		//勤怠打刻画面に遷移
 	return "user/clockIn";
 	}
@@ -48,17 +43,31 @@ public class ClockInController {
 	
 	//出勤ボタン処理
 	@PostMapping(value = "/clockIn", params = "attendance")
-	public String attendanceTime(String sdate, String stime) {
+	public String attendanceTime() {
 		
 		//LocalDateTimeのインスタンス
-		LocalDateTime ldt = LocalDateTime.now();
+		/*LocalDateTime ldt = LocalDateTime.now();
+		
+		WorkTimeEntity worktime = new WorkTimeEntity();
+		worktime.setWorkDate(ldt);
+		worktime.setStartTime(ldt);
+		//WorkTimeEntity workTime = modelMapper.map(sdate,WorkTimeEntity.class);
+		
+		workTimeService.worktimeSignup(worktime);*/
+		
+		//Date出力形式を指定
+		DateTimeFormatter dtfdate = DateTimeFormatter.ofPattern("MM-dd");
+		DateTimeFormatter dtftime = DateTimeFormatter.ofPattern("HH:mm");
+		
+		
+
 		
 		//SimpleDateFormat sdfdate = new SimpleDateFormat("yyyy年 MM月　dd日");
 		//SimpleDateFormat sdftime = new SimpleDateFormat("HH時 mm分");
 		
 		//出力形式を指定
 		//DateTimeFormatter dtfdate = DateTimeFormatter.ofPattern("MM-dd");
-		DateTimeFormatter dtftime = DateTimeFormatter.ofPattern("HH:mm");
+		//DateTimeFormatter dtftime = DateTimeFormatter.ofPattern("HH:mm");
 		
 		
 		//String strdate = sdfdate.format(ldt);
@@ -66,15 +75,17 @@ public class ClockInController {
 		
 		//日付型をString型に変換
 		//String strdate = ldt.format(dtfdate);
-		String strtime = ldt.format(dtftime);
+		//String strtime = ldt.format(dtftime);
 		
-		WorkTimeEntity workTime = new WorkTimeEntity();
-		//workTime.setWorkDate(strdate);
-		workTime.setStartTime(strtime);
+		//時間の出力形式に現在日時をセット
+		//String startTime = ldt.format(dtftime);
+		
+		WorkTimeEntity worktime = new WorkTimeEntity();
+		worktime.setWorkDate(ldt);
+		worktime.setStartTime(ldt);
 		//WorkTimeEntity workTime = modelMapper.map(sdate,WorkTimeEntity.class);
 		
-		workTimeService.worktimeSignup(workTime);
-		//workTimeService.worktimeSignup(strtime);
+		workTimeService.worktimeSignup(worktime);
 		
 		//System.out.println(strdate);
 		//System.out.println(strtime);

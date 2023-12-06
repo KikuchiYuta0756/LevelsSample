@@ -8,7 +8,7 @@ public interface WorkTimeService {
 	public void worktimeSignup(WorkTimeEntity wtime);*/
 
 	/**勤怠時間の登録*/
-	public void worktimeSignup(WorkTimeEntity wtime);
+	public void worktimeSignup(WorkTimeEntity worktime);
 
 	
 }

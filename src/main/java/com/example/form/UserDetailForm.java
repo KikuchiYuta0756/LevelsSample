@@ -4,6 +4,9 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.domainUser.model.DepartmentEntity;
+import com.example.domainUser.model.RoleEntity;
+
 import lombok.Data;
 
 @Data
@@ -21,4 +24,7 @@ public class UserDetailForm {
 	
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date hire;
+	
+	private DepartmentEntity department;
+    private RoleEntity role;
 }

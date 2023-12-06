@@ -24,8 +24,8 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	
 	/**勤怠時間の登録　新*/
 	@Override
-	public void worktimeSignup(WorkTimeEntity wtime) {
-		worktimemapper.insertStartTime(wtime);
+	public void worktimeSignup(WorkTimeEntity worktime) {
+		worktimemapper.insertStartTime(worktime);
 	}
 
 

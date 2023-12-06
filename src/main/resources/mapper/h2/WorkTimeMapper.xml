@@ -27,8 +27,9 @@
 
 <!--出勤時間の登録-->
 <insert id="insertStartTime">
-    insert into m_worktime set 
-    worktime_id = 11112,
+    insert into m_worktime 
+    set 
+    work_date = #{workDate},
     start_time = #{startTime}
 </insert>
 	

@@ -50,7 +50,7 @@
 					<tr>
 						<th>部署名</th>
 						<td>
-							<span th:text="*{department.departmentName}" />
+							<!--<span th:text="*{department.departmentName}" />-->
 							</br>
 							<select>
 								<!--<option value="0">部署を選択してください</option>-->
@@ -65,7 +65,7 @@
 					<tr>
 						<th>役職名</th>
 						<td>
-							<span th:text="*{role.roleName}" />
+							<!--<span th:text="*{role.roleName}" />-->
 							</br>
 							<select>
 								<!--<option value="0">役職を選択してください</option>-->
@@ -101,7 +101,7 @@
 						<th>入社日</th>
 						<td>
 							<span th:text="*{#dates.format(hire,'YYYY/MM/dd')}" />
-							<!--<input type="text" class="form-control" th:field="*{hire}" />-->
+							<input type="text" class="form-control" placeholder="yyyy/MM/dd" th:field="*{hire}" />
 						</td>
 					</tr>
 

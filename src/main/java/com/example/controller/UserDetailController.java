@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class UserDetailController {
 	
 	/**ユーザー詳細画面を表示*/
 @GetMapping("/userDetail/{loginId}")
-public String getUser(UserDetailForm form,Model model,
+public String getUser(Model model,@ModelAttribute UserDetailForm form,
 			@PathVariable("loginId")String loginId) {
 		
 		//ユーザーを1件取得
@@ -69,7 +70,7 @@ public String getUser(UserDetailForm form,Model model,
 
 /**ユーザー更新処理*/
 @PostMapping(value = "/userDetail", params = "update")
-public String updateUser(UserDetailForm form, Model model){
+public String updateUser(Model model, @ModelAttribute UserDetailForm form){
 	
 	//ユーザーを更新
 	userService.updateUserOne(

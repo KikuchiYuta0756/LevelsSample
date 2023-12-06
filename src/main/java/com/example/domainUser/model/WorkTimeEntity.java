@@ -1,19 +1,23 @@
 package com.example.domainUser.model;
 
-//import java.text.SimpleDateFormat;
-//import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
 @Data
 public class WorkTimeEntity {
-	private Integer worktimeId;
-	private String workDate;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private LocalDateTime workDate;
 	private Integer userId;
-	private String startTime;
-	private String closeTime;
+	@DateTimeFormat(pattern = "hh:mm")
+	private LocalDateTime startTime;
+	@DateTimeFormat(pattern = "hh:mm")
+	private LocalDateTime closeTime;
 	private Integer workTime;
 	private Integer restTime;
+	private Integer workFlg;
 	private Integer overTime;
 	
 }

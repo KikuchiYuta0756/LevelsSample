@@ -13,7 +13,7 @@ public interface WorkTimeMapperRepository {
 	public int insertTime(WorkTimeEntity wtime);*/
 
 	/**出退勤時刻の登録*/
-	public int insertStartTime(WorkTimeEntity wtime);
+	public int insertStartTime(WorkTimeEntity worktime);
 
 	
 }
