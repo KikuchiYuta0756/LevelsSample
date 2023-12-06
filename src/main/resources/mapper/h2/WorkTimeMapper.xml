@@ -26,11 +26,35 @@
 </insert>-->
 
 <!--出勤時間の登録-->
-<insert id="insertStartTime">
+<!--<insert id="insertStartTime">
     insert into m_worktime 
     set 
     work_date = #{workDate},
     start_time = #{startTime}
+</insert>-->
+
+<!--出勤時間の登録-->
+<insert id="insertStartTime">
+    insert into m_worktime(
+    work_date,
+    start_time,
+    work_flg
+    )
+    VALUE(
+     #{workDate}
+    ,#{startTime}
+    ,1
+    )
+</insert>
+
+<!--退勤時間の登録-->
+<insert id="insertCloseTime">
+    update m_worktime 
+    set 
+     close_time = #{closeTime} 
+    ,work_flg = 0 
+    where 
+    work_date = #{workDate}
 </insert>
 	
 

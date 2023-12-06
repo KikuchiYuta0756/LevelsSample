@@ -7,8 +7,12 @@ public interface WorkTimeService {
 	/**勤怠時間の登録
 	public void worktimeSignup(WorkTimeEntity wtime);*/
 
-	/**勤怠時間の登録*/
+	/**出勤時間の登録*/
 	public void worktimeSignup(WorkTimeEntity worktime);
+	
+	//退勤時間の登録
+	public void worktimeupdate(WorkTimeEntity worktime);
+
 
 	
 }

@@ -14,18 +14,16 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	@Autowired
 	private WorkTimeMapperRepository worktimemapper;
 	
-	
-	
-	/**勤怠時間の登録　旧
-	//@Override
-	public void worktimeSignup(WorkTimeEntity wtime) {
-		worktimemapper.insertTime(wtime);
-	}*/
-	
-	/**勤怠時間の登録　新*/
+	//出勤時間の登録
 	@Override
 	public void worktimeSignup(WorkTimeEntity worktime) {
 		worktimemapper.insertStartTime(worktime);
+	}
+
+	//退勤時間の登録
+	@Override
+	public void worktimeupdate(WorkTimeEntity worktime) {
+		worktimemapper.insertCloseTime(worktime);
 	}
 
 
