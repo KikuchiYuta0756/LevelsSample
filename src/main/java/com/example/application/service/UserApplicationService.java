@@ -27,5 +27,4 @@ public class UserApplicationService {
 		return authorityMap;
 	}
 	
-	
 }

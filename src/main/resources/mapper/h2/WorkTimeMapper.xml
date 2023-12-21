@@ -5,62 +5,72 @@
   <!--WorkTimeMapperRepositoryとxmlのマッピング-->
 <mapper namespace="com.example.repository.WorkTimeMapperRepository">
 	
- <!--出退勤時刻の登録-->
-<!--<insert id="insertTime">
-	insert into m_worktime(
-	work_date,
-	start_time,
-	close_time,
-	work_time,
-	rest_time,
-	over_time
-	)
-	value(
-	 #(workDate)
-    ,#(startTime)
-    ,#(closeTime)
-    ,#(workTime)
-    ,#(restTime)
-    ,#(overTime)
-    )	
-</insert>-->
+<!--マッピング定義（労働時間）-->
+<resultMap type="com.example.domainUser.model.WorkTimeEntity" id="worktime">
+	<result column="work_date" property="workDate" />
+	<result column="user_id" property="userId" />
+	<result column="start_time" property="startTime" />
+	<result column="close_time" property="closeTime" />
+	<result column="gen_work_time" property="workTime" />
+	<result column="rest_time" property="restTime" />
+	<result column="act_work_time" property="actWorkTime" />	
+	<result column="over_time" property="overTime" />
+	
+</resultMap>
 
 <!--出勤時間の登録-->
 <!--<insert id="insertStartTime">
-    insert into m_worktime 
-    set 
-    work_date = #{workDate},
-    start_time = #{startTime}
-</insert>-->
-
-<!--出勤時間の登録-->
-<insert id="insertStartTime">
     insert into m_worktime(
     work_date,
-    start_time,
-    work_flg
+    start_time
     )
     VALUE(
      #{workDate}
     ,#{startTime}
-    ,1
     )
 </insert>
+-->
+
+<!--出勤時間の登録-->
+<update id="insertStartTime">
+update  
+   m_worktime 
+set 
+   start_time = #{startTime},
+   rest_time = '01:00:00' 
+where 
+    work_date = #{workDate}
+</update>
 
 <!--退勤時間の登録-->
-<insert id="insertCloseTime">
-    update m_worktime 
-    set 
-     close_time = #{closeTime} 
-    ,work_flg = 0 
-    where 
+<update id="insertCloseTime">
+update  
+   m_worktime 
+set 
+   close_time = #{closeTime},
+   gen_work_time = TIMEDIFF(close_time, start_time),
+   act_work_time = TIMEDIFF(gen_work_time, rest_time) 
+   <!--over_time = TIMEDIFF(act_work_time, '08:00:00')-->  
+where 
     work_date = #{workDate}
-</insert>
-	
+</update>
+<!--残業時間の登録-->
+<update id="insertOverTime">
+update 
+   m_worktime 
+set 
+   over_time =  
+  case 
+    when TIMEDIFF(act_work_time, '08:00:00') > 0  
+    then TIMEDIFF(act_work_time, '08:00:00') 
+    else 0 
+  end  
+where 
+  work_date = #{workDate}
+</update>
 
-	
 
-	
-	
-	
+
+
+
 </mapper>

@@ -32,6 +32,14 @@
 			var d = hour + "時" + min + "分" + sec + "秒";
 			document.getElementById("RealtimeDay").innerHTML = d;
 		}
+		//出勤ボタンの非活性化
+		function btnAttendance() {
+	     document.getElementById("btnClick").disabled = true;
+        }
+　　　　　　//退勤ボタンの非活性化
+        //function btnLeaving() {
+	     //document.getElementById("btn-leaving").disabled = true;
+//}
 	</script>
 </head>
 
@@ -48,12 +56,12 @@
 			</br>
 	<!--出勤、退勤ボタン-->
 	<form id="clockIn-form" method="post" th:action="@{/user/clockIn}">
-		<div class="text-center">
+		<div class="text-cenbtnClickter">
 			<!--出勤ボタン-->
-			<button class="btn btn-danger" type="submit" name="attendance">出勤</button>
+			<button  id="btnClick" class="btn btn-danger" type="submit" name="attendance"　disabled>出勤</button>
 			<!--<input type="submit" value="出勤" />-->
 			<!--退勤ボタン-->
-			<button class="btn btn-primary" type="submit" name="leaving">退勤</button>
+			<button  id="btnClick" class="btn btn-primary" type="submit" name="leaving" >退勤</button>
 			<!--<input type="submit" value="退勤" />-->
 		</div>
 	</div>

@@ -16,15 +16,33 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	
 	//出勤時間の登録
 	@Override
-	public void worktimeSignup(WorkTimeEntity worktime) {
+	public void startTimeSignup(WorkTimeEntity worktime) {
 		worktimemapper.insertStartTime(worktime);
 	}
 
 	//退勤時間の登録
 	@Override
-	public void worktimeupdate(WorkTimeEntity worktime) {
+	public void closeTimeSignup(WorkTimeEntity worktime) {
 		worktimemapper.insertCloseTime(worktime);
 	}
 
+	//労働時間の登録
+	@Override
+	public void genWorkTimeSignup(WorkTimeEntity worktime) {
+		worktimemapper.insertGenWorkTime(worktime);
+	}
+
+	//実働時間の登録
+	@Override
+	public void actWorkTimeSignup(WorkTimeEntity worktime) {
+		worktimemapper.insertActWorkTime(worktime);
+	}
+
+	//残業時間の登録
+	@Override
+	public void overTimeSignup(WorkTimeEntity worktime) {
+		worktimemapper.insertOverTime(worktime);
+	}
+	
 
 }
