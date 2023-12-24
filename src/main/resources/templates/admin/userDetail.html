@@ -48,24 +48,27 @@
 						</td>
 					</tr>
 					<tr>
-						<th>部署名</th>
+						<th>部署</th>
 						<td>
-							<!--<span th:text="*{department.departmentName}" />-->
+							    <div th:each="item : ${yourList}">
+                                <input type="text" th:field="*{yourProperty}" th:value="${item}" />
+                                </div>
+<!--							<span th:text="*{department.departmentName}" />
 							</br>
 							<select>
-								<!--<option value="0">部署を選択してください</option>-->
-								<option 
+								<option value="0">部署を選択してください</option>
+								<option 	
 								    th:each="item:${departmentList}" 
 								    th:value="${item.departmentId}"
 									th:text="${item.departmentName}">
 								</option>
-							</select>
+							</select>-->
 						</td>
 					</tr>
 					<tr>
-						<th>役職名</th>
+						<th>役職</th>
 						<td>
-							<!--<span th:text="*{role.roleName}" />-->
+							<span th:text="*{role.roleName}" />
 							</br>
 							<select>
 								<!--<option value="0">役職を選択してください</option>-->

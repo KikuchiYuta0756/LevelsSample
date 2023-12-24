@@ -48,20 +48,6 @@
     <association property="user" resultMap="user" />
 </resultMap>-->
 
-<!--マッピング定義（勤怠時間）-->
-<!--<resultMap type="com.example.domainUSer.model.WorktimeEntity" id="worktime">
-	<id column="worktime_id" property="worktimeId" />
-	<id column="user_id" property="userId" />
-	<result column="work_date" property="workDate" />
-	<result column="start_time" property="startTime" />
-	<result column="close_time" property="closeTime" />
-	<result column="work_time" property="workTime" />
-	<result column="rest_time" property="restTime" />
-	<result column="over_time" property="overTime" />
-    <association property="user" resultMap="user" />
-</resultMap>-->
-
-
 
 <!--ユーザー1件登録-->
 <insert id="insertOne">

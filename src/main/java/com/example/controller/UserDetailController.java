@@ -35,16 +35,13 @@ public class UserDetailController {
 	
 	/**ユーザー詳細画面を表示*/
 @GetMapping("/userDetail/{loginId}")
-public String getUser(Model model,@ModelAttribute UserDetailForm form,
-			@PathVariable("loginId")String loginId) {
+public String getUser(UserDetailForm form, Model model,
+		@PathVariable("loginId")String loginId) {
 		
 		//ユーザーを1件取得
 		UserMapperEntity user = userService.getUserOne(loginId);
 		user.setPassword(null);
 		
-		//UserMapperEntityをformに変換
-		form = modelMapper.map(user, UserDetailForm.class);
-
 		//部署レコードの取得
 		List<DepartmentEntity> departmentList = userService.getAllDepartment();
 		model.addAttribute("departmentList", departmentList);
@@ -60,6 +57,9 @@ public String getUser(Model model,@ModelAttribute UserDetailForm form,
 		// ユーザー権限を取得
 		Map<String, Integer> authorityMap = userApplicationService.getAuthorityMap();
 		model.addAttribute("authorityMap", authorityMap);
+
+		//UserMapperEntityをformに変換
+		form = modelMapper.map(user, UserDetailForm.class);
 		
 		//Modelに登録
 		model.addAttribute("userDetailForm",form);
@@ -70,7 +70,7 @@ public String getUser(Model model,@ModelAttribute UserDetailForm form,
 
 /**ユーザー更新処理*/
 @PostMapping(value = "/userDetail", params = "update")
-public String updateUser(Model model, @ModelAttribute UserDetailForm form){
+public String updateUser(UserDetailForm form, Model model){
 	
 	//ユーザーを更新
 	userService.updateUserOne(
