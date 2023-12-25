@@ -21,7 +21,9 @@
 				<tbody>
 					<tr>
 						<th class="w-25">ログインID</th>
-						<td th:text="*{loginId}"></td>
+						<td>
+							<input type="text" class="form-control"  th:field="*{loginId}" />
+						</td>
 					</tr>
 					<tr>
 						<th>パスワード</th>
@@ -50,28 +52,23 @@
 					<tr>
 						<th>部署</th>
 						<td>
-							    <div th:each="item : ${yourList}">
-                                <input type="text" th:field="*{yourProperty}" th:value="${item}" />
-                                </div>
-<!--							<span th:text="*{department.departmentName}" />
+						<span th:if="*{department != null}" th:text="*{department.departmentName}" />
 							</br>
-							<select>
-								<option value="0">部署を選択してください</option>
+							<select th:field="*{departmentId}">
 								<option 	
 								    th:each="item:${departmentList}" 
 								    th:value="${item.departmentId}"
 									th:text="${item.departmentName}">
 								</option>
-							</select>-->
+							</select>
 						</td>
 					</tr>
 					<tr>
 						<th>役職</th>
 						<td>
-							<span th:text="*{role.roleName}" />
+							<span th:if="*{role != null}" th:text="*{role.roleName}" />
 							</br>
-							<select>
-								<!--<option value="0">役職を選択してください</option>-->
+							<select th:field="*{roleId}">
 								<option th:each="item:${roleList}" th:value="${item.roleId}" th:text="${item.roleName}">
 								</option>
 							</select>
