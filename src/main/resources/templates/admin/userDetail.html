@@ -22,7 +22,8 @@
 					<tr>
 						<th class="w-25">ログインID</th>
 						<td>
-							<input type="text" class="form-control"  th:field="*{loginId}" />
+							<div th:text="*{loginId}" />
+							<!--<input type="text" class="form-control"  th:field="*{loginId}" />-->
 						</td>
 					</tr>
 					<tr>

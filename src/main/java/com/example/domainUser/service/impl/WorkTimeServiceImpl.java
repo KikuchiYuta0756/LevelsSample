@@ -1,5 +1,7 @@
 package com.example.domainUser.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,12 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	@Override
 	public void overTimeSignup(WorkTimeEntity worktime) {
 		worktimemapper.insertOverTime(worktime);
+	}
+	
+	//勤怠一覧（月次）の取得
+	@Override
+	public List<WorkTimeEntity> getClockTimes(){
+		return worktimemapper.findMany();
 	}
 	
 

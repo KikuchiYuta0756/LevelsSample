@@ -40,6 +40,7 @@ public String getUser(UserDetailForm form, Model model,
 		
 		//ユーザーを1件取得
 		UserMapperEntity user = userService.getUserOne(loginId);
+		user.setPassword(null);
 		
 		//部署レコードの取得
 		List<DepartmentEntity> departmentList = userService.getAllDepartment();

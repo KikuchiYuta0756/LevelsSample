@@ -17,9 +17,6 @@ public interface UserMapperRepository {
 	/**ユーザー登録*/
 	public int insertOne(UserMapperEntity user);
 	
-	/**出退勤時刻の登録*/
-	//public int insertTime(WorkTimeEntity wtime);
-	
 	/**ユーザー取得*/
 	public List<UserMapperEntity>findMany();
 	

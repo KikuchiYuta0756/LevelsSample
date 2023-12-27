@@ -49,8 +49,7 @@ update
 set 
    close_time = #{closeTime},
    gen_work_time = TIMEDIFF(close_time, start_time),
-   act_work_time = TIMEDIFF(gen_work_time, rest_time) 
-   <!--over_time = TIMEDIFF(act_work_time, '08:00:00')-->  
+   act_work_time = TIMEDIFF(gen_work_time, rest_time)  
 where 
     work_date = #{workDate}
 </update>
@@ -68,6 +67,11 @@ set
 where 
   work_date = #{workDate}
 </update>
+
+<!--月次の勤怠を取得-->
+<select id="findMany" resultType="WorkTimeEntity">
+	select * from m_worktime
+</select>
 
 
 

@@ -13,6 +13,7 @@ public class WorkTimeEntity {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 //	private LocalDateTime workDate;
 	private String workDate;
+	private String dayofweek;
 	private Integer userId;
 //	private LocalDateTime startTime;
 //	private LocalDateTime closeTime;

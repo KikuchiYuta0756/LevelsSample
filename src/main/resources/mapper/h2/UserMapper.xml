@@ -34,12 +34,6 @@
    <result column="role_name" property="roleName" />
 </resultMap>
 
-<!--マッピング定義（有効性）-->
-<!--<resultMap type="com.example.domainUSer.model.ValidationEntity" id="validation">
-	<id column="validation_id" property="validationId" />
-	<result column="validation_name" property="validationName" />
-</resultMap>-->
-
 <!--マッピング定義（有給）-->
 <!--<resultMap type="com.example.domainUSer.model.PaidEntity" id="paid">
 	<id column="paid_id" property="paidId" />
@@ -107,7 +101,10 @@
 <update id="updateOne">
 	update m_user set 
 	login_id =#{loginId},
-	password =#{password},
+	<!--password = #{password},-->
+	
+	
+	
 	user_name =#{userName},
 	user_name_kana =#{userNamekana},
 	mail_address =#{mailAddress},
@@ -116,6 +113,10 @@
 	validation =#{validation},
 	authority_flg =#{authority},
 	hire_date =#{hire} 
+	password = CASE 
+	           WHEN password IS NULL THEN password 
+	           ELSE #{password} 
+    END	           
 	where 
 	login_id = #{loginId}
 </update>

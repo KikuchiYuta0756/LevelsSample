@@ -1,17 +1,33 @@
 package com.example.controller;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.domainUser.model.WorkTimeEntity;
+import com.example.domainUser.service.WorkTimeService;
+
 
 
 @Controller
 @RequestMapping("/user")
 public class ClockInListController {
 	
-	//勤怠表の表示
+	@Autowired
+	private WorkTimeService worktimeService;
+	
+	//勤怠一覧（月次）の表示
 	@GetMapping("/clockInList")
-	public String getClockInList(){
+	public String getClockInList(Model model){
+		
+		//勤怠一覧（月次）を取得
+		List<WorkTimeEntity> clockList = worktimeService.getClockTimes();
+		
+		//Modelに登録
+		model.addAttribute("clockList", clockList);
 		
 	return "user/clockInList";
 	}

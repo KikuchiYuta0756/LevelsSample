@@ -1,5 +1,7 @@
 package com.example.domainUser.service;
 
+import java.util.List;
+
 import com.example.domainUser.model.WorkTimeEntity;
 
 public interface WorkTimeService {
@@ -21,6 +23,9 @@ public interface WorkTimeService {
 
 	//残業時間の登録
 	public void overTimeSignup(WorkTimeEntity worktime);
+	
+	//勤怠一覧（月次）の取得
+	public List<WorkTimeEntity> getClockTimes();
 	
 	
 }
