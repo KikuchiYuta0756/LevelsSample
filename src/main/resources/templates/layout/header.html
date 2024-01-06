@@ -9,11 +9,10 @@
 	  class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark">
 	 <div class="container-fluid">
 		 <div class="navbar-header">
-		 <a class="navbar-brand" href="#">SpringSample</a>
+		 <a class="navbar-brand" href="#">LevelsSample</a>
 		 </div>
 		 	 <a class="top-link" th:href="@{'/user/clockIn'}">勤怠打刻</a>
 			 <a class="top-link" th:href="@{'/user/clockInList'}">勤怠一覧</a>
-			 <a class="top-link" th:href="@{'//list'}">修正申請</a>
 			 <a class="top-link" th:href="@{'//list'}">有給申請</a>
 		 <form method="post" th:action="@{/logout}">
 			 <button class="btn btn-link pull-right navbar-brand" type="submit">

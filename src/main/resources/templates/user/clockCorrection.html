@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<title>修正申請</title>
+	<!--CSS読込-->
+	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
+</head>
+<body>
+	　　　<div layout:fragment="content">
+		　　　<div class="header border-bottom">
+			<h1 class="h2">修正申請</h1>
+		</div>
+		<!--<form id="user-detail-form" method="post" th:action="@{/admin/userDetail}" class="form-signup"
+			th:object="${userDetailForm}">
+			<input type="hidden" th:field="*{loginId}" />-->
+			<!--ユーザー詳細情報-->
+			<table class="table table-striped table-bordered table-hover">
+				<tbody>
+					<tr>
+						<th class="w-25">日付</th>
+						<td>
+							<div th:text="日付" />
+						</td>
+					</tr>
+					<tr>
+						<th>出勤時間</th>
+						<td>
+							<input type="text" class="form-control" th:text="出勤時間" />
+						</td>
+					</tr>
+					<tr>
+						<th>退勤時間</th>
+						<td>
+							<input type="text" class="form-control" th:text="退勤時間" />
+						</td>
+					</tr>
+					<tr>
+						<th>休憩時間</th>
+						<td>
+							<input type="text" class="form-control" th:text="休憩時間" />
+						</td>
+					</tr>
+					<tr>
+						<th>ステータス</th>
+						<td>
+							<input type="text" class="form-control" th:text="ステータス" />
+						</td>
+					</tr>
+					<tr>
+						<th>理由</th>
+						<td>
+							<input type="text" class="form-control" th:text="理由" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!--ボタンエリア-->
+			<div class="text-center">
+				<!--修正申請ボタン-->
+				<button class="btn btn-danger" type="submit" >申請</button>
+
+		</form>
+	</div>
+</body>
+</html>

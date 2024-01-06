@@ -1,0 +1,25 @@
+/*text-alignで右寄せします。*/
+a{
+  text-align: right;
+}
+
+.button-text{
+  text-align: right;
+}
+
+.header{
+	padding-top: 1rem!important;
+	padding-bottom: .5rem!important;
+	padding-bottom: 1rem!important;
+	text-align: center;
+}
+
+.th-width{
+	width: 200px;
+}
+
+.table2{
+	width: 700px;
+	height: 70px;
+	text-align: center;
+}
