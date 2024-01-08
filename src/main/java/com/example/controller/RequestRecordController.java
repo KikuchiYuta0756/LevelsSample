@@ -15,29 +15,15 @@ import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.service.WorkTimeService;
 
 
-
 @Controller
 @RequestMapping("/user")
-public class ClockInListController {
+public class RequestRecordController {
 	
-	@Autowired
-	private WorkTimeService worktimeService;
+	//申請履歴を表示
+	@GetMapping("/requestRecord")
+	public String getRequestRecord() {
 	
-	//勤怠一覧（月次）の表示
-	@GetMapping("/clockInList")
-	public String getClockInList(Model model){
-		
-		//勤怠一覧（月次）を取得
-		List<WorkTimeEntity> clockList = worktimeService.getClockTimes();
-		
-		//Modelに登録
-		model.addAttribute("clockList", clockList);
-		
-	return "user/clockInList";
-	}
+	return "user/requestRecord";
+ }
 
-
-		
 }
-
-

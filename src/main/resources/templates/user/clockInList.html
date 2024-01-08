@@ -10,9 +10,9 @@
 <body>
 　　　<div layout:fragment="content">
 	<div class="header border-bottom">
-		<a class="top-link" th:href="@{'/user/clockList'}">＜前月</a>
+		<a class="top-link" th:href="@{'/user/clockList'}">＜前月 </a>
 		<span class="h2">月次勤怠一覧</span>
-		<a class="top-link" th:href="@{'/user/clockList'}">翌月＞</a>
+		<a class="top-link" th:href="@{'/user/clockList'}">　翌月＞</a>
 	</div>
     <table class="table2 table-bordered">
     <thead>
@@ -34,7 +34,10 @@
 	</tr>
 	</tbody>
 	</table>
-	<a class="nav-link" th:href="@{'/user/clockCorrection'}">修正申請</a>
+	<div>
+	  <a class="nav-link" th:href="@{'/user/paidRequest'}">有給申請</a>
+	  <a class="nav-link" th:href="@{'/user/clockCorrection'}">修正申請</a>
+	</div>
 	<div class="button-text">
     <button class="btn btn-success" type="submit">CSV出力</button>
     </div>
