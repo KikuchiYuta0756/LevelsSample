@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <!--PaidAppRepositoryとxmlのマッピング-->
+<mapper namespace="com.example.repository.CorrectRequestRepository">
+	
+		<!--マッピング定義（ユーザー）-->
+<resultMap type="com.example.domainUser.model.CorrectRequestEntity" id="correctRequest">
+	<result column="login_id" property="correctLoginId" />
+	<result column="user_name" property="correctUserName" />
+	<result column="correct_app_date" property="correctRequestDate" />
+	<result column="request_sta_id" property="requestStaId" />
+	<result column="correct_app_id" property="correctRequestId" />
+	<result column="correct_date" property="correctDate" />
+	<result column="correct_starttime" property="correctStartTime" />
+	<result column="correct_closetime" property="correctCloseTime" />
+	<result column="correct_resttime" property="correctRestTime" />
+	<result column="worktime_sta_id" property="worktimeStaId" />
+	<result column="correct_reason" property="correctReason" />
+	
+	<association property="requestStates" resultMap="requestStates" />
+</resultMap>
+
+
+<!--マッピング定義（申請ステータステーブル）-->
+<resultMap type="com.example.domainUser.model.RequestStatesEntity" id="requestStates">
+	<id column="request_sta_id" property="requestStaId" />
+    <result column="request_sta_name" property="requestStaName"	/>
+</resultMap>
+
+	<!--修正申請1件登録-->
+<insert id="insertOne">
+	 insert into m_correction_app(
+	  correct_date
+	 ,correct_starttime
+	 ,correct_closetime
+	 ,correct_resttime
+	 ,worktime_sta_id
+	 ,correct_reason
+	 ,request_sta_id
+	 ,correct_app_date
+	 )
+	 value(
+	 #{correctDate}
+	,#{correctStartTime}
+	,#{correctCloseTime}
+	,#{correctRestTime}
+	,#{worktimeStaId}
+	,#{correctReason}
+	,1
+	,NOW()
+	)
+</insert>
+
+		
+<!--修正申請の数件取得-->
+<select id="findMany" resultType="CorrectRequestEntity">
+	select * from m_correction_app
+</select>
+
+<!--修正申請１件検索-->
+<select id="findOne" resultMap="correctRequest">
+	select 
+	login_id,
+	user_name,
+	correct_app_day,
+	request_sta_id,
+	correct_app_id,
+	correct_date,
+	correct_starttime,
+	correct_closetime,
+	correct_resttime,
+	worktime_sta_id,
+	correct_reason   
+	from m_paid_app  
+	where paid_app_id = #{paidAppId}
+</select>
+
+	
+</mapper>
