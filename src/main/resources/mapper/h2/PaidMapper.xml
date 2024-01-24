@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <!--PaidAppRepositoryとxmlのマッピング-->
+<mapper namespace="com.example.repository.PaidAppRepository">
+	
+	<!--マッピング定義（有給テーブル）-->
+<resultMap type="com.example.domainUser.model.PaidAppEntity" id="paidApp">
+	<result column="login_id" property="paidLoginId" />
+	<result column="user_name" property="paidUserName" />
+	<result column="paid_requestdate_app" property="paidRequestDateApp" />
+	<result column="paid_date_app" property="paidDateApp" />
+	<result column="paid_app_id" property="paidAppId" />
+	<result column="request_sta_id" property="requestStaId" />
+	<result column="paid_app_reason" property="paidAppReason" />
+	<association property="requestStates" resultMap="requestStates" />
+</resultMap>
+
+<!--マッピング定義（申請ステータス）-->
+<resultMap type="com.example.domainUser.model.RequestStatesEntity" id="requestStates">
+	<id column="request_sta_id" property="requestStaId" />
+    <result column="request_sta_name" property="requestStaName"	/>
+</resultMap>
+	
+	<!--有給申請1件登録-->
+<insert id="insertPaidApp">
+	 insert into m_paid_app(
+	  paid_requestdate_app
+	 ,paid_app_reason
+	 ,paid_date_app
+	 ,request_sta_id
+	 )
+	 value(
+	 #{paidRequestDateApp}
+	,#{paidAppReason}
+	,NOW()
+	,'承認待ち'
+	)
+</insert>
+
+<!--有給申請の数件取得-->
+<select id="findMany" resultType="PaidAppEntity">
+	select * from m_paid_app
+</select>
+
+<!--有給申請１件検索-->
+<select id="findOne" resultMap="paidApp">
+	select 
+	login_id,
+	user_name,
+	paid_requestdate_app,
+	paid_date_app,
+	paid_app_id,
+	request_sta_id,
+	paid_app_reason  
+	from m_paid_app 
+	where paid_app_id = #{paidAppId}
+</select>
+
+	
+</mapper>
