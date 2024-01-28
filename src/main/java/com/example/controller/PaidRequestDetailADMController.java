@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.service.PaidAppService;
 import com.example.form.PaidRequestForm;
+import com.example.form.UserDetailForm;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,7 +27,7 @@ public class PaidRequestDetailADMController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	/**ユーザー詳細画面を表示*/
+	/**有給申請詳細画面を表示*/
 @GetMapping("/paidRequestDetail/{paidAppId}")
 public String getPaidAppADM(PaidRequestForm form, Model model,
 		@PathVariable("paidAppId")int paidAppId) {
@@ -41,7 +42,31 @@ public String getPaidAppADM(PaidRequestForm form, Model model,
 		model.addAttribute("PaidRequestForm",form);
 			
 		//ユーザー詳細画面を表示
-		return"admin/paidRequestDetail";		
+		return"admin/paidRequestList";		
 	}
+
+/**有給申請の承認処理*/
+@PostMapping(value = "/paidRequestDetail", params = "approval")
+public String updateUser(PaidRequestForm form, Model model){
+	
+	//申請ステータスを更新
+	paidappservice.updateRequestStaOne(
+			form.getPaidAppId()
+			);
+	
+	//ユーザー一覧画面にリダイレクト
+	return"redirect:/admin/paidRequestList";
+}
+
+/**ユーザー削除処理*/
+/**@PostMapping(value = "/userDetail", params = "delete")
+public String deleteUser(UserDetailForm form, Model model){
+	
+	//ユーザーを削除
+	userService.deleteUserOne(form.getLoginId());
+	
+	//ユーザー一覧画面にリダイレクト
+	return "admin/paidRequestList";
+}*/
 	
 }

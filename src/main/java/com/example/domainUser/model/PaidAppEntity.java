@@ -14,6 +14,5 @@ public class PaidAppEntity {
 	private Integer paidAppId;
 	private String requestStaId;
 	private String paidAppReason;
-	private RequestStatesEntity requestStates;
 
 }

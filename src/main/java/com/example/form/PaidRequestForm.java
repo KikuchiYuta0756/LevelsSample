@@ -4,8 +4,6 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.domainUser.model.RequestStatesEntity;
-
 import lombok.Data;
 
 @Data
@@ -23,6 +21,5 @@ public class PaidRequestForm {
 	private Integer paidAppId;
 	private String requestStaId;
 	private String paidAppReason;
-	private RequestStatesEntity requestStates;
 
 }

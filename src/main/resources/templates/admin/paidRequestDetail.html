@@ -13,7 +13,7 @@
 		　　　<div class="header border-bottom">
 			<h1 class="h2">有給申請詳細</h1>
 		</div>
-		<form id="user-detail-form" method="post" th:action="@{/admin/paidRequestList}" class="form-signup"
+		<form id="user-detail-form" method="post" th:action="@{/admin/paidRequestDetail}" class="form-signup"
 			th:object="${PaidRequestForm}">
 			<input type="hidden" th:field="*{paidAppId}" />			
 			<!--ユーザー詳細情報-->
@@ -38,7 +38,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>変更日付</th>
+						<th>利用日付</th>
 						<td>
 							<span th:text="*{#dates.format(paidRequestDateApp,'YYYY/MM/dd')}" />							
 							<!--<div th:text="*{paidRequestDateApp}" />-->
@@ -56,10 +56,10 @@
 			<!--ボタンエリア-->
 			<div class="text-center">
 				<!--削除ボタン-->
-				<button class="btn btn-danger" type="submit" name="delete">削除</button>
+				<button class="btn btn-danger" type="submit" name="approval">承認</button>
 
 				<!--更新ボタン-->
-				<button class="btn btn-primary" type="submit" name="update">更新</button>
+				<button class="btn btn-primary" type="submit" name="remand">差し戻し</button>
 			</div>
 		</form>
 	</div>

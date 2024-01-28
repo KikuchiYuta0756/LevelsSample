@@ -28,8 +28,14 @@ public class PaidAppServiceImpl implements PaidAppService {
 	/**有給申請取得(１件)*/
 	@Override
 	public PaidAppEntity getPaidAppOne(int paidAppId) {
-		return paidapprepository.findOne(paidAppId);
-		
+		return paidapprepository.findOne(paidAppId);	
 	}
+	
+	/**申請ステータス更新*/
+	@Override
+	public void updateRequestStaOne(int paidAppId){
+		paidapprepository.updateRequestSta(paidAppId);
+	}
+
 
 }

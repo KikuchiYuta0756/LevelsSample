@@ -5,7 +5,7 @@
   <!--PaidAppRepositoryとxmlのマッピング-->
 <mapper namespace="com.example.repository.PaidAppRepository">
 	
-	<!--マッピング定義（有給テーブル）-->
+	<!--マッピング定義（有給申請テーブル）-->
 <resultMap type="com.example.domainUser.model.PaidAppEntity" id="paidApp">
 	<result column="login_id" property="paidLoginId" />
 	<result column="user_name" property="paidUserName" />
@@ -14,13 +14,6 @@
 	<result column="paid_app_id" property="paidAppId" />
 	<result column="request_sta_id" property="requestStaId" />
 	<result column="paid_app_reason" property="paidAppReason" />
-	<association property="requestStates" resultMap="requestStates" />
-</resultMap>
-
-<!--マッピング定義（申請ステータス）-->
-<resultMap type="com.example.domainUser.model.RequestStatesEntity" id="requestStates">
-	<id column="request_sta_id" property="requestStaId" />
-    <result column="request_sta_name" property="requestStaName"	/>
 </resultMap>
 	
 	<!--有給申請1件登録-->
@@ -57,6 +50,15 @@
 	from m_paid_app 
 	where paid_app_id = #{paidAppId}
 </select>
+
+<!--申請ステータスの更新（承認済み）-->
+<update id="updateRequestSta">
+	update m_paid_app 
+	set 
+	request_sta_id = '承認済み' 　
+	where 
+	paid_app_id = #{paidAppId}
+</update>
 
 	
 </mapper>

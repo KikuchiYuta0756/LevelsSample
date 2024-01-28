@@ -3,6 +3,7 @@ package com.example.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.domainUser.model.PaidAppEntity;
 
@@ -17,6 +18,11 @@ public interface PaidAppRepository {
 	
 	/**有給申請取得（1件）*/
 	public PaidAppEntity findOne(int paidAppId);
+	
+	/**申請ステータス更新*/
+	public  void updateRequestSta(
+			@Param("paidAppId")int paidAppId);
+
 	
 
 
