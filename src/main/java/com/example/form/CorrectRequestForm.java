@@ -1,6 +1,8 @@
 package com.example.form;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,20 +18,20 @@ public class CorrectRequestForm {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date correctRequestDate;
 	
-	private Integer requestStaId;
+	private String requestStaId;
 	private Integer correctRequestId;
 	
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private Date correctDate;
+	private String correctDate;
 
-	@DateTimeFormat(pattern = "HH:MM:ss")
-	private Time correctStartTime;
+	@DateTimeFormat(pattern = "HH:MM")
+	private String correctStartTime;
 	
-	@DateTimeFormat(pattern = "HH:MM:ss")
-	private Time correctCloseTime;
+	@DateTimeFormat(pattern = "HH:MM")
+	private String correctCloseTime;
 	
-	@DateTimeFormat(pattern = "HH:MM:ss")
-	private Time correctRestTime;
+	@DateTimeFormat(pattern = "HH:MM")
+	private String correctRestTime;
 	
 	private Integer worktimeStaId;
 	

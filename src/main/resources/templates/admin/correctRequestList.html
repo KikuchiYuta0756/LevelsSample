@@ -27,13 +27,13 @@
 				 </thead>
 				 <tbody>
 					 <tr th:each="items:${correctList}">
-					 <td th:text="${#dates.format(items.correctRequestDay,'YYYY/MM/dd')}"></td>
+					 <td th:text="${items.correctRequestDate}"></td>
 					 <td th:text="${items.correctLoginId}"></td>
 					 <td th:text="${items.correctUserName}"></td>
                      <td th:text="${items.correctRequestId}"></td>
 					 <td th:text="${items.requestStaId}"></td>
 					 <td>
-						 <a class="btn btn-primary" th:href="@{'/admin/paidRequestDetail'}">詳細</a>
+						 <a class="btn btn-primary" th:href="@{'/admin/correctRequestDetail/'+${items.correctRequestId}}">詳細</a>
 					 </td>
 					 </tr>
 				 </tbody>

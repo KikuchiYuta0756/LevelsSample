@@ -18,16 +18,8 @@
 	<result column="correct_resttime" property="correctRestTime" />
 	<result column="worktime_sta_id" property="worktimeStaId" />
 	<result column="correct_reason" property="correctReason" />
-	
-	<association property="requestStates" resultMap="requestStates" />
 </resultMap>
 
-
-<!--マッピング定義（申請ステータステーブル）-->
-<resultMap type="com.example.domainUser.model.RequestStatesEntity" id="requestStates">
-	<id column="request_sta_id" property="requestStaId" />
-    <result column="request_sta_name" property="requestStaName"	/>
-</resultMap>
 
 	<!--修正申請1件登録-->
 <insert id="insertOne">
@@ -48,7 +40,7 @@
 	,#{correctRestTime}
 	,#{worktimeStaId}
 	,#{correctReason}
-	,1
+	,'承認待ち'
 	,NOW()
 	)
 </insert>
@@ -64,7 +56,7 @@
 	select 
 	login_id,
 	user_name,
-	correct_app_day,
+	correct_app_date,
 	request_sta_id,
 	correct_app_id,
 	correct_date,

@@ -13,41 +13,64 @@
 		　　　<div class="header border-bottom">
 			<h1 class="h2">修正申請詳細</h1>
 		</div>
-		<form id="user-detail-form" method="post" th:action="@{/admin/correctRequestList}" class="form-signup"
+		<form id="user-detail-form" method="post" th:action="@{/admin/correctRequestDetail}" class="form-signup"
 			th:object="${CorrectRequestForm}">
 			<input type="hidden" th:field="*{correctRequestId}" />			
 			<!--ユーザー詳細情報-->
 			<table class="table table-striped table-bordered table-hover">
 				<tbody>
 					<tr>
-						<th>有給申請ID</th>
+						<th>修正申請ID</th>
 						<td>
-							<div th:text="*{paidAppId}" />
+							<div th:text="*{correctRequestId}" />
 						</td>
 					</tr>
 					<tr>
 						<th>ログインID</th>
 						<td>
-							<div th:text="*{paidLoginId}" />
+							<div　th:if="*{correctLoginId != null}" th:text="*{correctLoginId}" />
 						</td>
 					</tr>
 					<tr>
 						<th>ユーザ名</th>
 						<td>
-							<div th:text="*{paidUserName}" />
+							<div　th:if="*{correctUserName != null}" th:text="*{correctUserName}" />
 						</td>
 					</tr>
 					<tr>
-						<th>変更日付</th>
+						<th>変更日</th>
 						<td>
-							<span th:text="*{#dates.format(paidRequestDateApp,'YYYY/MM/dd')}" />							
-							<!--<div th:text="*{paidRequestDateApp}" />-->
+							<div th:text="*{correctDate}" />
 						</td>
 					</tr>
 					<tr>
-						<th>有給申請理由</th>
+						<th>開始時間</th>
 						<td>
-							<div th:text="*{paidAppReason}" />
+							<div　th:if="*{correctStartTime != null}" th:text="*{correctStartTime}" />
+						</td>
+					</tr>
+					<tr>
+						<th>終了時間</th>
+						<td>
+							<div　th:if="*{correctCloseTime != null}" th:text="*{correctCloseTime}" />
+						</td>
+					</tr>
+					<tr>
+						<th>休憩時間</th>
+						<td>
+							<div　th:if="*{correctRestTime != null}" th:text="*{correctRestTime}" />
+						</td>
+					</tr>
+					<tr>
+						<th>勤怠区分</th>
+						<td>
+							<div　 th:text="*{worktimeStaId}" />
+						</td>
+					</tr>
+					<tr>
+						<th>修正申請理由</th>
+						<td>
+							<div　th:if="*{correctReason != null}" th:text="*{correctReason}" />
 						</td>
 					</tr>
 

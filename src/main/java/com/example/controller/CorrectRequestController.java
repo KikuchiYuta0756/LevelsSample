@@ -46,7 +46,7 @@ public class CorrectRequestController {
 				
 		log.info(form.toString());
 		
-		//formをUserMapperEntityクラスに変換
+		//formをCorrectRequestEntityクラスに変換
 		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
 		
 		//ユーザー登録

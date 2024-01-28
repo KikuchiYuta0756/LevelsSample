@@ -28,7 +28,7 @@ public class CorrectRequestDetailADMController {
 	private ModelMapper modelMapper;
 	
 	/**修正申請詳細画面を表示*/
-	@GetMapping("/correctRequestList/{correctRequestId}")
+	@GetMapping("/correctRequestDetail/{correctRequestId}")
 	public String getCorrectRequestADM(CorrectRequestForm form, Model model,
 			@PathVariable("correctRequestId")int correctRequestId) {
 
