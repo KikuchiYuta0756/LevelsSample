@@ -30,5 +30,15 @@ public interface WorkTimeMapperRepository {
 	
 	/**勤怠一覧（月次）の取得*/
 	public  List<WorkTimeEntity> findMany();
+	
+	/**前月の勤怠一覧（月次）の取得*/
+	public  List<WorkTimeEntity> findManyLastMonth();
 
+	/**来月の勤怠一覧（月次）の取得*/
+	public  List<WorkTimeEntity> findManyNextMonth();
+
+	/**勤怠一覧（月次）の取得*/
+	public  WorkTimeEntity sumWorkTime();
+	
+	
 }

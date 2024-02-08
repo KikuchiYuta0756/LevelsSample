@@ -52,5 +52,24 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 		return worktimemapper.findMany();
 	}
 	
+	//前月の勤怠一覧（月次）の取得
+	@Override
+	public List<WorkTimeEntity> getClockTimesLastMonth(){
+		return worktimemapper.findManyLastMonth();
+	}
 
+	//来月の勤怠一覧（月次）の取得
+	@Override
+	public List<WorkTimeEntity> getClockTimesNextMonth(){
+		return worktimemapper.findManyNextMonth();
+	}
+
+	//勤怠（月次）の各合計を取得
+	@Override
+	public WorkTimeEntity getClockTimesSum(){
+		return worktimemapper.sumWorkTime();
+	}
+
+	
+	
 }

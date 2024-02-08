@@ -27,5 +27,14 @@ public interface WorkTimeService {
 	//勤怠一覧（月次）の取得
 	public List<WorkTimeEntity> getClockTimes();
 	
+	//前月の勤怠一覧（月次）の取得
+	public List<WorkTimeEntity> getClockTimesLastMonth();
+
+	//来月の勤怠一覧（月次）の取得
+	public List<WorkTimeEntity> getClockTimesNextMonth();
+
+	//勤怠（月次）の各合計を取得
+	public WorkTimeEntity getClockTimesSum();
+
 	
 }

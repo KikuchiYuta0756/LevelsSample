@@ -1,24 +1,31 @@
 package com.example.form;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
-
+@Data
 public class WorkTimeForm {
-	@Data
-	public class UserCreateForm {
-		private LocalDateTime workDate;
+		private String workDatete;
+		private Integer dayofweekId;
 		private Integer userId;
 		@DateTimeFormat(pattern = "hh:mm")
-		private LocalDateTime startTime;
+		private String startTime;
 		@DateTimeFormat(pattern = "hh:mm")
-		private LocalDateTime closeTime;
-	    private Integer workTime;
-		private Integer restTime;
-		private Integer workFlg;
-		private Integer overTime;
-	}
+		private String closeTime;
+		
+		@DateTimeFormat(pattern = "hh:mm")
+	    private LocalTime genWorkTime;
+
+		@DateTimeFormat(pattern = "hh:mm")
+		private LocalTime restTime;
+		
+		@DateTimeFormat(pattern = "hh:mm")
+		private LocalTime actWorkTime;
+
+		@DateTimeFormat(pattern = "hh:mm")
+		private LocalTime overTime;
 	
 
 }

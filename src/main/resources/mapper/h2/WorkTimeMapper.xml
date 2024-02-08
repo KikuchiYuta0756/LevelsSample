@@ -8,28 +8,15 @@
 <!--マッピング定義（労働時間）-->
 <resultMap type="com.example.domainUser.model.WorkTimeEntity" id="worktime">
 	<result column="work_date" property="workDate" />
+	<result column="day_of_week_id" property="dayofweekId" />
 	<result column="user_id" property="userId" />
 	<result column="start_time" property="startTime" />
 	<result column="close_time" property="closeTime" />
-	<result column="gen_work_time" property="workTime" />
+	<result column="gen_work_time" property="genWorkTime" />
 	<result column="rest_time" property="restTime" />
 	<result column="act_work_time" property="actWorkTime" />	
 	<result column="over_time" property="overTime" />
-	
 </resultMap>
-
-<!--出勤時間の登録-->
-<!--<insert id="insertStartTime">
-    insert into m_worktime(
-    work_date,
-    start_time
-    )
-    VALUE(
-     #{workDate}
-    ,#{startTime}
-    )
-</insert>
--->
 
 <!--出勤時間の登録-->
 <update id="insertStartTime">
@@ -70,9 +57,35 @@ where
 
 <!--月次の勤怠を取得-->
 <select id="findMany" resultType="WorkTimeEntity">
-	select * from m_worktime
+	select * 
+	from m_worktime 
+	where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
 </select>
 
+<!--前月の月次の勤怠を取得-->
+<select id="findManyLastMonth" resultType="WorkTimeEntity">
+	select * 
+	from m_worktime 
+	where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m');
+</select>
+
+<!--来月の月次の勤怠を取得-->
+<select id="findManyNextMonth" resultType="WorkTimeEntity">
+	select * 
+	from m_worktime 
+	where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW() + INTERVAL 1 MONTH, '%Y-%m');
+</select>
+
+<!--月次勤怠の合計時間を取得-->
+<select id="sumWorkTime" resultType="WorkTimeEntity">
+	select 
+       sum( time_to_sec(act_work_time)) as total_sec,
+       sec_to_time(sum( time_to_sec(act_work_time))) as total_time 
+    from 
+       m_worktime  
+    where 
+       DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
+</select>
 
 
 
