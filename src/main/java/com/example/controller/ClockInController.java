@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 //import java.time.Month;
 //import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
+
 
 //import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +33,15 @@ public class ClockInController {
 	//@Autowired
 	//private ModelMapper modelMapper; 
 	
-	//勤怠打刻画面の表示
+	//勤怠打刻画面（ユーザ用表）示
 	@GetMapping("/clockIn")
 	public String getClockIn(){
 				
 		//勤怠打刻画面に遷移
 	return "user/clockIn";
 	}
-	
+
+
 	
 	//出勤時間の登録処理
 	@PostMapping(value = "/clockIn", params = "attendance")
