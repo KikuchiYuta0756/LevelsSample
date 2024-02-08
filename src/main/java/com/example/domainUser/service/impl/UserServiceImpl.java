@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.domainUser.model.DepartmentEntity;
+import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.RoleEntity;
 import com.example.domainUser.service.UserService;
@@ -82,4 +83,11 @@ public class UserServiceImpl implements UserService{
 	public List<RoleEntity> getAllRole(){
 	    return usermapper.findAll2();
 	}
+	
+////	/**申請履歴（有給）取得(１件)*/
+////	public PaidAppEntity getPaidApps(String loginId) {
+////		return usermapper.paidRequestFindOne(loginId);
+//		
+//	}
+
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.DepartmentEntity;
+import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.RoleEntity;
 
 
@@ -23,6 +24,11 @@ public interface UserMapperRepository {
 	/**ユーザー取得（1件）*/
 	public UserMapperEntity findOne(String loginId);
 
+	
+	/**ユーザー取得（1件）*/
+	public PaidAppEntity paidRequestFindOne(String loginId);
+
+	
 	/**ユーザー更新（1件）*/
 	public void updateOne(
 			@Param("loginId")String loginId,

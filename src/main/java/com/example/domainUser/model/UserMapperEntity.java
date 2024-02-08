@@ -1,12 +1,12 @@
 package com.example.domainUser.model;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
 public class UserMapperEntity {
-	//private Integer userId;
     private String loginId;
 	private String password;
 	private String userName;
@@ -19,4 +19,5 @@ public class UserMapperEntity {
     private Integer authority;
 	private DepartmentEntity department;
     private RoleEntity role;
+    private List<PaidAppEntity> paidAppList;
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.DepartmentEntity;
+import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.RoleEntity;
 
 public interface UserService {
@@ -40,5 +41,11 @@ public interface UserService {
 	
 	/**役職の取得*/
 	public List<RoleEntity> getAllRole();
+	
+	
+//	/**ユーザー取得*/
+//	public List<PaidAppEntity> getPaidApps(String loginId);
+
+	
 
 }
