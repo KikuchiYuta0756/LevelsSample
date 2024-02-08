@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layoutADM}">
+
+<head>
+	<meta charset="UTF-8">
+	</meta>
+	<title　th:text="#{AttendanceEngraving}"></title>
+	<!--個別CSS読込-->
+	<link rel="stylesheet" th:href="@{/css/user/clockIn.css}" />
+	<!--JSで現在日時の取得-->
+	<script>
+		setInterval('clock()', 500); //0.5秒毎にclock()を実行
+
+		function clock() {
+			document.getElementById("view_clock").innerHTML = getNow();
+		}
+
+		function getNow() {
+			var now = new Date();
+			var year = now.getFullYear();
+			var mon = now.getMonth() + 1;
+			var day = now.getDate();
+			var hour = now.getHours();
+			var min = now.getMinutes();
+			var sec = now.getSeconds();
+
+			//出力用
+			var s = year + "年" + mon + "月" + day + "日";
+			document.getElementById("RealtimeClock").innerHTML = s;
+			var d = hour + "時" + min + "分" + sec + "秒";
+			document.getElementById("RealtimeDay").innerHTML = d;
+		}
+		//出勤ボタンの非活性化
+		function btnAttendance() {
+	     document.getElementById("btnClick").disabled = true;
+        }
+　　　　　　//退勤ボタンの非活性化
+        //function btnLeaving() {
+	     //document.getElementById("btn-leaving").disabled = true;
+//}
+	</script>
+</head>
+
+<body>
+	<span layout:fragment="content">
+		<div class="header border-bottom">
+			<h1 th:text="#{AttendanceEngraving}" class="h2"></h1>
+		</div>
+	
+	<div class="form-clockIn">
+			<span id="RealtimeClock"></span>
+			</br>
+			<span id="RealtimeDay"></span>
+			</br>
+	<!--出勤、退勤ボタン-->
+	<form id="clockIn-form" method="post" th:action="@{/admin/clockInADM}">
+		<div class="text-cenbtnClickter">
+			<!--出勤ボタン-->
+			<button  id="btnClick" class="btn btn-danger" type="submit" name="attendance"　disabled>出勤</button>
+			<!--<input type="submit" value="出勤" />-->
+			<!--退勤ボタン-->
+			<button  id="btnClick" class="btn btn-primary" type="submit" name="leaving" >退勤</button>
+			<!--<input type="submit" value="退勤" />-->
+		</div>
+	</div>
+	</form>
+	</span>
+	
+</body>
+
+</html>
