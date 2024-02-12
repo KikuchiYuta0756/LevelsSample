@@ -17,6 +17,7 @@
 	<result column="validation" property="validation" />
 	<result column="hire_date" property="hire" />
 	<result column="authority_flg" property="authority" />
+	<result column="work_flg" property="workFlg" />
     <association property="department" resultMap="department" />
     <association property="role" resultMap="role" />
     <collection property="paidAppList" resultMap="paidApp" columnPrefix="paidApp_" />
@@ -46,17 +47,6 @@
 </resultMap>
 
 
-
-
-<!--マッピング定義（有給）-->
-<!--<resultMap type="com.example.domainUSer.model.PaidEntity" id="paid">
-	<id column="paid_id" property="paidId" />
-	<id column="user_id" property="userId" />
-	<result column="paid_days" property="paidDays" />
-    <association property="user" resultMap="user" />
-</resultMap>-->
-
-
 <!--ユーザー1件登録-->
 <insert id="insertOne">
 	 insert into m_user(
@@ -70,6 +60,7 @@
 	 ,validation
 	 ,hire_date
 	 ,authority_flg
+	 ,work_flg
 	 )
 	 value(
 	 #{loginId}
@@ -82,6 +73,7 @@
 	,#{validation}
 	,#{hire}
 	,#{authority}
+	,10
 	)
 </insert>
 
@@ -165,4 +157,32 @@
 	where 
 	login_id =#{loginId}
 </delete>
+
+<!--出退勤フラグの取得-->
+<select id="findWorkFlg" resultMap="user">
+    select 
+     work_flg 
+    from 
+     m_user 
+    where 
+     login_id = 12345
+</select>
+
+<!--出退勤フラグの更新（退勤ボタンを活性化）-->
+<update id="updateWorkFlgLeaving">
+	update m_user set 
+	work_flg =20 
+	where 
+	login_id = 12345
+</update>
+
+<!--出退勤フラグの更新（退勤ボタンを活性化）-->
+<update id="updateWorkFlgAttendance">
+	update m_user set 
+	work_flg =10 
+	where 
+	login_id = 12345
+</update>
+
+
  </mapper>
