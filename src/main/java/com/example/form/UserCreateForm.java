@@ -18,37 +18,35 @@ import lombok.Data;
 @Data
 public class UserCreateForm {
 	
-	@NotBlank
-	private String loginId;
+	@NotNull//(groups = ValidGroup1.class)
+	private Integer loginId;
 	
-	@NotBlank
+	@NotBlank//(groups = ValidGroup1.class)
 	@Length(min = 7, max = 100)
-	@Pattern(regexp ="^[a-zA-Z0-9]+$")
+//	@Length(min = 7, max = 100, groups = ValidGroup2.class)
+//	@Pattern(groups = ValidGroup2.class,regexp ="^[a-zA-Z0-9]+$")
 	private String password;
 	
-	@NotBlank
+	@NotBlank//(groups = ValidGroup1.class)
 	private String userName;
 	
-	@NotBlank
+	@NotBlank//(groups = ValidGroup1.class)
 	private String userNamekana;
 	
-	@NotBlank
-	@Email
+	@NotBlank//(groups = ValidGroup1.class)
 	private String mailAddress;
 	
-	@NotNull
     private Integer departmentId;
 	
-	@NotNull
 	private Integer roleId;
 	
-	@NotNull
+	@NotNull//(groups = ValidGroup1.class)
 	private Integer validation;
 	
-	@NotNull
+	@NotNull//(groups = ValidGroup1.class)
 	private Integer authority;
 	
+	@NotNull(groups = ValidGroup1.class)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	@NotNull
 	private Date hire;
 }

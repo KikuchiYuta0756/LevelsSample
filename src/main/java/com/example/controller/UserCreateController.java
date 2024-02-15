@@ -64,11 +64,14 @@ public class UserCreateController {
 		
 	/**ユーザー登録処理*/
 	@PostMapping("/create")
-	public String postUserCreate(Model model, @ModelAttribute @Validated UserCreateForm form, BindingResult bindingResult){
+	public String postUserCreate(Model model
+			,@ModelAttribute @Validated UserCreateForm form
+			,BindingResult bindingResult){
+		
+		System.out.println("hello");
 		
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
-			System.out.print("Hello");
 		  //NG：ユーザー登録画面に戻る
 			return getUserCreate(model,form);
 		}
@@ -83,6 +86,6 @@ public class UserCreateController {
 		userService.userCreate(user);
 		
 		//利用者一覧画面にリダイレクト
-		return "redirect:/login";
+		return "admin/list";
 	}
 }
