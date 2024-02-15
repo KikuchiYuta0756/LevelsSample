@@ -33,9 +33,16 @@ public class PaidAppServiceImpl implements PaidAppService {
 	
 	/**申請ステータス更新*/
 	@Override
-	public void updateRequestStaOne(int paidAppId){
-		paidapprepository.updateRequestSta(paidAppId);
+	public void updateRequestStaApproval(int paidAppId){
+		paidapprepository.updateStaApproval(paidAppId);
 	}
+
+	/**申請ステータス更新*/
+	@Override
+	public void updateRequestStaRemand(int paidAppId){
+		paidapprepository.updateStaRemand(paidAppId);
+	}
+
 
 
 }

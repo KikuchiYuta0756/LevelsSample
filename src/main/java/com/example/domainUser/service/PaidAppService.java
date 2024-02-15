@@ -18,7 +18,10 @@ public interface PaidAppService {
 	public PaidAppEntity getPaidAppOne(int paidAppId);
 	
 	/**申請ステータス更新*/
-	public void updateRequestStaOne(int paidAppId);
+	public void updateRequestStaApproval(int paidAppId);
+
+	/**申請ステータス更新*/
+	public void updateRequestStaRemand(int paidAppId);
 
 
 }

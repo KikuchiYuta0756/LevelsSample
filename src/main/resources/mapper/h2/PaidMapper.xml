@@ -52,10 +52,17 @@
 </select>
 
 <!--申請ステータスの更新（承認済み）-->
-<update id="updateRequestSta">
-	update m_paid_app 
-	set 
-	request_sta_id = '承認済み' 　
+<update id="updateStaApproval">
+	update m_paid_app set 
+	request_sta_id = '承認済み' 
+	where 
+	paid_app_id = #{paidAppId}
+</update>
+
+<!--申請ステータスの更新（差し戻し）-->
+<update id="updateStaRemand">
+	update m_paid_app set 
+	request_sta_id = '差し戻し' 
 	where 
 	paid_app_id = #{paidAppId}
 </update>
