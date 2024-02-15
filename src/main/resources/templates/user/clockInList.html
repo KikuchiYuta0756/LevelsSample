@@ -10,33 +10,53 @@
 <body>
 　　　<div layout:fragment="content">
 	<div class="header border-bottom">
-		<a class="top-link" th:href="@{'/user/clockList'}">＜前月 </a>
+		<a class="top-link" th:href="@{'/user/clockInListLastMonth'}">＜前月 </a>
 		<span class="h2">月次勤怠一覧</span>
-		<a class="top-link" th:href="@{'/user/clockList'}">　翌月＞</a>
+		<a class="top-link" th:href="@{'/user/clockInListNextMonth'}">　翌月＞</a>
 	</div>
+	<!--<form th:object="${workTimeForm}">-->
+	<div>	
     <table class="table2 table-bordered">
     <thead>
     <tr>
 		<th>対象月</th>
 		<th>出勤日数</th>
-		<th>総勤務時間</th>
+		<th>総勤務時間</th>	
 		<th>総残業時間</th>
 		<th>有給日数</th>
 	</tr>
 	</thead>
 	<tbody>
 	<tr>
-		<td>2023/12</td>
-		<td>21</td>
-		<td>21</td>
-		<td>21</td>
-		<td>21</td>
+		<td>
+			<span th:text="${strdate}"/>
+			<!--<span th:text="${#temporals.format(ldtnow,'YYYY-mm')}" />-->
+		</td>
+		<!--<td>
+			<span th:text="${currentMonth}">
+			<span th:text="*{#dates.format(workDate,'YYYY/MM/')}" />
+		</td>-->
+		<td>
+			<span th:text="${actWorkTime}"/>
+			<!--<span th:text="*{start_time}" />-->
+		</td>
+		<td>
+			<!--<span th:text="*{act_work_time}" />-->
+		</td>
+		<td>
+			<!--<span th:text="*{over_time}" />-->
+		</td>
+		<td>
+			1日
+		</td>
 	</tr>
 	</tbody>
 	</table>
+	<!--</form>-->
+	</div>
 	<div>
 	  <a class="nav-link" th:href="@{'/user/paidRequest'}">有給申請</a>
-	  <a class="nav-link" th:href="@{'/user/clockCorrection'}">修正申請</a>
+	  <a class="nav-link" th:href="@{'/user/correctRequest'}">修正申請</a>
 	</div>
 	<div class="button-text">
     <button class="btn btn-success" type="submit">CSV出力</button>
@@ -64,15 +84,12 @@
 				 <input type="checkbox" name="checkbox-name"/>
 				</td>
 				<td th:text="${items.workDate}"></td>
-				<td th:text="${items.dayofweek}"></td>
+				<td th:text="${items.dayofweekId}"></td>
 				<td th:text="${items.startTime}"></td>
 				<td th:text="${items.closeTime}"></td>
-				<!--<td th:text="${#dates.format(item.restTime,'YYYY/MM/dd')}"></td>
-				<td th:text="${#dates.format(item.actWorkTime,'YYYY/MM/dd')}"></td>
-				<td th:text="${#dates.format(item.overTime,'YYYY/MM/dd')}"></td>-->
-				<td th:text="${items.restTime}"></td>
-				<td th:text="${items.actWorkTime}"></td>
-				<td th:text="${items.overTime}"></td>
+				<td th:text="${#temporals.format(items.restTime,'HH:mm')}"></td>
+				<td th:text="${#temporals.format(items.actWorkTime,'HH:mm')}"></td>
+				<td th:text="${#temporals.format(items.overTime,'HH:mm')}"></td>
 				<td></td>
 				<td></td>
 			</tr>
