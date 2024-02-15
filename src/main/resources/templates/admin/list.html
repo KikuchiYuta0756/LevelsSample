@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
- layout:decorate="~{layout/layout}">
+ layout:decorate="~{layout/layoutADM}">
  <head>
 	 <title　th:text="#{userList}"></title>
 	 <!--個別CSS読込-->
@@ -11,6 +11,21 @@
 	 <div layout:fragment="content">
 		 <div class="header border-bottom">
 			 <h1 class="h2" th:text="#{userList}"></h1>
+		 </div>
+		 <!--検索-->
+		 <div class="mb-4">
+			 <form id="user-search-form" method="post" th:action="@{/admin/list}"
+			 class="form-inline" th:object="${userListForm}">
+			 <div class="form-group">
+				 <label for="loginId" class="mr-2">ログインID</label>
+			　　　　<input type="text" class="form-control" th:field="*{loginId}"/>				 
+			 </div>
+		     <div class="form-group mx-sm-3">
+			     <label for="userName" class="mr-2">ユーザー名</labe>
+			     <input type="text" class="form-control" th:field="*{userName}"/>
+		     </div>
+		         <button class="btn btn-primary" type="submit">検索</button>
+			 </form>
 		 </div>
 		 <!--一覧表示-->
 		 <div>
@@ -23,6 +38,7 @@
 					 <th class="th-width">メールアドレス</th>
 					 <th class="th-width">有効性</th>
 					 <th></th>
+					 <th></th>
 				 </tr>
 				 </thead>
 				 <tbody>
@@ -32,9 +48,11 @@
 					 <td th:text="${item.userNamekana}"></td>
 					 <td th:text="${item.mailAddress}"></td>
 					 <td th:text="${item.validation == 1}?'有効':'無効'"></td>
-					 <!--<td th:text="${#dates.format(item.hire,'yyyy/MM/dd')}"></td>-->
 					 <td>
-						 <a class="btn btn-primary" th:href="@{'/admin/userDetail/'+${item.loginId}}">詳細</a>
+						 <a class="btn btn-primary" th:href="@{'/admin/userDetail/'+${item.loginId}}">詳細</a>						 
+					 </td>
+					 <td>
+					 <a class="btn btn-primary" th:href="@{'/admin/userDetail/'+${item.loginId}}">勤怠確認</a>
 					 </td>
 					 </tr>
 				 </tbody>
