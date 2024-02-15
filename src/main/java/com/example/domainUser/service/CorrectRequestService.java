@@ -15,5 +15,11 @@ public interface CorrectRequestService {
 	
 	//修正申請取得（1件）
 	public CorrectRequestEntity getCorrectRequestOne(int correctRequestId);
+	
+	/**申請ステータス更新(承認済み)*/
+	public void updateRequestStaApproval(int correctRequestId);
+
+	/**申請ステータス更新(差し戻し)*/
+	public void updateRequestStaRemand(int correctRequestId);
 
 }

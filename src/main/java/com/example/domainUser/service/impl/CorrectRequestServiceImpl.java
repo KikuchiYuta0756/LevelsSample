@@ -31,6 +31,19 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 	public CorrectRequestEntity getCorrectRequestOne(int correctRequestId) {
 		return correctrequestrepository.findOne(correctRequestId);
 	}
+	
+	/**申請ステータス更新(承認済み)*/
+	@Override
+	public void updateRequestStaApproval(int correctRequestId){
+		correctrequestrepository.updateStaApproval(correctRequestId);
+	}
+
+	/**申請ステータス更新(差し戻し)*/
+	@Override
+	public void updateRequestStaRemand(int correctRequestId){
+		correctrequestrepository.updateStaRemand(correctRequestId);
+	}
+
 
 
 }

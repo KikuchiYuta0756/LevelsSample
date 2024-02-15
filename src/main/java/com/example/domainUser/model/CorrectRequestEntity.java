@@ -12,7 +12,7 @@ public class CorrectRequestEntity {
 	private Date correctRequestDate;
 	private String requestStaId;
 	private Integer correctRequestId;
-	private String correctDate;
+	private Date correctDate;
 	private String correctStartTime;
 	private String correctCloseTime;
 	private String correctRestTime;

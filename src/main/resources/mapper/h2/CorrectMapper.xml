@@ -65,9 +65,25 @@
 	correct_resttime,
 	worktime_sta_id,
 	correct_reason   
-	from m_paid_app  
-	where paid_app_id = #{paidAppId}
+	from m_correction_app   
+	where correct_app_id = #{correctRequestId}
 </select>
+
+<!--申請ステータスの更新（承認済み）-->
+<update id="updateStaApproval">
+	update m_correction_app set 
+	request_sta_id = '承認済み' 
+	where 
+	correct_app_id = #{correctRequestId}
+</update>
+
+<!--申請ステータスの更新（差し戻し）-->
+<update id="updateStaRemand">
+	update m_correction_app set 
+	request_sta_id = '差し戻し' 
+	where 
+	correct_app_id = #{correctRequestId}
+</update>
 
 	
 </mapper>
