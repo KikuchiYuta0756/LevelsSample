@@ -32,14 +32,6 @@
 			var d = hour + "時" + min + "分" + sec + "秒";
 			document.getElementById("RealtimeDay").innerHTML = d;
 		}
-		//出勤ボタンの非活性化
-		function btnAttendance() {
-	     document.getElementById("btnClick").disabled = true;
-        }
-　　　　　　//退勤ボタンの非活性化
-        //function btnLeaving() {
-	     //document.getElementById("btn-leaving").disabled = true;
-//}
 	</script>
 </head>
 
@@ -55,17 +47,40 @@
 			<span id="RealtimeDay"></span>
 			</br>
 	<!--出勤、退勤ボタン-->
-	<form id="clockIn-form" method="post" th:action="@{/admin/clockInADM}">
+	<form id="clockIn-form" method="post" th:action="@{/admin/clockInADM}" th:object="${userWorkFlg}">
+		<input type="hidden" th:field="*{workFlg}" />		
 		<div class="text-cenbtnClickter">
 			<!--出勤ボタン-->
 			<button  id="btnClick" class="btn btn-danger" type="submit" name="attendance"　disabled>出勤</button>
-			<!--<input type="submit" value="出勤" />-->
 			<!--退勤ボタン-->
 			<button  id="btnClick" class="btn btn-primary" type="submit" name="leaving" >退勤</button>
-			<!--<input type="submit" value="退勤" />-->
 		</div>
 	</div>
 	</form>
+	<script>
+    // HTMLから値を取得
+    var workFlgAttendanceValue = document.getElementById("workFlg").value;
+
+    // 出勤ボタン　値が10ならボタンを活性化、値が20なら非活性化
+    if (workFlgAttendanceValue === "10") {
+        document.getElementById("attendanceButton").disabled = false;
+    } else if (workFlgAttendanceValue === "20") {
+        document.getElementById("attendanceButton").disabled = true;
+    }
+    
+    // HTMLから値を取得
+    var workFlgLeavingValue = document.getElementById("workFlg").value;
+
+   // 退勤ボタン　値が20ならボタンを活性化、値が10なら非活性化
+    if (workFlgLeavingValue === "20") {
+        document.getElementById("leavingButton").disabled = false;
+    } else if (workFlgLeavingValue === "10") {
+        document.getElementById("leavingButton").disabled = true;
+    }
+
+		
+		
+	</script>
 	</span>
 	
 </body>
