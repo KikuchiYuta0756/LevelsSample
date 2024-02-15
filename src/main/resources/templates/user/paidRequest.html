@@ -20,8 +20,9 @@
 		 <h1 class="2" th:text="#{paidRequest}"></h1>
 			<!--申請日付-->
 			<div class="form-group">
-				<label for="loginId">利用日付</label>
-				<input type ="text" class ="form-control" th:field="*{paidRequestDateApp}" placeholder ="yyyy/MM/dd" />
+				<label for="loginId"　th:text="#{paidRequestDateApp}"></label>
+				<input type ="text" class ="form-control" placeholder ="yyyy/MM/dd" th:field="*{paidRequestDateApp}" th:errorclass="is-invalid" />
+				<div class="invalid-feedback" th:errors="*{paidRequestDateApp}"></div>
 			</div>
 			<!--有給残数-->
 			<div class ="form-group">
@@ -30,8 +31,9 @@
 			</div>
 			<!--申請理由-->
 			<div class="form-group">
-				<label for ="password">申請理由</label>
-				<textarea row="10" cols="60" th:field="*{paidAppReason}"></textarea>
+				<label for ="password" th:text="#{paidAppReason}"></label>
+				<textarea row="10" cols="60" th:field="*{paidAppReason}" th:errorclass="is-invalid"></textarea>
+				<div class="invalid-feedback" th:errors="*{paidAppReason}"></div>
 			</div>
 
 			<!--申請ボタン-->

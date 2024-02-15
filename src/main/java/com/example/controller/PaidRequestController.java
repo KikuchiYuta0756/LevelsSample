@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.service.PaidAppService;
+import com.example.form.GroupOrder;
 import com.example.form.PaidRequestForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +40,15 @@ public class PaidRequestController {
 	
 	//有給申請処理
 	@PostMapping("/paidRequest")
-	public String postPaidRequest(Model model, @ModelAttribute PaidRequestForm form){
+	public String postPaidRequest(Model model
+			,@ModelAttribute @Validated(GroupOrder.class) PaidRequestForm form
+			,BindingResult bindingResult){
+		
+		//入力チェック結果
+		if(bindingResult.hasErrors()) {
+			//NG　有給申請画面戻る
+			return getPaidRequest(model,form);
+		}
 		
 		log.info(form.toString());
 		
