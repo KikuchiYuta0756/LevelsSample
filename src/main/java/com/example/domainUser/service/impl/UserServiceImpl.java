@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService{
 	
 	/**ユーザー取得*/
 	@Override
-	public List<UserMapperEntity> getUsers(){
-		return usermapper.findMany();
+	public List<UserMapperEntity> getUsers(UserMapperEntity user){
+		return usermapper.findMany(user);
 	}
 	/**ユーザー取得(１件)*/
 	@Override
@@ -84,10 +84,24 @@ public class UserServiceImpl implements UserService{
 	    return usermapper.findAll2();
 	}
 	
-////	/**申請履歴（有給）取得(１件)*/
-////	public PaidAppEntity getPaidApps(String loginId) {
-////		return usermapper.paidRequestFindOne(loginId);
-//		
-//	}
+	/**打刻画面用　出退勤フラグの取得*/
+	@Override
+	public UserMapperEntity getWorkFlg() {
+		return usermapper.findWorkFlg();
+	}
+	
+	/**打刻画面用　出退勤フラグの更新（退勤ボタンを活性化）*/
+	@Override
+	public void getWorkFlgLeaving() {
+	    usermapper.updateWorkFlgLeaving();
+	}
+	
+	/**打刻画面用　出退勤フラグの更新（退勤ボタンを活性化）*/
+	@Override
+	public void getWorkFlgAttendance() {
+		usermapper.updateWorkFlgAttendance();
+	}
+
+
 
 }

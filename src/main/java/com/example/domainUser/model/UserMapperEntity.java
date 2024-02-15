@@ -17,6 +17,7 @@ public class UserMapperEntity {
 	private Integer validation;
     private Date hire;
     private Integer authority;
+    private Integer workFlg;
 	private DepartmentEntity department;
     private RoleEntity role;
     private List<PaidAppEntity> paidAppList;

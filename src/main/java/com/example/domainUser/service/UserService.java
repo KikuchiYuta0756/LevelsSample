@@ -13,8 +13,8 @@ public interface UserService {
 	/**ユーザー登録*/
 	public void userCreate(UserMapperEntity user);
 
-	/**ユーザー取得*/
-	public List<UserMapperEntity> getUsers();
+	/**ユーザー取得 */
+	public List<UserMapperEntity> getUsers(UserMapperEntity user);
 	
 	/**ユーザー取得(１件)*/
 	public UserMapperEntity getUserOne(String loginId);
@@ -43,8 +43,14 @@ public interface UserService {
 	public List<RoleEntity> getAllRole();
 	
 	
-//	/**ユーザー取得*/
-//	public List<PaidAppEntity> getPaidApps(String loginId);
+	/**打刻画面用　出退勤フラグの取得*/
+	public UserMapperEntity getWorkFlg();
+	
+	/**打刻画面用　出退勤フラグの更新（退勤ボタンを活性化）*/
+	public void getWorkFlgLeaving();
+	
+	/**打刻画面用　出退勤フラグの更新（出勤ボタンを活性化）*/
+	public void getWorkFlgAttendance();
 
 	
 

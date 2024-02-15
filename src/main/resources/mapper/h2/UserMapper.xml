@@ -82,6 +82,14 @@
 <!--ユーザー複数件取得-->
 <select id="findMany" resultType="UserMapperEntity">
 	select * from m_user
+	<where>
+		<if test="loginId != null">
+			login_id like '%' || #{loginId} || '%'
+		</if>
+		<if test="userName != null">
+			and user_name like '%' || #{userName} || '%'
+		</if>
+	</where>
 </select>
 
 <!--部署複数件取得-->
@@ -183,6 +191,14 @@
 	where 
 	login_id = 12345
 </update>
+
+<!--月毎の総稼働時間をトータルテーブルに格納-->
+<insert id="insertTotal">
+INSERT INTO monthly_totals (month, total_hours)
+SELECT DATE_FORMAT(work_date, '%Y-%m'), SUM(hours_worked)
+FROM work_hours
+GROUP BY DATE_FORMAT(work_date, '%Y-%m')
+</insert>
 
 
  </mapper>

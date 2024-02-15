@@ -19,7 +19,7 @@ public interface UserMapperRepository {
 	public int insertOne(UserMapperEntity user);
 	
 	/**ユーザー取得*/
-	public List<UserMapperEntity>findMany();
+	public List<UserMapperEntity>findMany(UserMapperEntity user);
 	
 	/**ユーザー取得（1件）*/
 	public UserMapperEntity findOne(String loginId);
@@ -51,5 +51,15 @@ public interface UserMapperRepository {
 	/**役職の取得*/
 	public List<RoleEntity>findAll2();
 
+	/**出退勤フラグの取得*/
+	public UserMapperEntity findWorkFlg();
+	
+	/**退勤フラグの活性化（1件）*/
+	public void updateWorkFlgLeaving();
+	
+	
+	/**退勤フラグの活性化（1件）*/
+	public void updateWorkFlgAttendance();
+	
 	
 }
