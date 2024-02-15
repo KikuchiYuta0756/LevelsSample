@@ -135,9 +135,6 @@ public class ClockInController {
 		
 		//出退勤フラグ（出勤）を更新する
 		userService.getWorkFlgAttendance();
-
-		
-		
 		
 		return "redirect:/user/clockIn";
 	}
