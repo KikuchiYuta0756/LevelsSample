@@ -20,37 +20,43 @@
 		 <h1 class="2" th:text="#{clockCorrection}"></h1>
 			<!--申請日付-->
 			<div class="form-group">
-				<label for="loginId">変更日</label>
-				<input type ="date" class ="form-control" placeholder ="yyyy/MM/dd"　th:field="*{correctDate}" />
+				<label for="correctDate"　th:text="#{correctDate}"></label>
+				<input type ="text" class ="form-control" placeholder ="yyyy/MM/dd"　th:field="*{correctDate}"　th:errorclass="is-invalid" />
+                <div class="invalid-feedback" th:errors="*{correctDate}"></div>
 			</div>
 			
 			<!--出勤時間-->
 			<div class="form-group">
-				<label for="loginId">出勤時間</label>
-				<input type ="time" class ="form-control" placeholder ="HH:MM:ss"　th:field="*{correctStartTime}"/>
+				<label for="correctStartTime" th:text="#{correctStartTime}"></label>
+				<input type ="text" class ="form-control" placeholder ="HH:MM"　th:field="*{correctStartTime}" th:errorclass="is-invalid"/>
+			    <div class="invalid-feedback" th:errors="*{correctStartTime}"></div>
 			</div>
 
 			<!--退勤時間-->
 			<div class="form-group">
-				<label for="loginId">退勤時間</label>
-				<input type ="time" class ="form-control" placeholder ="HH:MM:ss"　th:field="*{correctCloseTime}"/>
+				<label for="correctCloseTime" th:text="#{correctCloseTime}"></label>
+				<input type ="text" class ="form-control" placeholder ="HH:MM"　th:field="*{correctCloseTime}" th:errorclass="is-invalid"/>
+			    <div class="invalid-feedback" th:errors="*{correctCloseTime}"></div>
 			</div>
 
 			<!--休憩時間-->
 			<div class="form-group">
-				<label for="loginId">休憩時間</label>
-				<input type ="time" class ="form-control" placeholder ="HH:MM:ss"　th:field="*{correctRestTime}"/>
+				<label for="correctRestTime" th:text="#{correctRestTime}"></label>
+				<input type ="text" class ="form-control" placeholder ="HH:MM"　th:field="*{correctRestTime}" th:errorclass="is-invalid"/>
+			    <div class="invalid-feedback" th:errors="*{correctRestTime}"></div>
 			</div>
 			
 			<!--ステータス-->
 			<div class ="form-group">
-				<label for ="userId">ステータス</label>
-　　　　　　　　　　　　　<input type ="text" class ="form-control"　th:field="*{worktimeStaId}"/>
+				<label for ="worktimeStaId" th:text="#{worktimeStaId}"></label>
+　　　　　　　　　　　　　<input type ="text" class ="form-control"　th:field="*{worktimeStaId}" th:errorclass="is-invalid"/>
+                <div class="invalid-feedback" th:errors="*{worktimeStaId}"></div>
 			</div>
 			<!--申請理由-->
 			<div class="form-group">
-				<label for ="password">申請理由</label>
-				<textarea row="10" cols="60" th:field="*{correctReason}"></textarea>
+				<label for ="correctReason" th:text="#{correctReason}"></label>
+				<textarea row="10" cols="60" th:field="*{correctReason}" th:errorclass="is-invalid"></textarea>
+				<div class="invalid-feedback" th:errors="*{correctReason}"></div>
 			</div>
 
 			<!--申請ボタン-->

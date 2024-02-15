@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domainUser.model.CorrectRequestEntity;
 import com.example.domainUser.service.CorrectRequestService;
 import com.example.form.CorrectRequestForm;
+import com.example.form.GroupOrder;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,10 +40,15 @@ public class CorrectRequestController {
 	
 	/**修正申請の登録処理*/
 	@PostMapping("/correctRequest")
-	public String postClockCorrection(Model model,
-			@ModelAttribute CorrectRequestForm form){
+	public String postClockCorrection(Model model
+			,@ModelAttribute @Validated(GroupOrder.class) CorrectRequestForm form
+			,BindingResult bindingResult){
 		
-		System.out.print("Hello");
+		//入力チェック結果
+		if(bindingResult.hasErrors()) {
+			//NG 修正申請画面に戻る
+			return getClockCorrection(model,form);
+		}
 				
 		log.info(form.toString());
 		
