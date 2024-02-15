@@ -25,6 +25,8 @@ public class UserDetailForm {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date hire;
 	
+	private Integer workFlg;
+	
 	private DepartmentEntity department;
     private RoleEntity role;
 }
