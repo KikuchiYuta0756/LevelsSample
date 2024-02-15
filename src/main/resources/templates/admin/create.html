@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layoutADM}">
 
 <head>
 	<meta charset="UTF-8">
@@ -27,8 +27,13 @@
 			<!--パスワード-->
 			<div class="form-group">
 				<label for="password" th:text="#{password}"></label>
-				<input type="text" class="form-control" th:field="*{password}" th:errorclass="is-invalid"/>
+				<input type="text" id="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid"/>
 				<div class="invalid-feedback" th:errors="*{password}"></div>
+			</div>
+			<!--パスワード確認用-->
+			<div class="form-group">
+				<label for="confirm_password" th:text="#{confirmPassword}"></label>
+				<input type="text" id="confirm_password" name="confirm_password" class="form-control" required/>
 			</div>
 			<!--ユーザー名-->
 			<div class="form-group">
@@ -52,7 +57,7 @@
 			<div class="form-group">
 				<label for="departmentId" th:text="#{departmentId}"></label>
 				</br>
-				<select>
+				<select class="form-control">
 				<option value="0">部署を選択してください</option>
 				<option 
 				 th:each="item:${departmentList}" 
@@ -65,7 +70,7 @@
 			<div class="form-group">
 				<label for="roleId" th:text="#{role}"></label>
 				</br>
-				<select>
+				<select class="form-control">
 				<option value="0">役職を選択してください</option>
 				<option 
 				 th:each="item:${roleList}" 
@@ -102,6 +107,21 @@
 			<!--登録ボタン-->
 			<input type="submit" th:value="#{user.create.btn}" class="btn btn-primary w-100 mt-3" />
 		</form>
+		<script>
+    var password = document.getElementById("password")
+    var confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("パスワードが一致しません");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+		</script>
 	</span>
 </body>
 
