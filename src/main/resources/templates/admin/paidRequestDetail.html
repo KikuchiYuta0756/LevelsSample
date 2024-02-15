@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layoutADM}">
 
 <head>
 	<title>有給申請詳細</title>
@@ -41,7 +41,6 @@
 						<th>利用日付</th>
 						<td>
 							<span th:text="*{#dates.format(paidRequestDateApp,'YYYY/MM/dd')}" />							
-							<!--<div th:text="*{paidRequestDateApp}" />-->
 						</td>
 					</tr>
 					<tr>

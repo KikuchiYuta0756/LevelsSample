@@ -42,31 +42,28 @@ public String getPaidAppADM(PaidRequestForm form, Model model,
 		model.addAttribute("PaidRequestForm",form);
 			
 		//ユーザー詳細画面を表示
-		return"admin/paidRequestList";		
+		return"admin/paidRequestDetail";		
 	}
 
 /**有給申請の承認処理*/
 @PostMapping(value = "/paidRequestDetail", params = "approval")
-public String updateUser(PaidRequestForm form, Model model){
+public String updatePaidRequestApproval(PaidRequestForm form, Model model){
 	
 	//申請ステータスを更新
-	paidappservice.updateRequestStaOne(
-			form.getPaidAppId()
-			);
+	paidappservice.updateRequestStaApproval(form.getPaidAppId());
 	
 	//ユーザー一覧画面にリダイレクト
 	return"redirect:/admin/paidRequestList";
 }
 
-/**ユーザー削除処理*/
-/**@PostMapping(value = "/userDetail", params = "delete")
-public String deleteUser(UserDetailForm form, Model model){
+/**有給申請の差し戻し処理*/
+@PostMapping(value = "/paidRequestDetail", params = "remand")
+public String updatePaidRequestRemand(PaidRequestForm form, Model model){
 	
-	//ユーザーを削除
-	userService.deleteUserOne(form.getLoginId());
+	//申請ステータスを更新
+	paidappservice.updateRequestStaRemand(form.getPaidAppId());
 	
 	//ユーザー一覧画面にリダイレクト
-	return "admin/paidRequestList";
-}*/
-	
+	return"redirect:/admin/paidRequestList";
+}
 }
