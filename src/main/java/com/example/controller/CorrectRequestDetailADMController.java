@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domainUser.model.CorrectRequestEntity;
 import com.example.domainUser.service.CorrectRequestService;
 import com.example.form.CorrectRequestForm;
+import com.example.form.PaidRequestForm;
 
 
 @Controller
@@ -35,16 +36,38 @@ public class CorrectRequestDetailADMController {
 		//修正申請を1件取得
 		CorrectRequestEntity correctDetailADM = correctRequestservice.getCorrectRequestOne(correctRequestId);
 		
+		System.out.println(correctDetailADM);
+		
 		//UserMapperEntityをformに変換
 		form = modelMapper.map(correctDetailADM, CorrectRequestForm.class);
 		
 		//Modelに登録
-		model.addAttribute("CorrectRequestForm",form);
+		model.addAttribute("correctRequestForm",form);
 			
 		//ユーザー詳細画面を表示
 		return"admin/correctRequestDetail";		
+	}
+	
+	/**修正申請の承認処理*/
+	@PostMapping(value = "/correctRequestDetail", params = "approval")
+	public String updateCorrectRequestApproval(CorrectRequestForm form, Model model){
 		
+		//申請ステータスを更新
+		correctRequestservice.updateRequestStaApproval(form.getCorrectRequestId());
 		
+		//ユーザー一覧画面にリダイレクト
+		return"redirect:/admin/correctRequestList";
 	}
 
+	/**修正申請の差し戻し処理*/
+	@PostMapping(value = "/correctRequestDetail", params = "remand")
+	public String updateCorrectRequestRemand(CorrectRequestForm form, Model model){
+		
+		//申請ステータスを更新
+		correctRequestservice.updateRequestStaRemand(form.getCorrectRequestId());
+		
+		//ユーザー一覧画面にリダイレクト
+		return"redirect:/admin/correctRequestList";
+	}
+	
 }
