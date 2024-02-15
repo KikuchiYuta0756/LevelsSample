@@ -18,12 +18,7 @@ public interface WorkTimeMapperRepository {
 	
 	/**退勤時刻の登録*/
 	public int insertCloseTime(WorkTimeEntity worktime);
-	
-	/**労働時間の登録*/
-	public int insertGenWorkTime(WorkTimeEntity worktime);
-	
-	/**実働時間の登録*/
-	public int insertActWorkTime(WorkTimeEntity worktime);
+
 
 	/**残業時間の登録*/
 	public int insertOverTime(WorkTimeEntity worktime);

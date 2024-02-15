@@ -78,7 +78,7 @@ where
 
 <!--月次勤怠の合計時間を取得-->
 <select id="sumWorkTime" resultType="WorkTimeEntity">
-	select 
+	select *
        sum( time_to_sec(act_work_time)) as total_sec,
        sec_to_time(sum( time_to_sec(act_work_time))) as total_time 
     from 
@@ -89,5 +89,15 @@ where
 
 
 
+<!--月次勤怠の合計時間を取得-->
+<!--<select id="sumWorkTime" resultType="WorkTimeEntity">
+	select 
+       sum( time_to_sec(act_work_time)) as total_sec,
+       sec_to_time(sum( time_to_sec(act_work_time))) as total_time 
+    from 
+       m_worktime  
+    where 
+       DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
+</select>-->
 
 </mapper>

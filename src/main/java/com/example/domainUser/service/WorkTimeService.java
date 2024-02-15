@@ -15,12 +15,6 @@ public interface WorkTimeService {
 	//退勤時間の登録
 	public void closeTimeSignup(WorkTimeEntity worktime);
 
-	//労働時間の登録
-	public void genWorkTimeSignup(WorkTimeEntity worktime);
-
-	//実働時間の登録
-	public void actWorkTimeSignup(WorkTimeEntity worktime);
-
 	//残業時間の登録
 	public void overTimeSignup(WorkTimeEntity worktime);
 	

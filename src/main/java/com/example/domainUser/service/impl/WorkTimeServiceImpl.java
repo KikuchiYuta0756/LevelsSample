@@ -28,18 +28,6 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 		worktimemapper.insertCloseTime(worktime);
 	}
 
-	//労働時間の登録
-	@Override
-	public void genWorkTimeSignup(WorkTimeEntity worktime) {
-		worktimemapper.insertGenWorkTime(worktime);
-	}
-
-	//実働時間の登録
-	@Override
-	public void actWorkTimeSignup(WorkTimeEntity worktime) {
-		worktimemapper.insertActWorkTime(worktime);
-	}
-
 	//残業時間の登録
 	@Override
 	public void overTimeSignup(WorkTimeEntity worktime) {
