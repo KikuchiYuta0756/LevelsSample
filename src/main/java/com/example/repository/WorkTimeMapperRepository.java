@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domainUser.model.WorkTimeEntity;
+import com.example.domainUser.model.WorkTimeTotalEntity;
 
 
 
@@ -33,7 +34,7 @@ public interface WorkTimeMapperRepository {
 	public  List<WorkTimeEntity> findManyNextMonth();
 
 	/**勤怠一覧（月次）の取得*/
-	public  WorkTimeEntity sumWorkTime();
+	public  WorkTimeTotalEntity totalWorkTime();
 	
 	
 }

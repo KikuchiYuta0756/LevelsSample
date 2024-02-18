@@ -7,7 +7,7 @@
 	
 <!--マッピング定義（労働時間）-->
 <resultMap type="com.example.domainUser.model.WorkTimeEntity" id="worktime">
-	<result column="work_date" property="workDate" />
+	<id column="work_date" property="workDate" />
 	<result column="day_of_week_id" property="dayofweekId" />
 	<result column="user_id" property="userId" />
 	<result column="start_time" property="startTime" />
@@ -17,6 +17,16 @@
 	<result column="act_work_time" property="actWorkTime" />	
 	<result column="over_time" property="overTime" />
 </resultMap>
+
+<!--マッピング定義（労働時間）-->
+<resultMap type="com.example.domainUser.model.WorkTimeTotalEntity" id="worktimetotal">
+	<id column="work_date_month" property="workDateMonth" />
+	<result column="login_id" property="loginId" />
+	<result column="work_date_total" property="workDateTotal" />
+	<result column="act_work_time_total" property="actWorkTimeTotal" />
+	<result column="over_time_total" property="overTimeTotal" />
+</resultMap>
+
 
 <!--出勤時間の登録-->
 <update id="insertStartTime">
@@ -76,28 +86,38 @@ where
 	where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW() + INTERVAL 1 MONTH, '%Y-%m');
 </select>
 
-<!--月次勤怠の合計時間を取得-->
-<select id="sumWorkTime" resultType="WorkTimeEntity">
-	select *
-       sum( time_to_sec(act_work_time)) as total_sec,
-       sec_to_time(sum( time_to_sec(act_work_time))) as total_time 
-    from 
-       m_worktime  
-    where 
-       DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
+<!--m_worktime_totalテーブルより月次の合計時間を取得-->
+<select id="totalWorkTime" resultType="WorkTimeTotalEntity">
+	select 
+	 work_date_month
+	,work_date_total
+	,act_work_time_total
+	,over_time_total 
+	from  m_worktime_total 
+	where work_date_month = DATE_FORMAT(NOW(), '%Y-%m');
 </select>
 
+<!--ｍ_worktime_totalのカラム更新（最新化）-->
+<update id="updateTotalWorkTime" >
+UPDATE m_worktime_total t1
+SET t1.act_work_time_total = (
+    SELECT SUM(act_work_time)
+    FROM m_worktime t2
+    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+),
+t1.over_time_total = (
+    SELECT sec_to_time(SUM(time_to_sec(over_time)))
+    FROM m_worktime t2
+    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+),
+t1.work_date_total = (
+    SELECT COUNT(start_time)
+    FROM m_worktime t2
+    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+);
+</update>
 
 
-<!--月次勤怠の合計時間を取得-->
-<!--<select id="sumWorkTime" resultType="WorkTimeEntity">
-	select 
-       sum( time_to_sec(act_work_time)) as total_sec,
-       sec_to_time(sum( time_to_sec(act_work_time))) as total_time 
-    from 
-       m_worktime  
-    where 
-       DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
-</select>-->
+
 
 </mapper>

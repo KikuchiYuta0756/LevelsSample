@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 @Data
 public class WorkTimeForm {
-		private String workDatete;
+		private String workDate;
 		private Integer dayofweekId;
 		private Integer userId;
 		@DateTimeFormat(pattern = "hh:mm")

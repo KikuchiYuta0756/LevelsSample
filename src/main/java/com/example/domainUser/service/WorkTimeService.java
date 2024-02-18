@@ -3,6 +3,7 @@ package com.example.domainUser.service;
 import java.util.List;
 
 import com.example.domainUser.model.WorkTimeEntity;
+import com.example.domainUser.model.WorkTimeTotalEntity;
 
 public interface WorkTimeService {
 	
@@ -28,7 +29,9 @@ public interface WorkTimeService {
 	public List<WorkTimeEntity> getClockTimesNextMonth();
 
 	//勤怠（月次）の各合計を取得
-	public WorkTimeEntity getClockTimesSum();
+	public WorkTimeTotalEntity getworkTimesTotal();
+	
+	//日次勤怠の修正
 
 	
 }

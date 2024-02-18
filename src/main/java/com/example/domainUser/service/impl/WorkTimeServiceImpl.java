@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.example.domainUser.model.WorkTimeEntity;
+import com.example.domainUser.model.WorkTimeTotalEntity;
 import com.example.domainUser.service.WorkTimeService;
 import com.example.repository.WorkTimeMapperRepository;
 
@@ -54,8 +55,8 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 
 	//勤怠（月次）の各合計を取得
 	@Override
-	public WorkTimeEntity getClockTimesSum(){
-		return worktimemapper.sumWorkTime();
+	public WorkTimeTotalEntity getworkTimesTotal(){
+		return worktimemapper.totalWorkTime();
 	}
 
 	
