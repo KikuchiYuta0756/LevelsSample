@@ -3,7 +3,7 @@
  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
  layout:decorate="~{layout/layoutADM}">
 <head>
-	<title>2023年12月勤怠一覧</title>
+	<title>当月勤怠一覧</title>
 	<!--CSS読込-->
 	<link rel="stylesheet" th:href="@{/css/user/clockList.css}">
 </head>
@@ -14,8 +14,7 @@
 		<span class="h2">月次勤怠一覧</span>
 		<a class="top-link" th:href="@{'/user/clockInListADMNextMonth'}">　翌月＞</a>
 	</div>
-	<!--<form th:object="${workTimeForm}">-->
-	<div>	
+<form id="worktime-total-form" th:object="${workTimeTotalForm}">	
     <table class="table2 table-bordered">
     <thead>
     <tr>
@@ -23,37 +22,26 @@
 		<th>出勤日数</th>
 		<th>総勤務時間</th>	
 		<th>総残業時間</th>
-		<th>有給日数</th>
 	</tr>
 	</thead>
 	<tbody>
 	<tr>
 		<td>
-			<span th:text="${strdate}"/>
-			<!--<span th:text="${#temporals.format(ldtnow,'YYYY-mm')}" />-->
-		</td>
-		<!--<td>
-			<span th:text="${currentMonth}">
-			<span th:text="*{#dates.format(workDate,'YYYY/MM/')}" />
-		</td>-->
-		<td>
-			<span th:text="${#temporals.format(clockInSum,'HH:mm')}"/>
-			<!--<span th:text="*{start_time}" />-->
+			<div th:text="*{workDateMonth}"/>
 		</td>
 		<td>
-			<!--<span th:text="*{act_work_time}" />-->
+			<div th:text="*{workDateTotal}"/>
 		</td>
 		<td>
-			<!--<span th:text="*{over_time}" />-->
+			<div th:text="*{actWorkTimeTotal}"/>
 		</td>
 		<td>
-			1日
+			<div th:text="*{overTimeTotal}"/>
 		</td>
 	</tr>
 	</tbody>
 	</table>
-	<!--</form>-->
-	</div>
+	</form>
 	<div>
 	  <a class="nav-link" th:href="@{'/user/paidRequestADM'}">有給申請</a>
 	  <a class="nav-link" th:href="@{'/admin/correctRequestADM'}">修正申請</a>

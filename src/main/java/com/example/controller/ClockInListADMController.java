@@ -14,8 +14,10 @@ package com.example.controller;
 	import org.springframework.web.bind.annotation.ModelAttribute;
 
 	import com.example.domainUser.model.WorkTimeEntity;
-	import com.example.domainUser.service.WorkTimeService;
+import com.example.domainUser.model.WorkTimeTotalEntity;
+import com.example.domainUser.service.WorkTimeService;
 	import com.example.form.WorkTimeForm;
+import com.example.form.WorkTimeTotalForm;
 
 
 	@Controller
@@ -30,7 +32,7 @@ package com.example.controller;
 		
 		//勤怠一覧（月次）の表示
 		@GetMapping("/clockInListADM")
-		public String getClockInList(WorkTimeForm form, Model model){
+		public String getClockInList(WorkTimeTotalForm form, Model model){
 			
 			//勤怠一覧（月次）を取得
 			List<WorkTimeEntity> clockList = worktimeService.getClockTimes();
@@ -38,25 +40,15 @@ package com.example.controller;
 			//Modelに登録
 			model.addAttribute("clockList", clockList);
 			
-			//LocalDateTimeで現在日時の取得
-			LocalDateTime ldtnow = LocalDateTime.now();
+			//勤怠情報の各合計（月次）を取得
+			WorkTimeTotalEntity workTimeTotal = worktimeService.getworkTimesTotal();
 			
-			//Date出力形式を指定
-			DateTimeFormatter dtfdate = DateTimeFormatter.ofPattern("yyyy-MM");
-			
-			String strdate = ldtnow.format(dtfdate);
-			System.out.println("現在の月"+ strdate);	
-
+			//WorkTimeTotalEntityをformに変換
+			form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);
 
 			
-//			//勤怠情報の各合計（月次）を取得
-//			WorkTimeEntity clockInSum = worktimeService.getClockTimesSum();
-//			
-//			//UserMapperEntityをformに変換
-//			form = modelMapper.map(clockInSum, WorkTimeForm.class);
-//			
-//			//Modelに登録
-//			model.addAttribute("workTimeForm",form);
+			//Modelに登録
+			model.addAttribute("workTimeTotalForm", form);
 
 
 			
