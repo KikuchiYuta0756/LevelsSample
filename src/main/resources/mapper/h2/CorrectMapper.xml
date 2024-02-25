@@ -48,7 +48,11 @@
 		
 <!--修正申請の数件取得-->
 <select id="findMany" resultType="CorrectRequestEntity">
-	select * from m_correction_app
+SELECT * FROM m_correction_app 
+WHERE
+    (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{correctLoginId}, '%'))
+    AND
+    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{correctUserName}, '%'));
 </select>
 
 <!--修正申請１件検索-->
@@ -84,6 +88,12 @@
 	where 
 	correct_app_id = #{correctRequestId}
 </update>
+
+
+<!--修正申請の数件取得（ユーザー）-->
+<select id="userFindMany" resultType="CorrectRequestEntity">
+SELECT * FROM m_correction_app 
+</select>
 
 	
 </mapper>
