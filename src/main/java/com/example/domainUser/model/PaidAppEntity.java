@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class PaidAppEntity {
 	
-	private Integer paidLoginId;
+	private String paidLoginId;
 	private String paidUserName;
-	private Date paidRequestDateApp;	
+	private Date paidRequestDateApp;	//申請日
 	private Date paidDateApp;
 	private Integer paidAppId;
 	private String requestStaId;

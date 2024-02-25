@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class PaidRequestForm {
 	
-	private Integer paidLoginId;
+	private String paidLoginId;
 	private String paidUserName;
 	
 	

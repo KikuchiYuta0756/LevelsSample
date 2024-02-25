@@ -14,7 +14,7 @@ public interface PaidAppRepository {
 	public int insertPaidApp(PaidAppEntity paidapp);
 	
 	/**有給申請取得*/
-	public List<PaidAppEntity>findMany();
+	public List<PaidAppEntity>findMany(PaidAppEntity paid);
 	
 	/**有給申請取得（1件）*/
 	public PaidAppEntity findOne(int paidAppId);
@@ -27,6 +27,8 @@ public interface PaidAppRepository {
 	public  void updateStaRemand(
 			@Param("paidAppId")int paidAppId);
 	
+	/**有給申請取得（ユーザー）*/
+	public List<PaidAppEntity>userFindMany();
 
 
 }

@@ -34,7 +34,13 @@
 
 <!--有給申請の数件取得-->
 <select id="findMany" resultType="PaidAppEntity">
-	select * from m_paid_app
+SELECT * FROM m_paid_app 
+WHERE
+    (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{paidLoginId}, '%'))
+    AND
+    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{paidUserName}, '%'));
+
+
 </select>
 
 <!--有給申請１件検索-->
@@ -67,5 +73,9 @@
 	paid_app_id = #{paidAppId}
 </update>
 
+<!--有給申請の数件取得（ユーザー）-->
+<select id="userFindMany" resultType="PaidAppEntity">
+SELECT * FROM m_paid_app
+</select>
 	
 </mapper>

@@ -11,7 +11,23 @@
 	 <div layout:fragment="content">
 		 <div class="header border-bottom">
 			 <h1 class="h2">有給申請一覧</h1>
+		 </div>		 
+		 <!--検索-->
+		 <div class="mb-4">
+			 <form id="user-search-form" method="post" th:action="@{/admin/paidRequestList}"
+			 class="form-inline" th:object="${paidRequestListForm}">
+			 <div class="form-group">
+				 <label for="loginId" class="mr-2">ログインID</label>
+			　　　　<input type="text" class="form-control" th:field="*{paidLoginId}"/>				 
+			 </div>
+		     <div class="form-group mx-sm-3">
+			     <label for="userName" class="mr-2">ユーザー名</label>
+			     <input type="text" class="form-control" th:field="*{paidUserName}"/>
+		     </div>
+		         <button class="btn btn-primary" type="submit">検索</button>
+			 </form>
 		 </div>
+
 		 <!--有給一覧表示-->
 		 <div>
 			 <table class="table table-striped table-bordered table-hover">

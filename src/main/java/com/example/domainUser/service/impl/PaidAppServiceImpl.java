@@ -21,8 +21,8 @@ public class PaidAppServiceImpl implements PaidAppService {
 	}
 	/**有給申請取得*/
 	@Override
-	public List<PaidAppEntity> getPaidRequests(){
-		return paidapprepository.findMany();		
+	public List<PaidAppEntity> getPaidRequests(PaidAppEntity paid){
+		return paidapprepository.findMany(paid);		
 	}
 	
 	/**有給申請取得(１件)*/
@@ -43,6 +43,10 @@ public class PaidAppServiceImpl implements PaidAppService {
 		paidapprepository.updateStaRemand(paidAppId);
 	}
 
-
+	/**有給申請取得（ユーザー）*/
+	@Override
+	public List<PaidAppEntity> getUserPaidRequests(){
+	return paidapprepository.userFindMany();
+	}
 
 }

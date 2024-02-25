@@ -12,7 +12,7 @@ public interface PaidAppService {
 	public void paidAppCreate(PaidAppEntity paidapp);
 	
 	/**有給申請取得*/
-	public List<PaidAppEntity> getPaidRequests();
+	public List<PaidAppEntity> getPaidRequests(PaidAppEntity paid);
 	
 	/**有給申請取得(１件)*/
 	public PaidAppEntity getPaidAppOne(int paidAppId);
@@ -23,5 +23,7 @@ public interface PaidAppService {
 	/**申請ステータス更新*/
 	public void updateRequestStaRemand(int paidAppId);
 
+	/**有給申請取得（ユーザー）*/
+	public List<PaidAppEntity> getUserPaidRequests();
 
 }
