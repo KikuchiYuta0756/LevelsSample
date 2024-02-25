@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class CorrectRequestEntity {
 	
-	private Integer correctLoginId;
+	private String correctLoginId;
 	private String correctUserName;
 	private Date correctRequestDate;
 	private String requestStaId;

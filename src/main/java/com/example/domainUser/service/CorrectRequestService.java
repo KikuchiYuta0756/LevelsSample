@@ -11,7 +11,7 @@ public interface CorrectRequestService {
 	public void correctRequestCreate(CorrectRequestEntity correct);
 
 	/**勤怠修正申請取得*/
-	public List<CorrectRequestEntity> getCorrectRequests();
+	public List<CorrectRequestEntity> getCorrectRequests(CorrectRequestEntity correct);
 	
 	//修正申請取得（1件）
 	public CorrectRequestEntity getCorrectRequestOne(int correctRequestId);
@@ -22,4 +22,8 @@ public interface CorrectRequestService {
 	/**申請ステータス更新(差し戻し)*/
 	public void updateRequestStaRemand(int correctRequestId);
 
+	/**勤怠修正申請取得（ユーザー）*/
+	public List<CorrectRequestEntity> getUserCorrectRequests();
+	
+	
 }

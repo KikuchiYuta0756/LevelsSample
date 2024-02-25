@@ -16,7 +16,7 @@ public interface CorrectRequestRepository {
 
 	
 	//勤怠修正申請取得
-	public List<CorrectRequestEntity> findMany();
+	public List<CorrectRequestEntity> findMany(CorrectRequestEntity correct);
 	
 	//修正申請取得（１件）
 	public CorrectRequestEntity findOne(int correctRequestId);
@@ -29,5 +29,7 @@ public interface CorrectRequestRepository {
 	public  void updateStaRemand(
 			@Param("correctRequestId")int correctRequestId);
 
-
+	//勤怠修正申請取得（ユーザー）
+	public List<CorrectRequestEntity> userFindMany();
+	
 }

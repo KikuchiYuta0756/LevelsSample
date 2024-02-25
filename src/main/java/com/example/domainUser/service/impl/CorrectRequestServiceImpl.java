@@ -22,8 +22,8 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 	
 	//勤怠修正申請取得
 	@Override
-	public List<CorrectRequestEntity>getCorrectRequests(){
-		return correctrequestrepository.findMany();
+	public List<CorrectRequestEntity>getCorrectRequests(CorrectRequestEntity correct){
+		return correctrequestrepository.findMany(correct);
 	}
 	
 	//修正申請取得（1件）
@@ -44,6 +44,11 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 		correctrequestrepository.updateStaRemand(correctRequestId);
 	}
 
+	/**勤怠修正申請取得（ユーザー）*/
+	@Override
+	public List<CorrectRequestEntity> getUserCorrectRequests(){
+		return correctrequestrepository.userFindMany();
+	};
 
 
 }

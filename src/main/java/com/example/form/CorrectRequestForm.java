@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class CorrectRequestForm {
 	
-	private Integer correctLoginId;
+	private String correctLoginId;
 	private String correctUserName;
 	
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
