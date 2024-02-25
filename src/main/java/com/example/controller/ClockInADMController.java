@@ -139,6 +139,9 @@ public class ClockInADMController {
 		//出退勤フラグ（出勤）を更新する
 		userService.getWorkFlgAttendance();
 		
+		//月毎の合計実働時間を更新する
+		workTimeService.updatetotalWorkTime();
+		
 		return "redirect:/admin/clockInADM";
 	}
 	

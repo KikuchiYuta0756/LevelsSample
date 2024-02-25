@@ -59,11 +59,11 @@ import com.example.form.WorkTimeTotalForm;
 		@GetMapping("/clockInListADMLastMonth")
 		public String getClockInListLastMonth(Model model){
 			
-			//前月の勤怠一覧（月次）を取得
-			List<WorkTimeEntity> clockList = worktimeService.getClockTimesLastMonth();
-			
-			//Modelに登録
-			model.addAttribute("clockList", clockList);
+//			//前月の勤怠一覧（月次）を取得
+//			List<WorkTimeEntity> clockList = worktimeService.getClockTimesLastMonth();
+//			
+//			//Modelに登録
+//			model.addAttribute("clockList", clockList);
 			
 		return "admin/clockInListADM";
 		}
@@ -71,12 +71,12 @@ import com.example.form.WorkTimeTotalForm;
 		//来月の勤怠一覧（月次）の表示
 		@GetMapping("/clockInListADMNextMonth")
 		public String getClockInListNextMonth(Model model){
-			
-			//前月の勤怠一覧（月次）を取得
-			List<WorkTimeEntity> clockList = worktimeService.getClockTimesNextMonth();
-			
-			//Modelに登録
-			model.addAttribute("clockList", clockList);
+//			
+//			//前月の勤怠一覧（月次）を取得
+//			List<WorkTimeEntity> clockList = worktimeService.getClockTimesNextMonth();
+//			
+//			//Modelに登録
+//			model.addAttribute("clockList", clockList);
 			
 		return "admin/clockInListADM";
 		}
