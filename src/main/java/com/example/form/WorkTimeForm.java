@@ -9,7 +9,7 @@ import lombok.Data;
 public class WorkTimeForm {
 		private String workDate;
 		private Integer dayofweekId;
-		private Integer userId;
+		private String loginId;
 		@DateTimeFormat(pattern = "hh:mm")
 		private String startTime;
 		@DateTimeFormat(pattern = "hh:mm")

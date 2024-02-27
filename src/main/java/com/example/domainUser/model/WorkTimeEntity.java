@@ -8,7 +8,7 @@ import lombok.Data;
 public class WorkTimeEntity {
 	private String workDate;
 	private Integer dayofweekId;
-	private Integer userId;
+	private String loginId;
 	private String startTime;
 	private String closeTime;
 	private LocalTime genWorkTime;

@@ -47,12 +47,9 @@ public class ClockInController {
 		
 		//認証ユーザーの出退勤フラグを取得
 		UserMapperEntity userWorkFlg = userService.getWorkFlg();
-		
-		System.out.println(userWorkFlg);
 
 		//UserMapperEntityをformに変換
 		form = modelMapper.map(userWorkFlg, UserDetailForm.class);
-
 
 		// Modelに登録
 		model.addAttribute("userWorkFlg", form);
@@ -135,6 +132,9 @@ public class ClockInController {
 		
 		//出退勤フラグ（出勤）を更新する
 		userService.getWorkFlgAttendance();
+		
+		//月毎の合計実働時間を更新する
+		workTimeService.updatetotalWorkTime();
 		
 		return "redirect:/user/clockIn";
 	}

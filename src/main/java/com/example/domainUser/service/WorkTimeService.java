@@ -1,7 +1,10 @@
 package com.example.domainUser.service;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
+import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.model.WorkTimeTotalEntity;
 
@@ -22,8 +25,13 @@ public interface WorkTimeService {
 	//勤怠一覧（月次）の取得
 	public List<WorkTimeEntity> getClockTimes();
 	
-	//前月の勤怠一覧（月次）の取得
-	public List<WorkTimeEntity> getClockTimesLastMonth();
+	//勤怠一覧（月次）の取得（ユーザー毎）
+	public List<WorkTimeEntity> getCorrectClockTimes(String loginId);
+
+	
+	//選択された年月の勤怠一覧を取得
+	public List<WorkTimeEntity> getSelectYearMonth(String selectedYearMonth);
+	
 
 	//来月の勤怠一覧（月次）の取得
 	public List<WorkTimeEntity> getClockTimesNextMonth();
@@ -31,7 +39,25 @@ public interface WorkTimeService {
 	//勤怠（月次）の各合計を取得
 	public WorkTimeTotalEntity getworkTimesTotal();
 	
-	//日次勤怠の修正
+	//選択した勤怠（月次）の各合計を取得
+	public WorkTimeTotalEntity getSelectWorkTimesTotal(String selectedYearMonth);
+
+	
+	//合計時間（勤怠）の更新
+	public void updatetotalWorkTime();
+
+	/**勤怠情報の取得(１件)*/
+	public WorkTimeEntity getWorkTimeOne(String workDate);
+	
+	/**勤怠情報の更新（1件）*/
+	public void updateWorkTimeOne(
+			String workDate,
+			String loginId, 
+			String startTime, 
+			String closeTime, 
+			LocalTime restTime
+			);
+
 
 	
 }

@@ -9,7 +9,7 @@
 <resultMap type="com.example.domainUser.model.WorkTimeEntity" id="worktime">
 	<id column="work_date" property="workDate" />
 	<result column="day_of_week_id" property="dayofweekId" />
-	<result column="user_id" property="userId" />
+	<result column="login_id" property="loginId" />
 	<result column="start_time" property="startTime" />
 	<result column="close_time" property="closeTime" />
 	<result column="gen_work_time" property="genWorkTime" />
@@ -72,11 +72,22 @@ where
 	where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
 </select>
 
-<!--前月の月次の勤怠を取得-->
-<select id="findManyLastMonth" resultType="WorkTimeEntity">
+<!--月次の勤怠を取得（ユーザー毎）-->
+<select id="findManyOne" resultType="WorkTimeEntity">
 	select * 
 	from m_worktime 
-	where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m');
+	where 
+	login_id = 12345 
+	AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
+</select>
+
+
+
+<!--選択された年月の勤怠一覧を取得-->
+<select id="findSelectYearMonth" resultType="WorkTimeEntity">
+	select * 
+	from m_worktime 
+	where DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
 </select>
 
 <!--来月の月次の勤怠を取得-->
@@ -95,6 +106,17 @@ where
 	,over_time_total 
 	from  m_worktime_total 
 	where work_date_month = DATE_FORMAT(NOW(), '%Y-%m');
+</select>
+
+<!--選択した月次の合計時間を取得-->
+<select id="selectTotalWorkTime" resultType="WorkTimeTotalEntity">
+	select 
+	 work_date_month
+	,work_date_total
+	,act_work_time_total
+	,over_time_total 
+	from  m_worktime_total 
+	where work_date_month = #{selectedYearMonth};
 </select>
 
 <!--ｍ_worktime_totalのカラム更新（最新化）-->
@@ -117,6 +139,29 @@ t1.work_date_total = (
 );
 </update>
 
+<!--ユーザ毎の勤怠（日次）の検索-->
+<select id="workTimeOne" resultMap="worktime">
+	select 
+	 work_date
+	,login_id
+	,start_time
+	,close_time
+	,rest_time 
+	from m_worktime 
+	where login_id = 12345 
+	and work_date = #{workDate}
+</select>
+
+<!--勤怠（日次）の１件更新-->
+<update id="updateWorkTimeOne">
+	update m_worktime set 
+	start_time =#{startTime},
+	close_time =#{closeTime},
+	rest_time =#{restTime} 
+	where 
+	login_id = 12345 
+	and work_date =#{workDate}
+</update>
 
 
 
