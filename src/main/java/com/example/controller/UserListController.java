@@ -48,7 +48,7 @@ public class UserListController {
 		
 		//formをUserMapperEntityクラスに変換
 		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
-
+		
 		// ユーザー一覧取得
 		List<UserMapperEntity> userList = userService.getUsers(user);
 

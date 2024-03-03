@@ -22,8 +22,8 @@ public class UserApplicationService {
 	/**ユーザーの権限Mapを生成する*/
 	public Map<String, Integer> getAuthorityMap(){
 		Map<String, Integer > authorityMap = new LinkedHashMap <>();
-		authorityMap.put("general", 1);
-		authorityMap.put("Admin", 2);
+		authorityMap.put("GENERAL", 1);
+		authorityMap.put("ADMIN", 2);
 		return authorityMap;
 	}
 	

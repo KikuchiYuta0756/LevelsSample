@@ -21,4 +21,5 @@ public class UserMapperEntity {
 	private DepartmentEntity department;
     private RoleEntity role;
     private List<PaidAppEntity> paidAppList;
+    private PaidEntity paid;
 }

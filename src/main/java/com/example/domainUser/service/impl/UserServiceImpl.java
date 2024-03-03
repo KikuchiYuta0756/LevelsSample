@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.domainUser.model.DepartmentEntity;
@@ -17,12 +18,22 @@ import com.example.repository.UserMapperRepository;
 public class UserServiceImpl implements UserService{	
 	@Autowired
 	private UserMapperRepository usermapper;
+
+	@Autowired
+	private PasswordEncoder encoder;
+	
 	
 	/**ユーザー登録*/
 	@Override
 	public void userCreate(UserMapperEntity user) {
 		user.setDepartmentId(1); //部署
 		user.setRoleId(1); //ロール
+		
+		//パスワード暗号化
+		String rawPassword = user.getPassword();
+		user.setPassword(encoder.encode(rawPassword));
+		
+		
 		usermapper.insertOne(user);
 	}
 	
@@ -52,9 +63,10 @@ public class UserServiceImpl implements UserService{
 			Date hire
 			) 
 	   {
+		String encryptPassword = encoder.encode(password);
 		usermapper.updateOne(
 				loginId, 
-				password, 
+				encryptPassword, 
 				userName, 
 				userNamekana, 
 				mailAddress,
@@ -64,6 +76,7 @@ public class UserServiceImpl implements UserService{
 				authority,
 				hire
 				);
+		
 		}
 	
 	/**ユーザー削除（1件）*/

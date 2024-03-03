@@ -32,7 +32,7 @@ public interface UserMapperRepository {
 	/**ユーザー更新（1件）*/
 	public void updateOne(
 			@Param("loginId")String loginId,
-			@Param("password")String password,
+			@Param("encryptPassword")String encryptPassword,
 			@Param("userName")String userName,
 			@Param("userNamekana")String userNamekana,
 			@Param("mailAddress")String mailAddress,

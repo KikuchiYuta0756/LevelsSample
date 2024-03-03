@@ -20,6 +20,7 @@
 	<result column="work_flg" property="workFlg" />
     <association property="department" resultMap="department" />
     <association property="role" resultMap="role" />
+    <association property="paid" resultMap="paid" />
     <collection property="paidAppList" resultMap="paidApp" columnPrefix="paidApp_" />
 </resultMap>
 
@@ -46,6 +47,16 @@
 	<result column="paid_app_reason" property="paidAppReason" />
 </resultMap>
 
+<!--マッピング定義（有給テーブル）-->
+<resultMap type="com.example.domainUser.model.PaidEntity" id="paid">
+   <id column="paid_id" property="paidId" />
+   <result column="login_id" property="loginId" />
+   <result column="paid_date_num" property="loginId" />
+   <result column="paid_last_granted_date" property="departmentName" />
+</resultMap>
+
+
+
 
 <!--ユーザー1件登録-->
 <insert id="insertOne">
@@ -64,7 +75,7 @@
 	 )
 	 value(
 	 #{loginId}
-	,#{password}
+	,#{encryptPassword}
 	,#{userName}
 	,#{userNamekana}
 	,#{mailAddress}
@@ -81,15 +92,11 @@
 	
 <!--ユーザー複数件取得-->
 <select id="findMany" resultType="UserMapperEntity">
-	select * from m_user
-	<where>
-		<if test="loginId != null">
-			login_id like '%' || #{loginId} || '%'
-		</if>
-		<if test="userName != null">
-			and user_name like '%' || #{userName} || '%'
-		</if>
-	</where>
+SELECT * FROM m_user
+WHERE
+    (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{loginId}, '%'))
+    AND
+    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{userName}, '%'));
 </select>
 
 <!--部署複数件取得-->
@@ -121,7 +128,7 @@
 	where login_id = #{loginId}
 </select>
 
-<!--ユーザー１件検索-->
+<!--有給申請１件検索-->
 <select id="paidRequestFindOne" resultMap="user">
 	select 
 	 m_user.login_id
