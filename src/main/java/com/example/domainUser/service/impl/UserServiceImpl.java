@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	
 	/**ユーザー登録*/
 	@Override
 	public void userCreate(UserMapperEntity user) {
@@ -46,7 +45,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserMapperEntity getUserOne(String loginId) {
 		return usermapper.findOne(loginId);
-	}
+	}	
+	
 	
 	/**ユーザー更新（1件）*/
 	@Override

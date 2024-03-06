@@ -128,6 +128,12 @@ WHERE
 	where login_id = #{loginId}
 </select>
 
+<!--ログインユーザー１件検索-->
+<select id="getLoginUser" resultMap="user">
+	select * from m_user where login_id = 00009
+</select>
+
+
 <!--有給申請１件検索-->
 <select id="paidRequestFindOne" resultMap="user">
 	select 

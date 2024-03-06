@@ -24,6 +24,9 @@ public interface UserMapperRepository {
 	/**ユーザー取得（1件）*/
 	public UserMapperEntity findOne(String loginId);
 
+	/**ログイン認証ユーザー取得（1件）*/
+	public UserMapperEntity getLoginUser(String loginId);
+
 	
 	/**ユーザー取得（1件）*/
 	public PaidAppEntity paidRequestFindOne(String loginId);
@@ -60,6 +63,10 @@ public interface UserMapperRepository {
 	
 	/**退勤フラグの活性化（1件）*/
 	public void updateWorkFlgAttendance();
+	
+
+
+	
 	
 	
 }
