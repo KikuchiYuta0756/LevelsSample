@@ -45,14 +45,14 @@ public class SecurityConfig {
     		 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
     		 .requestMatchers("/error/**").permitAll()
     		 .requestMatchers("/login/*").permitAll()
-    		 .requestMatchers("/user/**").hasAuthority("GENERAL")
-    		 .requestMatchers("/admin/**").hasAuthority("ADMIN")
+//    		 .requestMatchers("/user/**").hasRole("GENERAL")
+//   		 .requestMatchers("/admin/**").hasRole("ADMIN")
     		 .anyRequest().authenticated()
 	   ).formLogin(login -> login
-			 .loginProcessingUrl("/login")//ログイン処理のパス
-			 .loginPage("/login/login")//ログインページの指定
-		     .defaultSuccessUrl("/admin/list")//成功時の遷移先
+			 .loginPage("/login")//ログインページの指定
+	         .defaultSuccessUrl("/admin/list")// ログイン成功時のリダイレクト先URLを指定
 		     .failureUrl("/login?error")
+		     .permitAll()
 	   );
 		
          return http.build();

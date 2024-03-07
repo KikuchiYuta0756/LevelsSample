@@ -16,10 +16,11 @@
 	<result column="role_id" property="roleId" />
 	<result column="validation" property="validation" />
 	<result column="hire_date" property="hire" />
-	<result column="authority_flg" property="authority" />
+	<result column="authority_flg" property="authorityFlg" />
 	<result column="work_flg" property="workFlg" />
     <association property="department" resultMap="department" />
     <association property="role" resultMap="role" />
+    <association property="authority" resultMap="authority" />
     <association property="paid" resultMap="paid" />
     <collection property="paidAppList" resultMap="paidApp" columnPrefix="paidApp_" />
 </resultMap>
@@ -55,6 +56,11 @@
    <result column="paid_last_granted_date" property="departmentName" />
 </resultMap>
 
+<!--マッピング定義（権限テーブル）-->
+<resultMap type="com.example.domainUser.model.AuthorityEntity" id="authority">
+   <id column="authority_id" property="authorityId" />
+   <result column="authority_name" property="authorityName" />
+</resultMap>
 
 
 
@@ -130,7 +136,7 @@ WHERE
 
 <!--ログインユーザー１件検索-->
 <select id="getLoginUser" resultMap="user">
-	select * from m_user where login_id = 00009
+	select * from m_user where login_id = #{loginId}
 </select>
 
 

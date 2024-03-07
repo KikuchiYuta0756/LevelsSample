@@ -14,6 +14,7 @@ public class LoginContoller {
 		
 		return "login/login";
 	}
+
 	
 	/**ユーザー一覧画面にリダイレクト*/
     @PostMapping("/login")

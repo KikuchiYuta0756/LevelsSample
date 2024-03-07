@@ -16,10 +16,11 @@ public class UserMapperEntity {
 	private Integer roleId;
 	private Integer validation;
     private Date hire;
-    private Integer authority;
+    private Integer authorityFlg;
     private Integer workFlg;
 	private DepartmentEntity department;
     private RoleEntity role;
+    private AuthorityEntity authority;
     private List<PaidAppEntity> paidAppList;
     private PaidEntity paid;
 }

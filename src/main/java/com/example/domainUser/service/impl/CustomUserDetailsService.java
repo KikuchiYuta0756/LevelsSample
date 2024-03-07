@@ -18,19 +18,20 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserMapperEntity user = customUserService.getUserByUsername(username);
-
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+        UserMapperEntity user = customUserService.getUserByUsername(loginId);
+        System.out.println("userは"+user);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found: " + username);
+            throw new UsernameNotFoundException("User not found: " + loginId);
         }
 
         return User.builder()
                 .username(user.getLoginId())
                 .password(user.getPassword())
                 .build();
+        
     }
-
+   
 
 
 }

@@ -15,38 +15,40 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-	@Autowired
-	private UserDetailsService userDetailsService;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final UserDetailsService userDetailsService;
+
+	private final PasswordEncoder passwordEncoder;
 	
 	
-//	public CustomAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-//		this.userDetailsService = userDetailsService;
-//		this.passwordEncoder = passwordEncoder;
-//	}
+	public CustomAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+		this.userDetailsService = userDetailsService;
+		this.passwordEncoder = passwordEncoder;
+	}
 	
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         //ブラウザから入力したユーザ名・パスワードを取得
-    	String loginId = authentication.getName();
-        String password = (String) authentication.getCredentials();        
+    	String username = authentication.getName();
+        String password = (String) authentication.getCredentials();   
     	
-        UserDetails userDetails = userDetailsService.loadUserByUsername(loginId);
-        System.out.println(userDetails);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        System.out.println("userDetailsの値は:" + userDetails);
 
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(loginId, password, userDetails.getAuthorities());
+            return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
         } else {
-    	// TODO Auto-generated method stub
+    	// Auto-generated method stub
         throw new BadCredentialsException("Authentication failed");
     }
    }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        // authentication(認証方式)がUsernamePasswordAuthenticationToken.class(ユーザー名とパスワード認証)か判定
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        boolean supported = authentication.equals(UsernamePasswordAuthenticationToken.class);
+        System.out.println("Supported authenticationの結果は: " + supported);
+        return supported;
+    	// authentication(認証方式)がUsernamePasswordAuthenticationToken.class(ユーザー名とパスワード認証)か判定
+        //return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
     
 } 
