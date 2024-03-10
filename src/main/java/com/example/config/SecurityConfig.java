@@ -50,13 +50,16 @@ public class SecurityConfig {
     		 .anyRequest().authenticated()
 	   ).formLogin(login -> login
 			 .loginPage("/login")//ログインページの指定
-	         .defaultSuccessUrl("/admin/list")// ログイン成功時のリダイレクト先URLを指定
+	         .defaultSuccessUrl("/common/TopPage", false)// ログイン成功時のリダイレクト先URLを指定
 		     .failureUrl("/login?error")
 		     .permitAll()
+	   ).logout(logout -> logout
+             .logoutUrl("/logout")
+		     .logoutSuccessUrl("/login")
 	   );
-		
          return http.build();
 	}	
+	
 	
     // @Beanをつけることで、このメソッドがSpringのコンテナにBeanとして登録される
 //    @Bean

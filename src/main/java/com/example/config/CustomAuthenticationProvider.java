@@ -30,7 +30,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         //ブラウザから入力したユーザ名・パスワードを取得
     	String username = authentication.getName();
         String password = (String) authentication.getCredentials();   
-    	
+        System.out.println("usernameの値は:" + username);
+        System.out.println("passwordの値は:" + password);
+        
+        
+        
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         System.out.println("userDetailsの値は:" + userDetails);
 

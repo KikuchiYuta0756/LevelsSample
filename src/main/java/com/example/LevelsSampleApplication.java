@@ -15,6 +15,10 @@ public class LevelsSampleApplication {
 //	        String hashedPassword = encoder.encode(rawPassword);
 //	        System.out.println(hashedPassword);
 		    
+//	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//	        String rawPassword = "test1111";
+//	        String hashedPassword = encoder.encode(rawPassword);
+//	        System.out.println(hashedPassword);
 		    
 	}
 
