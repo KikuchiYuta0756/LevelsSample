@@ -17,7 +17,7 @@ public class PasswordChangeController {
 	@GetMapping("/beforePasswordChange")
 	public String getBeforePasswordChange() {
 		
-		return "login/beforePasswordChange";
+		return "common/beforePasswordChange";
 		
 	}
 	
@@ -26,7 +26,7 @@ public class PasswordChangeController {
 	@PostMapping("/beforePasswordChange")
 	public String postBeforePasswordChange() {
 		
-		return "login/afterPasswordChange";
+		return "common/afterPasswordChange";
 		
 	}
 
@@ -35,7 +35,7 @@ public class PasswordChangeController {
 	@GetMapping("/afterPasswordChange")
 	public String getAfterPasswordChange() {
 		
-		return "login/afterPasswordChange";
+		return "common/afterPasswordChange";
 		
 	}
 	
@@ -43,7 +43,7 @@ public class PasswordChangeController {
 	@PostMapping("/afterPasswordChange")
 	public String postAfterPasswordChange() {
 		
-		return "login/login";
+		return "common/TopPage";
 		
 	}
 	

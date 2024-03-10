@@ -18,6 +18,11 @@ public interface UserService {
 	
 	/**ユーザー取得(１件)*/
 	public UserMapperEntity getUserOne(String loginId);
+
+	/**ログインユーザーの権限情報取得(１件)*/
+	public UserMapperEntity getLoginUser(String loginId);
+	
+	
 	
 	/**ユーザー更新（1件）*/
 	public void updateUserOne(

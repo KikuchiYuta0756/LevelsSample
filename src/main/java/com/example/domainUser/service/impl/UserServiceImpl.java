@@ -47,6 +47,12 @@ public class UserServiceImpl implements UserService{
 		return usermapper.findOne(loginId);
 	}	
 	
+	/**ログインユーザーの権限情報取得(１件)*/
+	public UserMapperEntity getLoginUser(String loginId) {
+		return usermapper.getLoginUser(loginId);
+	};
+	
+	
 	
 	/**ユーザー更新（1件）*/
 	@Override
