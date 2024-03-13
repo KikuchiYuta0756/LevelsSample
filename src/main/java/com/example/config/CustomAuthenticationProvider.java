@@ -29,10 +29,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         //ブラウザから入力したユーザ名・パスワードを取得
     	String username = authentication.getName();
-        String password = (String) authentication.getCredentials();   
-        System.out.println("usernameの値は:" + username);
-        System.out.println("passwordの値は:" + password);
-        
+        String password = (String) authentication.getCredentials();           
         
         
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);

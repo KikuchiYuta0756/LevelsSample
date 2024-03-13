@@ -45,13 +45,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserMapperEntity getUserOne(String loginId) {
 		return usermapper.findOne(loginId);
-	}	
-	
-	/**ログインユーザーの権限情報取得(１件)*/
-	public UserMapperEntity getLoginUser(String loginId) {
-		return usermapper.getLoginUser(loginId);
-	};
-	
+	}		
 	
 	
 	/**ユーザー更新（1件）*/
@@ -67,8 +61,7 @@ public class UserServiceImpl implements UserService{
 			Integer validation,
 			Integer authority,
 			Date hire
-			) 
-	   {
+			)  {
 		String encryptPassword = encoder.encode(password);
 		usermapper.updateOne(
 				loginId, 
@@ -82,8 +75,20 @@ public class UserServiceImpl implements UserService{
 				authority,
 				hire
 				);
-		
+               }
+	
+	/**ログインユーザパスワード更新（1件）*/
+	@Override
+	public void updatePasswordOne(
+			String loginId, 
+			String password
+			) {
+		String encryptPassword = encoder.encode(password);
+		usermapper.updatePasswordOne(
+				loginId, 
+				encryptPassword);
 		}
+
 	
 	/**ユーザー削除（1件）*/
 	@Override

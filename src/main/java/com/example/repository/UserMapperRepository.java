@@ -44,7 +44,13 @@ public interface UserMapperRepository {
 	        @Param("validation")Integer validation,
 	        @Param("authority")Integer authority,
             @Param("hire")Date hire);
-	
+
+	/**ログインユーザパスワード更新（1件）*/
+	public void updatePasswordOne(
+			@Param("loginId")String loginId,
+			@Param("encryptPassword")String encryptPassword);
+			
+			
 	/**ユーザー削除（1件）*/
 	public int deleteOne(@Param("loginId")String loginId);
 	

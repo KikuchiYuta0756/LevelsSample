@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
+import com.example.form.UserDetailForm;
 
 @Controller
 @RequestMapping("/common")
@@ -25,20 +26,20 @@ public class TopPageController {
 
 	/**ログイン画面を表示*/
 	@GetMapping("/TopPage")
-	public String getLogin(Model model){
+	public String getLogin(UserDetailForm form, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       //ログイン認証に使用したログインIDを利用する。
-      String usersloginId = auth.getName();
+      String loginId = auth.getName();
       
-      System.out.println("トップページのusersloginIdは"+ usersloginId);
+      System.out.println("トップページのusersloginIdは"+ loginId);
       
 		//ログイン認証ユーザーの情報を取得
-		UserMapperEntity users = userService.getLoginUser(usersloginId);
-		Integer userAuthority = users.getAuthorityFlg();
-		System.out.println("トップページのuserAuthorityは"+ userAuthority);
+		UserMapperEntity users = userService.getUserOne(loginId);
+		
+		form = modelMapper.map(users, UserDetailForm.class);
 		
 		// Modelに登録
-		model.addAttribute("userAuthority", userAuthority);
+		model.addAttribute("loginUserDetailForm", form);
 
 
 		

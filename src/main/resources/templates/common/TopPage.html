@@ -16,7 +16,8 @@
 	<div class ="text-center">
 		<h2>Welcome, <span sec:authentication="name"></span>!</h2>
 	</div>
-	<div th:object="${userAuthority}">		
+	<div id="clockIn-form" th:object="${loginUserDetailForm}">
+		<input type="hidden" th:field="*{authority}" />
 		<div class="text-cenbtnClickter">
 			<!--ユーザーページへ-->
 			<a　id="userPage" class="nav-link" th:href="@{'/user/clockIn'}">ユーザーページへ</a>
@@ -26,14 +27,14 @@
 	</div>
 	</form>
     <div>
-	  <a class="nav-link" th:href="@{'/common/beforePasswordChange'}">パスワード変更</a>
+	  <a class="nav-link" th:href="@{'/common/afterPasswordChange'}">パスワード変更</a>
 	</div>
 	<script>
     // HTMLから値を取得
-    var userAuthorityValue = document.getElementById("userAuthority").value;
+    var userAuthorityValue = document.getElementById("authority").value;
 
     // ユーザリンク　値が1なら活性化、値が2なら非活性化
-    if (userAuthorityValue == 1) {
+    if (userAuthorityValue === 1) {
         document.getElementById("userPage").disabled = false;
     } else if (workFlgAttendanceValue ==　2) {
         document.getElementById("adminPage").disabled = true;
@@ -43,7 +44,7 @@
     var workFlgLeavingValue = document.getElementById("userAuthority").value;
 
    // 退勤ボタン　値が20ならボタンを活性化、値が10なら非活性化
-    if (workFlgLeavingValue == 2) {
+    if (workFlgLeavingValue === 2) {
         document.getElementById("adminPage").disabled = false;
     } else if (workFlgLeavingValue == 1) {
         document.getElementById("userPage").disabled = true;

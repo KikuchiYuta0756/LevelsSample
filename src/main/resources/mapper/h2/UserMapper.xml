@@ -178,6 +178,16 @@ WHERE
 	login_id = #{loginId}
 </update>
 
+<!--ログインユーザーパスワード更新-->
+<update id="updatePasswordOne">
+	update m_user set 
+    password=#{password} 
+	where 
+	login_id = #{loginId}
+</update>
+
+
+
 <!--ユーザー１件削除-->
 <delete id="deleteOne">
 	delete from m_user 

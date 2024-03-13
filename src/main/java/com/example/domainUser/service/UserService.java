@@ -17,12 +17,7 @@ public interface UserService {
 	public List<UserMapperEntity> getUsers(UserMapperEntity user);
 	
 	/**ユーザー取得(１件)*/
-	public UserMapperEntity getUserOne(String loginId);
-
-	/**ログインユーザーの権限情報取得(１件)*/
-	public UserMapperEntity getLoginUser(String loginId);
-	
-	
+	public UserMapperEntity getUserOne(String loginId);	
 	
 	/**ユーザー更新（1件）*/
 	public void updateUserOne(
@@ -37,6 +32,12 @@ public interface UserService {
 			Integer authority,
 			Date hire
 			);
+
+	/**ログインユーザパスワード更新（1件）*/
+	public void updatePasswordOne(
+			String loignId, 
+			String password);
+
 	
 	/**ユーザー削除（1件）*/
 	public void deleteUserOne(String loginId);
