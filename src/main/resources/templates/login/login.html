@@ -15,8 +15,10 @@
 	<div class ="text-center">
 		<h2>ログイン</h2>
 		<form method ="post" th:action ="@{/login}" class ="form-login">
-			<!--<p th:if="${param.error != null and session.containsKey('SPRING_SECURITY_LAST_EXCEPTION')}" 
-			th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></p>-->
+<!--			<p th:if="${param.error != null and session.containsKey('SPRING_SECURITY_LAST_EXCEPTION')}" 
+			th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></p>
+-->			<p th:if="${param.error != null and session.containsKey('SPRING_SECURITY_LAST_EXCEPTION')}">ログインIDもしくはパスワードが間違っています。</p>
+
 			<!--ユーザーID-->
 			<div class ="form-group">
 				<label for ="loginId" class ="sr-only">ログインId</label>

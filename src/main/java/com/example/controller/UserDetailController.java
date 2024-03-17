@@ -81,7 +81,7 @@ public String updateUser(UserDetailForm form, Model model){
 			form.getDepartmentId(),
 			form.getRoleId(),
 			form.getValidation(),
-			form.getAuthority(),
+			form.getAuthorityFlg(),
 			form.getHire()
 			);
 	

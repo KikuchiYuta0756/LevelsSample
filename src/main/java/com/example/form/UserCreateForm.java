@@ -46,7 +46,7 @@ public class UserCreateForm {
 	private Integer validation;
 	
 	@NotNull//(groups = ValidGroup1.class)
-	private Integer authority;
+	private Integer authorityFlg;
 	
 	@NotNull(groups = ValidGroup1.class)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")

@@ -51,9 +51,9 @@
 		<input type="hidden" th:field="*{workFlg}" />		
 		<div class="text-cenbtnClickter">
 			<!--出勤ボタン-->
-			<button  id="btnClick" class="btn btn-danger" type="submit" name="attendance"　disabled>出勤</button>
+			<button  id="attendanceButton" class="btn btn-danger" type="submit" name="attendance"　disabled>出勤</button>
 			<!--退勤ボタン-->
-			<button  id="btnClick" class="btn btn-primary" type="submit" name="leaving" >退勤</button>
+			<button  id="leavingButton" class="btn btn-primary" type="submit" name="leaving" >退勤</button>
 		</div>
 	</div>
 	</form>
@@ -77,9 +77,6 @@
     } else if (workFlgLeavingValue === "10") {
         document.getElementById("leavingButton").disabled = true;
     }
-
-		
-		
 	</script>
 	</span>
 	
