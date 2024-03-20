@@ -12,7 +12,7 @@
 	<div class="header border-bottom">
 		<span class="h2">月次勤怠一覧</span>
     <!--年月選択フォーム-->
-   <form id="select-year-month" method="post" th:action="@{/user/selectYearMonths}" >
+   <form id="select-year-month" method="post" th:action="@{/admin/selectYearMonths}" >
 		<label for="yearMonth">年月選択</label>
 		<select name="selectYearMonth" id="yearMonth">
 			<option th:each="yearMonth : ${yearMonths}" 
@@ -51,11 +51,11 @@
 	</table>
 	</form>
 	<div>
-	  <a class="nav-link" th:href="@{'/user/paidRequest'}">有給申請</a>
-	  <a class="nav-link" th:href="@{'/user/correctRequest'}">修正申請</a>
+	  <a class="nav-link" th:href="@{'/admin/paidRequestADM'}">有給申請</a>
+	  <a class="nav-link" th:href="@{'/admin/correctRequestADM'}">修正申請</a>
 	</div>
     <!--CSV出力フォーム-->
-   <form id="select-year-month" method="post" th:action="@{/user/csvOutput}" class="select-year-month">
+   <form id="select-year-month" method="post" th:action="@{/admin/csvOutput}" class="select-year-month">
 		<select name="selectYearMonth" id="yearMonth">
 			<option th:each="yearMonth : ${yearMonths}" 
 			 th:value="${yearMonth}" th:text="${yearMonth}">

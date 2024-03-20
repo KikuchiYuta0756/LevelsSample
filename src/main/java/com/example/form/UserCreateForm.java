@@ -13,7 +13,9 @@ import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.PaidEntity;
+import com.example.domainUser.model.RoleEntity;
 
 import lombok.Data;
 
@@ -51,6 +53,9 @@ public class UserCreateForm {
 	@NotNull(groups = ValidGroup1.class)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date hire;
+	
+	private DepartmentEntity department;
+    private RoleEntity role;
 	
     private PaidEntity paid;
 }

@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import org.modelmapper.ModelMapper;
 //import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 //import org.springframework.ui.Model;
@@ -44,9 +46,12 @@ public class ClockInController {
 	@GetMapping("/clockIn")
 	public String getClockIn(UserDetailForm form,
 			Model model){
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String loginId = auth.getName();
 		
 		//認証ユーザーの出退勤フラグを取得
-		UserMapperEntity userWorkFlg = userService.getWorkFlg();
+		UserMapperEntity userWorkFlg = userService.getWorkFlg(loginId);
 
 		//UserMapperEntityをformに変換
 		form = modelMapper.map(userWorkFlg, UserDetailForm.class);

@@ -2,6 +2,8 @@ package com.example.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,6 +46,11 @@ public class CorrectRequestController {
 			,@ModelAttribute @Validated(GroupOrder.class) CorrectRequestForm form
 			,BindingResult bindingResult){
 		
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String correctLoginId = auth.getName();
+	    System.out.println("修正申請の登録" + correctLoginId);
+		
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
 			//NG 修正申請画面に戻る
@@ -56,7 +63,7 @@ public class CorrectRequestController {
 		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
 		
 		//ユーザー登録
-		correctRequestService.correctRequestCreate(correct);
+		correctRequestService.correctRequestCreate(correctLoginId, correct);
 		
 		//利用者一覧画面にリダイレクト
 		return "user/clockInList";

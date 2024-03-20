@@ -1,17 +1,15 @@
 package com.example.controller;
 
-import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,15 +39,18 @@ public class ClockInListController {
 	//勤怠一覧（月次）の表示
 	@GetMapping("/clockInList")
 	public String getClockInList(WorkTimeTotalForm form, Model model){
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String loginId = auth.getName();
 		
 		//勤怠一覧（月次）を取得
-		List<WorkTimeEntity> clockList = worktimeService.getClockTimes();
+		List<WorkTimeEntity> clockList = worktimeService.getClockTimes(loginId);
 		
 		//Modelに登録
 		model.addAttribute("clockList", clockList);
 		
 		//勤怠情報の各合計（月次）を取得
-		WorkTimeTotalEntity workTimeTotal = worktimeService.getworkTimesTotal();
+		WorkTimeTotalEntity workTimeTotal = worktimeService.getworkTimesTotal(loginId);
 		
 		//WorkTimeTotalEntityをformに変換
 		form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);
@@ -60,7 +61,7 @@ public class ClockInListController {
 		
 		//年月リストを作成
 		List<String> yearMonths = Arrays.asList(
-				"2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11");
+				"2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12");
 		
 		//Modelに追加
 		model.addAttribute("yearMonths", yearMonths);
@@ -73,14 +74,19 @@ public class ClockInListController {
 	public String getSelectYearMonths(WorkTimeTotalForm form, Model model, 
 			@RequestParam("selectYearMonth") String selectedYearMonth){
 		
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//ログイン認証に使用したログインIDを利用する。
+	    String loginId = auth.getName();
+	    System.out.println("勤怠一覧（月次）の表示" + loginId);			
+		
 		//選択された年月の勤怠一覧を表示する
-		List<WorkTimeEntity> clockList =worktimeService.getSelectYearMonth(selectedYearMonth);
+		List<WorkTimeEntity> clockList =worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
 		
 		//Modelに登録
 		model.addAttribute("clockList", clockList);
 		
 		//勤怠情報の各合計（月次）を取得
-		WorkTimeTotalEntity workTimeTotal = worktimeService.getSelectWorkTimesTotal(selectedYearMonth);
+		WorkTimeTotalEntity workTimeTotal = worktimeService.getSelectWorkTimesTotal(loginId, selectedYearMonth);
 		
 		//WorkTimeTotalEntityをformに変換
 		form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);
@@ -90,13 +96,10 @@ public class ClockInListController {
 		
 		//年月リストを作成
 		List<String> yearMonths = Arrays.asList(
-				"2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11");
+				"2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12");
 		
 		//Modelに追加
-		model.addAttribute("yearMonths", yearMonths);
-
-
-		
+		model.addAttribute("yearMonths", yearMonths);	
 		
 	return "user/clockInList";
 	}
@@ -106,9 +109,13 @@ public class ClockInListController {
 	@PostMapping("/csvOutput")
     public void mainCSV(String[] args,
     		@RequestParam("selectYearMonth") String selectedYearMonth) {
-       
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//ログイン認証に使用したログインIDを利用する。
+	    String loginId = auth.getName();
+	    System.out.println("勤怠一覧（月次）の表示" + loginId);						
+		
 		//選択された年月の勤怠一覧を表示する
-		List<WorkTimeEntity> csvRecords = worktimeService.getSelectYearMonth(selectedYearMonth);
+		List<WorkTimeEntity> csvRecords = worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
 		
 		//CSVにエクスポート
 		exportToCsv(csvRecords,"ClockInList.csv");

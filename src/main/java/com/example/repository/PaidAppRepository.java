@@ -28,7 +28,7 @@ public interface PaidAppRepository {
 			@Param("paidAppId")int paidAppId);
 	
 	/**有給申請取得（ユーザー）*/
-	public List<PaidAppEntity>userFindMany();
+	public List<PaidAppEntity>userFindMany(String paidLoginId);
 
 
 }

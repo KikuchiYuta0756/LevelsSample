@@ -39,8 +39,8 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	
 	//勤怠一覧（月次）の取得
 	@Override
-	public List<WorkTimeEntity> getClockTimes(){
-		return worktimemapper.findMany();
+	public List<WorkTimeEntity> getClockTimes(String loginId){
+		return worktimemapper.findMany(loginId);
 	}
 	
 	//勤怠一覧（月次）の取得（ユーザ毎）
@@ -52,8 +52,8 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	
 	//選択された年月の勤怠一覧を表示する
 	@Override
-	public List<WorkTimeEntity> getSelectYearMonth(String selectedYearMonth){
-		return worktimemapper.findSelectYearMonth(selectedYearMonth);
+	public List<WorkTimeEntity> getSelectYearMonth(String loginId, String selectedYearMonth){
+		return worktimemapper.findSelectYearMonth(loginId, selectedYearMonth);
 	}
 
 	//来月の勤怠一覧（月次）の取得
@@ -64,14 +64,14 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 
 	//勤怠（月次）の各合計を取得
 	@Override
-	public WorkTimeTotalEntity getworkTimesTotal(){
-		return worktimemapper.totalWorkTime();
+	public WorkTimeTotalEntity getworkTimesTotal(String loginId){
+		return worktimemapper.totalWorkTime(loginId);
 	}
 
 	//選択した勤怠（月次）の各合計を取得
 	@Override
-	public WorkTimeTotalEntity getSelectWorkTimesTotal(String selectedYearMonth){
-		return worktimemapper.selectTotalWorkTime(selectedYearMonth);
+	public WorkTimeTotalEntity getSelectWorkTimesTotal(String loginId, String selectedYearMonth){
+		return worktimemapper.selectTotalWorkTime(loginId, selectedYearMonth);
 	}
 	
 	//合計時間（勤怠）の更新
@@ -81,8 +81,8 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	}
 
 	/**勤怠（日次）の取得(１件)*/
-	public WorkTimeEntity getWorkTimeOne(String workDate) {
-		return worktimemapper.workTimeOne(workDate);
+	public WorkTimeEntity getWorkTimeOne(String loginId, String workDate) {
+		return worktimemapper.workTimeOne(loginId, workDate);
 	}
 	
 	/**ユーザー更新（1件）*/

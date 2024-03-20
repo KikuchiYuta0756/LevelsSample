@@ -24,6 +24,6 @@ public interface PaidAppService {
 	public void updateRequestStaRemand(int paidAppId);
 
 	/**有給申請取得（ユーザー）*/
-	public List<PaidAppEntity> getUserPaidRequests();
+	public List<PaidAppEntity> getUserPaidRequests(String paidLoginId);
 
 }

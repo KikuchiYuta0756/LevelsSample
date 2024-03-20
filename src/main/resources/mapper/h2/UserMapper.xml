@@ -20,7 +20,6 @@
 	<result column="work_flg" property="workFlg" />
     <association property="department" resultMap="department" />
     <association property="role" resultMap="role" />
-    <association property="authority" resultMap="authority" />
     <association property="paid" resultMap="paid" />
     <collection property="paidAppList" resultMap="paidApp" columnPrefix="paidApp_" />
 </resultMap>
@@ -56,13 +55,6 @@
    <result column="paid_last_granted_date" property="departmentName" />
 </resultMap>
 
-<!--マッピング定義（権限テーブル）-->
-<resultMap type="com.example.domainUser.model.AuthorityEntity" id="authority">
-   <id column="authority_id" property="authorityId" />
-   <result column="authority_name" property="authorityName" />
-</resultMap>
-
-
 
 <!--ユーザー1件登録-->
 <insert id="insertOne">
@@ -89,7 +81,7 @@
 	,#{roleId}
 	,#{validation}
 	,#{hire}
-	,#{authority}
+	,#{authorityFlg}
 	,10
 	)
 </insert>
@@ -202,7 +194,7 @@ WHERE
     from 
      m_user 
     where 
-     login_id = 12345
+     login_id = #{loginId}
 </select>
 
 <!--出退勤フラグの更新（退勤ボタンを活性化）-->

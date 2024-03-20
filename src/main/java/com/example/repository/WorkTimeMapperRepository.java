@@ -28,7 +28,7 @@ public interface WorkTimeMapperRepository {
 	public int insertOverTime(WorkTimeEntity worktime);
 	
 	/**勤怠一覧（月次）の取得*/
-	public  List<WorkTimeEntity> findMany();
+	public  List<WorkTimeEntity> findMany(String loginId);
 
 	/**勤怠一覧（月次）の取得（ユーザ毎）*/
 	public  List<WorkTimeEntity> findManyOne(String loginId);
@@ -36,22 +36,22 @@ public interface WorkTimeMapperRepository {
 	
 	
 	//選択された年月の勤怠一覧を取得
-	public  List<WorkTimeEntity> findSelectYearMonth(String selectedYearMonth);
+	public  List<WorkTimeEntity> findSelectYearMonth(String loginId, String selectedYearMonth);
 
 	/**来月の勤怠一覧（月次）の取得*/
 	public  List<WorkTimeEntity> findManyNextMonth();
 
 	/**勤怠一覧（月次）の取得*/
-	public  WorkTimeTotalEntity totalWorkTime();
+	public  WorkTimeTotalEntity totalWorkTime(String loginId);
 
 	/**勤怠一覧（月次）の取得*/
-	public  WorkTimeTotalEntity selectTotalWorkTime(String selectedYearMonth);
+	public  WorkTimeTotalEntity selectTotalWorkTime(String loginId, String selectedYearMonth);
 	
 	/**合計時間（勤怠）の更新*/
 	public void updateTotalWorkTime();
 	
 	/**勤怠（日次）の取得（1件）*/
-	public  WorkTimeEntity workTimeOne(String workDate);
+	public  WorkTimeEntity workTimeOne(String loginId, String workDate);
 	
 	
 	/**ユーザー更新（1件）*/

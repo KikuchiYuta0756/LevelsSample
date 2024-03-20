@@ -77,7 +77,7 @@ where
 	select * 
 	from m_worktime 
 	where 
-	login_id = 12345 
+	login_id = #{loginId} 
 	AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
 </select>
 
@@ -87,7 +87,8 @@ where
 <select id="findSelectYearMonth" resultType="WorkTimeEntity">
 	select * 
 	from m_worktime 
-	where DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
+	where login_id = #{loginId} 
+	AND DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
 </select>
 
 <!--来月の月次の勤怠を取得-->
@@ -105,7 +106,9 @@ where
 	,act_work_time_total
 	,over_time_total 
 	from  m_worktime_total 
-	where work_date_month = DATE_FORMAT(NOW(), '%Y-%m');
+	where 
+	login_id = #{loginId} 
+	AND work_date_month = DATE_FORMAT(NOW(), '%Y-%m');
 </select>
 
 <!--選択した月次の合計時間を取得-->
@@ -116,7 +119,8 @@ where
 	,act_work_time_total
 	,over_time_total 
 	from  m_worktime_total 
-	where work_date_month = #{selectedYearMonth};
+	where login_id = #{loginId} 
+	AND work_date_month = #{selectedYearMonth};
 </select>
 
 <!--ｍ_worktime_totalのカラム更新（最新化）-->
@@ -148,7 +152,7 @@ t1.work_date_total = (
 	,close_time
 	,rest_time 
 	from m_worktime 
-	where login_id = 12345 
+	where login_id = #{loginId} 
 	and work_date = #{workDate}
 </select>
 

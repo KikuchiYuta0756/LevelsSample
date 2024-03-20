@@ -110,8 +110,8 @@ public class UserServiceImpl implements UserService{
 	
 	/**打刻画面用　出退勤フラグの取得*/
 	@Override
-	public UserMapperEntity getWorkFlg() {
-		return usermapper.findWorkFlg();
+	public UserMapperEntity getWorkFlg(String loginId) {
+		return usermapper.findWorkFlg(loginId);
 	}
 	
 	/**打刻画面用　出退勤フラグの更新（退勤ボタンを活性化）*/

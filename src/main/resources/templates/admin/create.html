@@ -98,9 +98,9 @@
 			<!--ユーザー権限-->
 			<div class="form-group">
 				<div th:each="item:${authorityMap}" class="form-check-inline">
-					<input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{authority}" th:errorclass="is-invalid"/>
+					<input type="radio" class="form-check-input" th:value="${item.value}" th:field="*{authorityFlg}" th:errorclass="is-invalid"/>
 					<label class="form-check-label" th:text="${item.key}"></label>
-					<div class="text-danger" th:if="${#fields.hasErrors('authority')}" th:error="*{authority}"></div>
+					<div class="text-danger" th:if="${#fields.hasErrors('authorityFlg')}" th:error="*{authorityFlg}"></div>
 				</div>
 　　　　　　　　　</div>
 

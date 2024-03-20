@@ -61,7 +61,7 @@ public interface UserMapperRepository {
 	public List<RoleEntity>findAll2();
 
 	/**出退勤フラグの取得*/
-	public UserMapperEntity findWorkFlg();
+	public UserMapperEntity findWorkFlg(String loginId);
 	
 	/**退勤フラグの活性化（1件）*/
 	public void updateWorkFlgLeaving();

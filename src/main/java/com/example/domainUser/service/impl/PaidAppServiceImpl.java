@@ -45,8 +45,8 @@ public class PaidAppServiceImpl implements PaidAppService {
 
 	/**有給申請取得（ユーザー）*/
 	@Override
-	public List<PaidAppEntity> getUserPaidRequests(){
-	return paidapprepository.userFindMany();
+	public List<PaidAppEntity> getUserPaidRequests(String paidLoginId){
+	return paidapprepository.userFindMany(paidLoginId);
 	}
 
 }

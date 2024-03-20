@@ -75,7 +75,9 @@ WHERE
 
 <!--有給申請の数件取得（ユーザー）-->
 <select id="userFindMany" resultType="PaidAppEntity">
-SELECT * FROM m_paid_app
+SELECT * FROM m_paid_app 
+where 
+login_id = #{loginId}
 </select>
 	
 </mapper>

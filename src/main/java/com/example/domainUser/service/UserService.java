@@ -50,7 +50,7 @@ public interface UserService {
 	
 	
 	/**打刻画面用　出退勤フラグの取得*/
-	public UserMapperEntity getWorkFlg();
+	public UserMapperEntity getWorkFlg(String loginId);
 	
 	/**打刻画面用　出退勤フラグの更新（退勤ボタンを活性化）*/
 	public void getWorkFlgLeaving();

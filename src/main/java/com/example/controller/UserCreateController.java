@@ -84,6 +84,7 @@ public class UserCreateController {
 		
 		//formをUserMapperEntityクラスに変換
 		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
+		System.out.println("ユーザ登録は"+ user);
 		
 		//ユーザー登録
 		userService.userCreate(user);

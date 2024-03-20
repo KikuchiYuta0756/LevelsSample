@@ -2,6 +2,8 @@ package com.example.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domainUser.model.CorrectRequestEntity;
 import com.example.domainUser.service.CorrectRequestService;
 import com.example.form.CorrectRequestForm;
+import com.example.form.GroupOrder;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,10 +42,20 @@ public class CorrectRequestADMController {
 	
 	/**修正申請の登録処理*/
 	@PostMapping("/correctRequestADM")
-	public String postClockCorrection(Model model,
-			@ModelAttribute CorrectRequestForm form){
+	public String postClockCorrection(Model model
+			,@ModelAttribute @Validated(GroupOrder.class) CorrectRequestForm form
+			,BindingResult bindingResult){
 		
-		System.out.print("Hello");
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String correctLoginId = auth.getName();
+	    System.out.println("修正申請の登録" + correctLoginId);
+		
+		//入力チェック結果
+		if(bindingResult.hasErrors()) {
+			//NG 修正申請画面に戻る
+			return getClockCorrection(model,form);
+		}
 				
 		log.info(form.toString());
 		
@@ -50,7 +63,7 @@ public class CorrectRequestADMController {
 		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
 		
 		//ユーザー登録
-		correctRequestService.correctRequestCreate(correct);
+		correctRequestService.correctRequestCreate(correctLoginId, correct);
 		
 		//利用者一覧画面にリダイレクト
 		return "admin/clockInListADM";

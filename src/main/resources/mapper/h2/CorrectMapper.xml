@@ -24,7 +24,8 @@
 	<!--修正申請1件登録-->
 <insert id="insertOne">
 	 insert into m_correction_app(
-	  correct_date
+	  login_id
+	 ,correct_date
 	 ,correct_starttime
 	 ,correct_closetime
 	 ,correct_resttime
@@ -34,7 +35,8 @@
 	 ,correct_app_date
 	 )
 	 value(
-	 #{correctDate}
+	 #{correctLoginId}
+	,#{correctDate}
 	,#{correctStartTime}
 	,#{correctCloseTime}
 	,#{correctRestTime}
@@ -92,7 +94,11 @@ WHERE
 
 <!--修正申請の数件取得（ユーザー）-->
 <select id="userFindMany" resultType="CorrectRequestEntity">
-SELECT * FROM m_correction_app 
+SELECT * 
+FROM
+ m_correction_app 
+where
+ login_id = #{correctLoginId}
 </select>
 
 	

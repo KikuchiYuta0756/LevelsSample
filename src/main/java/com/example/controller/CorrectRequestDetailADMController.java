@@ -33,10 +33,12 @@ public class CorrectRequestDetailADMController {
 	public String getCorrectRequestADM(CorrectRequestForm form, Model model,
 			@PathVariable("correctRequestId")int correctRequestId) {
 
+		System.out.println("修正申請詳細の申請番号は" + correctRequestId);
+		
 		//修正申請を1件取得
 		CorrectRequestEntity correctDetailADM = correctRequestservice.getCorrectRequestOne(correctRequestId);
 		
-		System.out.println(correctDetailADM);
+		System.out.println("修正申請詳細のユーザ情報" + correctDetailADM);
 		
 		//UserMapperEntityをformに変換
 		form = modelMapper.map(correctDetailADM, CorrectRequestForm.class);

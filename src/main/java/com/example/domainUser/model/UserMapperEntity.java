@@ -20,7 +20,6 @@ public class UserMapperEntity {
     private Integer workFlg;
 	private DepartmentEntity department;
     private RoleEntity role;
-    private AuthorityEntity authority;
     private List<PaidAppEntity> paidAppList;
     private PaidEntity paid;
 }

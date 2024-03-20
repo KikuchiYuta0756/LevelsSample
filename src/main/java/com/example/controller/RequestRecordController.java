@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,6 @@ import com.example.form.CorrectListForm;
 import com.example.form.PaidRequestListForm;
 import com.example.form.RequestRecodeForm;
 
-
 @Controller
 @RequestMapping("/user")
 public class RequestRecordController {
@@ -42,16 +43,22 @@ public class RequestRecordController {
 	/**申請履歴画面を表示*/
     @GetMapping("/requestRecord")
     public String getRequestRecord(Model model) {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String paidLoginId = auth.getName();
 	
 		// 有給申請一覧取得
-		List<PaidAppEntity> paidList = paidappservice.getUserPaidRequests();
+		List<PaidAppEntity> paidList = paidappservice.getUserPaidRequests(paidLoginId);
 		paidList.sort(Comparator.comparing(PaidAppEntity::getPaidRequestDateApp));
 
 		// Modelに登録
 		model.addAttribute("paidList", paidList);
 		
+		//ログイン認証に使用したログインIDを利用する。
+		String correctLoginId = auth.getName();
+		
 		//修正申請一覧取得
-		List<CorrectRequestEntity> correctList = correctrequestservice.getUserCorrectRequests();
+		List<CorrectRequestEntity> correctList = correctrequestservice.getUserCorrectRequests(correctLoginId);
 		correctList.sort(Comparator.comparing(CorrectRequestEntity::getCorrectRequestDate));
 		
 		//modelに登録

@@ -90,10 +90,10 @@
 					<tr>
 						<th>権限</th>
 						<td>
-							<div th:text="*{authority == 1?'general':'Admin'}" />
+							<div th:text="*{authorityFlg == 1?'general':'Admin'}" />
 							<span th:each="item:${authorityMap}" class="form-check-inline">
 								<input type="radio" class="form-check-input" th:value="${item.value}"
-									th:field="*{authority}" />
+									th:field="*{authorityFlg}" />
 								<label class="form-check-label" th:text="${item.key}"></label>
 							</span>
 						</td>

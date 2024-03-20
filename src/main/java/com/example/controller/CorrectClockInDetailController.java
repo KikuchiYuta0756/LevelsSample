@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,9 +39,14 @@ public class CorrectClockInDetailController {
     @GetMapping("/correctClockInDetail/{workDate}")
     public String getUser(CorrectWorkTimeDetailForm form, Model model,
     		@PathVariable("workDate")String workDate) {
+    	
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String loginId = auth.getName();
+
 		
 		//勤怠詳細の1件取得
-    	WorkTimeEntity worktime = worktimeService.getWorkTimeOne(workDate);
+    	WorkTimeEntity worktime = worktimeService.getWorkTimeOne(loginId, workDate);
 		
 		//WorkTimeEntityをformに変換
 		form = modelMapper.map(worktime, CorrectWorkTimeDetailForm.class);
