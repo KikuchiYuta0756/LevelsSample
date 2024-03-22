@@ -48,7 +48,7 @@ public interface WorkTimeMapperRepository {
 	public  WorkTimeTotalEntity selectTotalWorkTime(String loginId, String selectedYearMonth);
 	
 	/**合計時間（勤怠）の更新*/
-	public void updateTotalWorkTime();
+	public void updateTotalWorkTime(String loginId);
 	
 	/**勤怠（日次）の取得（1件）*/
 	public  WorkTimeEntity workTimeOne(String loginId, String workDate);

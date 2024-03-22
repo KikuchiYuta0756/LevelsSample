@@ -30,25 +30,21 @@
 
 <!--出勤時間の登録-->
 <update id="insertStartTime">
-update  
-   m_worktime 
-set 
-   start_time = #{startTime},
-   rest_time = '01:00:00' 
-where 
-    work_date = #{workDate}
+update m_worktime 
+set start_time = #{startTime},
+    rest_time = '01:00:00' 
+where login_id = #{loginId} 
+AND work_date = #{workDate}
 </update>
 
 <!--退勤時間の登録-->
 <update id="insertCloseTime">
-update  
-   m_worktime 
-set 
-   close_time = #{closeTime},
-   gen_work_time = TIMEDIFF(close_time, start_time),
-   act_work_time = TIMEDIFF(gen_work_time, rest_time)  
-where 
-    work_date = #{workDate}
+update m_worktime 
+set close_time = #{closeTime},
+    gen_work_time = TIMEDIFF(close_time, start_time),
+    act_work_time = TIMEDIFF(gen_work_time, rest_time) 
+where login_id = #{loginId} 
+AND work_date = #{workDate}
 </update>
 <!--残業時間の登録-->
 <update id="insertOverTime">
@@ -60,9 +56,9 @@ set
     when TIMEDIFF(act_work_time, '08:00:00') > 0  
     then TIMEDIFF(act_work_time, '08:00:00') 
     else 0 
-  end  
-where 
-  work_date = #{workDate}
+  end 
+where login_id = #{loginId} 
+AND work_date = #{workDate}
 </update>
 
 <!--月次の勤怠を取得-->
@@ -140,7 +136,8 @@ t1.work_date_total = (
     SELECT COUNT(start_time)
     FROM m_worktime t2
     WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
-);
+) 
+where login_id = #{loginId};
 </update>
 
 <!--ユーザ毎の勤怠（日次）の検索-->

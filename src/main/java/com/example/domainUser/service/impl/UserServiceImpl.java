@@ -116,14 +116,14 @@ public class UserServiceImpl implements UserService{
 	
 	/**打刻画面用　出退勤フラグの更新（退勤ボタンを活性化）*/
 	@Override
-	public void getWorkFlgLeaving() {
-	    usermapper.updateWorkFlgLeaving();
+	public void getWorkFlgLeaving(String loginId) {
+	    usermapper.updateWorkFlgLeaving(loginId);
 	}
 	
 	/**打刻画面用　出退勤フラグの更新（退勤ボタンを活性化）*/
 	@Override
-	public void getWorkFlgAttendance() {
-		usermapper.updateWorkFlgAttendance();
+	public void getWorkFlgAttendance(String loginId) {
+		usermapper.updateWorkFlgAttendance(loginId);
 	}
 
 

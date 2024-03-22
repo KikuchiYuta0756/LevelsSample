@@ -76,8 +76,8 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	
 	//合計時間（勤怠）の更新
 	@Override
-	public void updatetotalWorkTime() {
-		worktimemapper.updateTotalWorkTime();
+	public void updateTotalWorkTime(String loginId) {
+		worktimemapper.updateTotalWorkTime(loginId);
 	}
 
 	/**勤怠（日次）の取得(１件)*/

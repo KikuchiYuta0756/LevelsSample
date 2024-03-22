@@ -165,17 +165,17 @@ WHERE
 	validation =#{validation},
 	authority_flg =#{authority},
 	hire_date =#{hire},
-    password=#{password} 
+    password=#{encryptPassword} 
 	where 
 	login_id = #{loginId}
 </update>
 
 <!--ログインユーザーパスワード更新-->
 <update id="updatePasswordOne">
-	update m_user set 
-    password=#{password} 
+	update m_user 
+	set password = #{encryptPassword} 
 	where 
-	login_id = #{loginId}
+	login_id = #{loginId};
 </update>
 
 
@@ -202,15 +202,15 @@ WHERE
 	update m_user set 
 	work_flg =20 
 	where 
-	login_id = 12345
+	login_id = #{loginId}
 </update>
 
-<!--出退勤フラグの更新（退勤ボタンを活性化）-->
+<!--出退勤フラグの更新（出勤ボタンを活性化）-->
 <update id="updateWorkFlgAttendance">
 	update m_user set 
 	work_flg =10 
 	where 
-	login_id = 12345
+	login_id = #{loginId}
 </update>
 
 <!--月毎の総稼働時間をトータルテーブルに格納-->

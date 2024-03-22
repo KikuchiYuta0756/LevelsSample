@@ -64,11 +64,11 @@ public interface UserMapperRepository {
 	public UserMapperEntity findWorkFlg(String loginId);
 	
 	/**退勤フラグの活性化（1件）*/
-	public void updateWorkFlgLeaving();
+	public void updateWorkFlgLeaving(String loginId);
 	
 	
 	/**退勤フラグの活性化（1件）*/
-	public void updateWorkFlgAttendance();
+	public void updateWorkFlgAttendance(String loginId);
 	
 
 

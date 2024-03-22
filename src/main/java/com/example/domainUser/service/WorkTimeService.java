@@ -44,7 +44,7 @@ public interface WorkTimeService {
 
 	
 	//合計時間（勤怠）の更新
-	public void updatetotalWorkTime();
+	public void updateTotalWorkTime(String loginId);
 
 	/**勤怠情報の取得(１件)*/
 	public WorkTimeEntity getWorkTimeOne(String loginId, String workDate);

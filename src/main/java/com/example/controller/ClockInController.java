@@ -24,7 +24,6 @@ import com.example.domainUser.service.WorkTimeService;
 //import com.example.form.WorkTimeForm;
 import com.example.form.UserDetailForm;
 
-
 //import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -68,17 +67,24 @@ public class ClockInController {
 	//出勤時間の登録処理
 	@PostMapping(value = "/clockIn", params = "attendance")
 	public String attendanceTime() {
-				
-		//LocalDateTimeで現在日時の取得
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String loginId = auth.getName();
+
+	    //LocalDateTimeで現在日時の取得
 		LocalDateTime ldtnow = LocalDateTime.now();
 		
-        // 分を10分単位に変換
+        //分単位を取得
         int minute = ldtnow.getMinute();
-        int roundedMinute = Math.round((float) minute / 10) * 10;
-
-        // 新しい LocalDateTime を作成して、分を変更
+        System.out.println("minuteの値は" + minute);
+        //分を5捨6入して計算する10分単位に変換
+        int roundedMinute = Math.round((float)(minute-1) / 10) * 10;
+        System.out.println("roundedMinuteの値は" + roundedMinute);
+                
+        //LocalDateTimeの分部分を更新
         LocalDateTime adjustedDateTime = ldtnow.withMinute(roundedMinute);
-		
+        System.out.println("adjustedDateTimeの値は" + adjustedDateTime);
+        
 		//Date出力形式を指定
 		DateTimeFormatter dtfdate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		DateTimeFormatter dtftime = DateTimeFormatter.ofPattern("HH:mm");
@@ -90,29 +96,37 @@ public class ClockInController {
 		WorkTimeEntity worktime = new WorkTimeEntity();
 		worktime.setWorkDate(strdate);
 		worktime.setStartTime(strtime);
+		worktime.setLoginId(loginId);
 
 		workTimeService.startTimeSignup(worktime);
 		
 		//出退勤フラグ（退勤）を更新する
-		userService.getWorkFlgLeaving();
+		userService.getWorkFlgLeaving(loginId);
 		
-		return "redirect:/user/clockIn";	
+		return "redirect:/user/clockIn";
 	}
 	
 	//退勤ボタン処理
 	@PostMapping(value = "/clockIn", params = "leaving")
 	public String leavingTime() {
-		
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String loginId = auth.getName();
+
+	    //LocalDateTimeで現在日時の取得
 		LocalDateTime ldtnow = LocalDateTime.now();
 		
-        // 分を10分単位に変換
+        //分単位を取得
         int minute = ldtnow.getMinute();
-        int roundedMinute = Math.round((float) minute / 10) * 10;
-
-        // 新しい LocalDateTime を作成して、分を変更
+        System.out.println("minuteの値は" + minute);
+        //分を5捨6入して計算する10分単位に変換
+        int roundedMinute = Math.round((float)(minute-1) / 10) * 10;
+        System.out.println("roundedMinuteの値は" + roundedMinute);
+                
+        //LocalDateTimeの分部分を更新
         LocalDateTime adjustedDateTime = ldtnow.withMinute(roundedMinute);
-
-		
+        System.out.println("adjustedDateTimeの値は" + adjustedDateTime);
+        
 		//Date出力形式を指定
 		DateTimeFormatter dtfdate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		DateTimeFormatter dtftime = DateTimeFormatter.ofPattern("HH:mm");
@@ -125,24 +139,24 @@ public class ClockInController {
 		WorkTimeEntity worktime = new WorkTimeEntity();
 		worktime.setWorkDate(strdate);
 		worktime.setCloseTime(strtime);
+		worktime.setLoginId(loginId);
 		
         //退勤時間のDB登録
 		workTimeService.closeTimeSignup(worktime);
 		
 		WorkTimeEntity worktimeentity = new WorkTimeEntity();
-		worktimeentity.setWorkDate(strdate);		
+		worktimeentity.setWorkDate(strdate);
+		worktimeentity.setLoginId(loginId);
 		
 		//残業時間のDB登録
 		workTimeService.overTimeSignup(worktimeentity);
 		
 		//出退勤フラグ（出勤）を更新する
-		userService.getWorkFlgAttendance();
+		userService.getWorkFlgAttendance(loginId);
 		
 		//月毎の合計実働時間を更新する
-		workTimeService.updatetotalWorkTime();
+		workTimeService.updateTotalWorkTime(loginId);
 		
 		return "redirect:/user/clockIn";
 	}
-	
-
 }
