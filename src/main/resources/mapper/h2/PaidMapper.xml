@@ -17,15 +17,26 @@
 </resultMap>
 	
 	<!--有給申請1件登録-->
-<insert id="insertPaidApp">
+<insert id="insertPaidApp" parameterType="map">
+	<!--ログインIDからユーザ名を取得-->
+	<selectKey keyProperty="paidUserName" resultType="string" order="BEFORE" >
+		SELECT user_name 
+		FROM m_user 
+		WHERE login_id = #{paidLoginId}
+	</selectKey>
+	
 	 insert into m_paid_app(
-	  paid_requestdate_app
+	  login_id
+	 ,user_name 
+	 ,paid_requestdate_app
 	 ,paid_app_reason
 	 ,paid_date_app
 	 ,request_sta_id
 	 )
 	 value(
-	 #{paidRequestDateApp}
+	 #{paidLoginId}
+	,#{paidUserName} 
+	,#{paidRequestDateApp}
 	,#{paidAppReason}
 	,NOW()
 	,'承認待ち'

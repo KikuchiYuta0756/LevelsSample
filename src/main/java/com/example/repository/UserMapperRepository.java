@@ -16,7 +16,7 @@ import com.example.domainUser.model.RoleEntity;
 public interface UserMapperRepository {
 	
 	/**ユーザー登録*/
-	public int insertOne(UserMapperEntity user);
+	public void insertOne(UserMapperEntity user);
 	
 	/**ユーザー取得*/
 	public List<UserMapperEntity>findMany(UserMapperEntity user);
@@ -70,7 +70,14 @@ public interface UserMapperRepository {
 	/**退勤フラグの活性化（1件）*/
 	public void updateWorkFlgAttendance(String loginId);
 	
+	/**ユーザー登録*/
+	public int insertUserPaidCreate(UserMapperEntity user);
 
+	//初回の有給付与処理
+	public void giveFirstPaidDays();
+
+	//次回以降の有給付与処理
+	public void updateGivePaidDays();
 
 	
 	

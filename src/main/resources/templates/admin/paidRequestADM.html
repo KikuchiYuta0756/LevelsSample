@@ -15,7 +15,7 @@
 <body>
 	<span layout:fragment="content">
 		<div class="header border-bottom"></div>
-		<form id="create-form" method="post" action="/admin/paidRequestADM"
+		<form id="create-form" method="post" action="@{/admin/paidRequestADM}"
 		 class="form-create" th:object="${paidRequestForm}">
 		 <h1 class="2" th:text="#{paidRequest}"></h1>
 			<!--申請日付-->

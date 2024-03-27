@@ -12,12 +12,14 @@
 	<div class="header border-bottom">
 		<h1 class="h2">月次勤怠修正</h1>
 	</div>
+	<!--一覧表示-->
+    <form method="post" action="@{admin/correctClockInList}" th:object="${correctWorkTimeList}">
+	<!--<div th:each="model, modelStat : ${correctWorkTimeList.models}">-->
 	<!--月次勤怠情報-->
 	<table class="table table-striped table-bordered table-hover">
 		<thead class="thead-light">
 			<tr>
 				<th class="th-width">日付</th>
-				<th class="th-width">曜日</th>
 				<th class="th-width">出勤時間</th>
 				<th class="th-width">退勤時間</th>
 				<th class="th-width">休憩時間</th>
@@ -26,89 +28,37 @@
 			</tr>
 		</thead>
 		<tbody>
-			    <tr th:each="items:${correctWorkTimeList}">
-				<td>
-				 <input type="checkbox" name="checkbox-name"/>
-				</td>
-				<td th:text="${items.workDate}"></td>
-				<td th:text="${items.dayofweekId}"></td>
-				<td th:text="${items.startTime}"></td>
-				<td th:text="${items.closeTime}"></td>
-				<td th:text="${#temporals.format(items.restTime,'HH:mm')}"></td>
-				<td th:text="${#temporals.format(items.actWorkTime,'HH:mm')}"></td>
-				<td th:text="${#temporals.format(items.overTime,'HH:mm')}"></td>
-				<td>
-					<a class="btn btn-primary" th:href="@{'/admin/correctClockInDetail/'+${items.workDate}}">修正</a>
-				</td>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
-	</div>
-
-<!--		<form th:action="@{admin/correctClockInList}" th:object="${correctWorkTimeList}" method="post" name="correctWorkTimeList">
-        <tr th:each="obj:${correctWorkTimeList}">
-            <td th:text="${obj.workDate}">
-				<input type="text" class="form-control"  th:field="*{workDate}" />
+	    <tr th:each="model, modelStat : ${correctWorkTimeList.models}">	
+		<input type="hidden" th:field="*{loginId}" />	
+			<td>
+			   <div th:text="*{models[__${modelStat.index}__].workDate}" />
 			</td>
-            <td>	
-				<input type="text" th:field="*{dayofweekId}" />
+			<td>   
+			   <input type="text" th:field="*{models[__${modelStat.index}__].startTime}" />
 			</td>
-            <td> 
-                <input type="text" th:field="*{startTime}" />
-            </td>
-            <td> 
-                <input type="text" th:field="*{closeTime}" />
-            </td>
-            <td>
-				<input type="text" th:field="*{restTime}" />
+			<td>
+			   <input type="text" th:field="*{models[__${modelStat.index}__].closeTime}" />
 			</td>
-            <td>
-                <input type="text" th:field="*{actWorkTime}" />
-            </td>
-            <td> 
-                <input type="text" th:field="*{overTime}" />
-            </td>                    
-        </tr>
-      </form>
+			<td>
+			   <input type="text" th:field="*{models[__${modelStat.index}__].restTime}" />
+			</td>
+			<td>
+			   <div th:text="*{models[__${modelStat.index}__].actWorkTime}" />
+			</td>
+			<td>
+			   <div th:text="*{models[__${modelStat.index}__].overTime}" />
+			</td>
+<!--			 <td>
+               <a class="btn btn-primary" th:href="@{'/admin/userDetail/'+${models[__${modelStat.index}__].workDate}}">更新</a>						 
+			 </td>			
+-->       </tr>
     </tbody>
--->
-　　　　　　<!--<tbody>	
-			    <tr th:each="items:${correctWorkTimeForm}">
-				<td>
-				 <input type="checkbox" name="checkbox-name"/>
-				</td>
-				<td>
-					<input type="text" class="form-control" th:field="${items.workDate}">
-				</td>
-				<td>
-					<input type="text" class="form-control" th:field="${items.dayofweekId}">
-				</td>
-				<td>
-					<input type="text" class="form-control" th:field="${items.startTime}">
-				</td>
-				<td>
-					<input type="text" class="form-control" th:field="${items.closeTime}">
-				</td>
-				<td>
-					<input type="text" class="form-control" th:field="${#temporals.format(items.restTime,'HH:mm')}">
-				</td>
-				<td>
-					<input type="text" class="form-control" th:field="${#temporals.format(items.actWorkTime,'HH:mm')}">
-				</td>
-				<td>
-					<input type="text" class="form-control" th:field="${#temporals.format(items.overTime,'HH:mm')}">
-				</td>
-				<td></td>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
---><!--			ボタンエリア
-			<div class="text-center">
-				更新ボタン
-				<button class="btn btn-primary" type="submit" >更新</button>
+   </table>
+         <!--ボタンエリア-->
+         <div class="text-center">
+		   <button type="submit">更新</button>
 			</div>
-	</form>-->
+	</form>
+	</div>
 </body>
 </html>

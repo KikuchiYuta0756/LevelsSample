@@ -16,8 +16,8 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 	private CorrectRequestRepository correctrequestrepository;
 	
 	/**修正申請の登録*/
-	public void correctRequestCreate(String correctLoginId, CorrectRequestEntity correct){
-		correctrequestrepository.insertOne(correctLoginId, correct);
+	public void correctRequestCreate(CorrectRequestEntity correct){
+		correctrequestrepository.insertOne(correct);
 	}
 	
 	//勤怠修正申請取得

@@ -46,7 +46,7 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 	//勤怠一覧（月次）の取得（ユーザ毎）
 	public List<WorkTimeEntity> getCorrectClockTimes(String loginId){
 		return worktimemapper.findManyOne(loginId);
-	};
+	}
 	
 	
 	
@@ -103,6 +103,19 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 				restTime 
 				);
 		}
+	
+	/**勤怠テーブルに新規ユーザの登録*/
+	public void userWorkTimeCreate(String loginId) {
+		worktimemapper.insertUserWorkTimeCreate(loginId);
+	}
+
+	//勤怠合計テーブルに新規ユーザの年月毎のレコードを作成する
+	public void userWorkTimeTotalCreate(String loginId) {
+		worktimemapper.insertUserWorkTimeTotalCreate(loginId);
+	}
+
+	
+
 
 	
 }

@@ -57,7 +57,12 @@ public interface WorkTimeService {
 			String closeTime, 
 			LocalTime restTime
 			);
+	
+	/**勤怠テーブルに新規ユーザの登録*/
+	public void userWorkTimeCreate(String loginId);
 
+	//勤怠合計テーブルに新規ユーザの年月毎のレコードを作成する
+	public void userWorkTimeTotalCreate(String loginId);
 
 	
 }

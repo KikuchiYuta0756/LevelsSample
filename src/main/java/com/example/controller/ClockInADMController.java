@@ -126,14 +126,11 @@ public class ClockInADMController {
 		
         //分単位を取得
         int minute = ldtnow.getMinute();
-        System.out.println("minuteの値は" + minute);
         //分を5捨6入して計算する10分単位に変換
         int roundedMinute = Math.round((float)(minute-1) / 10) * 10;
-        System.out.println("roundedMinuteの値は" + roundedMinute);
                 
         //LocalDateTimeの分部分を更新
         LocalDateTime adjustedDateTime = ldtnow.withMinute(roundedMinute);
-        System.out.println("adjustedDateTimeの値は" + adjustedDateTime);
         
 		//Date出力形式を指定
 		DateTimeFormatter dtfdate = DateTimeFormatter.ofPattern("yyyy-MM-dd");

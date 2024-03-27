@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
+import com.example.domainUser.service.WorkTimeService;
 import com.example.form.UserDetailForm;
 
 @Controller
@@ -22,9 +23,12 @@ public class TopPageController {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private WorkTimeService workTimeService;
 
 
-	/**ログイン画面を表示*/
+	/**トップページを表示*/
 	@GetMapping("/TopPage")
 	public String getLogin(UserDetailForm form, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -38,13 +42,17 @@ public class TopPageController {
 		
 		// Modelに登録
 		model.addAttribute("loginUserDetailForm", form);
-
-
+		
+		//初回の有給付与の処理
+		userService.giveFirstPaidDays();
+		
+		//次回以降の有給付与の処理
+		userService.updateGivePaidDays();
 		
 		return "common/TopPage";
 	}
 	
-	/**ユーザー一覧画面にリダイレクト*/
+	/**権限毎の打刻画面にリダイレクト*/
     @PostMapping("/TopPage")
     public String postLogin(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

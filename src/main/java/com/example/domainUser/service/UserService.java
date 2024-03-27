@@ -58,6 +58,14 @@ public interface UserService {
 	/**打刻画面用　出退勤フラグの更新（出勤ボタンを活性化）*/
 	public void getWorkFlgAttendance(String loginId);
 
+	/**有給テーブルに新規ログインIDを作成*/
+	public void userPaidCreate(UserMapperEntity user);
+	
+	/**初回の従業員に有給を付与する*/
+	public void giveFirstPaidDays();
+	
+	/**次回以降の従業員に有給を付与する*/
+	public void updateGivePaidDays();
 	
 
 }

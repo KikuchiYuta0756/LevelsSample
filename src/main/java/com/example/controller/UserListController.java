@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
+import com.example.form.UserCreateForm;
 import com.example.form.UserListForm;
 
 @Controller
@@ -27,8 +30,15 @@ public class UserListController {
 
 	/** ユーザー一覧画面を表示 */
 	@GetMapping("/list")
-	public String getUserList(@ModelAttribute UserListForm form, Model model) {
+	public String getUserList(@ModelAttribute UserListForm form
+			,Model model) {
 		
+//		//入力チェック結果
+//		if(bindingResult.hasErrors()) {
+//		  //NG：ユーザー登録画面に戻る
+//			return getUserList(model,form);
+//		}		
+
 		//formをUserMapperEntityクラスに変換
 		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
 
@@ -39,7 +49,7 @@ public class UserListController {
 		model.addAttribute("userList", userList);
 
 		// ユーザー一覧画面を表示
-		return "admin/list";
+		return "redirect:/admin/list";
 	}
 
 	/** ユーザー検索処理 */

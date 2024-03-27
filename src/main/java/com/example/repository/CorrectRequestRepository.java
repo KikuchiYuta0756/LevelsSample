@@ -12,7 +12,7 @@ import com.example.domainUser.model.UserMapperEntity;
 public interface CorrectRequestRepository {
 	
 	/**修正申請の登録*/
-	public int insertOne(String correctLoginId, CorrectRequestEntity correct);
+	public int insertOne(CorrectRequestEntity correct);
 
 	
 	//勤怠修正申請取得
@@ -31,5 +31,4 @@ public interface CorrectRequestRepository {
 
 	//勤怠修正申請取得（ユーザー）
 	public List<CorrectRequestEntity> userFindMany(String correctLoginId);
-	
 }

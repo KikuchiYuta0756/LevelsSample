@@ -39,18 +39,15 @@ import com.example.form.WorkTimeTotalForm;
 		    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		    //ログイン認証に使用したログインIDを利用する。
 		    String loginId = auth.getName();
-		    System.out.println("勤怠一覧（月次）の表示" + loginId);
 			
 			//勤怠一覧（月次）を取得
 			List<WorkTimeEntity> clockList = worktimeService.getClockTimes(loginId);
-			System.out.println("勤怠一覧（月次）の表示" + clockList);
 			
 			//Modelに登録
 			model.addAttribute("clockList", clockList);
 			
 			//勤怠情報の各合計（月次）を取得
 			WorkTimeTotalEntity workTimeTotal = worktimeService.getworkTimesTotal(loginId);
-			System.out.println("勤怠一覧（月次）の表示" + workTimeTotal);
 			
 			//WorkTimeTotalEntityをformに変換
 			form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);

@@ -51,8 +51,9 @@
 <resultMap type="com.example.domainUser.model.PaidEntity" id="paid">
    <id column="paid_id" property="paidId" />
    <result column="login_id" property="loginId" />
-   <result column="paid_date_num" property="loginId" />
+   <result column="paid_date_num" property="paidDateNum" />
    <result column="paid_last_granted_date" property="departmentName" />
+   <result column="hire_date" property="hire" />
 </resultMap>
 
 
@@ -73,7 +74,7 @@
 	 )
 	 value(
 	 #{loginId}
-	,#{encryptPassword}
+	,#{password}
 	,#{userName}
 	,#{userNamekana}
 	,#{mailAddress}
@@ -220,6 +221,45 @@ SELECT DATE_FORMAT(work_date, '%Y-%m'), SUM(hours_worked)
 FROM work_hours
 GROUP BY DATE_FORMAT(work_date, '%Y-%m')
 </insert>
+
+<!--ユーザー1件登録-->
+<insert id="insertUserPaidCreate">
+	 insert into m_paid(
+	  login_id
+	  ,hire_date
+	  )
+	 value(
+	 #{loginId}
+	 ,#{hire}
+      )
+</insert>
+
+<!--初回の従業員への有給付与処理-->
+<update id="giveFirstPaidDays">
+  UPDATE m_paid 
+  SET 
+  paid_date_num = #{paid_date_num},
+  paid_last_granted_date =  
+    CASE 
+      WHEN paid_last_granted_date IS NULL THEN DATE_ADD(hire_date, INTERVAL 6 MONTH) 
+      ELSE paid_last_granted_date 
+    END 
+  WHERE 
+  hire_date &lt;= DATE_SUB(NOW(), INTERVAL 6 MONTH) 
+  AND paid_last_granted_date IS NULL;
+</update>
+
+<!--次回以降の従業員への有給付与処理-->
+<update id="updateGivePaidDays">
+  UPDATE m_paid 
+  SET 
+  paid_date_num = paid_date_num + 10, 
+  paid_last_granted_date = DATE_ADD(paid_last_granted_date, INTERVAL 1 YEAR)  
+  WHERE 
+  paid_last_granted_date &lt;= DATE_SUB(NOW(), INTERVAL 1 YEAR)  
+  AND paid_last_granted_date IS NOT NULL;
+</update>
+
 
 
  </mapper>

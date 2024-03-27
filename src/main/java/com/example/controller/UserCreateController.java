@@ -22,6 +22,7 @@ import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.RoleEntity;
 import com.example.domainUser.service.UserService;
+import com.example.domainUser.service.WorkTimeService;
 import com.example.form.UserCreateForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +39,10 @@ public class UserCreateController {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private WorkTimeService workTimeService;
+	
 
 	/** ユーザー登録画面を表示 */
 	@GetMapping("/create")
@@ -86,11 +91,28 @@ public class UserCreateController {
 		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
 		System.out.println("ユーザ登録は"+ user);
 		
+		//UserMapperEntityからログインIDのみを取り出す
+		String loginId = user.getLoginId();
+		System.out.println("登録ユーザのログインIDは"+ loginId);
+
+		
 		//ユーザー登録
 		userService.userCreate(user);
 		
+		//有給テーブルにユーザ登録
+		userService.userPaidCreate(user);
+		
+		
+		//勤怠テーブルに新規ユーザの一年分の年月日を格納する
+		workTimeService.userWorkTimeCreate(loginId);
+		
+		//勤怠合計テーブルに新規ユーザの年月毎のレコードを作成する
+		workTimeService.userWorkTimeTotalCreate(loginId);
+		
+		
+		
 		//利用者一覧画面にリダイレクト
-		return "admin/list";
+		return "admin/clockInADM";
 	}
 	
 	/**データベース関連の例外処理*/

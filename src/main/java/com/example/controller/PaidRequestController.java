@@ -2,6 +2,8 @@ package com.example.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +45,9 @@ public class PaidRequestController {
 	public String postPaidRequest(Model model
 			,@ModelAttribute @Validated(GroupOrder.class) PaidRequestForm form
 			,BindingResult bindingResult){
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String paidLoginId = auth.getName();		
 		
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
@@ -54,6 +59,7 @@ public class PaidRequestController {
 		
 		//formをPaidRequestEntityクラスに変換
 		PaidAppEntity paidapp = modelMapper.map(form, PaidAppEntity.class);
+		paidapp.setPaidLoginId(paidLoginId);
 		
 		//有給申請登録
 		paidappservice.paidAppCreate(paidapp);

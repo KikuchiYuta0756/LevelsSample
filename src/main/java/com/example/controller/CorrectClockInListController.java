@@ -39,54 +39,50 @@ public class CorrectClockInListController {
 	public String getCorrectBeforeClockInList(CorrectWorkTimeForm form, Model model,
 			@PathVariable("loginId")String loginId){
 		
-		  List<WorkTimeEntity> correctWorkTimeList = worktimeService.getCorrectClockTimes(loginId);
+		 //ユーザの勤怠一覧を取得 
+		 List<WorkTimeEntity> correctWorkTimeList = worktimeService.getCorrectClockTimes(loginId);
 
-		  model.addAttribute("correctWorkTimeList", correctWorkTimeList);	
+		 
+	        // エンティティをモデルに変換
+	        List<WorkTimeEntity> models = new ArrayList<>();
+	        for (WorkTimeEntity entity : correctWorkTimeList) {
+	        	WorkTimeEntity workTimeModel = new WorkTimeEntity();
+	        	workTimeModel.setWorkDate(entity.getWorkDate());
+	        	workTimeModel.setStartTime(entity.getStartTime());
+	        	workTimeModel.setCloseTime(entity.getCloseTime());
+	        	workTimeModel.setRestTime(entity.getRestTime());
+	        	workTimeModel.setActWorkTime(entity.getActWorkTime());
+	        	workTimeModel.setOverTime(entity.getOverTime());
+	            models.add(workTimeModel);
+	        }
+	        
+	        // フォームクラスに設定
+	        CorrectWorkTimeForm correstWorkTimeForm = new CorrectWorkTimeForm();
+	        correstWorkTimeForm.setModels(models);
+
+
+		 
+		  //CorrectWorkTimeFormに変換する
+		 //form = modelMapper.map(correctWorkTimeList, CorrectWorkTimeForm.class); 
+
+		  model.addAttribute("correctWorkTimeList", correstWorkTimeForm);	
 	
     return "admin/correctClockInList";
 }
 
-	/*
-	 * public List<CorrectWorkTimeForm> convertToFormList(List<WorkTimeEntity>
-	 * workTimeList) { List<CorrectWorkTimeForm> formList = new ArrayList<>(); for
-	 * (WorkTimeEntity employee : workTimeList) { CorrectWorkTimeForm form = new
-	 * CorrectWorkTimeForm(); form.setEmployee Id(String.valueOf(employee.getId()));
-	 * form.setEmployeeName(employee.getName());
-	 * form.setEmployeeDepartment(employee.getDepartment()); formList.add(form); }
-	 * return formList; } }
-	 */
-
-	/*
-	 * public String getCorrectBeforeClockInList(CorrectWorkTimeForm form, Model
-	 * model,
-	 * 
-	 * @PathVariable("loginId")String loginId){
-	 * 
-	 * //勤怠一覧（月次）を取得 /* List<WorkTimeEntity> correctclockList =
-	 * worktimeService.getCorrectClockTimes(loginId); List<CorrectWorkTimeForm>
-	 * formList = new ArrayList<>(); for (WorkTimeEntity entity : correctclockList)
-	 * { CorrectWorkTimeForm correctworkform =
-	 * CorrectWorkTimeForm.fromEntity(entity); formList.add(correctworkform); }
-	 * System.out.println(formList);
-	 */
-	// WorkTimeEntityをformに変換
-	// form = modelMapper.map(correctclockList, CorrectWorkTimeForm.class);
-
-	// Modelに登録
-
-//	//勤怠一覧（月次）の表示
-//	@PostMapping("/clockInListADM")
-//	public String updateClockInList(WorkTimeForm form, Model model){
-//		
-////		//勤怠を更新
-////		worktimeService.updateClockInOne(
-////				form.getWorkDate(),
-////				form.getUserId(),
-////				form.getStartTime(),
-////				form.getCloseTime(),
-////				form.getRestTime()
-////				);
-//		
-//	}
-
+	// 勤怠一覧（月次）の表示（ユーザ毎）
+	@PostMapping("/correctClockInList/{loginId}")
+	public String postCorrectBeforeClockInList(CorrectWorkTimeForm form, Model model){
+		
+		 //ユーザの勤怠情報を更新
+		 worktimeService.updateWorkTimeOne(
+				 form.getWorkDate(),
+				 form.getLoginId(),
+				 form.getStartTime(),
+				 form.getCloseTime(),
+				 form.getRestTime()
+				 );		 
+	
+    return "admin/correctClockInList";
+    }
 }

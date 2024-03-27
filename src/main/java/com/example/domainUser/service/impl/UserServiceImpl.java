@@ -30,7 +30,11 @@ public class UserServiceImpl implements UserService{
 		
 		//パスワード暗号化
 		String rawPassword = user.getPassword();
-		user.setPassword(encoder.encode(rawPassword));
+		String encryptPassword = encoder.encode(rawPassword);
+		
+		// ユーザーエンティティに暗号化されたパスワードを設定
+		user.setPassword(encryptPassword);
+		System.out.println("UserServiceImplのuserは"+ user);
 		
 		
 		usermapper.insertOne(user);
@@ -125,6 +129,22 @@ public class UserServiceImpl implements UserService{
 	public void getWorkFlgAttendance(String loginId) {
 		usermapper.updateWorkFlgAttendance(loginId);
 	}
+
+	/**有給テーブルに新規ログインIDを作成*/
+	public void userPaidCreate(UserMapperEntity user) {
+		usermapper.insertUserPaidCreate(user);
+	}
+	
+	/**従業員に有給を付与する*/
+	public void giveFirstPaidDays(){
+		usermapper.giveFirstPaidDays();
+	}
+	
+	/**次回以降の従業員に有給を付与する*/
+	public void updateGivePaidDays(){
+		usermapper.updateGivePaidDays();
+	};
+	
 
 
 

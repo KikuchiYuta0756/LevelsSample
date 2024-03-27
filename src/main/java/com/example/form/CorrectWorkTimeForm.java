@@ -1,6 +1,7 @@
 package com.example.form;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,5 +34,7 @@ public class CorrectWorkTimeForm {
 
 	@DateTimeFormat(pattern = "hh:mm")
 	private LocalTime overTime;
+	
+	private List<WorkTimeEntity> models;
 
 }

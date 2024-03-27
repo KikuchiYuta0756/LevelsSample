@@ -8,7 +8,7 @@ import com.example.domainUser.model.UserMapperEntity;
 public interface CorrectRequestService {
 	
 	/**修正申請の登録*/
-	public void correctRequestCreate(String correctLoginId, CorrectRequestEntity correct);
+	public void correctRequestCreate(CorrectRequestEntity correct);
 
 	/**勤怠修正申請取得*/
 	public List<CorrectRequestEntity> getCorrectRequests(CorrectRequestEntity correct);

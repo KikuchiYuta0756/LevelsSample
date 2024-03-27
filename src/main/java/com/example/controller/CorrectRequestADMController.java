@@ -49,7 +49,6 @@ public class CorrectRequestADMController {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    //ログイン認証に使用したログインIDを利用する。
 	    String correctLoginId = auth.getName();
-	    System.out.println("修正申請の登録" + correctLoginId);
 		
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
@@ -61,9 +60,10 @@ public class CorrectRequestADMController {
 		
 		//formをCorrectRequestEntityクラスに変換
 		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
+        correct.setCorrectLoginId(correctLoginId);
 		
 		//ユーザー登録
-		correctRequestService.correctRequestCreate(correctLoginId, correct);
+		correctRequestService.correctRequestCreate(correct);
 		
 		//利用者一覧画面にリダイレクト
 		return "admin/clockInListADM";

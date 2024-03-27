@@ -62,8 +62,11 @@ public interface WorkTimeMapperRepository {
 			@Param("closeTime")String closeTime,
 			@Param("restTime")LocalTime restTime
 	        );
-
-
-
 	
+	/**勤怠テーブルに新規ユーザの登録*/
+	public void insertUserWorkTimeCreate(String loginId);
+
+	/**勤怠テーブルに新規ユーザの登録*/
+	public void insertUserWorkTimeTotalCreate(String loginId);
+
 }

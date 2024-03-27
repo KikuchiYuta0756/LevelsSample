@@ -40,7 +40,7 @@ public class SecurityConfig {
 //        // CORSの設定を適用
 //        .cors(customizer -> customizer.configurationSource(corsConfigurationSource()))
 //        // CSRFの保護を無効にする
-//        .csrf(csrf -> csrf.disable())
+        .csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests(authorize -> authorize
     		 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
     		 .requestMatchers("/error/**").permitAll()
@@ -65,25 +65,25 @@ public class SecurityConfig {
 //    @Bean
 //    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
 //        // CORSの設定を行うためのオブジェクトを生成
-//        //CorsConfiguration configuration = new CorsConfiguration();
+//        CorsConfiguration configuration = new CorsConfiguration();
 //
 //        // クレデンシャル（資格情報（CookieやHTTP認証情報））を含むリクエストを許可する
-//        //configuration.setAllowCredentials(true);
+//        configuration.setAllowCredentials(true);
 //
 //        // 許可するオリジン（この場合は"http://127.0.0.1:5500"のみ）を設定
 //        //configuration.addAllowedOrigin("http://127.0.0.1:5500");
 //
 //        // 任意のヘッダーを許可
-//        //configuration.addAllowedHeader("*");
+//        configuration.addAllowedHeader("*");
 //
 //        // 任意のHTTPメソッド（GET, POSTなど）を許可
-//        //configuration.addAllowedMethod("*");
+//        configuration.addAllowedMethod("*");
 //
 //        // CORS設定をURLベースで行うためのオブジェクトを生成
-//        //UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //
 //        // 全てのURLパスにこのCORS設定を適用
-//        //source.registerCorsConfiguration("/**", configuration);
+//        source.registerCorsConfiguration("/**", configuration);
 //
 //        return source;
 //    }

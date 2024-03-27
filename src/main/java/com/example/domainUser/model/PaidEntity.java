@@ -10,4 +10,5 @@ public class PaidEntity {
 	private String loginId;
 	private Integer paidDateNum;
 	private Date paidLastGrantedDate;
+	private Date hire;
 }

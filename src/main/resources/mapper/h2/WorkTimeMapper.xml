@@ -159,10 +159,40 @@ where login_id = #{loginId};
 	start_time =#{startTime},
 	close_time =#{closeTime},
 	rest_time =#{restTime} 
+	gen_work_time = TIMEDIFF(close_time, start_time),
+	act_work_time = TIMEDIFF(gen_work_time, rest_time),
+	over_time = case 
+	when TIMEDIFF(act_work_time, '08:00:00') > 0 
+	then TIMEDIFF(act_work_time, '08:00:00') 
+	else 0 end  
 	where 
-	login_id = 12345 
+	login_id = #{loginId} 
 	and work_date =#{workDate}
 </update>
+
+<!--新規ユーザ用の勤怠テーブルの365日作成-->
+<insert id="insertUserWorkTimeCreate">
+INSERT INTO m_worktime (work_date, login_id) 
+SELECT date_value, #{loginId} 
+FROM (
+    SELECT DATE('2024-01-01') + INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY AS date_value 
+    FROM (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS a 
+    CROSS JOIN (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS b 
+    CROSS JOIN (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS c 
+    WHERE DATE('2024-01-01') + INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY &lt;= '2024-12-31' 
+) AS dates;
+</insert>
+
+<!--ユーザー登録時に勤怠トータルテーブルに12ヵ月ごとの勤怠集計レコードを作成する-->
+<insert id="insertUserWorkTimeTotalCreate">
+INSERT INTO m_worktime_total 
+(work_date_month, login_id, work_date_total, act_work_time_total, over_time_total)  
+SELECT 
+DATE_FORMAT(work_date, '%Y-%m'), #{login_id}, COUNT(start_time), SUM(act_work_time), sec_to_time(SUM(time_to_sec(over_time))) 
+FROM m_worktime 
+GROUP BY DATE_FORMAT(work_date, '%Y-%m');
+</insert>
+
 
 
 
