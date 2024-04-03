@@ -63,6 +63,10 @@ public interface WorkTimeService {
 
 	//勤怠合計テーブルに新規ユーザの年月毎のレコードを作成する
 	public void userWorkTimeTotalCreate(String loginId);
+	
+	//選択された年月の勤怠一覧を取得
+	public List<WorkTimeEntity> getSelectCorrectYearMonth(String loginId, String selectedYearMonth);
+
 
 	
 }

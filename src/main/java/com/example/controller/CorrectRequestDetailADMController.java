@@ -32,8 +32,6 @@ public class CorrectRequestDetailADMController {
 	@GetMapping("/correctRequestDetail/{correctRequestId}")
 	public String getCorrectRequestADM(CorrectRequestForm form, Model model,
 			@PathVariable("correctRequestId")int correctRequestId) {
-
-		System.out.println("修正申請詳細の申請番号は" + correctRequestId);
 		
 		//修正申請を1件取得
 		CorrectRequestEntity correctDetailADM = correctRequestservice.getCorrectRequestOne(correctRequestId);
@@ -44,7 +42,7 @@ public class CorrectRequestDetailADMController {
 		form = modelMapper.map(correctDetailADM, CorrectRequestForm.class);
 		
 		//Modelに登録
-		model.addAttribute("correctRequestForm",form);
+		model.addAttribute("CorrectRequestForm",form);
 			
 		//ユーザー詳細画面を表示
 		return"admin/correctRequestDetail";		

@@ -14,8 +14,14 @@
 </head>
 <body>
 	<span layout:fragment="content">
+		<div th:if="${paidDays != null}">
+			<p>有給日数：<span th:text="${paidDays}"></span>日</p>
+		</div>
+		<div th:if="${paidDays == null}">
+			<p>有給日数：0日</p>
+		</div>		
 		<div class="header border-bottom"></div>
-		<form id="create-form" method="post" action="/user/paidRequest"
+		<form id="create-form" method="post" action="@{/user/paidRequest}"
 		 class="form-create" th:object="${paidRequestForm}">
 		 <h1 class="2" th:text="#{paidRequest}"></h1>
 			<!--申請日付-->
@@ -23,11 +29,6 @@
 				<label for="loginId"　th:text="#{paidRequestDateApp}"></label>
 				<input type ="text" class ="form-control" placeholder ="yyyy/MM/dd" th:field="*{paidRequestDateApp}" th:errorclass="is-invalid" />
 				<div class="invalid-feedback" th:errors="*{paidRequestDateApp}"></div>
-			</div>
-			<!--有給残数-->
-			<div class ="form-group">
-				<label for ="userId">有給残数</label>
-　　　　　　　　　　　　　<label for="loginId" class ="form-control">20日</label>
 			</div>
 			<!--申請理由-->
 			<div class="form-group">

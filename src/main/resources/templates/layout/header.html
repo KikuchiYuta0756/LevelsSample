@@ -1,25 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
- layout:decorate="~{layout/layout}">
- <head>
- </head>
- <boby>
-	<nav layout:fragment="header"
-	  class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark">
-	 <div class="container-fluid">
-		 <div class="navbar-header">
-		 <a class="navbar-brand" href="#">LevelsSample</a>
-		 </div>
-		 	 <a class="top-link" th:href="@{'/user/clockIn'}">勤怠打刻</a>
-			 <a class="top-link" th:href="@{'/user/clockInList'}">勤怠一覧</a>
-			 <a class="top-link" th:href="@{'/user/requestRecord'}">申請履歴</a>
-		 <form method="post" th:action="@{/logout}">
-			 <button class="btn btn-link pull-right navbar-brand" type="submit">
-			 ログアウト
-			 </button>
-		 </form>
-	 </div>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		/* Customize dropdown menu */
+		.dropdown-item:hover {
+			color: blue;
+			/* Change background color on hover */
+		}
+
+		/* Customize icon color on hover */
+		.dropdown-item:hover .fa {
+			color: cyan;
+		}
+
+		/* Change icon color on hover */
+		/* Adjust button position */
+		.dropdown-toggle {
+			margin-left: 15px;
+			/* 左に5pxのマージンを追加 */
+		}
+	</style>
+</head>
+<boby>
+	<nav layout:fragment="header" class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">LevelsSample</a>
+			</div>
+			<a class="top-link" th:href="@{'/user/clockIn'}">勤怠打刻</a>
+			<a class="top-link" th:href="@{'/user/clockInList'}">勤怠一覧</a>
+			<a class="top-link" th:href="@{'/user/requestRecord'}">申請履歴</a>
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					MENU
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item">Welcome, <span sec:authentication="name"></span>!</a>
+					<a class="dropdown-item" th:href="@{'/common/afterPasswordChange'}">パスワード</a>
+					<a class="dropdown-item" th:href="@{'/logout'}">ログアウト</a>
+				</div>
+			</div>
+		</div>
 	</nav>
- </boby>
+</boby>
+
 </html>

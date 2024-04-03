@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,12 +43,14 @@ import com.example.form.WorkTimeTotalForm;
 			
 			//勤怠一覧（月次）を取得
 			List<WorkTimeEntity> clockList = worktimeService.getClockTimes(loginId);
+			System.out.println("clockListは"+ clockList);
 			
 			//Modelに登録
 			model.addAttribute("clockList", clockList);
 			
 			//勤怠情報の各合計（月次）を取得
 			WorkTimeTotalEntity workTimeTotal = worktimeService.getworkTimesTotal(loginId);
+			System.out.println("workTimeTotalは"+ workTimeTotal);
 			
 			//WorkTimeTotalEntityをformに変換
 			form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);

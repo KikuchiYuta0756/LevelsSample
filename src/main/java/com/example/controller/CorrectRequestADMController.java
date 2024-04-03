@@ -43,7 +43,7 @@ public class CorrectRequestADMController {
 	/**修正申請の登録処理*/
 	@PostMapping("/correctRequestADM")
 	public String postClockCorrection(Model model
-			,@ModelAttribute @Validated(GroupOrder.class) CorrectRequestForm form
+			,@ModelAttribute @Validated CorrectRequestForm form
 			,BindingResult bindingResult){
 		
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -66,7 +66,7 @@ public class CorrectRequestADMController {
 		correctRequestService.correctRequestCreate(correct);
 		
 		//利用者一覧画面にリダイレクト
-		return "admin/clockInListADM";
+		return "admin/clockInADM";
 	}
 	
 

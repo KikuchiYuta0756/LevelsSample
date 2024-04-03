@@ -3,7 +3,7 @@
 　　　　 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 		<meta charset ="UTF-8"></meta>
-		<meta name ="viewport" content ="width=device-width,initial-scale=1, shrink-to-fit=no">
+		<meta th:href="@{'/common/afterPasswordChange'}"name ="viewport" content ="width=device-width,initial-scale=1, shrink-to-fit=no">
 	     <!--CSS読込-->
 	     <link rel ="stylesheet" th:href ="@{/webjars/bootstrap/css/bootstrap.min.css}">
 	     <link rel ="stylesheet" th:href ="@{/css/login/login.css}">
@@ -25,7 +25,7 @@
 	</div>
 	</form>	
     <div>
-	  <a class="nav-link" th:href="@{'/common/afterPasswordChange'}">パスワード変更</a>
+	  <a class="nav-link" >パスワード変更</a>
 	</div>
 </body>
 </html>	

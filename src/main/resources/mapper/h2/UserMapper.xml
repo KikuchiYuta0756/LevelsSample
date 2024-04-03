@@ -52,7 +52,7 @@
    <id column="paid_id" property="paidId" />
    <result column="login_id" property="loginId" />
    <result column="paid_date_num" property="paidDateNum" />
-   <result column="paid_last_granted_date" property="departmentName" />
+   <result column="paid_last_granted_date" property="paidLastGrantedDate" />
    <result column="hire_date" property="hire" />
 </resultMap>
 
@@ -238,7 +238,7 @@ GROUP BY DATE_FORMAT(work_date, '%Y-%m')
 <update id="giveFirstPaidDays">
   UPDATE m_paid 
   SET 
-  paid_date_num = #{paid_date_num},
+  paid_date_num = 10,
   paid_last_granted_date =  
     CASE 
       WHEN paid_last_granted_date IS NULL THEN DATE_ADD(hire_date, INTERVAL 6 MONTH) 
@@ -259,6 +259,12 @@ GROUP BY DATE_FORMAT(work_date, '%Y-%m')
   paid_last_granted_date &lt;= DATE_SUB(NOW(), INTERVAL 1 YEAR)  
   AND paid_last_granted_date IS NOT NULL;
 </update>
+
+<select id="getPaidDays" resultMap="paid">
+  select  paid_date_num 
+  from m_paid 
+  where login_id = #{loginId}
+</select>
 
 
 

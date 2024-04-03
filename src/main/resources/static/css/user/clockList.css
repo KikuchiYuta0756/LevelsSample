@@ -1,6 +1,7 @@
 /*text-alignで右寄せします。*/
 a{
   text-align: right;
+  text-decoration: none; /* リンクの下線を消去 */
 }
 
 .button-text{
@@ -29,4 +30,15 @@ a{
 }
 .btn{
 	margin:000auto;
+}
+
+.link-containerOne{
+	display:inline-block;
+    padding: 5px 10px; /* 任意の余白を設定してください */
+    background-color: lightblue; /* リンクの範囲を確認するために背景色を設定 */
+
+}
+
+.link-containerTwo{
+	display:inline-block;
 }

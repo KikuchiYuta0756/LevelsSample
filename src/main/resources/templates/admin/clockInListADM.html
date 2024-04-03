@@ -35,22 +35,25 @@
 	<tbody>
 	<tr>
 		<td>
-			<div th:text="*{workDateMonth}"/>
+			<span th:text="*{workDateMonth}"></span>
 		</td>
 		<td>
-			<div th:text="*{workDateTotal}"/>
+			<div th:if="*{workDateTotal != null}" />
+			<span th:text="*{workDateTotal}"></span>
 		</td>
 		<td>
-			<div th:text="*{actWorkTimeTotal}"/>
+			<div th:if="*{actWorkTimeTotal != null}" />
+			<span th:text="*{actWorkTimeTotal}"></span>
 		</td>
 		<td>
-			<div th:text="*{overTimeTotal}"/>
+			<div th:if="*{overTimeTotal != null}" />
+			<span th:text="*{overTimeTotal}"></span>
 		</td>
 	</tr>
 	</tbody>
 	</table>
 	</form>
-	<div>
+	<div　class = "link-containerOne">
 	  <a class="nav-link" th:href="@{'/admin/paidRequestADM'}">有給申請</a>
 	  <a class="nav-link" th:href="@{'/admin/correctRequestADM'}">修正申請</a>
 	</div>

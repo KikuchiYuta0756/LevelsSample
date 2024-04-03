@@ -8,7 +8,7 @@ import lombok.Data;
 public class PaidEntity {
 	private Integer paidId;
 	private String loginId;
-	private Integer paidDateNum;
+	private String paidDateNum;
 	private Date paidLastGrantedDate;
 	private Date hire;
 }

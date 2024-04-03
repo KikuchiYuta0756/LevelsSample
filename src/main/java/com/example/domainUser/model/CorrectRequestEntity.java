@@ -16,7 +16,7 @@ public class CorrectRequestEntity {
 	private String correctStartTime;
 	private String correctCloseTime;
 	private String correctRestTime;
-	private Integer worktimeStaId;
+	private String worktimeStaId;
 	private String correctReason;
 	
 

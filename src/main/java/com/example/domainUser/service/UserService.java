@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.PaidAppEntity;
+import com.example.domainUser.model.PaidEntity;
 import com.example.domainUser.model.RoleEntity;
 
 public interface UserService {
@@ -67,5 +68,6 @@ public interface UserService {
 	/**次回以降の従業員に有給を付与する*/
 	public void updateGivePaidDays();
 	
-
+	//有給日数を取得
+    public PaidEntity getPaidDays(String loginId);
 }

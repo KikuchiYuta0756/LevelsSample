@@ -48,9 +48,11 @@ public class CorrectRequestListController {
 	
 	//formをCorrectRequestEntityクラスに変換
 	CorrectRequestEntity correct = modelMapper.map(form,CorrectRequestEntity.class);
+	System.out.println("correctは" + correct);	
 	
 	//修正申請一覧取得
 	List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
+	System.out.println("correctListは" + correctList);	
 	
 	//modelに登録
 	model.addAttribute("correctList", correctList);

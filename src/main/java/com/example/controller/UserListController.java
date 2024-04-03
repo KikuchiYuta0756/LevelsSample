@@ -30,8 +30,11 @@ public class UserListController {
 
 	/** ユーザー一覧画面を表示 */
 	@GetMapping("/list")
-	public String getUserList(@ModelAttribute UserListForm form
-			,Model model) {
+	public String getUserList(Model model) {
+		
+		UserListForm userListForm =new UserListForm();
+	    //userListFormを初期化
+		model.addAttribute("userListForm", userListForm);
 		
 //		//入力チェック結果
 //		if(bindingResult.hasErrors()) {
@@ -40,7 +43,7 @@ public class UserListController {
 //		}		
 
 		//formをUserMapperEntityクラスに変換
-		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
+		UserMapperEntity user = modelMapper.map(userListForm, UserMapperEntity.class);
 
 		// ユーザー一覧取得
 		List<UserMapperEntity> userList = userService.getUsers(user);
@@ -49,15 +52,15 @@ public class UserListController {
 		model.addAttribute("userList", userList);
 
 		// ユーザー一覧画面を表示
-		return "redirect:/admin/list";
+		return "admin/list";
 	}
 
 	/** ユーザー検索処理 */
 	@PostMapping("/list")
-	public String postUserList(@ModelAttribute UserListForm form, Model model) {
+	public String postUserList(UserListForm userListForm, Model model) {
 		
 		//formをUserMapperEntityクラスに変換
-		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
+		UserMapperEntity user = modelMapper.map(userListForm, UserMapperEntity.class);
 		
 		// ユーザー一覧取得
 		List<UserMapperEntity> userList = userService.getUsers(user);

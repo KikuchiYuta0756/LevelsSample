@@ -114,7 +114,11 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 		worktimemapper.insertUserWorkTimeTotalCreate(loginId);
 	}
 
-	
+	//選択された年月の勤怠一覧を取得
+	public List<WorkTimeEntity> getSelectCorrectYearMonth(String loginId, String selectedYearMonth){
+		return worktimemapper.findSelectCorrectYearMonth(loginId, selectedYearMonth);
+	}
+
 
 
 	

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.PaidAppEntity;
+import com.example.domainUser.model.PaidEntity;
 import com.example.domainUser.model.RoleEntity;
 
 
@@ -79,7 +80,8 @@ public interface UserMapperRepository {
 	//次回以降の有給付与処理
 	public void updateGivePaidDays();
 
-	
+    //有給日数を取得
+	public PaidEntity getPaidDays(String loginId);
 	
 	
 }

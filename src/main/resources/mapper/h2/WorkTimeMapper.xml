@@ -18,7 +18,7 @@
 	<result column="over_time" property="overTime" />
 </resultMap>
 
-<!--マッピング定義（労働時間）-->
+<!--マッピング定義（月合計労働時間）-->
 <resultMap type="com.example.domainUser.model.WorkTimeTotalEntity" id="worktimetotal">
 	<id column="work_date_month" property="workDateMonth" />
 	<result column="login_id" property="loginId" />
@@ -65,7 +65,9 @@ AND work_date = #{workDate}
 <select id="findMany" resultType="WorkTimeEntity">
 	select * 
 	from m_worktime 
-	where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
+	where 
+	login_id = #{loginId} 
+    AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
 </select>
 
 <!--月次の勤怠を取得（ユーザー毎）-->
@@ -193,6 +195,13 @@ FROM m_worktime
 GROUP BY DATE_FORMAT(work_date, '%Y-%m');
 </insert>
 
+<!--対象ユーザの選択した年月の勤怠一覧を取得-->
+<select id="findSelectCorrectYearMonth" resultType="WorkTimeEntity">
+	select * 
+	from m_worktime 
+	where login_id = #{loginId} 
+	AND DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
+</select>
 
 
 

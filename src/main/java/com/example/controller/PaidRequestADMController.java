@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domainUser.model.PaidAppEntity;
+import com.example.domainUser.model.PaidEntity;
 import com.example.domainUser.service.PaidAppService;
+import com.example.domainUser.service.UserService;
 import com.example.form.PaidRequestForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,11 +31,26 @@ public class PaidRequestADMController {
 	@Autowired
 	private PaidAppService paidappservice;
 	
+	@Autowired
+	private UserService userService;
+	
 	
 	//有給申請画面の表示
 	@GetMapping("/paidRequestADM")
 	public String getPaidRequestADM(Model model
 			,@ModelAttribute PaidRequestForm form){
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    //ログイン認証に使用したログインIDを利用する。
+	    String loginId = auth.getName();
+	    
+	    //有給日数を取得
+	   PaidEntity paidDay = userService.getPaidDays(loginId);
+	   System.out.println("paidDayは"+ paidDay);
+	   
+	   String paidDays = paidDay.getPaidDateNum();
+	   System.out.println("paidDaysは"+ paidDays);
+	   
+	   model.addAttribute("paidDays", paidDays);
 					
 	return "admin/paidRequestADM";
 	}
@@ -65,6 +82,4 @@ public class PaidRequestADMController {
 		return "admin/clockInListADM";
 		
 	}
-
-
 }

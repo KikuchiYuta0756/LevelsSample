@@ -15,7 +15,7 @@
 <body>
 	<span layout:fragment="content">
 		<div class="header border-bottom"></div>
-		<form id="create-form" method="post" action="/user/correctRequest"
+		<form id="create-form" method="post" th:action="@{/user/correctRequest}"
 		 class="form-create" th:object="${correctRequestForm}">
 		 <h1 class="2" th:text="#{clockCorrection}"></h1>
 			<!--申請日付-->

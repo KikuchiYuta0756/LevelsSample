@@ -35,16 +35,16 @@
 	<tbody>
 	<tr>
 		<td>
-			<div th:text="*{workDateMonth}"/>
+			<div th:if="*{workDateMonnth !=null}" th:text="*{workDateMonth}"/>
 		</td>
 		<td>
-			<div th:text="*{workDateTotal}"/>
+			<div th:if="*{workDateTotal !=null}" th:text="*{workDateTotal}"/>
 		</td>
 		<td>
-			<div th:text="*{actWorkTimeTotal}"/>
+			<div th:if="*{actWorkTimeTotal !=null}" th:text="*{actWorkTimeTotal}"/>
 		</td>
 		<td>
-			<div th:text="*{overTimeTotal}"/>
+			<div th:if="*{overTimeTotal !=null}" th:text="*{overTimeTotal}"/>
 		</td>
 	</tr>
 	</tbody>

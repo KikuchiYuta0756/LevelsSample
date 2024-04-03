@@ -69,4 +69,9 @@ public interface WorkTimeMapperRepository {
 	/**勤怠テーブルに新規ユーザの登録*/
 	public void insertUserWorkTimeTotalCreate(String loginId);
 
+	//選択された年月の勤怠一覧を取得
+	public  List<WorkTimeEntity> findSelectCorrectYearMonth(String loginId, String selectedYearMonth);
+	
+	
+	
 }

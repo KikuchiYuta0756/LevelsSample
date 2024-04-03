@@ -32,10 +32,12 @@ public class paidRequestListController {
 		
 		//formをPaidAppEntityクラスに変換
 		PaidAppEntity paid = modelMapper.map(form, PaidAppEntity.class);
+		System.out.println("paidは" + paid);	
 		
 		// 有給申請一覧取得
 		List<PaidAppEntity> paidList = paidappservice.getPaidRequests(paid);
 		paidList.sort(Comparator.comparing(PaidAppEntity::getPaidRequestDateApp));
+		System.out.println("paidListは" + paidList);	
 
 		// Modelに登録
 		model.addAttribute("paidList", paidList);

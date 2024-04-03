@@ -18,6 +18,8 @@ public class CorrectRequestForm {
 	private Date correctRequestDate;
 	
 	private String requestStaId;
+	
+	@NotNull
 	private Integer correctRequestId;
 	
 	@NotNull(groups = ValidGroup1.class)
@@ -30,7 +32,7 @@ public class CorrectRequestForm {
 	
 	private String correctRestTime;
 	
-	private Integer worktimeStaId;
+	private String worktimeStaId;
 	
 	@NotNull(groups = ValidGroup1.class)
 	@Size(min = 1, max = 200, groups = ValidGroup2.class)

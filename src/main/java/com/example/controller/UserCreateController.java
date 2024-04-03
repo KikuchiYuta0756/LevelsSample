@@ -65,7 +65,6 @@ public class UserCreateController {
 		Map<String, Integer> authorityMap = userApplicationService.getAuthorityMap();
 		model.addAttribute("authorityMap", authorityMap);
 		
-		
 		// ユーザー登録画面に遷移
 		return "admin/create";
 	}
@@ -102,17 +101,14 @@ public class UserCreateController {
 		//有給テーブルにユーザ登録
 		userService.userPaidCreate(user);
 		
-		
 		//勤怠テーブルに新規ユーザの一年分の年月日を格納する
 		workTimeService.userWorkTimeCreate(loginId);
 		
 		//勤怠合計テーブルに新規ユーザの年月毎のレコードを作成する
 		workTimeService.userWorkTimeTotalCreate(loginId);
 		
-		
-		
 		//利用者一覧画面にリダイレクト
-		return "admin/clockInADM";
+		return "admin/list";
 	}
 	
 	/**データベース関連の例外処理*/
