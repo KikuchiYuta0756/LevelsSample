@@ -58,7 +58,7 @@
 
 		
 <!--修正申請の数件取得-->
-<select id="findMany" resultType="CorrectRequestEntity">
+<select id="findMany" resultMap="correctRequest">
 SELECT * FROM m_correction_app 
 WHERE 
     (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{correctLoginId}, '%'))

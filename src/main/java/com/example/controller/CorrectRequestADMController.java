@@ -33,7 +33,7 @@ public class CorrectRequestADMController {
 	
 	//勤怠修正申請画面の表示
 	@GetMapping("/correctRequestADM")
-	public String getClockCorrection(Model model,
+	public String getClockCorrectADM(Model model,
 			@ModelAttribute CorrectRequestForm form){
 		
 					
@@ -42,8 +42,8 @@ public class CorrectRequestADMController {
 	
 	/**修正申請の登録処理*/
 	@PostMapping("/correctRequestADM")
-	public String postClockCorrection(Model model
-			,@ModelAttribute @Validated CorrectRequestForm form
+	public String postClockCorrectADM(Model model
+			,@ModelAttribute CorrectRequestForm form
 			,BindingResult bindingResult){
 		
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -53,7 +53,7 @@ public class CorrectRequestADMController {
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
 			//NG 修正申請画面に戻る
-			return getClockCorrection(model,form);
+			return getClockCorrectADM(model,form);
 		}
 				
 		log.info(form.toString());
@@ -66,7 +66,7 @@ public class CorrectRequestADMController {
 		correctRequestService.correctRequestCreate(correct);
 		
 		//利用者一覧画面にリダイレクト
-		return "admin/clockInADM";
+		return "redirect:/admin/clockInListADM";
 	}
 	
 

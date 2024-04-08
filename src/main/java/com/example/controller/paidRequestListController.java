@@ -56,6 +56,7 @@ public class paidRequestListController {
 		
 		// 有給申請一覧取得
 		List<PaidAppEntity> paidList = paidappservice.getPaidRequests(paid);
+		System.out.println("paidListは" + paidList);	
 
 		// Modelに登録
 		model.addAttribute("paidList", paidList);

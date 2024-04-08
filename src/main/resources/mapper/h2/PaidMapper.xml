@@ -44,7 +44,7 @@
 </insert>
 
 <!--有給申請の数件取得-->
-<select id="findMany" resultType="PaidAppEntity">
+<select id="findMany" resultMap="paidApp">
 SELECT * FROM m_paid_app 
 WHERE
     (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{paidLoginId}, '%'))

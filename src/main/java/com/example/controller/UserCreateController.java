@@ -108,7 +108,7 @@ public class UserCreateController {
 		workTimeService.userWorkTimeTotalCreate(loginId);
 		
 		//利用者一覧画面にリダイレクト
-		return "admin/list";
+		return "redirect:/admin/list";
 	}
 	
 	/**データベース関連の例外処理*/

@@ -30,20 +30,10 @@ public class UserListController {
 
 	/** ユーザー一覧画面を表示 */
 	@GetMapping("/list")
-	public String getUserList(Model model) {
-		
-		UserListForm userListForm =new UserListForm();
-	    //userListFormを初期化
-		model.addAttribute("userListForm", userListForm);
-		
-//		//入力チェック結果
-//		if(bindingResult.hasErrors()) {
-//		  //NG：ユーザー登録画面に戻る
-//			return getUserList(model,form);
-//		}		
-
+	public String getUserList(Model model, UserListForm form) {
+				
 		//formをUserMapperEntityクラスに変換
-		UserMapperEntity user = modelMapper.map(userListForm, UserMapperEntity.class);
+		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
 
 		// ユーザー一覧取得
 		List<UserMapperEntity> userList = userService.getUsers(user);
@@ -57,10 +47,19 @@ public class UserListController {
 
 	/** ユーザー検索処理 */
 	@PostMapping("/list")
-	public String postUserList(UserListForm userListForm, Model model) {
+	public String postUserList(UserListForm form
+			, Model model
+			, BindingResult bindingResult) {
+		
+		
+		//入力チェック結果
+		if(bindingResult.hasErrors()) {
+		  //NG：ユーザー登録画面に戻る
+			return getUserList(model,form);
+		}		
 		
 		//formをUserMapperEntityクラスに変換
-		UserMapperEntity user = modelMapper.map(userListForm, UserMapperEntity.class);
+		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
 		
 		// ユーザー一覧取得
 		List<UserMapperEntity> userList = userService.getUsers(user);

@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import java.io.FileWriter;
+import com.opencsv.CSVWriter;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -104,76 +106,154 @@ import com.example.form.WorkTimeTotalForm;
 		return "admin/clockInListADM";
 		}
 		
-		
-		//CSV出力の処理
-		@PostMapping("/csvOutput")
-	    public String mainCSV(String[] args,
-	    		@RequestParam("selectYearMonth") String selectedYearMonth) {
-		    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			//ログイン認証に使用したログインIDを利用する。
-		    String loginId = auth.getName();
-		    System.out.println("勤怠一覧（月次）の表示" + loginId);						
-			
-			//選択された年月の勤怠一覧を表示する
-			List<WorkTimeEntity> csvRecords = worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
-			
-			//CSVにエクスポート
-			exportToCsv(csvRecords,"ClockInList.csv");
-			
-			 return "admin/clockInListADM";
-			
-		}
-			
-		public static void exportToCsv(List<WorkTimeEntity> csvRecords, String csvFilePath) {
-		try(FileWriter writer = new FileWriter("ClockInList.csv",false)){
-		
-		//CSVヘッダーに書き込む
-		writer.append("日付,出勤時間,退勤時間,休憩時間,実働時間,残業時間\n");	
-		
-		//DateTimeFormatterを定義
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		
-		
-		//DBレコードを処理してCSVに書き込む
+     	//CSV出力の処理
+    	@PostMapping("/csvOutput")
+        public void csvOutput(@RequestParam("selectYearMonth") String selectedYearMonth) {
+    		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//ログイン認証に使用したログインIDを利用する。
+		String loginId = auth.getName();
+
+     	//選択された年月の勤怠一覧を表示する
+     	List<WorkTimeEntity> csvRecords = worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
+  	
+    	//CSVファイルパス
+    	String csvFilePath = "clockInList.csv";
+
+    	//CSVWriterの初期化
+    	try(CSVWriter writer = new CSVWriter(new FileWriter(csvFilePath))){
+    		//CSVヘッダーの書き込み
+    		String[] header = {"日付", "出勤時間", "退勤時間","休憩時間", "実働時間", "残業時間"};
+            writer.writeNext(header);
+            
+            // DateTimeFormatter を定義
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+    		//DBレコードをCSVに書き込む
 			for(WorkTimeEntity record : csvRecords) {
-				
-				writer.append(record.getWorkDate());
-				writer.append(",");
-				writer.append(record.getStartTime() != null ? record.getStartTime() : "");
-				writer.append(",");
-				writer.append(record.getCloseTime() != null ? record.getCloseTime() : "");
-				writer.append(",");
-				 
-				//LocalTime型の休憩時間カラムを文字列に変換して書き込む
-				 if (record.getRestTime() != null) {
-				String resttimeToString = record.getRestTime().format(timeFormatter);
-				writer.append(resttimeToString);
-				 } else {
-			    writer.append("");} 
-				writer.append(",");
-				//LocalTime型の実働時間カラムを文字列に変換して書き込む
-				if (record.getActWorkTime() != null) {
-				String actworktimeToString = record.getActWorkTime().format(timeFormatter);
-				writer.append(actworktimeToString);
-				} else {
-				writer.append("");}
-				writer.append(",");
-				//LocalTime型の残業時間カラムを文字列に変換して書き込む
-				if(record.getOverTime() != null) {
-				String overtimeToString = record.getOverTime().format(timeFormatter);
-				writer.append(overtimeToString);
-				} else {
-				writer.append("");}
-				writer.append("\n");
-				
-			}
-			
-			System.out.println("csvファイルへの書き込みが完了しました");
-			
-		} catch (IOException ex) {
-	        ex.printStackTrace();
-		}
-	  }
+				String[] data = {
+						record.getWorkDate(),
+						record.getStartTime(),
+						record.getCloseTime(),
+						formatLocalTime(record.getRestTime(), timeFormatter),
+						formatLocalTime(record.getActWorkTime(), timeFormatter),
+						formatLocalTime(record.getOverTime(), timeFormatter)
+				};
+				writer.writeNext(data);
+			}					
+	   System.out.println("CSV ファイルにデータを書き込みました: " + csvFilePath);
+	}catch(IOException e) {
+		e.printStackTrace();
+	}
+   }
+		private String formatLocalTime(LocalTime time, DateTimeFormatter formatter) {
+            return time != null ? time.format(formatter) : "";		
+   } 	
+   	 		
+}		
+		
+//writer.append(record.getWorkDate());
+//writer.append(",");
+//writer.append(record.getStartTime() != null ? record.getStartTime() : "");
+//writer.append(",");
+//writer.append(record.getCloseTime() != null ? record.getCloseTime() : "");
+//writer.append(",");
+// 
+////LocalTime型の休憩時間カラムを文字列に変換して書き込む
+// if (record.getRestTime() != null) {
+//String resttimeToString = record.getRestTime().format(timeFormatter);
+//writer.append(resttimeToString);
+// } else {
+//writer.append("");} 
+//writer.append(",");
+////LocalTime型の実働時間カラムを文字列に変換して書き込む
+//if (record.getActWorkTime() != null) {
+//String actworktimeToString = record.getActWorkTime().format(timeFormatter);
+//writer.append(actworktimeToString);
+//} else {
+//writer.append("");}
+//writer.append(",");
+////LocalTime型の残業時間カラムを文字列に変換して書き込む
+//if(record.getOverTime() != null) {
+//String overtimeToString = record.getOverTime().format(timeFormatter);
+//writer.append(overtimeToString);
+//} else {
+//writer.append("");}
+//writer.append("\n");
+//
+//}	
+		
+		
+		
+		
+		
+		
+////		//CSV出力の処理
+////		@PostMapping("/csvOutput")
+////	    public void mainCSV(@RequestParam("selectYearMonth") String selectedYearMonth) {
+////		    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+////			//ログイン認証に使用したログインIDを利用する。
+////		    String loginId = auth.getName();
+////		    System.out.println("勤怠一覧（月次）の表示" + loginId);						
+////			
+////			//選択された年月の勤怠一覧を表示する
+////			List<WorkTimeEntity> csvRecords = worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
+////			
+////			//CSVにエクスポート
+////			exportToCsv(csvRecords,"ClockInList.csv");
+////			
+////		}
+////			
+////		public static void exportToCsv(List<WorkTimeEntity> csvRecords, String csvFilePath) {
+////		try(FileWriter writer = new FileWriter("ClockInList.csv",false)){
+////		
+////		//CSVヘッダーに書き込む
+////		writer.append("日付,出勤時間,退勤時間,休憩時間,実働時間,残業時間\n");	
+////		
+////		//DateTimeFormatterを定義
+////		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+//		
+//		
+//		//DBレコードを処理してCSVに書き込む
+//			for(WorkTimeEntity record : csvRecords) {
+//				
+//				writer.append(record.getWorkDate());
+//				writer.append(",");
+//				writer.append(record.getStartTime() != null ? record.getStartTime() : "");
+//				writer.append(",");
+//				writer.append(record.getCloseTime() != null ? record.getCloseTime() : "");
+//				writer.append(",");
+//				 
+//				//LocalTime型の休憩時間カラムを文字列に変換して書き込む
+//				 if (record.getRestTime() != null) {
+//				String resttimeToString = record.getRestTime().format(timeFormatter);
+//				writer.append(resttimeToString);
+//				 } else {
+//			    writer.append("");} 
+//				writer.append(",");
+//				//LocalTime型の実働時間カラムを文字列に変換して書き込む
+//				if (record.getActWorkTime() != null) {
+//				String actworktimeToString = record.getActWorkTime().format(timeFormatter);
+//				writer.append(actworktimeToString);
+//				} else {
+//				writer.append("");}
+//				writer.append(",");
+//				//LocalTime型の残業時間カラムを文字列に変換して書き込む
+//				if(record.getOverTime() != null) {
+//				String overtimeToString = record.getOverTime().format(timeFormatter);
+//				writer.append(overtimeToString);
+//				} else {
+//				writer.append("");}
+//				writer.append("\n");
+//				
+//			}
+//			
+//			System.out.println("csvファイルへの書き込みが完了しました");
+//			
+//		} catch (IOException ex) {
+//	        ex.printStackTrace();
+//		}
+//	  }
 	  
-	}	 
+	
 		

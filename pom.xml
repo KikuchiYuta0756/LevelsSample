@@ -33,7 +33,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+        <!--OpenCSVの設定-->
+        <dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.5.1</version>
+		</dependency>
 		<!--Spring AOP-->
 		<dependency>
 			<groupId>org.springframework</groupId>

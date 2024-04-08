@@ -45,10 +45,8 @@ public class PaidRequestController {
 	    
 	    //有給日数を取得
 	   PaidEntity paidDay = userService.getPaidDays(loginId);
-	   System.out.println("paidDayは"+ paidDay);
 	   
 	   String paidDays = paidDay.getPaidDateNum();
-	   System.out.println("paidDaysは"+ paidDays);
 	   
 	   model.addAttribute("paidDays", paidDays);
 					
@@ -79,7 +77,7 @@ public class PaidRequestController {
 		//有給申請登録
 		paidappservice.paidAppCreate(paidapp);
 		
-		return "user/clockInList";
+		return "redirect:/user/clockInList";
 		
 	}
 

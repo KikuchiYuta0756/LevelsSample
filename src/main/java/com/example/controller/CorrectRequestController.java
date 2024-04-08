@@ -43,7 +43,7 @@ public class CorrectRequestController {
 	/**修正申請の登録処理*/
 	@PostMapping("/correctRequest")
 	public String postClockCorrection(Model model
-			,@ModelAttribute @Validated(GroupOrder.class) CorrectRequestForm form
+			,@ModelAttribute CorrectRequestForm form
 			,BindingResult bindingResult){
 		
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -62,11 +62,11 @@ public class CorrectRequestController {
 		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
 		correct.setCorrectLoginId(correctLoginId);
 		
-		//ユーザー登録
+		//修正申請の登録
 		correctRequestService.correctRequestCreate(correct);
 		
 		//利用者一覧画面にリダイレクト
-		return "user/clockInList";
+		return "redirect:/user/clockInList";
 	}
 	
 

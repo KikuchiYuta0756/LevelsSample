@@ -107,7 +107,7 @@ public class ClockInListController {
 	
 	//CSV出力の処理
 	@PostMapping("/csvOutput")
-    public void mainCSV(String[] args,
+    public void csvOutput(String[] args,
     		@RequestParam("selectYearMonth") String selectedYearMonth) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		//ログイン認証に使用したログインIDを利用する。
@@ -119,7 +119,6 @@ public class ClockInListController {
 		
 		//CSVにエクスポート
 		exportToCsv(csvRecords,"ClockInList.csv");
-		
 	}
 		
 	public static void exportToCsv(List<WorkTimeEntity> csvRecords, String csvFilePath) {
