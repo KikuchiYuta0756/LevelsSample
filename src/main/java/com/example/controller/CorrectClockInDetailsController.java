@@ -25,54 +25,53 @@ import com.example.form.CorrectWorkTimeForm;
 import com.example.form.UserDetailForm;
 import com.example.form.CorrectWorkTimeDetailForm;
 
+
 @Controller
-@RequestMapping("/admin")
-public class CorrectClockInDetailController {
+public class CorrectClockInDetailsController {
 	
 	@Autowired
 	private WorkTimeService worktimeService;
 	
 	@Autowired
 	private ModelMapper modelMapper;
+
 	
 	// 勤怠詳細の表示（ユーザ毎）
-    @GetMapping("/correctClockInDetail/{workDate}/{loginId}")
+    //@GetMapping("/admin/correctClockInDetails/{workDate}/{loginId}")
+    @GetMapping("/admin/correctClockInDetails")
     public String getCorrectClockInDetail(
-    		CorrectWorkTimeDetailForm form, Model model,
-    		@PathVariable("workDate")String workDate,
-    		@PathVariable("loginId")String loginId) {
+    		CorrectWorkTimeDetailForm form, Model model){
+    		//@PathVariable("workDate")String workDate,
+    		//@PathVariable("loginId")String loginId) {
+    				
+    	String loginId = "00009";
+    	String workDate = "2024-04-01";
+    	
+        System.out.println("workDate: " + workDate);
+        System.out.println("loginId: " + loginId);
 
+	
 		//勤怠詳細の1件取得
     	WorkTimeEntity worktime = worktimeService.getWorkTimeOne(loginId, workDate);
-		
-		//WorkTimeEntityをformに変換
+
+		//UserMapperEntityをformに変換
 		form = modelMapper.map(worktime, CorrectWorkTimeDetailForm.class);
 		
 		//Modelに登録
 		model.addAttribute("correctWorkTimeDetailForm",form);
 			
-		//勤怠詳細画面を表示
-		return "admin/correctClockInDetail";
-	}
+		//ユーザー詳細画面を表示
+		return"admin/correctClockInDetails";
+    }
     
-    /**勤怠詳細の更新処理*/
-    @PostMapping(value = "/correctClockInDetail", params = "update")
-    public String updateWorkTime(CorrectWorkTimeDetailForm form, Model model){
+    /**ユーザー更新処理*/
+    @PostMapping("/admin/correctClockInDetails")
+    public String postCorrectClockInDetail(UserDetailForm form, Model model){
     	
-    	//勤怠詳細を更新
-    	worktimeService.updateWorkTimeOne(
-    			form.getWorkDate(),
-    			form.getLoginId(),
-    			form.getStartTime(),
-    			form.getCloseTime(),
-    			form.getRestTime()
-       			);
     	
-    	//勤怠詳細画面に遷移
-    	return"redirect:/admin/list";
+    	//ユーザー一覧画面にリダイレクト
+    	return"admin/correctClockInDetails";
     }
 
 
 }
-
-

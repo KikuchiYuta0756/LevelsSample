@@ -106,7 +106,7 @@ public class ClockInListController {
 	
 	
 	//CSV出力の処理
-	@PostMapping("/csvOutput")
+	@GetMapping("/csvOutput")
     public void csvOutput(String[] args,
     		@RequestParam("selectYearMonth") String selectedYearMonth) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();

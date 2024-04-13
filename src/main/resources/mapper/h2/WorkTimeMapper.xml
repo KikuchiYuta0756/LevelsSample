@@ -160,7 +160,7 @@ where login_id = #{loginId};
 	update m_worktime set 
 	start_time =#{startTime},
 	close_time =#{closeTime},
-	rest_time =#{restTime} 
+	rest_time =#{restTime},
 	gen_work_time = TIMEDIFF(close_time, start_time),
 	act_work_time = TIMEDIFF(gen_work_time, rest_time),
 	over_time = case 

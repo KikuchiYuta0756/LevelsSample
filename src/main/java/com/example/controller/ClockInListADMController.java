@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.nio.file.*;
+
 import java.io.FileWriter;
 import com.opencsv.CSVWriter;
 import java.io.IOException;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.model.WorkTimeTotalEntity;
@@ -108,7 +111,7 @@ import com.example.form.WorkTimeTotalForm;
 		
      	//CSV出力の処理
     	@PostMapping("/csvOutput")
-        public void csvOutput(@RequestParam("selectYearMonth") String selectedYearMonth) {
+        public RedirectView csvOutput(@RequestParam("selectYearMonth") String selectedYearMonth) {
     		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		//ログイン認証に使用したログインIDを利用する。
@@ -117,11 +120,17 @@ import com.example.form.WorkTimeTotalForm;
      	//選択された年月の勤怠一覧を表示する
      	List<WorkTimeEntity> csvRecords = worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
   	
-    	//CSVファイルパス
-    	String csvFilePath = "clockInList.csv";
+     // ユーザーのホームディレクトリを取得
+     	String userHome = System.getProperty("user.home");
+
+     	// CSVファイルの保存先ディレクトリをデスクトップフォルダに設定
+     	Path desktopDirectoryPath = Paths.get(userHome, "/OneDrive/ドキュメント");
+
+     	// CSVファイルパス
+     	Path csvFilePath = desktopDirectoryPath.resolve("clockInList.csv"); // デスクトップに保存するように変更
 
     	//CSVWriterの初期化
-    	try(CSVWriter writer = new CSVWriter(new FileWriter(csvFilePath))){
+    	try(CSVWriter writer = new CSVWriter(Files.newBufferedWriter(csvFilePath, StandardOpenOption.CREATE, StandardOpenOption.WRITE))){
     		//CSVヘッダーの書き込み
     		String[] header = {"日付", "出勤時間", "退勤時間","休憩時間", "実働時間", "残業時間"};
             writer.writeNext(header);
@@ -145,6 +154,11 @@ import com.example.form.WorkTimeTotalForm;
 	}catch(IOException e) {
 		e.printStackTrace();
 	}
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/admin/clockInListADM");
+        return redirectView;
+    	
+    	
    }
 		private String formatLocalTime(LocalTime time, DateTimeFormatter formatter) {
             return time != null ? time.format(formatter) : "";		
