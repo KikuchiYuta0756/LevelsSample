@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.application.service.UserApplicationService;
 import com.example.domainUser.model.DepartmentEntity;
@@ -38,15 +39,12 @@ public class CorrectClockInDetailsController {
 	
 	// 勤怠詳細の表示（ユーザ毎）
     //@GetMapping("/admin/correctClockInDetails/{workDate}/{loginId}")
-    @GetMapping("/admin/correctClockInDetails")
+    @GetMapping("/admin/correctClockInDetails/{workDate}")
     public String getCorrectClockInDetail(
-    		CorrectWorkTimeDetailForm form, Model model){
-    		//@PathVariable("workDate")String workDate,
-    		//@PathVariable("loginId")String loginId) {
-    				
-    	String loginId = "00009";
-    	String workDate = "2024-04-01";
-    	
+    		CorrectWorkTimeDetailForm form, Model model,
+    		@PathVariable("workDate")String workDate,
+    		@RequestParam("loginId")String loginId) {
+    				    	
         System.out.println("workDate: " + workDate);
         System.out.println("loginId: " + loginId);
 
@@ -66,11 +64,22 @@ public class CorrectClockInDetailsController {
     
     /**ユーザー更新処理*/
     @PostMapping("/admin/correctClockInDetails")
-    public String postCorrectClockInDetail(UserDetailForm form, Model model){
+    public String postCorrectClockInDetail(
+    		CorrectWorkTimeDetailForm form, Model model){
     	
+    	System.out.println("form"+ form);
     	
-    	//ユーザー一覧画面にリダイレクト
-    	return"admin/correctClockInDetails";
+    	//勤怠詳細を更新
+    	worktimeService.updateWorkTimeOne(
+    			form.getWorkDate(),
+    			form.getLoginId(),
+    			form.getStartTime(),
+    			form.getCloseTime(),
+    			form.getRestTime()
+       			);
+    	
+    	//勤怠詳細画面に遷移
+    	return"redirect:/admin/list";
     }
 
 

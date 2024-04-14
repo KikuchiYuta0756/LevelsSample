@@ -8,7 +8,7 @@
 <!--マッピング定義（労働時間）-->
 <resultMap type="com.example.domainUser.model.WorkTimeEntity" id="worktime">
 	<id column="work_date" property="workDate" />
-	<result column="day_of_week_id" property="dayofweekId" />
+	<result column="dayofweek_id" property="dayofweekId" />
 	<result column="login_id" property="loginId" />
 	<result column="start_time" property="startTime" />
 	<result column="close_time" property="closeTime" />
@@ -16,6 +16,7 @@
 	<result column="rest_time" property="restTime" />
 	<result column="act_work_time" property="actWorkTime" />	
 	<result column="over_time" property="overTime" />
+	<association property="dayofweek" resultMap="dayofweek" />
 </resultMap>
 
 <!--マッピング定義（月合計労働時間）-->
@@ -27,6 +28,11 @@
 	<result column="over_time_total" property="overTimeTotal" />
 </resultMap>
 
+<!--マッピング定義（曜日）-->
+<resultMap type="com.example.domainUser.model.DayOfWeekEntity" id="dayofweek">
+	<id column="dayofweek_id" property="dayOfWeekId" />
+	<result column="dayofweek_name" property="dayOfWeekName" />
+</resultMap>
 
 <!--出勤時間の登録-->
 <update id="insertStartTime">
