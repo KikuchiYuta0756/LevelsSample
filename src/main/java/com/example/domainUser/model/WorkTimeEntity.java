@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class WorkTimeEntity {
 	private String workDate;
-	private Integer dayofweekId;
+	private String dayofweekId;
 	private String loginId;
 	private String startTime;
 	private String closeTime;

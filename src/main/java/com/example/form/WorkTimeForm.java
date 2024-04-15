@@ -4,11 +4,13 @@ import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.domainUser.model.DayOfWeekEntity;
+
 import lombok.Data;
 @Data
 public class WorkTimeForm {
 		private String workDate;
-		private Integer dayofweekId;
+		private String dayofweekId;
 		private String loginId;
 		@DateTimeFormat(pattern = "hh:mm")
 		private String startTime;
@@ -26,6 +28,5 @@ public class WorkTimeForm {
 
 		@DateTimeFormat(pattern = "hh:mm")
 		private LocalTime overTime;
-	
 
 }

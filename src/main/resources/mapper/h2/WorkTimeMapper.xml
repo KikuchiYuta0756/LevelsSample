@@ -16,7 +16,6 @@
 	<result column="rest_time" property="restTime" />
 	<result column="act_work_time" property="actWorkTime" />	
 	<result column="over_time" property="overTime" />
-	<association property="dayofweek" resultMap="dayofweek" />
 </resultMap>
 
 <!--マッピング定義（月合計労働時間）-->
@@ -26,12 +25,6 @@
 	<result column="work_date_total" property="workDateTotal" />
 	<result column="act_work_time_total" property="actWorkTimeTotal" />
 	<result column="over_time_total" property="overTimeTotal" />
-</resultMap>
-
-<!--マッピング定義（曜日）-->
-<resultMap type="com.example.domainUser.model.DayOfWeekEntity" id="dayofweek">
-	<id column="dayofweek_id" property="dayOfWeekId" />
-	<result column="dayofweek_name" property="dayOfWeekName" />
 </resultMap>
 
 <!--出勤時間の登録-->
@@ -73,7 +66,7 @@ AND work_date = #{workDate}
 	from m_worktime 
 	where 
 	login_id = #{loginId} 
-    AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
+	AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
 </select>
 
 <!--月次の勤怠を取得（ユーザー毎）-->

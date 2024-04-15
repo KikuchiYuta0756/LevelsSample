@@ -48,8 +48,6 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 		return worktimemapper.findManyOne(loginId);
 	}
 	
-	
-	
 	//選択された年月の勤怠一覧を表示する
 	@Override
 	public List<WorkTimeEntity> getSelectYearMonth(String loginId, String selectedYearMonth){
