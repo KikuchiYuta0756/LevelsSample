@@ -41,7 +41,7 @@
 					 <th></th>
 				 </tr>
 				 </thead>
-				 <tbody>
+				 <tbody　th:if="${paidList != null}">
 					 <tr th:each="items:${paidList}">
 					 <td th:text="${#dates.format(items.paidDateApp,'YYYY/MM/dd')}"></td>
 					 <td th:text="${items.paidLoginId}"></td>

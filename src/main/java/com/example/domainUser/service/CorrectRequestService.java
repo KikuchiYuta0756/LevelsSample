@@ -24,6 +24,5 @@ public interface CorrectRequestService {
 
 	/**勤怠修正申請取得（ユーザー）*/
 	public List<CorrectRequestEntity> getUserCorrectRequests(String correctLoginId);
-	
-	
+		
 }

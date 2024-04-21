@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout}">
-
 <head>
 	<meta charset="UTF-8">
 	</meta>
@@ -21,7 +20,7 @@
 			<p>有給日数：0日</p>
 		</div>		
 		<div class="header border-bottom"></div>
-		<form id="create-form" method="post" action="@{/user/paidRequest}"
+		<form id="create-form" method="post" th:action="@{/user/paidRequest}"
 		 class="form-create" th:object="${paidRequestForm}">
 		 <h1 class="2" th:text="#{paidRequest}"></h1>
 			<!--申請日付-->

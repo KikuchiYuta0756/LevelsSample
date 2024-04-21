@@ -28,7 +28,7 @@
 					 <th></th>
 				 </tr>
 				 </thead>
-				 <tbody>
+				 <tbody th:if="${paidList != null}">
 					 <tr th:each="items:${paidList}">
 					 <td th:text="${#dates.format(items.paidDateApp,'YYYY/MM/dd')}"></td>
 					 <td th:text="${items.paidLoginId}"></td>
@@ -36,7 +36,7 @@
 					 <td th:text="${items.paidAppId}"></td>
 					 <td th:text="${items.requestStaId}"></td>
 					 <td>
-						 <a class="btn btn-primary" th:href="@{'/admin/paidRequestDetail/'+${items.paidAppId}}">詳細</a>
+						 <a class="btn btn-primary" th:href="@{'/admin/requestRecordPaidDetailADM/'+${items.paidAppId}}">詳細</a>
 					 </td>
 					 </tr>
 				 </tbody>
@@ -59,7 +59,7 @@
 					 <th></th>
 				 </tr>
 				 </thead>
-				 <tbody>
+				 <tbody th:if="${correctList != null}">
 					 <tr th:each="items:${correctList}">
                      <td th:text="${#dates.format(items.correctRequestDate,'YYYY/MM/dd')}"></td>
 					 <td th:text="${items.correctLoginId}"></td>
@@ -67,7 +67,7 @@
                      <td th:text="${items.correctRequestId}"></td>
 					 <td th:text="${items.requestStaId}"></td>
 					 <td>
-						 <a class="btn btn-primary" th:href="@{'/admin/correctRequestDetail/'+${items.correctRequestId}}">詳細</a>
+						 <a class="btn btn-primary" th:href="@{'/admin/requestRecordCorrectDetailADM/'+${items.correctRequestId}}">詳細</a>
 					 </td>
 					 </tr>
 				 </tbody>

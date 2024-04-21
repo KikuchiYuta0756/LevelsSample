@@ -47,11 +47,18 @@
 <select id="findMany" resultMap="paidApp">
 SELECT * FROM m_paid_app 
 WHERE
-    (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{paidLoginId}, '%'))
+    (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%', #{paidLoginId}, '%'))
     AND
-    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{paidUserName}, '%'));
-
-
+    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%', #{paidUserName}, '%'))  
+ORDER BY 
+    CASE request_sta_id 
+        WHEN '承認待ち' THEN 0 
+        WHEN '差し戻し' THEN 1 
+        WHEN '承認済み' THEN 2 
+        ELSE 2 
+    END,
+    request_sta_id ASC, 
+    paid_app_id DESC; 
 </select>
 
 <!--有給申請１件検索-->
@@ -85,7 +92,7 @@ WHERE
 </update>
 
 <!--有給申請の数件取得（ユーザー）-->
-<select id="userFindMany" resultType="PaidAppEntity">
+<select id="userFindMany" resultMap="paidApp">
 SELECT * FROM m_paid_app 
 where 
 login_id = #{loginId}

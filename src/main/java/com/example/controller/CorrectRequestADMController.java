@@ -35,17 +35,15 @@ public class CorrectRequestADMController {
 	@GetMapping("/correctRequestADM")
 	public String getClockCorrectADM(Model model,
 			@ModelAttribute CorrectRequestForm form){
-		
-					
+						
 	return "admin/correctRequestADM";
 	}
 	
 	/**修正申請の登録処理*/
 	@PostMapping("/correctRequestADM")
 	public String postClockCorrectADM(Model model
-			,@ModelAttribute CorrectRequestForm form
+			,@ModelAttribute @Validated(GroupOrder.class) CorrectRequestForm form
 			,BindingResult bindingResult){
-		
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    //ログイン認証に使用したログインIDを利用する。
 	    String correctLoginId = auth.getName();

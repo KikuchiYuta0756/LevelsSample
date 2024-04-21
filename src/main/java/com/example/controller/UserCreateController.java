@@ -23,6 +23,7 @@ import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.RoleEntity;
 import com.example.domainUser.service.UserService;
 import com.example.domainUser.service.WorkTimeService;
+import com.example.form.GroupOrder;
 import com.example.form.UserCreateForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,7 +73,7 @@ public class UserCreateController {
 	/**ユーザー登録処理*/
 	@PostMapping("/create")
 	public String postUserCreate(Model model
-			,@ModelAttribute @Validated UserCreateForm form
+			,@ModelAttribute @Validated(GroupOrder.class) UserCreateForm form
 			,BindingResult bindingResult){
 		
 		System.out.println("hello");

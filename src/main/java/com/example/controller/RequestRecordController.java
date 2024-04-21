@@ -24,49 +24,88 @@ import com.example.domainUser.service.PaidAppService;
 import com.example.domainUser.service.UserService;
 import com.example.domainUser.service.WorkTimeService;
 import com.example.form.CorrectListForm;
+import com.example.form.CorrectRequestForm;
+import com.example.form.PaidRequestForm;
 import com.example.form.PaidRequestListForm;
 import com.example.form.RequestRecodeForm;
 
 @Controller
 @RequestMapping("/user")
 public class RequestRecordController {
-	
+
 	@Autowired
 	private CorrectRequestService correctrequestservice;
-	
+
 	@Autowired
 	private PaidAppService paidappservice;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
-	/**申請履歴画面を表示*/
-    @GetMapping("/requestRecord")
-    public String getRequestRecord(Model model) {
-	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    //ログイン認証に使用したログインIDを利用する。
-	    String paidLoginId = auth.getName();
-	
+	/** 申請履歴画面を表示 */
+	@GetMapping("/requestRecord")
+	public String getRequestRecord(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		// ログイン認証に使用したログインIDを利用する。
+		String paidLoginId = auth.getName();
+
 		// 有給申請一覧取得
 		List<PaidAppEntity> paidList = paidappservice.getUserPaidRequests(paidLoginId);
-		paidList.sort(Comparator.comparing(PaidAppEntity::getPaidRequestDateApp));
+		// paidList.sort(Comparator.comparing(PaidAppEntity::getPaidRequestDateApp));
 
 		// Modelに登録
 		model.addAttribute("paidList", paidList);
-		
-		//ログイン認証に使用したログインIDを利用する。
+
+		// ログイン認証に使用したログインIDを利用する。
 		String correctLoginId = auth.getName();
-		
-		//修正申請一覧取得
+
+		// 修正申請一覧取得
 		List<CorrectRequestEntity> correctList = correctrequestservice.getUserCorrectRequests(correctLoginId);
-		correctList.sort(Comparator.comparing(CorrectRequestEntity::getCorrectRequestDate));
-		
-		//modelに登録
+		// correctList.sort(Comparator.comparing(CorrectRequestEntity::getCorrectRequestDate));
+
+		// modelに登録
 		model.addAttribute("correctList", correctList);
 
-	//ユーザー詳細画面を表示
-	return"user/requestRecord";
+		// ユーザー詳細画面を表示
+		return "user/requestRecord";
 
-    }
-		
+	}
+
+	/** 個別申請履歴の有給申請詳細画面を表示 */
+	@GetMapping("/requestRecordPaidDetail/{paidAppId}")
+	public String getPaidAppADM(PaidRequestForm form, Model model, @PathVariable("paidAppId") int paidAppId) {
+
+		// 有給申請を1件取得
+		PaidAppEntity paidappADM = paidappservice.getPaidAppOne(paidAppId);
+
+		// UserMapperEntityをformに変換
+		form = modelMapper.map(paidappADM, PaidRequestForm.class);
+
+		// Modelに登録
+		model.addAttribute("PaidRequestForm", form);
+
+		// ユーザー詳細画面を表示
+		return "user/requestRecordPaidDetail";
+	}
+
+	/** 修正申請詳細画面を表示 */
+	@GetMapping("/requestRecordCorrectDetail/{correctRequestId}")
+	public String getCorrectRequestADM(CorrectRequestForm form, Model model,
+			@PathVariable("correctRequestId") int correctRequestId) {
+
+		// 修正申請を1件取得
+		CorrectRequestEntity correctDetailADM = correctrequestservice.getCorrectRequestOne(correctRequestId);
+
+		System.out.println("修正申請詳細のユーザ情報" + correctDetailADM);
+
+		// UserMapperEntityをformに変換
+		form = modelMapper.map(correctDetailADM, CorrectRequestForm.class);
+
+		// Modelに登録
+		model.addAttribute("CorrectRequestForm", form);
+
+		// ユーザー詳細画面を表示
+		return "admin/requestRecordCorrectDetail";
+	}
+
 }

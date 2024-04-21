@@ -4,8 +4,6 @@ import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.domainUser.model.DayOfWeekEntity;
-
 import lombok.Data;
 @Data
 public class WorkTimeForm {

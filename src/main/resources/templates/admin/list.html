@@ -41,7 +41,7 @@
 					 <th></th>
 				 </tr>
 				 </thead>
-				 <tbody>
+				 <tbody th:if="${userList != null}">
 					 <tr th:each="item:${userList}">
 					 <td th:text="${item.loginId}"></td>
 					 <td th:text="${item.userName}"></td>

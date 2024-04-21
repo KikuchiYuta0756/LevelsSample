@@ -22,32 +22,32 @@ import lombok.Data;
 @Data
 public class UserCreateForm {
 	
-	@NotNull//(groups = ValidGroup1.class)
+	@NotNull(groups = ValidGroup1.class)
 	private Integer loginId;
 	
-	@NotBlank//(groups = ValidGroup1.class)
+	@NotBlank(groups = ValidGroup1.class)
 	@Length(min = 7, max = 100)
 //	@Length(min = 7, max = 100, groups = ValidGroup2.class)
 //	@Pattern(groups = ValidGroup2.class,regexp ="^[a-zA-Z0-9]+$")
 	private String password;
 	
-	@NotBlank//(groups = ValidGroup1.class)
+	@NotBlank(groups = ValidGroup1.class)
 	private String userName;
 	
-	@NotBlank//(groups = ValidGroup1.class)
+	@NotBlank(groups = ValidGroup1.class)
 	private String userNamekana;
 	
-	@NotBlank//(groups = ValidGroup1.class)
+	@NotBlank(groups = ValidGroup1.class)
 	private String mailAddress;
 	
     private Integer departmentId;
 	
 	private Integer roleId;
 	
-	@NotNull//(groups = ValidGroup1.class)
+	@NotNull(groups = ValidGroup1.class)
 	private Integer validation;
 	
-	@NotNull//(groups = ValidGroup1.class)
+	@NotNull(groups = ValidGroup1.class)
 	private Integer authorityFlg;
 	
 	@NotNull(groups = ValidGroup1.class)

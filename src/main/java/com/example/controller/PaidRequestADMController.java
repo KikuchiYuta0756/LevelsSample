@@ -17,6 +17,7 @@ import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.PaidEntity;
 import com.example.domainUser.service.PaidAppService;
 import com.example.domainUser.service.UserService;
+import com.example.form.GroupOrder;
 import com.example.form.PaidRequestForm;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +34,6 @@ public class PaidRequestADMController {
 	
 	@Autowired
 	private UserService userService;
-	
 	
 	//有給申請画面の表示
 	@GetMapping("/paidRequestADM")
@@ -56,7 +56,7 @@ public class PaidRequestADMController {
 	//有給申請処理
 	@PostMapping("/paidRequestADM")
 	public String postPaidRequestADM(Model model
-			,@ModelAttribute @Validated PaidRequestForm form
+			,@ModelAttribute @Validated(GroupOrder.class) PaidRequestForm form
 			,BindingResult bindingResult){
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    //ログイン認証に使用したログインIDを利用する。

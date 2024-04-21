@@ -63,7 +63,16 @@ SELECT * FROM m_correction_app
 WHERE 
     (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{correctLoginId}, '%'))
     AND 
-    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{correctUserName}, '%'));
+    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{correctUserName}, '%'))
+ORDER BY 
+    CASE request_sta_id 
+        WHEN '承認待ち' THEN 0 
+        WHEN '差し戻し' THEN 1 
+        WHEN '承認済み' THEN 2 
+        ELSE 2 
+    END,
+    request_sta_id ASC, 
+    correct_app_id DESC; 
 </select>
 
 <!--修正申請１件検索-->
@@ -102,7 +111,7 @@ WHERE
 
 
 <!--修正申請の数件取得（ユーザー）-->
-<select id="userFindMany" resultType="CorrectRequestEntity">
+<select id="userFindMany" resultMap="correctRequest">
 SELECT * 
 FROM
  m_correction_app 

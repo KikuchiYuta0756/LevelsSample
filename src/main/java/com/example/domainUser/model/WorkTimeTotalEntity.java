@@ -12,7 +12,7 @@ public class WorkTimeTotalEntity {
 	private String workDateMonth;
 	private String loginId;
 	private Integer workDateTotal;
-	private String actWorkTimeTotal;
+	private LocalTime actWorkTimeTotal;
 	private LocalTime overTimeTotal;
 
 

@@ -39,7 +39,7 @@
 							<th></th>
 						</tr>
 					</thead>
-					　　　　　　<tbody>
+					　　　　　　<tbody th:if="${clockList != null}">
 						<tr th:each="items:${clockList}" name="clockListDate">
 							<td th:text="${items.workDate}"></td>
 							<td th:text="${items.startTime}"></td>

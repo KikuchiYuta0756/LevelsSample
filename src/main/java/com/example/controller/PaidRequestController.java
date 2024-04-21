@@ -80,6 +80,4 @@ public class PaidRequestController {
 		return "redirect:/user/clockInList";
 		
 	}
-
-
 }

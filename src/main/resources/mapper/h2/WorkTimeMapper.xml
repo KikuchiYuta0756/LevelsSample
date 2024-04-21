@@ -96,7 +96,7 @@ AND work_date = #{workDate}
 </select>
 
 <!--m_worktime_totalテーブルより月次の合計時間を取得-->
-<select id="totalWorkTime" resultType="WorkTimeTotalEntity">
+<select id="totalWorkTime" resultMap="worktimetotal">
 	select 
 	 work_date_month
 	,work_date_total
@@ -109,7 +109,7 @@ AND work_date = #{workDate}
 </select>
 
 <!--選択した月次の合計時間を取得-->
-<select id="selectTotalWorkTime" resultType="WorkTimeTotalEntity">
+<select id="selectTotalWorkTime" resultMap="worktimetotal">
 	select 
 	 work_date_month
 	,work_date_total
@@ -123,8 +123,9 @@ AND work_date = #{workDate}
 <!--ｍ_worktime_totalのカラム更新（最新化）-->
 <update id="updateTotalWorkTime" >
 UPDATE m_worktime_total t1
-SET t1.act_work_time_total = (
-    SELECT SUM(act_work_time)
+SET 
+t1.act_work_time_total = (
+    SELECT sec_to_time(SUM(time_to_sec(act_work_time)))
     FROM m_worktime t2
     WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
 ),
@@ -161,7 +162,11 @@ where login_id = #{loginId};
 	close_time =#{closeTime},
 	rest_time =#{restTime},
 	gen_work_time = TIMEDIFF(close_time, start_time),
-	act_work_time = TIMEDIFF(gen_work_time, rest_time),
+	act_work_time = case 
+	when TIMEDIFF(gen_work_time, rest_time) > 0 
+	then TIMEDIFF(gen_work_time, rest_time) 
+	else 0 end 
+	TIMEDIFF(gen_work_time, rest_time),
 	over_time = case 
 	when TIMEDIFF(act_work_time, '08:00:00') > 0 
 	then TIMEDIFF(act_work_time, '08:00:00') 
