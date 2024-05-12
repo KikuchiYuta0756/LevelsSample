@@ -18,7 +18,7 @@ import com.example.form.PaidRequestListForm;
 
 @Controller
 @RequestMapping("/admin")
-public class paidRequestListController {
+public class PaidRequestListADMController {
 
 	@Autowired
 	private PaidAppService paidappservice;
@@ -28,7 +28,7 @@ public class paidRequestListController {
 
 	/** 有給一覧画面を表示 */
 	@GetMapping("/paidRequestList")
-	public String getPaidRequestList(@ModelAttribute PaidRequestListForm form,  Model model) {
+	public String getPaidRequestListADM(@ModelAttribute PaidRequestListForm form,  Model model) {
 		
 		//formをPaidAppEntityクラスに変換
 		PaidAppEntity paid = modelMapper.map(form, PaidAppEntity.class);
@@ -49,7 +49,7 @@ public class paidRequestListController {
 	
 	/** 有給申請の検索処理 */
 	@PostMapping("/paidRequestList")
-	public String postPaidRequestList(@ModelAttribute PaidRequestListForm form,  Model model) {
+	public String postPaidRequestListADM(@ModelAttribute PaidRequestListForm form,  Model model) {
 		
 		//formをPaidAppEntityクラスに変換
 		PaidAppEntity paid = modelMapper.map(form, PaidAppEntity.class);

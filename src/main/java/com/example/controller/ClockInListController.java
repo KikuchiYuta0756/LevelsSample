@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -15,14 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.model.WorkTimeTotalEntity;
 import com.example.domainUser.service.WorkTimeService;
-import com.example.form.UserDetailForm;
-import com.example.form.WorkTimeForm;
 import com.example.form.WorkTimeTotalForm;
 
 
@@ -45,17 +43,22 @@ public class ClockInListController {
 		
 		//勤怠一覧（月次）を取得
 		List<WorkTimeEntity> clockList = worktimeService.getClockTimes(loginId);
+		if(clockList == null) {
+			clockList = new ArrayList<>();
+		}
 		
-		//Modelに登録
-		model.addAttribute("clockList", clockList);
 		
 		//勤怠情報の各合計（月次）を取得
 		WorkTimeTotalEntity workTimeTotal = worktimeService.getworkTimesTotal(loginId);
+		if(workTimeTotal == null) {
+			workTimeTotal = new WorkTimeTotalEntity();
+		}
 		
 		//WorkTimeTotalEntityをformに変換
 		form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);
 
 		//Modelに登録
+		model.addAttribute("clockList", clockList);		
 		model.addAttribute("workTimeTotalForm", form);
 		
 		
@@ -81,17 +84,21 @@ public class ClockInListController {
 		
 		//選択された年月の勤怠一覧を表示する
 		List<WorkTimeEntity> clockList =worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
-		
-		//Modelに登録
-		model.addAttribute("clockList", clockList);
+		if(clockList == null) {
+			clockList = new ArrayList<>();
+		}
 		
 		//勤怠情報の各合計（月次）を取得
 		WorkTimeTotalEntity workTimeTotal = worktimeService.getSelectWorkTimesTotal(loginId, selectedYearMonth);
+		if(workTimeTotal == null) {
+			workTimeTotal = new WorkTimeTotalEntity();
+		}
 		
 		//WorkTimeTotalEntityをformに変換
 		form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);
 
 		//Modelに登録
+		model.addAttribute("clockList", clockList);
 		model.addAttribute("workTimeTotalForm", form);
 		
 		//年月リストを作成

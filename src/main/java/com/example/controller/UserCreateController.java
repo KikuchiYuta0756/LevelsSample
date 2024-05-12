@@ -44,7 +44,6 @@ public class UserCreateController {
 	@Autowired
 	private WorkTimeService workTimeService;
 	
-
 	/** ユーザー登録画面を表示 */
 	@GetMapping("/create")
 	public String getUserCreate(Model model, 
@@ -83,8 +82,7 @@ public class UserCreateController {
 		  //NG：ユーザー登録画面に戻る
 			return getUserCreate(model,form);
 		}
-		
-		
+ 
 		log.info(form.toString());
 		
 		//formをUserMapperEntityクラスに変換

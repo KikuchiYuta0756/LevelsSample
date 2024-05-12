@@ -35,7 +35,7 @@ public class RequestRecordADMController {
 
 	/** 申請履歴画面を表示 */
 	@GetMapping("/requestRecordADM")
-	public String getRequestRecord(Model model) {
+	public String getRequestRecordADM(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		// ログイン認証に使用したログインIDを利用する。
 		String paidLoginId = auth.getName();
@@ -64,7 +64,7 @@ public class RequestRecordADMController {
 
 	/** 個別申請履歴の有給申請詳細画面を表示 */
 	@GetMapping("/requestRecordPaidDetailADM/{paidAppId}")
-	public String getPaidAppADM(PaidRequestForm form, Model model, @PathVariable("paidAppId") int paidAppId) {
+	public String getRequestRecordPaidDetailADM(PaidRequestForm form, Model model, @PathVariable("paidAppId") int paidAppId) {
 
 		// 有給申請を1件取得
 		PaidAppEntity paidappADM = paidappservice.getPaidAppOne(paidAppId);
@@ -81,7 +81,7 @@ public class RequestRecordADMController {
 
 	/** 修正申請詳細画面を表示 */
 	@GetMapping("/requestRecordCorrectDetailADM/{correctRequestId}")
-	public String getCorrectRequestADM(CorrectRequestForm form, Model model,
+	public String getRequestRecordCorrectDetailADM(CorrectRequestForm form, Model model,
 			@PathVariable("correctRequestId") int correctRequestId) {
 
 		// 修正申請を1件取得

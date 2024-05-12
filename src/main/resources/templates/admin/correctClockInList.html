@@ -53,7 +53,6 @@
             　　　　　　　　　<!-- hiddenフィールドとしてloginIdを追加 -->
             　　　　　　　　　<input type="hidden" th:name="loginId" th:value="${items.loginId}" />
 　　　　　　　　　　　　　　　　　　　<!-- 修正ボタンへのリンク -->
-						<!-- <a class="btn btn-primary" th:href="@{'/admin/correctClockInDetails/'+${items.workDate}+'?loginId='+${items.loginId}}">修正</a>-->
 						 <a class="btn btn-primary" th:href="@{/admin/correctClockInDetails/{workDate}(workDate=${items.workDate},loginId=${items.loginId})}">修正</a>						 
 					 </td>
 

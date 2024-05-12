@@ -28,7 +28,7 @@ public class PasswordChangeController {
 	
 	//パスワード変更認証画面の表示
 	@GetMapping("/afterPasswordChange")
-	public String getAfterPasswordChange(UserDetailForm form, Model model) {
+	public String getBeforePasswordChange(UserDetailForm form, Model model) {
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       //ログイン認証に使用したログインIDを利用する。
       String loginId = auth.getName();

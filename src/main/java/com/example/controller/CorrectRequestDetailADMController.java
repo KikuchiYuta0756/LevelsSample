@@ -30,7 +30,7 @@ public class CorrectRequestDetailADMController {
 	
 	/**修正申請詳細画面を表示*/
 	@GetMapping("/correctRequestDetail/{correctRequestId}")
-	public String getCorrectRequestADM(CorrectRequestForm form, Model model,
+	public String getCorrectRequestDetailADM(CorrectRequestForm form, Model model,
 			@PathVariable("correctRequestId")int correctRequestId) {
 		
 		//修正申請を1件取得

@@ -14,7 +14,4 @@ public class WorkTimeTotalEntity {
 	private Integer workDateTotal;
 	private LocalTime actWorkTimeTotal;
 	private LocalTime overTimeTotal;
-
-
-
 }

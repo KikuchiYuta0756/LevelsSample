@@ -45,6 +45,9 @@ public class PaidRequestController {
 	    
 	    //有給日数を取得
 	   PaidEntity paidDay = userService.getPaidDays(loginId);
+	   if(paidDay == null) {
+		   paidDay = new PaidEntity();
+	   }
 	   
 	   String paidDays = paidDay.getPaidDateNum();
 	   

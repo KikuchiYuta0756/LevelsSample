@@ -2,12 +2,12 @@ package com.example.controller;
 
 import java.nio.file.*;
 
-import java.io.FileWriter;
 import com.opencsv.CSVWriter;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -17,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,26 +40,28 @@ import com.example.form.WorkTimeTotalForm;
 		
 		//勤怠一覧（月次）の表示
 		@GetMapping("/clockInListADM")
-		public String getClockInList(WorkTimeTotalForm form, Model model){
+		public String getClockInListADM(WorkTimeTotalForm form, Model model){
 		    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		    //ログイン認証に使用したログインIDを利用する。
 		    String loginId = auth.getName();
 			
 			//勤怠一覧（月次）を取得
 			List<WorkTimeEntity> clockList = worktimeService.getClockTimes(loginId);
-			System.out.println("clockListは"+ clockList);
-			
-			//Modelに登録
-			model.addAttribute("clockList", clockList);
+            if(clockList == null) {
+            	clockList = new ArrayList<>();
+            }
 			
 			//勤怠情報の各合計（月次）を取得
 			WorkTimeTotalEntity workTimeTotal = worktimeService.getworkTimesTotal(loginId);
-			System.out.println("workTimeTotalは"+ workTimeTotal);
+            if(workTimeTotal == null) {
+            	workTimeTotal = new WorkTimeTotalEntity();
+            }
 			
 			//WorkTimeTotalEntityをformに変換
 			form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);
 
 			//Modelに登録
+			model.addAttribute("clockList", clockList);
 			model.addAttribute("workTimeTotalForm", form);
 			
 			
@@ -76,27 +77,30 @@ import com.example.form.WorkTimeTotalForm;
 
 		//年月選択の勤怠一覧を表示
 		@PostMapping("/selectYearMonths")
-		public String getSelectYearMonths(WorkTimeTotalForm form, Model model, 
+		public String getSelectYearMonthsADM(WorkTimeTotalForm form, Model model, 
 				@RequestParam("selectYearMonth") String selectedYearMonth){
 
 		    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			//ログイン認証に使用したログインIDを利用する。
 		    String loginId = auth.getName();
-		    System.out.println("勤怠一覧（月次）の表示" + loginId);			
 			
 			//選択された年月の勤怠一覧を表示する
 			List<WorkTimeEntity> clockList =worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
-			
-			//Modelに登録
-			model.addAttribute("clockList", clockList);
+			if(clockList == null) {
+				clockList = new ArrayList<>(); 
+			}
 			
 			//勤怠情報の各合計（月次）を取得
 			WorkTimeTotalEntity workTimeTotal = worktimeService.getSelectWorkTimesTotal(loginId, selectedYearMonth);
+			if(workTimeTotal == null) {
+				workTimeTotal = new WorkTimeTotalEntity();
+			}
 			
 			//WorkTimeTotalEntityをformに変換
 			form = modelMapper.map(workTimeTotal, WorkTimeTotalForm.class);
 
 			//Modelに登録
+			model.addAttribute("clockList", clockList);
 			model.addAttribute("workTimeTotalForm", form);
 			
 			//年月リストを作成
@@ -104,14 +108,14 @@ import com.example.form.WorkTimeTotalForm;
 					"2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12");
 			
 			//Modelに追加
-			model.addAttribute("yearMonths", yearMonths);	
+			model.addAttribute("yearMonths", yearMonths);
 			
 		return "admin/clockInListADM";
 		}
 		
      	//CSV出力の処理
     	@PostMapping("/csvOutput")
-        public RedirectView csvOutput(@RequestParam("selectYearMonth") String selectedYearMonth) {
+        public RedirectView csvOutputADM(@RequestParam("selectYearMonth") String selectedYearMonth) {
     		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		//ログイン認証に使用したログインIDを利用する。

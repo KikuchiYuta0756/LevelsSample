@@ -73,7 +73,7 @@ public class RequestRecordController {
 
 	/** 個別申請履歴の有給申請詳細画面を表示 */
 	@GetMapping("/requestRecordPaidDetail/{paidAppId}")
-	public String getPaidAppADM(PaidRequestForm form, Model model, @PathVariable("paidAppId") int paidAppId) {
+	public String getRequestRecordPaidDetail(PaidRequestForm form, Model model, @PathVariable("paidAppId") int paidAppId) {
 
 		// 有給申請を1件取得
 		PaidAppEntity paidappADM = paidappservice.getPaidAppOne(paidAppId);
@@ -90,7 +90,7 @@ public class RequestRecordController {
 
 	/** 修正申請詳細画面を表示 */
 	@GetMapping("/requestRecordCorrectDetail/{correctRequestId}")
-	public String getCorrectRequestADM(CorrectRequestForm form, Model model,
+	public String getRequestRecordCorrectDetail(CorrectRequestForm form, Model model,
 			@PathVariable("correctRequestId") int correctRequestId) {
 
 		// 修正申請を1件取得

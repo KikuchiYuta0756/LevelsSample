@@ -29,7 +29,7 @@ public class PaidRequestDetailADMController {
 	
 	/**有給申請詳細画面を表示*/
 @GetMapping("/paidRequestDetail/{paidAppId}")
-public String getPaidAppADM(PaidRequestForm form, Model model,
+public String getPaidRequestDetailADM(PaidRequestForm form, Model model,
 		@PathVariable("paidAppId")int paidAppId) {
 		
 		//有給申請を1件取得

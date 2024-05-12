@@ -59,7 +59,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<span th:text="*{workDateMonth}"></span>
+								<span th:text="*{workDateMonth != null ? workDateMonth : ''}"></span>
 							</td>
 							<td>
 								<span th:text="*{workDateTotal != null ? workDateTotal : '0'}">日</span>

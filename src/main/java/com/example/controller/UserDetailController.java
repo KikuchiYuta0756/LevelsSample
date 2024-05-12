@@ -35,7 +35,7 @@ public class UserDetailController {
 	
 	/**ユーザー詳細画面を表示*/
 @GetMapping("/userDetail/{loginId}")
-public String getUser(UserDetailForm form, Model model,
+public String getUserDetail(UserDetailForm form, Model model,
 		@PathVariable("loginId")String loginId) {
 		
 		//ユーザーを1件取得

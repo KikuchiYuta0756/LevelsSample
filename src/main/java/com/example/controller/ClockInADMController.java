@@ -47,7 +47,7 @@ public class ClockInADMController {
 	
 	//勤怠打刻画面（ユーザ用表）示
 	@GetMapping("/clockInADM")
-	public String getClockIn(UserDetailForm form,
+	public String getClockInADM(UserDetailForm form,
 			Model model){
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    //ログイン認証に使用したログインIDを利用する。
@@ -71,7 +71,7 @@ public class ClockInADMController {
 	
 	//出勤時間の登録処理
 	@PostMapping(value = "/clockInADM", params = "attendance")
-	public String attendanceTime() {
+	public String attendanceTimeADM() {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    //ログイン認証に使用したログインIDを利用する。
 	    String loginId = auth.getName();
@@ -117,7 +117,7 @@ public class ClockInADMController {
 	
 	//退勤ボタン処理
 	@PostMapping(value = "/clockInADM", params = "leaving")
-	public String leavingTime() {
+	public String leavingTimeADM() {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    //ログイン認証に使用したログインIDを利用する。
 	    String loginId = auth.getName();

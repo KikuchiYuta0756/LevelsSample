@@ -10,8 +10,8 @@ public class LevelsSampleApplication {
 	public static void main(String[] args) {
 		    SpringApplication.run(LevelsSampleApplication.class, args);
 
-//	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//	        String rawPassword = "test00009";
+//		    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//	        String rawPassword = "11111";
 //	        String hashedPassword = encoder.encode(rawPassword);
 //	        System.out.println(hashedPassword);
 		    
@@ -21,5 +21,4 @@ public class LevelsSampleApplication {
 //	        System.out.println(hashedPassword);
 		    
 	}
-
 }

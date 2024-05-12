@@ -17,7 +17,7 @@ import com.example.form.CorrectListForm;
 
 @Controller
 @RequestMapping("/admin")
-public class CorrectRequestListController {
+public class CorrectRequestListADMController {
 	
 	@Autowired
 	private CorrectRequestService correctrequestservice;
@@ -27,7 +27,7 @@ public class CorrectRequestListController {
 	
 	//勤怠修正申請一覧を表示
 	@GetMapping("/correctRequestList")
-	public String getCorrectRequestList(@ModelAttribute CorrectListForm form, Model model) {
+	public String getCorrectRequestListADM(@ModelAttribute CorrectListForm form, Model model) {
 		
 		//formをCorrectRequestEntityクラスに変換
 		CorrectRequestEntity correct = modelMapper.map(form,CorrectRequestEntity.class);
@@ -46,7 +46,7 @@ public class CorrectRequestListController {
 	
 	//修正申請検索処理
 	@PostMapping("/correctRequestList")
-	public String postCorrectRequest(@ModelAttribute CorrectListForm form, Model model) {
+	public String postCorrectRequestListADM(@ModelAttribute CorrectListForm form, Model model) {
 	
 	//formをCorrectRequestEntityクラスに変換
 	CorrectRequestEntity correct = modelMapper.map(form,CorrectRequestEntity.class);
