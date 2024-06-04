@@ -1,7 +1,11 @@
 package com.example.controller;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -17,12 +21,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.model.WorkTimeTotalEntity;
 import com.example.domainUser.service.WorkTimeService;
 import com.example.form.WorkTimeTotalForm;
-
+import com.opencsv.CSVWriter;
 
 @Controller
 @RequestMapping("/user")
@@ -112,71 +117,59 @@ public class ClockInListController {
 	}
 	
 	
-	//CSV出力の処理
-	@GetMapping("/csvOutput")
-    public void csvOutput(String[] args,
-    		@RequestParam("selectYearMonth") String selectedYearMonth) {
-	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		//ログイン認証に使用したログインIDを利用する。
-	    String loginId = auth.getName();
-	    System.out.println("勤怠一覧（月次）の表示" + loginId);						
+ 	//CSV出力の処理
+	@PostMapping("/csvOutput")
+    public RedirectView csvOutput(@RequestParam("selectYearMonth") String selectedYearMonth) {
 		
-		//選択された年月の勤怠一覧を表示する
-		List<WorkTimeEntity> csvRecords = worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
-		
-		//CSVにエクスポート
-		exportToCsv(csvRecords,"ClockInList.csv");
-	}
-		
-	public static void exportToCsv(List<WorkTimeEntity> csvRecords, String csvFilePath) {
-	try(FileWriter writer = new FileWriter("ClockInList.csv",false)){
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	//ログイン認証に使用したログインIDを利用する。
+	String loginId = auth.getName();
+
+ 	//選択された年月の勤怠一覧を表示する
+ 	List<WorkTimeEntity> csvRecords = worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
 	
-	//CSVヘッダーに書き込む
-	writer.append("日付,出勤時間,退勤時間,休憩時間,実働時間,残業時間\n");	
-	
-	//DateTimeFormatterを定義
-	DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-	
-	
-	//DBレコードを処理してCSVに書き込む
+ // ユーザーのホームディレクトリを取得
+ 	String userHome = System.getProperty("user.home");
+
+ 	// CSVファイルの保存先ディレクトリをデスクトップフォルダに設定
+ 	Path desktopDirectoryPath = Paths.get(userHome, "/OneDrive/ドキュメント");
+
+ 	// CSVファイルパス
+ 	Path csvFilePath = desktopDirectoryPath.resolve("clockInList.csv"); // デスクトップに保存するように変更
+
+	//CSVWriterの初期化
+	try(CSVWriter writer = new CSVWriter(Files.newBufferedWriter(csvFilePath, StandardOpenOption.CREATE, StandardOpenOption.WRITE))){
+		//CSVヘッダーの書き込み
+		String[] header = {"日付", "出勤時間", "退勤時間","休憩時間", "実働時間", "残業時間"};
+        writer.writeNext(header);
+        
+        // DateTimeFormatter を定義
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+		//DBレコードをCSVに書き込む
 		for(WorkTimeEntity record : csvRecords) {
-			
-			writer.append(record.getWorkDate());
-			writer.append(",");
-			writer.append(record.getStartTime() != null ? record.getStartTime() : "");
-			writer.append(",");
-			writer.append(record.getCloseTime() != null ? record.getCloseTime() : "");
-			writer.append(",");
-			 
-			//LocalTime型の休憩時間カラムを文字列に変換して書き込む
-			 if (record.getRestTime() != null) {
-			String resttimeToString = record.getRestTime().format(timeFormatter);
-			writer.append(resttimeToString);
-			 } else {
-		    writer.append("");} 
-			writer.append(",");
-			//LocalTime型の実働時間カラムを文字列に変換して書き込む
-			if (record.getActWorkTime() != null) {
-			String actworktimeToString = record.getActWorkTime().format(timeFormatter);
-			writer.append(actworktimeToString);
-			} else {
-			writer.append("");}
-			writer.append(",");
-			//LocalTime型の残業時間カラムを文字列に変換して書き込む
-			if(record.getOverTime() != null) {
-			String overtimeToString = record.getOverTime().format(timeFormatter);
-			writer.append(overtimeToString);
-			} else {
-			writer.append("");}
-			writer.append("\n");
-			
-		}
-		
-		System.out.println("csvファイルへの書き込みが完了しました");
-		
-	} catch (IOException ex) {
-        ex.printStackTrace();
-	}
-  }
+			String[] data = {
+					record.getWorkDate(),
+					record.getStartTime(),
+					record.getCloseTime(),
+					formatLocalTime(record.getRestTime(), timeFormatter),
+					formatLocalTime(record.getActWorkTime(), timeFormatter),
+					formatLocalTime(record.getOverTime(), timeFormatter)
+			};
+			writer.writeNext(data);
+		}					
+   System.out.println("CSV ファイルにデータを書き込みました: " + csvFilePath);
+}catch(IOException e) {
+	e.printStackTrace();
+}
+    RedirectView redirectView = new RedirectView();
+    redirectView.setUrl("/user/clockInList");
+    return redirectView;
+	
+	
+}
+	private String formatLocalTime(LocalTime time, DateTimeFormatter formatter) {
+        return time != null ? time.format(formatter) : "";		
+} 	
 } 	 
 	

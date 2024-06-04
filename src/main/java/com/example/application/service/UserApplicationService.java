@@ -26,5 +26,4 @@ public class UserApplicationService {
 		authorityMap.put("ADMIN", 2);
 		return authorityMap;
 	}
-	
 }

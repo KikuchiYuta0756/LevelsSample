@@ -1,6 +1,5 @@
 package com.example.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,7 +37,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
             return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
         } else {
-    	// Auto-generated method stub
         throw new BadCredentialsException("Authentication failed");
     }
    }
@@ -48,8 +46,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         boolean supported = authentication.equals(UsernamePasswordAuthenticationToken.class);
         System.out.println("Supported authenticationの結果は: " + supported);
         return supported;
-    	// authentication(認証方式)がUsernamePasswordAuthenticationToken.class(ユーザー名とパスワード認証)か判定
-        //return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
     
 } 

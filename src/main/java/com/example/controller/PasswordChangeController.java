@@ -29,10 +29,10 @@ public class PasswordChangeController {
 	//パスワード変更認証画面の表示
 	@GetMapping("/afterPasswordChange")
 	public String getBeforePasswordChange(UserDetailForm form, Model model) {
+		
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       //ログイン認証に使用したログインIDを利用する。
       String loginId = auth.getName();
-      System.out.println("usersloginIdは"+ loginId);
 
       //ログイン認証ユーザーの情報を取得
       UserMapperEntity loginUser = userService.getUserOne(loginId);

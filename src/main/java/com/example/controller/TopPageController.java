@@ -1,18 +1,15 @@
 package com.example.controller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
-import com.example.domainUser.service.WorkTimeService;
 import com.example.form.UserDetailForm;
 
 @Controller
@@ -21,12 +18,6 @@ public class TopPageController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private ModelMapper modelMapper;
-	
-	@Autowired
-	private WorkTimeService workTimeService;
-
 	/**トップページを表示*/
 	@GetMapping("/division")
 	public String getDivisionLogin(UserDetailForm form, Model model){

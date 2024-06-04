@@ -23,7 +23,7 @@ import lombok.Data;
 public class UserCreateForm {
 	
 	@NotNull(groups = ValidGroup1.class)
-	private Integer loginId;
+	private String loginId;
 	
 	@NotBlank(groups = ValidGroup1.class)
 	@Length(min = 7, max = 100)

@@ -105,7 +105,7 @@ public class RequestRecordController {
 		model.addAttribute("CorrectRequestForm", form);
 
 		// ユーザー詳細画面を表示
-		return "admin/requestRecordCorrectDetail";
+		return "user/requestRecordCorrectDetail";
 	}
 
 }

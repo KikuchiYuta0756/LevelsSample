@@ -51,7 +51,7 @@ public class CorrectRequestADMController {
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
 			//NG 修正申請画面に戻る
-			return getClockInCorrectADM(model,form);
+			return getCorrectRequestADM(model,form);
 		}
 				
 		log.info(form.toString());

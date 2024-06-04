@@ -1,97 +1,157 @@
-//package com.example.controller;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//import static org.mockito.Mockito.*;
-//
-//import java.time.LocalDateTime;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.ui.Model;
-//import org.springframework.web.servlet.ModelAndView;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContext;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//
-//import com.example.domainUser.model.UserMapperEntity;
-//import com.example.domainUser.model.WorkTimeEntity;
-//import com.example.domainUser.service.UserService;
-//import com.example.domainUser.service.WorkTimeService;
-//import com.example.form.UserDetailForm;
-//
-//class ClockInADMControllerTest {
-//
-//    private ClockInADMController controller;
-//    private UserService userService;
-//    private WorkTimeService workTimeService;
-//    private Model model;
-//
-//    @BeforeEach
-//    void setUp() {
-//        userService = mock(UserService.class);
-//        workTimeService = mock(WorkTimeService.class);
-//        model = mock(Model.class);
-//        controller = new ClockInADMController(userService, workTimeService);
-//    }
-//
-//    @Test
-//    void testGetClockIn() {
-//        Authentication auth = mock(Authentication.class);
-//        SecurityContext securityContext = mock(SecurityContext.class);
-//        when(securityContext.getAuthentication()).thenReturn(auth);
-//        SecurityContextHolder.setContext(securityContext);
-//
-//        UserMapperEntity userMapperEntity = new UserMapperEntity();
-//        when(userService.getWorkFlg(anyString())).thenReturn(userMapperEntity);
-//
-//        UserDetailForm form = new UserDetailForm();
-//        ModelAndView modelAndView = controller.getClockIn(form, model);
-//
-//        verify(model).addAttribute("userWorkFlg", form);
-//        assert modelAndView.getViewName().equals("admin/clockInADM");
-//    }
-//
-//    @Test
-//    void testAttendanceTime() {
-//        Authentication auth = mock(Authentication.class);
-//        SecurityContext securityContext = mock(SecurityContext.class);
-//        when(securityContext.getAuthentication()).thenReturn(auth);
-//        SecurityContextHolder.setContext(securityContext);
-//
-//        LocalDateTime now = LocalDateTime.now();
-//        UserMapperEntity userMapperEntity = new UserMapperEntity();
-//        when(userService.getWorkFlg(anyString())).thenReturn(userMapperEntity);
-//
-//        WorkTimeEntity workTimeEntity = new WorkTimeEntity();
-//        workTimeEntity.setWorkDate(now.toString());
-//        workTimeEntity.setStartTime(now.toString());
-//        workTimeEntity.setLoginId("test");
-//
-//        controller.attendanceTime();
-//
-//        verify(workTimeService).startTimeSignup(workTimeEntity);
-//    }
-//
-//    @Test
-//    void testLeavingTime() {
-//        Authentication auth = mock(Authentication.class);
-//        SecurityContext securityContext = mock(SecurityContext.class);
-//        when(securityContext.getAuthentication()).thenReturn(auth);
-//        SecurityContextHolder.setContext(securityContext);
-//
-//        LocalDateTime now = LocalDateTime.now();
-//        UserMapperEntity userMapperEntity = new UserMapperEntity();
-//        when(userService.getWorkFlg(anyString())).thenReturn(userMapperEntity);
-//
-//        WorkTimeEntity workTimeEntity = new WorkTimeEntity();
-//        workTimeEntity.setWorkDate(now.toString());
-//        workTimeEntity.setCloseTime(now.toString());
-//        workTimeEntity.setLoginId("test");
-//
-//        controller.leavingTime();
-//
-//        verify(workTimeService).closeTimeSignup(workTimeEntity);
-//    }
-//
-//}
+package com.example.controller;
+
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import org.modelmapper.ModelMapper;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.example.domainUser.model.UserMapperEntity;
+import com.example.domainUser.model.WorkTimeEntity;
+import com.example.domainUser.service.UserService;
+import com.example.domainUser.service.WorkTimeService;
+import com.example.form.UserDetailForm;
+
+@ExtendWith(MockitoExtension.class)
+public class ClockInADMControllerTest {
+
+    @InjectMocks
+    private ClockInADMController clockInADMController;	
+	
+    @Mock
+    private UserService userService;
+
+    @Mock
+    private Model model;    
+    
+    @Mock
+    private WorkTimeService workTimeService;
+    
+    @Mock
+    private UserMapperEntity userMapperEntity;
+    
+    @Mock
+    private ModelMapper modelMapper;
+    
+    @Mock
+    private Clock clock;
+
+    @Test
+    public void testGetClockInADM() {
+        // テスト用データ
+    	String loginId = "testLoginId";
+        UserDetailForm form = new UserDetailForm();
+        form.setWorkFlg(1);
+
+        Authentication authentication = mock(Authentication.class);
+        when(authentication.getName()).thenReturn(loginId);
+
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+
+        when(userService.getWorkFlg(loginId)).thenReturn(userMapperEntity);
+        when(modelMapper.map(userMapperEntity, UserDetailForm.class)).thenReturn(form);
+        
+        //実行
+        String viewName = clockInADMController.getClockInADM(new UserDetailForm(), model);
+
+        //検証
+        assertEquals("admin/clockInADM", viewName);  //メソッドの戻り値を検証
+
+        // Modelに正しいオブジェクトが登録されたか検証
+        verify(model).addAttribute(eq("userWorkFlg"), any(UserDetailForm.class));
+    }        
+
+    @Test
+    public void testAttendanceTimeADM() {
+        //テストユーザの準備
+    	String loginId = "testLoginId";
+ 
+        Authentication authentication = mock(Authentication.class); //Authenticationのモック化
+        when(authentication.getName()).thenReturn(loginId);         //when()の引数にはモック化されたオブジェクトをセットする必要がある
+
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+
+        //Setup
+    	LocalDateTime firstPatternDate = LocalDateTime.of(2024, 5, 15, 9, 15);
+    	Clock fixedClock = Clock.fixed(firstPatternDate.atZone(ZoneId.systemDefault()).toInstant(),ZoneId.systemDefault());
+        lenient().when(clock.instant()).thenReturn(fixedClock.instant());
+        lenient().when(clock.getZone()).thenReturn(fixedClock.getZone());
+
+        // Mocking workTimeService.startTimeSignup() method
+        WorkTimeEntity worktime = new WorkTimeEntity();
+        worktime.setWorkDate("2024-05-15");
+        worktime.setStartTime("09:10");
+        worktime.setLoginId(loginId);
+        doNothing().when(workTimeService).startTimeSignup(any(WorkTimeEntity.class));
+        
+        //Mocking userService.getWorkFlgLeaving() method
+        doNothing().when(userService).getWorkFlgLeaving(loginId);
+        
+    	//Excute
+    	String viewName = clockInADMController.attendanceTimeADM();
+    	
+    	//Verify
+        verify(workTimeService, times(1)).startTimeSignup(any(WorkTimeEntity.class));
+        verify(userService, times(1)).getWorkFlgLeaving(loginId);
+        assertEquals("redirect:/admin/clockInADM", viewName);
+    	
+    	}
+    
+    @Test
+    public void testLeavingTimeADM() {
+    	
+        //テストユーザの準備
+    	String loginId = "testLoginId";
+ 
+        Authentication authentication = mock(Authentication.class); //Authenticationのモック化
+        when(authentication.getName()).thenReturn(loginId);         //when()の引数にはモック化されたオブジェクトをセットする必要がある
+
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+
+        //Setup
+    	LocalDateTime firstPatternDate = LocalDateTime.of(2024, 5, 15, 9, 16);
+    	Clock fixedClock = Clock.fixed(firstPatternDate.atZone(ZoneId.systemDefault()).toInstant(),ZoneId.systemDefault());
+        lenient().when(clock.instant()).thenReturn(fixedClock.instant());
+        lenient().when(clock.getZone()).thenReturn(fixedClock.getZone());
+
+        // Mocking workTimeService.startTimeSignup() method
+        WorkTimeEntity worktime = new WorkTimeEntity();
+        worktime.setWorkDate("2024-05-15");
+        worktime.setCloseTime("09:20");
+        worktime.setLoginId(loginId);
+        doNothing().when(workTimeService).closeTimeSignup(any(WorkTimeEntity.class));
+        doNothing().when(workTimeService).overTimeSignup(any(WorkTimeEntity.class));
+        
+        //Mocking userService.getWorkFlgLeaving() method
+        doNothing().when(userService).getWorkFlgAttendance(loginId);
+        
+        //Mocking userService.getWorkFlgLeaving() method
+        doNothing().when(workTimeService).updateTotalWorkTime(loginId);
+        
+    	//Excute
+    	String viewName = clockInADMController.leavingTimeADM();
+    	
+    	//Verify
+        verify(workTimeService, times(1)).closeTimeSignup(any(WorkTimeEntity.class));
+        verify(workTimeService, times(1)).overTimeSignup(any(WorkTimeEntity.class));
+        verify(userService, times(1)).getWorkFlgAttendance(loginId);
+        verify(workTimeService, times(1)).updateTotalWorkTime(loginId);         
+        assertEquals("redirect:/admin/clockInADM", viewName);            	
+    }
+}

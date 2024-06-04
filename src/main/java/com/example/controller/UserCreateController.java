@@ -75,8 +75,6 @@ public class UserCreateController {
 			,@ModelAttribute @Validated(GroupOrder.class) UserCreateForm form
 			,BindingResult bindingResult){
 		
-		System.out.println("hello");
-		
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
 		  //NG：ユーザー登録画面に戻る
@@ -85,14 +83,16 @@ public class UserCreateController {
  
 		log.info(form.toString());
 		
+		//UserCreateformのpasswordフォームの入力が空の場合、nullをセットする
+		if(form.getPassword().isEmpty()) {
+			form.setPassword(null);
+		}
+		
 		//formをUserMapperEntityクラスに変換
 		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
-		System.out.println("ユーザ登録は"+ user);
 		
 		//UserMapperEntityからログインIDのみを取り出す
 		String loginId = user.getLoginId();
-		System.out.println("登録ユーザのログインIDは"+ loginId);
-
 		
 		//ユーザー登録
 		userService.userCreate(user);

@@ -51,7 +51,7 @@ public class CorrectRequestController {
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
 			//NG 修正申請画面に戻る
-			return getClockInCorrect(model,form);
+			return getCorrectRequest(model,form);
 		}
 				
 		log.info(form.toString());

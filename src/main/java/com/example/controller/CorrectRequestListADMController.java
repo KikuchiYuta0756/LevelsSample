@@ -35,7 +35,6 @@ public class CorrectRequestListADMController {
 		
 		//修正申請一覧取得
 		List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
-		System.out.println("getcorrectListは" + correctList);	
 		
 		//modelに登録
 		model.addAttribute("correctList", correctList);
@@ -61,6 +60,5 @@ public class CorrectRequestListADMController {
 	
 	//修正申請一覧を表示
 	return "admin/correctRequestList";
-}
-
+      }
 }

@@ -1,29 +1,16 @@
 package com.example.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.application.service.UserApplicationService;
-import com.example.domainUser.model.DepartmentEntity;
-import com.example.domainUser.model.RoleEntity;
-import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.WorkTimeEntity;
-import com.example.domainUser.service.UserService;
 import com.example.domainUser.service.WorkTimeService;
-import com.example.form.CorrectWorkTimeForm;
-import com.example.form.UserDetailForm;
 import com.example.form.CorrectWorkTimeDetailForm;
 
 
@@ -38,7 +25,6 @@ public class CorrectClockInDetailsController {
 
 	
 	// 勤怠詳細の表示（ユーザ毎）
-    //@GetMapping("/admin/correctClockInDetails/{workDate}/{loginId}")
     @GetMapping("/admin/correctClockInDetails/{workDate}")
     public String getCorrectClockInDetail(
     		CorrectWorkTimeDetailForm form, Model model,
