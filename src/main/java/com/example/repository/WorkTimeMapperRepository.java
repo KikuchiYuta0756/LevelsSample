@@ -1,8 +1,8 @@
 package com.example.repository;
 
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,9 +13,7 @@ import com.example.domainUser.model.WorkTimeTotalEntity;
 
 @Mapper
 public interface WorkTimeMapperRepository {
-	
-	/**出退勤時刻の登録
-	public int insertTime(WorkTimeEntity wtime);*/
+
 
 	/**出勤時刻の登録*/
 	public int insertStartTime(WorkTimeEntity worktime);

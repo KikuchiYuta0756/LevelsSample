@@ -1,10 +1,8 @@
 package com.example.domainUser.service;
 
-import java.util.Date;
 import java.util.List;
 
 import com.example.domainUser.model.PaidAppEntity;
-import com.example.domainUser.model.UserMapperEntity;
 
 public interface PaidAppService {
 	
