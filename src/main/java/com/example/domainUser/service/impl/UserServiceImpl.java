@@ -8,10 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.domainUser.model.DepartmentEntity;
-import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.PaidEntity;
-import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.RoleEntity;
+import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
 import com.example.repository.UserMapperRepository;
 
@@ -150,6 +149,7 @@ public class UserServiceImpl implements UserService{
     public PaidEntity getPaidDays(String loginId){
     	return usermapper.getPaidDays(loginId);
     }
+    
 
 
 
