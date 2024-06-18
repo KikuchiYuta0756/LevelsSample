@@ -89,7 +89,7 @@
 
 <!--有給テーブルに1件登録-->
 <insert id="insertUserPaidCreate">
-insert into m_paid(login_id, hire_date) values(#{loginId}, #{hire})
+insert into m_paid(login_id, hire_date) values(#{loginId}, #{hire});
 </insert>
 
 <!--ユーザー複数件取得-->

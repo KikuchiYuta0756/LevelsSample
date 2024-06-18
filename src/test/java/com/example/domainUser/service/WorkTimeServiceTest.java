@@ -138,6 +138,7 @@ class WorkTimeServiceTest {
 	        
 	        
 	        assertSame(worktime, result);
+	        verify(workTimeService).getWorkTimeOne(loginId, workDate);
 	    }
 
 	    @Test

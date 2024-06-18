@@ -40,7 +40,7 @@
 					<tr>
 						<th>変更日</th>
 						<td>
-							<div th:text="*{correctDate}" />
+							<div th:text="*{#dates.format(correctDate,'YYYY/MM/dd')}" />
 						</td>
 					</tr>
 					<tr>

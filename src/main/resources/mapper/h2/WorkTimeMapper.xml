@@ -41,7 +41,9 @@ AND work_date = #{workDate}
 update m_worktime 
 set close_time = #{closeTime},
     gen_work_time = TIMEDIFF(close_time, start_time),
-    act_work_time = TIMEDIFF(gen_work_time, rest_time) 
+    act_work_time = IF(TIMEDIFF(TIMEDIFF(#{closeTime}, start_time), rest_time) > 0,
+                       TIMEDIFF(TIMEDIFF(#{closeTime}, start_time), rest_time),
+                       '00:00:00') 
 where login_id = #{loginId} 
 AND work_date = #{workDate}
 </update>
@@ -163,14 +165,15 @@ where login_id = #{loginId};
 	rest_time =#{restTime},
 	gen_work_time = TIMEDIFF(close_time, start_time),
 	act_work_time = case 
-	when TIMEDIFF(gen_work_time, rest_time) > 0 
-	then TIMEDIFF(gen_work_time, rest_time) 
-	else 0 end 
-	TIMEDIFF(gen_work_time, rest_time),
+	     when TIMEDIFF(gen_work_time, rest_time) > 0 
+	     then TIMEDIFF(gen_work_time, rest_time) 
+	     else 0 
+	end, 
 	over_time = case 
-	when TIMEDIFF(act_work_time, '08:00:00') > 0 
-	then TIMEDIFF(act_work_time, '08:00:00') 
-	else 0 end  
+	     when TIMEDIFF(act_work_time, '08:00:00') > 0 
+	     then TIMEDIFF(act_work_time, '08:00:00') 
+	     else 0 
+	end 
 	where 
 	login_id = #{loginId} 
 	and work_date =#{workDate}

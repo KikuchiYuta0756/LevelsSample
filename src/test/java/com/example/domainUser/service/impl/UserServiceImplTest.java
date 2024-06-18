@@ -235,6 +235,7 @@ class UserServiceImplTest {
 
         // Verify
         assertEquals(expectedPaid, actualPaid);
+        verify(userMapperRepository, times(1)).getPaidDays(loginId);
     }
 
 

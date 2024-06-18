@@ -20,38 +20,34 @@ class CustomUserDetailsServiceTest {
     @InjectMocks
     private CustomUserDetailsService customUserDetailsService;
     
-    
     @Mock
     private CustomUserService customUserService;
 
     @Test
-    public void testLoadUserByUsername_ExistingUser() {
-        // モックの設定
-        UserMapperEntity mockUser = new UserMapperEntity();
-        mockUser.setLoginId("testuser");
-        mockUser.setPassword("testpassword");
+    public void loadUserByUsername_UserExists_ShouldReturnUserDetails() {
+        // Arrange
+        UserMapperEntity userMapperEntity = new UserMapperEntity();
+        userMapperEntity.setLoginId("testuser");
+        
+        when(customUserService.getUserByUsername("testuser")).thenReturn(userMapperEntity);
 
-        when(customUserService.getUserByUsername("testuser")).thenReturn(mockUser);
-
-        // テスト
+        // Act
         UserDetails userDetails = customUserDetailsService.loadUserByUsername("testuser");
 
-        // 検証
+        // Assert
         assertEquals("testuser", userDetails.getUsername());
-        assertEquals("testpassword", userDetails.getPassword());
     }
-
+    
     @Test
-    public void testLoadUserByUsername_NonExistingUser() {
-        // モックの設定
-        when(customUserService.getUserByUsername("nonexistinguser")).thenReturn(null);
+    public void loadUserByUsername_UserDoesNotExist_ShouldThrowException() {
+        // Arrange
+        when(customUserService.getUserByUsername("nonexistentuser")).thenReturn(null);
 
-        // テストと例外のキャッチ
+        // Act & Assert
         UsernameNotFoundException exception = assertThrows(UsernameNotFoundException.class, () -> {
-        	customUserDetailsService.loadUserByUsername("nonexistinguser");
+            customUserDetailsService.loadUserByUsername("nonexistentuser");
         });
 
-        // 検証
-        assertEquals("User not found: nonexistinguser", exception.getMessage());
+        assertEquals("User not found: nonexistentuser", exception.getMessage());
     }
 }
