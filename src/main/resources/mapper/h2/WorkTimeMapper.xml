@@ -124,22 +124,25 @@ AND work_date = #{workDate}
 
 <!--ｍ_worktime_totalのカラム更新（最新化）-->
 <update id="updateTotalWorkTime" >
-UPDATE m_worktime_total t1
+UPDATE m_worktime_total t1 
 SET 
 t1.act_work_time_total = (
-    SELECT sec_to_time(SUM(time_to_sec(act_work_time)))
-    FROM m_worktime t2
-    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+    SELECT sec_to_time(SUM(time_to_sec(act_work_time))) 
+    FROM m_worktime t2 
+    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month 
+    AND t2.login_id = t1.login_id
 ),
 t1.over_time_total = (
-    SELECT sec_to_time(SUM(time_to_sec(over_time)))
-    FROM m_worktime t2
-    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+    SELECT sec_to_time(SUM(time_to_sec(over_time))) 
+    FROM m_worktime t2 
+    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month  
+    AND t2.login_id = t1.login_id
 ),
 t1.work_date_total = (
-    SELECT COUNT(start_time)
-    FROM m_worktime t2
-    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+    SELECT COUNT(start_time) 
+    FROM m_worktime t2 
+    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month 
+    AND t2.login_id = t1.login_id
 ) 
 where login_id = #{loginId};
 </update>

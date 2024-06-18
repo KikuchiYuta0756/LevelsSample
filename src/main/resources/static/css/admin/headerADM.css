@@ -1,0 +1,20 @@
+.navbar-header,
+.top-link,
+.dropdown {
+    flex: 1; /* 各要素が同じ幅で等間隔に配置されます */
+    text-align: center; /* 中央寄せ */
+}
+
+.navbar-brand {
+    flex: none; /* ブランド名は等間隔配置に影響されないようにします */
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-link {
+    margin: 0 10px; /* リンク同士の間隔を調整 */
+}
