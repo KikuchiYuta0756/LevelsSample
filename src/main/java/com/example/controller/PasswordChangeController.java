@@ -46,17 +46,28 @@ public class PasswordChangeController {
 	  return "common/afterPasswordChange";
 	}
 	
-	//パスワード変更認証画面の表示
+	//パスワード変更処理
 	@PostMapping("/afterPasswordChange")
 	public String postAfterPasswordChange(UserDetailForm form, Model model) {
-		
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //ログイン認証に使用したログインIDを利用する。
+        String usersloginId = auth.getName();
+
 		//パスワードの更新
 		userService.updatePasswordOne(
 				form.getLoginId(),
 				form.getPassword());
+
+		//ログイン認証ユーザーの情報を取得
+		UserMapperEntity users = userService.getUserOne(usersloginId);
+		Integer userAuthority = users.getAuthorityFlg();
 		
-		return "common/TopPage";
-		
+        if (userAuthority == 2) {
+            return "redirect:/admin/clockInADM"; // ADMINの場合は/admin/clockInADMにリダイレクト
+        } else {
+            return "redirect:/user/clockIn"; // ADMIN以外の場合は/user/clockInにリダイレクト
+        }
+    
 	}
 	
 	

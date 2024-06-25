@@ -1,12 +1,8 @@
+/* CSS for uniformly spaced top links and button */
 .navbar-header,
 .top-link,
 .dropdown {
-    flex: 1; /* 各要素が同じ幅で等間隔に配置されます */
-    text-align: center; /* 中央寄せ */
-}
-
-.navbar-brand {
-    flex: none; /* ブランド名は等間隔配置に影響されないようにします */
+    margin: 0 10px;
 }
 
 .container-fluid {
@@ -15,6 +11,75 @@
     align-items: center;
 }
 
-.top-link {
-    margin: 0 10px; /* リンク同士の間隔を調整 */
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
+
+.navbar-nav .top-link,
+.navbar-nav .btn {
+    margin: 0 5px;
+}
+
+/* Change color of .top-link on hover */
+.top-link:hover {
+	color: white; /* Change to desired color */
+	text-decoration: none; /* Optional: remove underline */
+}
+
+.navbar .dropdown .btn {
+    position: absolute; /* ボタンを絶対位置に設定*/ 
+    left: 30px;  /*ボタンを左端に移動 */
+}
+
+
+
+
+/*.navber-full-width{
+	width: 100%;
+}
+
+.navbar-header {
+    flex: none;  ブランド名は等間隔配置に影響されないようにします 
+}
+
+.container-fluid {
+	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0; コンテナのパディングをリセット
+}
+
+ 各リンクのスタイル 
+.top-link {
+    margin: 0 10px;  リンク同士の間隔を調整 
+    color: white;  リンクテキストの色を白に設定 
+    text-decoration: none;  リンクの下線を削除 
+    padding: 15px 10px;  リンクの上下パディングを設定 
+    text-align: center;  テキストを中央揃え 
+}
+
+ ドロップダウンメニューのスタイル 
+.navbar .dropdown {
+    position: relative;  ドロップダウンメニューを相対位置に設定 
+}
+
+.navbar .dropdown .btn {
+    position: absolute;  ボタンを絶対位置に設定 
+    left: 0;  ボタンを左端に移動 
+    top: 50%;  ボタンを垂直方向に中央揃え 
+    transform: translateY(-50%);  ボタンを垂直方向に中央揃え 
+}
+
+
+ ナビゲーションリンクのホバースタイル 
+.top-link:hover {
+    background-color: #444;  ホバー時の背景色 
+    color: #fff;  ホバー時のテキスト色 
+}
+
+.top-link {
+    margin: 0 10px;  リンク同士の間隔を調整 
+}*/

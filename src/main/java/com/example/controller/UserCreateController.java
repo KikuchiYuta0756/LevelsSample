@@ -75,6 +75,13 @@ public class UserCreateController {
 			,@ModelAttribute @Validated(GroupOrder.class) UserCreateForm form
 			,BindingResult bindingResult){
 		
+		Integer department = form.getDepartmentId();
+		Integer role = form.getDepartmentId();
+		
+		System.out.println("ユーザ登録の部署は"+department);
+		System.out.println("ユーザ登録の役職は"+role);
+		
+		
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
 		  //NG：ユーザー登録画面に戻る
@@ -112,20 +119,20 @@ public class UserCreateController {
 	}
 	
 	/**データベース関連の例外処理*/
-//	@ExceptionHandler(DataAccessException.class)
-//	public String dataAccessExceptionHandler(DataAccessException e, Model model){
-//		
-//		//空文字をセット
-//		model.addAttribute("error","");
-//		
-//		//メッセージをModelに登録
-//		model.addAttribute("message", "UserCreateControllerで例外が発生しました");
-//		
-//		//HTTPのエラーコード（500）をModelに登録
-//		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
-//		
-//		return "error";
-//	}
+	@ExceptionHandler(DataAccessException.class)
+	public String dataAccessExceptionHandler(DataAccessException e, Model model){
+		
+		//空文字をセット
+		model.addAttribute("error","");
+		
+		//メッセージをModelに登録
+		model.addAttribute("message", "UserCreateControllerで例外が発生しました");
+		
+		//HTTPのエラーコード（500）をModelに登録
+		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		return "error";
+	}
 
 	/**その他の例外処理*/
 	@ExceptionHandler(Exception.class)

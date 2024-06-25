@@ -64,7 +64,7 @@ public class CorrectClockInListController {
 
 	//年月選択の勤怠一覧を表示
 	@PostMapping("/selectCorrectYearMonths")
-	public String getSelectCorrectYearMonths(String loginId,
+	public String getSelectCorrectYearMonths(@RequestParam("loginId")String loginId,
 			CorrectWorkTimeForm form, Model model,
 			@RequestParam("selectYearMonth") String selectedYearMonth){
 		

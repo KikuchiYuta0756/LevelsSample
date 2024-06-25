@@ -36,8 +36,25 @@ public class TopPageController {
 		//次回以降の有給付与の処理
 		userService.updateGivePaidDays();
 		
-		
-		
+        if (userAuthority == 2) {
+            return "redirect:/admin/clockInADM"; // ADMINの場合は/admin/clockInADMにリダイレクト
+        } else {
+            return "redirect:/user/clockIn"; // ADMIN以外の場合は/user/clockInにリダイレクト
+        }
+    
+	}
+	
+	/**エラー発生時に打刻画面を表示*/
+	@GetMapping("/returnClockInView")
+	public String getReturnClockInView(UserDetailForm form, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //ログインユーザを取得する。
+        String usersloginId = auth.getName();
+               
+		//ログインユーザーの権限情報を取得
+        UserMapperEntity users = userService.getUserOne(usersloginId);
+		Integer userAuthority = users.getAuthorityFlg();
+ 		
         if (userAuthority == 2) {
             return "redirect:/admin/clockInADM"; // ADMINの場合は/admin/clockInADMにリダイレクト
         } else {

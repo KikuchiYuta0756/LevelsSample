@@ -25,8 +25,6 @@ public class UserServiceImpl implements UserService{
 	/**ユーザー登録*/
 	@Override
 	public void userCreate(UserMapperEntity user) {
-		user.setDepartmentId(1); //部署
-		user.setRoleId(1); //ロール
 		
 		//パスワード暗号化
 		String rawPassword = user.getPassword();

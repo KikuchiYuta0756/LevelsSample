@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layoutADM}">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--共通CSS読込-->
-	<link rel="stylesheet" th:href="@{/css/layout/headerADM.css}">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/css/admin/headerADM.css}" />
+<!--	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	共通JS読込
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<boby>
-	<nav layout:fragment="header" class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark">
+--></head>
+<body>
+	<nav layout:fragment="header" class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark navber-full-width">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">LevelsSample</a>
+				<a class="navbar-brand">Welcome, <span sec:authentication="name"></span>さん!</a>
 			</div>
 			<a class="top-link" th:href="@{'/admin/clockInADM'}">勤怠打刻</a>
 			<a class="top-link" th:href="@{'/admin/clockInListADM'}">勤怠一覧</a>
@@ -28,13 +29,12 @@
 					MENU
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item">Welcome, <span sec:authentication="name"></span>!</a>
 					<a class="dropdown-item" th:href="@{'/common/afterPasswordChange'}">パスワード</a>
 					<a class="dropdown-item" th:href="@{'/logout'}">ログアウト</a>
 				</div>
 			</div>
 		</div>
 	</nav>
-</boby>
+</body>
 
 </html>

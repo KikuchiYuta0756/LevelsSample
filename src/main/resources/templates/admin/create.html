@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-　xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" 　xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layoutADM}">
+
 <head>
 	<meta charset="UTF-8">
 	</meta>
@@ -11,29 +11,6 @@
 	<!--JS読込-->
 	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
 	<script th:src="@{/webjars/bootstrap/bootstrap.min.js}" defer></script>
-	<style>
-		.popup {
-			display: none;
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background-color: #fff;
-			padding: 20px;
-			border: 1px solid #ccc;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		}
-
-		.overlay {
-			display: none;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-	</style>
 </head>
 
 <body>
@@ -82,7 +59,7 @@
 			<div class="form-group">
 				<label for="departmentId" th:text="#{departmentId}"></label>
 				</br>
-				<select class="form-control">
+				<select class="form-control" th:field="*{departmentId}">
 					<option value="0">部署を選択してください</option>
 					<option th:each="item:${departmentList}" th:value="${item.departmentId}"
 						th:text="${item.departmentName}">
@@ -93,7 +70,7 @@
 			<div class="form-group">
 				<label for="roleId" th:text="#{role}"></label>
 				</br>
-				<select class="form-control">
+				<select class="form-control" th:field="*{roleId}">
 					<option value="0">役職を選択してください</option>
 					<option th:each="item:${roleList}" th:value="${item.roleId}" th:text="${item.roleName}">
 					</option>
@@ -131,40 +108,8 @@
 			</div>
 
 			<!--登録ボタン-->
-			<button id="popupButton" type="submit" th:value="#{user.create.btn}"
-				class="btn btn-primary w-100 mt-3"></button>
-
-			<div class="overlay" id="overlay"></div>
-			<div class="popup" id="popup">
-				<p>ユーザーを正常に登録しました</p>
-				<button id="closeButton">閉じる</button>
-			</div>
+			<input id="popupButton" type="submit" th:value="#{user.create.btn}" class="btn btn-primary w-100 mt-3" />
 		</form>
-		<script>
-			var password = document.getElementById("password")
-			var confirm_password = document.getElementById("confirm_password");
-
-			function validatePassword() {
-				if (password.value != confirm_password.value) {
-					confirm_password.setCustomValidity("パスワードが一致しません");
-				} else {
-					confirm_password.setCustomValidity('');
-				}
-			}
-			password.onchange = validatePassword;
-			confirm_password.onkeyup = validatePassword;
-		</script>
-		<script>
-			document.getElementById("popupButton").addEventListener("click", function () {
-				document.getElementById("overlay").style.display = "block";
-				document.getElementById("popup").style.display = "block";
-			});
-
-			document.getElementById("closeButton").addEventListener("click", function () {
-				document.getElementById("overlay").style.display = "none";
-				document.getElementById("popup").style.display = "none";
-			});
-		</script>
 	</span>
 </body>
 

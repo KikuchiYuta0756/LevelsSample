@@ -12,10 +12,11 @@
 	　　　<div layout:fragment="content">
 		<div class="header border-bottom">
 			<h1 class="h2">月次勤怠</h1>
-			   <p>LoginId: <span th:text="${userDetail.loginId}"></span>   User Name: <span th:text="${userDetail.userName}"></span></p>
+			<p>ログインID: <span th:text="${userDetail.loginId}"></span> ユーザ名: <span
+					th:text="${userDetail.userName}"></span></p>
 			<!--年月選択フォーム-->
 			<form id="select-year-month" method="post" th:action="@{/admin/selectCorrectYearMonths}">
-			    <input type="hidden" name="loginId" th:value="${loginId}" />
+				<input type="hidden" name="loginId" th:value="${userDetail.loginId}" />
 				<label for="yearMonth">年月選択</label>
 				<select name="selectYearMonth" id="yearMonth">
 					<option th:each="yearMonth : ${yearMonths}" th:value="${yearMonth}" th:text="${yearMonth}">
@@ -49,12 +50,13 @@
 							<td th:text="${#temporals.format(items.overTime,'HH:mm')}"></td>
 							<td></td>
 							<td></td>
-					 <td>
-            　　　　　　　　　<!-- hiddenフィールドとしてloginIdを追加 -->
-            　　　　　　　　　<input type="hidden" th:name="loginId" th:value="${items.loginId}" />
-　　　　　　　　　　　　　　　　　　　<!-- 修正ボタンへのリンク -->
-						 <a class="btn btn-primary" th:href="@{/admin/correctClockInDetails/{workDate}(workDate=${items.workDate},loginId=${items.loginId})}">修正</a>						 
-					 </td>
+							<td>
+								　　　　　　　　　<!-- hiddenフィールドとしてloginIdを追加 -->
+								　　　　　　　　　<input type="hidden" th:name="loginId" th:value="${items.loginId}" />
+								　　　　　　　　　　　　　　　　　　　<!-- 修正ボタンへのリンク -->
+								<a class="btn btn-primary"
+									th:href="@{/admin/correctClockInDetails/{workDate}(workDate=${items.workDate},loginId=${items.loginId})}">修正</a>
+							</td>
 
 						</tr>
 					</tbody>
