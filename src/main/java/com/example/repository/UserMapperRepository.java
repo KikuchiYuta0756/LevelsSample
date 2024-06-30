@@ -24,6 +24,10 @@ public interface UserMapperRepository {
 	
 	/**ユーザー取得（1件）*/
 	public UserMapperEntity findOne(String loginId);
+	
+	/**ユーザー取得（1件）*/
+	public UserMapperEntity findUserOne(String loginId);
+
 
 	/**ログイン認証ユーザー取得（1件）*/
 	public UserMapperEntity getLoginUser(String loginId);

@@ -43,12 +43,17 @@ public class UserServiceImpl implements UserService{
 	public List<UserMapperEntity> getUsers(UserMapperEntity user){
 		return usermapper.findMany(user);
 	}
-	/**ユーザー取得(１件)*/
+	/**ユーザー取得(１件：パスワードなし)*/
 	@Override
 	public UserMapperEntity getUserOne(String loginId) {
 		return usermapper.findOne(loginId);
 	}		
-	
+
+	/**ユーザー情報取得(パスワードあり)*/
+	@Override
+	public UserMapperEntity getFindUserOne(String loginId) {
+		return usermapper.findUserOne(loginId);
+	}			
 	
 	/**ユーザー更新（1件）*/
 	@Override

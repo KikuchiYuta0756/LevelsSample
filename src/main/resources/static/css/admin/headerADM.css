@@ -1,17 +1,17 @@
 /* CSS for uniformly spaced top links and button */
-.navbar-header,
+/*.navbar-header,
 .top-link,
 .dropdown {
     margin: 0 10px;
 }
-
+*/
 .container-fluid {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.navbar-nav {
+/*.navbar-nav {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -22,17 +22,17 @@
     margin: 0 5px;
 }
 
-/* Change color of .top-link on hover */
+ Change color of .top-link on hover 
 .top-link:hover {
-	color: white; /* Change to desired color */
-	text-decoration: none; /* Optional: remove underline */
+	color: white;  Change to desired color 
+	text-decoration: none;  Optional: remove underline 
 }
 
 .navbar .dropdown .btn {
-    position: absolute; /* ボタンを絶対位置に設定*/ 
-    left: 30px;  /*ボタンを左端に移動 */
+    position: absolute;  ボタンを絶対位置に設定 
+    left: 30px;  ボタンを左端に移動 
 }
-
+*/
 
 
 

@@ -7,7 +7,6 @@
 	<!--CSS読込-->
 	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
 </head>
-
 <body>
 	　　　<div layout:fragment="content">
 		　　　<div class="header border-bottom">
@@ -15,6 +14,7 @@
 		</div>
 		<form id="user-detail-form" method="post" th:action="@{/admin/correctClockInDetails}" class="form-signup"
 			th:object="${correctWorkTimeDetailForm}">
+			<input type="hidden" th:field="*{loginId}"  />
 			<input type="hidden" th:field="*{workDate}" />
 			<!--ユーザー詳細情報-->
 			<table class="table table-striped table-bordered table-hover">

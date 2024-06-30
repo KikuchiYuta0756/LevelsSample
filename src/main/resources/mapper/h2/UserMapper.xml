@@ -130,6 +130,26 @@ WHERE
 	where login_id = #{loginId}
 </select>
 
+<!--ユーザー１件検索：パスワードあり-->
+<select id="findUserOne" resultMap="user">
+	select 
+	 login_id
+	,password
+	,user_name
+	,user_name_kana
+	,mail_address
+	,m_user.department_id
+	,m_user.role_id
+	,validation
+	,hire_date
+	,authority_flg 
+	from m_user 
+	left join m_department on m_user.department_id = m_department.department_id 
+	left join m_role on m_user.role_id = m_role.role_id 
+	where login_id = #{loginId}
+</select>
+
+
 <!--ログインユーザー１件検索-->
 <select id="getLoginUser" resultMap="user">
 	select * from m_user where login_id = #{loginId}

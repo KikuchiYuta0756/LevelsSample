@@ -17,8 +17,12 @@ public interface UserService {
 	/**ユーザー取得 */
 	public List<UserMapperEntity> getUsers(UserMapperEntity user);
 	
-	/**ユーザー取得(１件)*/
+	/**ユーザー取得(１件：パスワードなし)*/
 	public UserMapperEntity getUserOne(String loginId);	
+
+	/**ユーザー取得(１件：パスワードあり)*/
+	public UserMapperEntity getFindUserOne(String loginId);	
+		
 	
 	/**ユーザー更新（1件）*/
 	public void updateUserOne(

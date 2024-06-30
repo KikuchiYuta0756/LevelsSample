@@ -98,6 +98,8 @@ public class CorrectClockInListController {
 	@PostMapping("/correctClockInList")
 	public String postCorrectBeforeClockInList(CorrectWorkTimeForm form, Model model){
 		
+		System.out.println(form);
+		
 		 //ユーザの勤怠情報を更新
 		 worktimeService.updateWorkTimeOne(
 				 form.getWorkDate(),

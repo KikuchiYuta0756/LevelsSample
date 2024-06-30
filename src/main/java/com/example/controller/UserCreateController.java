@@ -6,6 +6,7 @@ import java.util.Map;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +19,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.application.service.UserApplicationService;
-import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.RoleEntity;
+import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
 import com.example.domainUser.service.WorkTimeService;
 import com.example.form.GroupOrder;
 import com.example.form.UserCreateForm;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -34,53 +36,45 @@ public class UserCreateController {
 
 	@Autowired
 	private UserApplicationService userApplicationService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	private WorkTimeService workTimeService;
-	
+
 	/** ユーザー登録画面を表示 */
 	@GetMapping("/create")
-	public String getUserCreate(Model model, 
-			@ModelAttribute UserCreateForm form) {
-		
-		//部署レコードの取得
+	public String getUserCreate(Model model, @ModelAttribute UserCreateForm form) {
+
+		// 部署レコードの取得
 		List<DepartmentEntity> departmentList = userService.getAllDepartment();
 		model.addAttribute("departmentList", departmentList);
-		
-		//役職レコードの取得
+
+		// 役職レコードの取得
 		List<RoleEntity> roleList = userService.getAllRole();
 		model.addAttribute("roleList", roleList);
 
 		// ユーザー有効性を取得
 		Map<String, Integer> validationMap = userApplicationService.getValidationMap();
 		model.addAttribute("validationMap", validationMap);
-		
+
 		// ユーザー権限を取得
 		Map<String, Integer> authorityMap = userApplicationService.getAuthorityMap();
 		model.addAttribute("authorityMap", authorityMap);
-		
+
 		// ユーザー登録画面に遷移
 		return "admin/create";
 	}
-		
+
 	/**ユーザー登録処理*/
 	@PostMapping("/create")
 	public String postUserCreate(Model model
 			,@ModelAttribute @Validated(GroupOrder.class) UserCreateForm form
-			,BindingResult bindingResult){
-		
-		Integer department = form.getDepartmentId();
-		Integer role = form.getDepartmentId();
-		
-		System.out.println("ユーザ登録の部署は"+department);
-		System.out.println("ユーザ登録の役職は"+role);
-		
+			,BindingResult bindingResult){		
 		
 		//入力チェック結果
 		if(bindingResult.hasErrors()) {
@@ -100,7 +94,8 @@ public class UserCreateController {
 		
 		//UserMapperEntityからログインIDのみを取り出す
 		String loginId = user.getLoginId();
-		System.out.println(loginId);
+		
+		try {
 		
 		//ユーザー登録
 		userService.userCreate(user);
@@ -113,42 +108,48 @@ public class UserCreateController {
 		
 		//勤怠合計テーブルに新規ユーザの年月毎のレコードを作成する
 		workTimeService.userWorkTimeTotalCreate(loginId);
+		} catch(DuplicateKeyException e) {
+			
+			//ログインIDの重複エラーが発生した場合、エラーメッセージを表示
+			bindingResult.rejectValue("loginId", "error.loginId", "ログインIDがすでに使われています	");
+			return getUserCreate(model, form);
+			
+		}
 		
 		//利用者一覧画面にリダイレクト
 		return "redirect:/admin/list";
 	}
-	
-	/**データベース関連の例外処理*/
+
+	/** データベース関連の例外処理 */
 	@ExceptionHandler(DataAccessException.class)
-	public String dataAccessExceptionHandler(DataAccessException e, Model model){
-		
-		//空文字をセット
-		model.addAttribute("error","");
-		
-		//メッセージをModelに登録
+	public String dataAccessExceptionHandler(DataAccessException e, Model model) {
+
+		// 空文字をセット
+		model.addAttribute("error", "");
+
+		// メッセージをModelに登録
 		model.addAttribute("message", "UserCreateControllerで例外が発生しました");
-		
-		//HTTPのエラーコード（500）をModelに登録
+
+		// HTTPのエラーコード（500）をModelに登録
 		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
-		
+
 		return "error";
 	}
 
-	/**その他の例外処理*/
+	/** その他の例外処理 */
 	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception ex, Model model){
-		
-		//空文字をセット
-		model.addAttribute("error","");
-		
-		//メッセージをModelに登録
+	public String exceptionHandler(Exception ex, Model model) {
+
+		// 空文字をセット
+		model.addAttribute("error", "");
+
+		// メッセージをModelに登録
 		model.addAttribute("message", "UserCreateControllerで例外が発生しました");
-		
-		//HTTPのエラーコード（500）をModelに登録
+
+		// HTTPのエラーコード（500）をModelに登録
 		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
-		
+
 		return "error";
 	}
-	
-	
+
 }
