@@ -45,7 +45,7 @@ public class UserCreateController {
 
 	@Autowired
 	private WorkTimeService workTimeService;
-
+	
 	/** ユーザー登録画面を表示 */
 	@GetMapping("/create")
 	public String getUserCreate(Model model, @ModelAttribute UserCreateForm form) {
@@ -70,53 +70,51 @@ public class UserCreateController {
 		return "admin/create";
 	}
 
-	/**ユーザー登録処理*/
+	/** ユーザー登録処理 */
 	@PostMapping("/create")
 	public String postUserCreate(Model model
 			,@ModelAttribute @Validated(GroupOrder.class) UserCreateForm form
-			,BindingResult bindingResult){		
-		
-		//入力チェック結果
-		if(bindingResult.hasErrors()) {
-		  //NG：ユーザー登録画面に戻る
-			return getUserCreate(model,form);
-		}
- 
-		log.info(form.toString());
-		
-		//UserCreateformのpasswordフォームの入力が空の場合、nullをセットする
-		if(form.getPassword().isEmpty()) {
+			,BindingResult bindingResult) {
+
+		// パスワードフォームが空の場合、nullをセットする
+		if (form.getPassword().isEmpty()) {
 			form.setPassword(null);
 		}
-		
-		//formをUserMapperEntityクラスに変換
+
+		// 入力チェック結果
+		if (bindingResult.hasErrors()) {
+			// NG：ユーザー登録画面に戻る
+			return getUserCreate(model, form);
+		}
+
+		log.info(form.toString());
+
+		// formをUserMapperEntityクラスに変換
 		UserMapperEntity user = modelMapper.map(form, UserMapperEntity.class);
-		
-		//UserMapperEntityからログインIDのみを取り出す
+
+		// UserMapperEntityからログインIDのみを取り出す
 		String loginId = user.getLoginId();
-		
+
 		try {
-		
-		//ユーザー登録
-		userService.userCreate(user);
-		
-		//有給テーブルにユーザ登録
-		userService.userPaidCreate(user);
-		
-		//勤怠テーブルに新規ユーザの一年分の年月日を格納する
-		workTimeService.userWorkTimeCreate(loginId);
-		
-		//勤怠合計テーブルに新規ユーザの年月毎のレコードを作成する
-		workTimeService.userWorkTimeTotalCreate(loginId);
-		} catch(DuplicateKeyException e) {
-			
-			//ログインIDの重複エラーが発生した場合、エラーメッセージを表示
+
+			// ユーザー登録
+			userService.userCreate(user);
+
+			// 有給テーブルにユーザ登録
+			userService.userPaidCreate(user);
+
+			// 勤怠テーブルに新規ユーザの一年分の年月日を格納する
+			workTimeService.userWorkTimeCreate(loginId);
+
+			// 勤怠合計テーブルに新規ユーザの年月毎のレコードを作成する
+			workTimeService.userWorkTimeTotalCreate(loginId);
+		} catch (DuplicateKeyException e) {
+			// ログインIDの重複エラーが発生した場合、エラーメッセージを表示
 			bindingResult.rejectValue("loginId", "error.loginId", "ログインIDがすでに使われています	");
 			return getUserCreate(model, form);
-			
 		}
-		
-		//利用者一覧画面にリダイレクト
+
+		// 利用者一覧画面にリダイレクト
 		return "redirect:/admin/list";
 	}
 

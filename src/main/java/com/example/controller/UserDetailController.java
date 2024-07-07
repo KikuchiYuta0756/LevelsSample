@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +20,14 @@ import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.RoleEntity;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
+import com.example.form.GroupOrder;
 import com.example.form.UserDetailForm;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/admin")
+@Slf4j
 public class UserDetailController {
 	
 	@Autowired
@@ -69,7 +75,18 @@ public String getUserDetail(UserDetailForm form, Model model,
 
 /**ユーザー更新処理*/
 @PostMapping(value = "/userDetail", params = "update")
-public String updateUser(UserDetailForm form, Model model){
+public String updateUser(Model model
+		,@ModelAttribute @Validated(GroupOrder.class) UserDetailForm form
+		,BindingResult bindingResult){
+
+	// 入力チェック結果
+	if (bindingResult.hasErrors()) {
+        String loginId = form.getLoginId();
+		// NG：ユーザー登録画面に戻る
+		return getUserDetail(form,model,loginId);
+	}
+	
+	log.info(form.toString());
 	
 	//ユーザーを更新
 	userService.updateUserOne(

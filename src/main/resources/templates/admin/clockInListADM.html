@@ -29,6 +29,30 @@
 			background-color: rgba(0, 0, 0, 0.5);
 		}
 	</style>
+    <style>
+        .table-wrapper {
+            max-height: 400px; /* 必要に応じて高さを調整 */
+            overflow-y: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            position: sticky;
+            top: 0;
+            background-color: #f1f1f1; /* ヘッダーの背景色 */
+            z-index: 1; /* ヘッダーを前面に表示 */
+        }
+        .thead-light th {
+            background-color: #f8f9fa; /* カスタム背景色 */
+        }
+    </style>
 
 </head>
 
@@ -113,7 +137,8 @@
 
 			<!--月次勤怠情報-->
 			<div>
-				<table class="table table-striped table-bordered table-hover">
+				<!--<table class="table table-striped table-bordered table-hover">-->
+				<table class="table">	
 					<thead class="thead-light">
 						<tr>
 							<th class="th-width">日付</th>

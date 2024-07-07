@@ -23,13 +23,16 @@
 						<th class="w-25">ログインID</th>
 						<td>
 							<div th:text="*{loginId}" />
-							<!--<input type="text" class="form-control"  th:field="*{loginId}" />-->
 						</td>
 					</tr>
 					<tr>
 						<th>パスワード</th>
 						<td>
-							<input type="text" class="form-control" th:field="*{password}" />
+							<input type="password" id="password" class="form-control" th:field="*{password}"
+								th:errorclass="is-invalid" />
+							<div class="invalid-feedback"></div>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}"></div>
 						</td>
 					</tr>
 					<tr>
