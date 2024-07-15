@@ -11,6 +11,11 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
+        // パスワードが空白の場合は許可
+        if (password == null || password.trim().isEmpty()) {
+            return true;
+        }
+    	
         if (password == null || password.length() < 7 || password.length() > 15) {
             return false;
         }

@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.example.application.service.UserApplicationService;
 import com.example.domainUser.model.DepartmentEntity;
@@ -103,9 +104,10 @@ class UserDetailControllerTest {
         // Setup
         UserDetailForm form = new UserDetailForm();
         // フォームにデータをセット
+    	BindingResult bindingResult = mock(BindingResult.class);
         
         // Exercise
-        String result = controller.updateUser(form, model);
+        String result = controller.updateUser(model, form, bindingResult);
         
         // Verify
         // userServiceのupdateUserOneメソッドが適切に呼び出されることを確認

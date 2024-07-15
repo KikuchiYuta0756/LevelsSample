@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.domainUser.model.RequestStatesEntity;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -37,5 +39,7 @@ public class CorrectRequestForm {
 	@NotNull(groups = ValidGroup1.class)
 	@Size(min = 1, max = 200, groups = ValidGroup2.class)
 	private String correctReason;
+	
+	private RequestStatesEntity requestStates;
 
 }

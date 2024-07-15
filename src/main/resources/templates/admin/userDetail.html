@@ -30,9 +30,7 @@
 						<td>
 							<input type="password" id="password" class="form-control" th:field="*{password}"
 								th:errorclass="is-invalid" />
-							<div class="invalid-feedback"></div>
-							<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}"
-								th:errors="*{password}"></div>
+							<div class="invalid-feedback" th:errors="*{password}"></div>
 						</td>
 					</tr>
 					<tr>
@@ -50,7 +48,8 @@
 					<tr>
 						<th>メールアドレス</th>
 						<td>
-							<input type="text" class="form-control" th:field="*{mailAddress}" />
+							<input type="text" class="form-control" th:field="*{mailAddress}" th:errorclass="is-invalid" />
+							<div class="invalid-feedback" th:errors="*{mailAddress}"></div>
 						</td>
 					</tr>
 					<tr>

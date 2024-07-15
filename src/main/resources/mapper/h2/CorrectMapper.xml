@@ -7,7 +7,7 @@
 	
 		<!--マッピング定義（ユーザー）-->
 <resultMap type="com.example.domainUser.model.CorrectRequestEntity" id="correctRequest">
-	<result column="login_id" property="correctLoginId" />
+	<id column="login_id" property="correctLoginId" />
 	<result column="user_name" property="correctUserName" />
 	<result column="correct_app_date" property="correctRequestDate" />
 	<result column="request_sta_id" property="requestStaId" />
@@ -18,6 +18,13 @@
 	<result column="correct_resttime" property="correctRestTime" />
 	<result column="worktime_sta_id" property="worktimeStaId" />
 	<result column="correct_reason" property="correctReason" />
+	<association property="requestStates" resultMap="requestStates" />
+</resultMap>
+
+<!--マッピング定義(申請ステータス)-->
+<resultMap type="com.example.domainUser.model.RequestStatesEntity" id="requestStates">
+	<id column="request_sta_id" property="requestStaId" />
+	<result column="request_sta_name" property="requestStaName" />
 </resultMap>
 
 
@@ -51,7 +58,7 @@
 	,#{correctRestTime}
 	,#{worktimeStaId}
 	,#{correctReason}
-	,'承認待ち'
+	,10
 	,NOW()
 	)
 </insert>
@@ -59,18 +66,20 @@
 		
 <!--修正申請の数件取得-->
 <select id="findMany" resultMap="correctRequest">
-SELECT * FROM m_correction_app 
+SELECT 
+  login_id
+ ,user_name
+ ,correct_app_date
+ ,m_request_sta.request_sta_id
+ ,correct_app_id
+ ,correct_date  
+FROM m_correction_app 
+left join m_request_sta on m_correction_app.request_sta_id = m_request_sta.request_sta_id 
 WHERE 
     (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{correctLoginId}, '%'))
     AND 
     (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{correctUserName}, '%'))
 ORDER BY 
-    CASE request_sta_id 
-        WHEN '承認待ち' THEN 0 
-        WHEN '差し戻し' THEN 1 
-        WHEN '承認済み' THEN 2 
-        ELSE 2 
-    END,
     request_sta_id ASC, 
     correct_app_id DESC; 
 </select>
@@ -110,7 +119,7 @@ ORDER BY
 </update>
 
 
-<!--修正申請の数件取得（ユーザー）-->
+<!--修正申請の数件取得（ユーザー申請履歴画面）-->
 <select id="userFindMany" resultMap="correctRequest">
 SELECT * 
 FROM

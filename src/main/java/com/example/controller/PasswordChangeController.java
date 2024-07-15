@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
 import com.example.form.GroupOrder;
-import com.example.form.UserDetailForm;
+import com.example.form.PasswordChangeForm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +37,7 @@ public class PasswordChangeController {
 
 	// パスワード変更画面の表示
 	@GetMapping("/afterPasswordChange")
-	public String getBeforePasswordChange(Model model, @ModelAttribute UserDetailForm form) {
+	public String getBeforePasswordChange(Model model, @ModelAttribute PasswordChangeForm form) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		// ログイン認証に使用したログインIDを利用する。
@@ -47,10 +47,10 @@ public class PasswordChangeController {
 		UserMapperEntity loginUser = userService.getUserOne(loginId);
 
 		// UserMapperEntityをformに変換
-		form = modelMapper.map(loginUser, UserDetailForm.class);
+		form = modelMapper.map(loginUser, PasswordChangeForm.class);
 
 		// Modelに登録
-		model.addAttribute("userDetailForm", form);
+		model.addAttribute("PasswordChangeForm", form);
 
 		return "common/afterPasswordChange";
 	}
@@ -58,7 +58,7 @@ public class PasswordChangeController {
 	// パスワード変更処理
 	@PostMapping("/afterPasswordChange")
 	public String postAfterPasswordChange(Model model
-		 ,@ModelAttribute @Validated(GroupOrder.class) UserDetailForm form
+		 ,@ModelAttribute @Validated(GroupOrder.class) PasswordChangeForm form
 		 ,BindingResult bindingResult){
 
 		// ログインユーザのログインIDを取得。
