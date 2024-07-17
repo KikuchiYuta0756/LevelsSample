@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.PaidEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.model.RoleEntity;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.service.UserService;
@@ -69,7 +70,10 @@ public class UserServiceImpl implements UserService{
 			Integer authority,
 			Date hire
 			)  {
-		String encryptPassword = encoder.encode(password);
+	    String encryptPassword = null;
+	    if (password != null) {
+	        encryptPassword = encoder.encode(password);
+	    }
 		usermapper.updateOne(
 				loginId, 
 				encryptPassword, 
@@ -112,8 +116,9 @@ public class UserServiceImpl implements UserService{
 	/**役職の取得*/
 	@Override
 	public List<RoleEntity> getAllRole(){
-	    return usermapper.findAll2();
+		return usermapper.findAll2();
 	}
+
 	
 	/**打刻画面用　出退勤フラグの取得*/
 	@Override

@@ -3,11 +3,11 @@ package com.example.domainUser.service;
 import java.util.Date;
 import java.util.List;
 
-import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.DepartmentEntity;
-import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.PaidEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.model.RoleEntity;
+import com.example.domainUser.model.UserMapperEntity;
 
 public interface UserService {
 	
@@ -52,7 +52,7 @@ public interface UserService {
 	
 	/**役職の取得*/
 	public List<RoleEntity> getAllRole();
-	
+		
 	
 	/**打刻画面用　出退勤フラグの取得*/
 	public UserMapperEntity getWorkFlg(String loginId);

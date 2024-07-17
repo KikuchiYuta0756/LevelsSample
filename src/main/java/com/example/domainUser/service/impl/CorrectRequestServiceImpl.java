@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.domainUser.model.CorrectRequestEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.service.CorrectRequestService;
 import com.example.repository.CorrectRequestRepository;
 
@@ -49,6 +50,12 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 	public List<CorrectRequestEntity> getUserCorrectRequests(String correctLoginId){
 		return correctrequestrepository.userFindMany(correctLoginId);
 	};
+
+	/**申請ステータスの取得*/
+	@Override
+	public List<RequestStatesEntity> getAllRequestStates(){
+		return correctrequestrepository.findAllRequestStates();
+	}
 
 
 }

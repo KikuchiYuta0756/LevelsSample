@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.example.domainUser.model.CorrectRequestEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 
 @Mapper
 public interface CorrectRequestRepository {
@@ -30,4 +31,8 @@ public interface CorrectRequestRepository {
 
 	//勤怠修正申請取得（ユーザー）
 	public List<CorrectRequestEntity>userFindMany(String correctLoginId);
+	
+	/**申請ステータスの取得*/
+	public List<RequestStatesEntity>findAllRequestStates();
+
 }

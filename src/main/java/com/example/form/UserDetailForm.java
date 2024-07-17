@@ -10,6 +10,7 @@ import com.example.domainUser.model.RoleEntity;
 import com.example.validation.ValidPassword;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -17,14 +18,14 @@ public class UserDetailForm {
 	
 	private String loginId;
 	
-	@Length(min = 7, max = 15, groups = ValidGroup1.class)
 	@ValidPassword(groups = ValidGroup1.class)
 	private String password;
 	
 	private String userName;	
 	private String userNamekana;
 	
-	@Email(groups = ValidGroup1.class)
+	@NotBlank(groups = ValidGroup1.class)
+	@Email(groups = ValidGroup2.class)
 	private String mailAddress;	
 	
 	private Integer departmentId;

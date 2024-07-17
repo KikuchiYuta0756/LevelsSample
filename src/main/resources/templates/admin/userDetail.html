@@ -28,8 +28,7 @@
 					<tr>
 						<th>パスワード</th>
 						<td>
-							<input type="password" id="password" class="form-control" th:field="*{password}"
-								th:errorclass="is-invalid" />
+							<input type="password" id="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" />
 							<div class="invalid-feedback" th:errors="*{password}"></div>
 						</td>
 					</tr>
@@ -48,19 +47,18 @@
 					<tr>
 						<th>メールアドレス</th>
 						<td>
-							<input type="text" class="form-control" th:field="*{mailAddress}" th:errorclass="is-invalid" />
+							<input type="text" class="form-control" th:field="*{mailAddress}"
+								th:errorclass="is-invalid" />
 							<div class="invalid-feedback" th:errors="*{mailAddress}"></div>
 						</td>
 					</tr>
 					<tr>
 						<th>部署</th>
 						<td>
-						<span th:if="*{department != null}" th:text="*{department.departmentName}" />
+							<span th:if="*{department != null}" th:text="*{department.departmentName}" />
 							</br>
 							<select th:field="*{departmentId}">
-								<option 	
-								    th:each="item:${departmentList}" 
-								    th:value="${item.departmentId}"
+								<option th:each="item:${departmentList}" th:value="${item.departmentId}"
 									th:text="${item.departmentName}">
 								</option>
 							</select>
@@ -121,4 +119,5 @@
 		</form>
 	</div>
 </body>
+
 </html>

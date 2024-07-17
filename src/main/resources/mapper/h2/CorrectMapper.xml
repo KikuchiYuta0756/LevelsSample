@@ -76,6 +76,8 @@ SELECT
 FROM m_correction_app 
 left join m_request_sta on m_correction_app.request_sta_id = m_request_sta.request_sta_id 
 WHERE 
+    m_correction_app.request_sta_id = #{requestStaId} 
+    AND 
     (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{correctLoginId}, '%'))
     AND 
     (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{correctUserName}, '%'))
@@ -127,6 +129,12 @@ FROM
 where
  login_id = #{correctLoginId}
 </select>
+
+<!--申請ステータス複数件取得-->
+<select id="findAllRequestStates" resultType="RequestStatesEntity">
+	select * from m_request_sta
+</select>
+
 
 	
 </mapper>

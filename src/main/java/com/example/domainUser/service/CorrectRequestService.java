@@ -3,6 +3,7 @@ package com.example.domainUser.service;
 import java.util.List;
 
 import com.example.domainUser.model.CorrectRequestEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.model.UserMapperEntity;
 
 public interface CorrectRequestService {
@@ -24,5 +25,8 @@ public interface CorrectRequestService {
 
 	/**勤怠修正申請取得（ユーザー）*/
 	public List<CorrectRequestEntity> getUserCorrectRequests(String correctLoginId);
+	
+	/**申請ステータスの取得*/
+	public List<RequestStatesEntity> getAllRequestStates();
 		
 }

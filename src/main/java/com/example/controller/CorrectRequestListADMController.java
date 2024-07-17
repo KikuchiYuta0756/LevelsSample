@@ -12,53 +12,63 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domainUser.model.CorrectRequestEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.service.CorrectRequestService;
+import com.example.domainUser.service.UserService;
 import com.example.form.CorrectListForm;
 
 @Controller
 @RequestMapping("/admin")
 public class CorrectRequestListADMController {
-	
+
 	@Autowired
 	private CorrectRequestService correctrequestservice;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
-	//勤怠修正申請一覧を表示
+
+	// 勤怠修正申請一覧を表示
 	@GetMapping("/correctRequestList")
 	public String getCorrectRequestListADM(@ModelAttribute CorrectListForm form, Model model) {
-		
-		//formをCorrectRequestEntityクラスに変換
-		CorrectRequestEntity correct = modelMapper.map(form,CorrectRequestEntity.class);
+
+		// 申請ステータスリストを取得
+		List<RequestStatesEntity> requestStatesList = correctrequestservice.getAllRequestStates();
+		model.addAttribute("requestStatesList", requestStatesList);
+
+		// formをCorrectRequestEntityクラスに変換
+		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
 		System.out.println("getcorrectは" + correct);
-		
-		//修正申請一覧取得
+
+		// 修正申請一覧取得
 		List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
-		
-		//modelに登録
+
+		// modelに登録
 		model.addAttribute("correctList", correctList);
-		
-		//修正申請一覧を表示
+
+		// 修正申請一覧を表示
 		return "admin/correctRequestList";
 	}
-	
-	//修正申請検索処理
+
+	// 申請検索処理
 	@PostMapping("/correctRequestList")
 	public String postCorrectRequestListADM(@ModelAttribute CorrectListForm form, Model model) {
-	
-	//formをCorrectRequestEntityクラスに変換
-	CorrectRequestEntity correct = modelMapper.map(form,CorrectRequestEntity.class);
-	System.out.println("correctは" + correct);	
-	
-	//修正申請一覧取得
-	List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
-	System.out.println("correctListは" + correctList);	
-	
-	//modelに登録
-	model.addAttribute("correctList", correctList);
-	
-	//修正申請一覧を表示
-	return "admin/correctRequestList";
-      }
+
+		// 申請ステータスリストを取得
+		List<RequestStatesEntity> requestStatesList = correctrequestservice.getAllRequestStates();
+		model.addAttribute("requestStatesList", requestStatesList);
+
+		// formをCorrectRequestEntityクラスに変換
+		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
+		System.out.println("correctは" + correct);
+
+		// 修正申請一覧取得
+		List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
+		System.out.println("correctListは" + correctList);
+
+		// modelに登録
+		model.addAttribute("correctList", correctList);
+
+		// 修正申請一覧を表示
+		return "admin/correctRequestList";
+	}
 }

@@ -78,6 +78,11 @@ public String getUserDetail(UserDetailForm form, Model model,
 public String updateUser(Model model
 		,@ModelAttribute @Validated(GroupOrder.class) UserDetailForm form
 		,BindingResult bindingResult){
+	
+	// パスワードフォームが空の場合、nullをセットする
+	if (form.getPassword().isEmpty()) {
+		form.setPassword(null);
+	}
 
 	// 入力チェック結果
 	if (bindingResult.hasErrors()) {

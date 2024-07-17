@@ -6,11 +6,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.DepartmentEntity;
 import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.PaidEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.model.RoleEntity;
+import com.example.domainUser.model.UserMapperEntity;
 
 
 @Mapper
