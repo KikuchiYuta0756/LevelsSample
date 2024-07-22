@@ -15,11 +15,14 @@ public interface CorrectRequestRepository {
 	public int insertOne(CorrectRequestEntity correct);
 
 	
-	//勤怠修正申請取得
+	//勤怠修正申請一覧取得
 	public List<CorrectRequestEntity>findMany(CorrectRequestEntity correct);
 	
-	//修正申請取得（１件）
-	public CorrectRequestEntity findOne(int correctRequestId);
+	//勤怠修正申請取得（ユーザー）
+	public List<CorrectRequestEntity>correctRequestFindMany(String loginId, RequestStatesEntity requeststates );
+	
+	//申請の詳細取得（１件）
+	public CorrectRequestEntity findOne(int correctRequestId);	
 	
 	/**申請ステータス更新(承認)*/
 	public  void updateStaApproval(
@@ -32,9 +35,6 @@ public interface CorrectRequestRepository {
 	/**申請ステータス更新(差し戻し)*/
 	public  void updateStaRemove(
 			@Param("correctRequestId")int correctRequestId);
-
-	//勤怠修正申請取得（ユーザー）
-	public List<CorrectRequestEntity>userFindMany(String correctLoginId);
 	
 	/**申請ステータスの取得*/
 	public List<RequestStatesEntity>findAllRequestStates();

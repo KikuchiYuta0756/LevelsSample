@@ -28,7 +28,7 @@
 </resultMap>
 
 
-	<!--修正申請1件登録-->
+<!--修正申請1件登録-->
 <insert id="insertOne" parameterType="map">
 		<!--ログインIDからユーザ名を取得-->
 	<selectKey keyProperty="correctUserName" resultType="string" order="BEFORE" >
@@ -131,12 +131,14 @@ ORDER BY
 
 
 <!--修正申請の数件取得（ユーザー申請履歴画面）-->
-<select id="userFindMany" resultMap="correctRequest">
+<select id="correctRequestFindMany" resultMap="correctRequest">
 SELECT * 
-FROM
+FROM 
  m_correction_app 
 where
- login_id = #{correctLoginId}
+ login_id = #{correctLoginId}　
+ AND 
+ request_sta_id =#{requestStaId}
 </select>
 
 <!--申請ステータス複数件取得-->

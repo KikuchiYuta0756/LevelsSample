@@ -112,8 +112,8 @@
 
 	<!--有給申請の数件取得（ユーザー）-->
 	<select id="paidRequestFindMany" resultMap="paidApp">
-		SELECT * FROM m_paid_app
-		where
+		SELECT * FROM m_paid_app　
+		where　
 		login_id = #{loginId}
 		AND 
 		request_sta_id = #{requestStaId}

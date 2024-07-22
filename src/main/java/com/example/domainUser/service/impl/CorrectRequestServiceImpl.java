@@ -21,11 +21,17 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 		correctrequestrepository.insertOne(correct);
 	}
 	
-	//勤怠修正申請取得
+	//勤怠修正申請取得(ユーザー)
 	@Override
 	public List<CorrectRequestEntity>getCorrectRequests(CorrectRequestEntity correct){
 		return correctrequestrepository.findMany(correct);
 	}
+	
+	/**勤怠修正申請取得（ユーザー）*/
+	@Override
+	public List<CorrectRequestEntity> getUserCorrectRequests(String loginId, RequestStatesEntity requeststates){
+		return correctrequestrepository.correctRequestFindMany(loginId, requeststates);
+	};
 	
 	//修正申請取得（1件）
 	@Override
@@ -50,13 +56,6 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 	public void updateRequestStaRemove(int correctRequestId){
 		correctrequestrepository.updateStaRemove(correctRequestId);
 	}
-
-
-	/**勤怠修正申請取得（ユーザー）*/
-	@Override
-	public List<CorrectRequestEntity> getUserCorrectRequests(String correctLoginId){
-		return correctrequestrepository.userFindMany(correctLoginId);
-	};
 
 	/**申請ステータスの取得*/
 	@Override

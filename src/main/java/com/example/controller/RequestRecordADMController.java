@@ -38,29 +38,24 @@ public class RequestRecordADMController {
 
 	/** 申請履歴画面を表示 */
 	@GetMapping("/requestRecordADM")
-	public String getRequestRecordADM(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	public String getRequestRecordADM(@ModelAttribute requestRecordListForm form, Model model) {
 		// ログイン認証に使用したログインIDを利用する。
-		String paidLoginId = auth.getName();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String loginId = auth.getName();
 		
-		// 申請ステータスリストを取得
+		//申請ステータスリストを取得
 		List<RequestStatesEntity> requestStatesList = correctrequestservice.getAllRequestStates();
-		model.addAttribute("requestStatesList", requestStatesList);		
+		model.addAttribute("requestStatesList", requestStatesList);
+		
+		//formをRequestStatesEntityクラスに変換
+		RequestStatesEntity requeststates = modelMapper.map(form, RequestStatesEntity.class);
 
-		// 有給申請一覧取得
-		List<PaidAppEntity> paidList = paidappservice.getUserPaidRequests(paidLoginId);
-
-		// Modelに登録
+		//有給申請一覧取得
+		List<PaidAppEntity> paidList = paidappservice.getUserPaidRequests(loginId, requeststates);
 		model.addAttribute("paidList", paidList);
 
-		// ログイン認証に使用したログインIDを利用する。
-		String correctLoginId = auth.getName();
-
-		// 修正申請一覧取得
-		List<CorrectRequestEntity> correctList = correctrequestservice.getUserCorrectRequests(correctLoginId);
-		// correctList.sort(Comparator.comparing(CorrectRequestEntity::getCorrectRequestDate));
-
-		// modelに登録
+		//修正申請一覧取得
+		List<CorrectRequestEntity> correctList = correctrequestservice.getUserCorrectRequests(loginId, requeststates);
 		model.addAttribute("correctList", correctList);
 
 		// ユーザー詳細画面を表示
@@ -83,15 +78,15 @@ public class RequestRecordADMController {
 		//formをRequestStatesEntityクラスに変換
 		RequestStatesEntity requeststates = modelMapper.map(form, RequestStatesEntity.class);
 		
-		// 有給申請一覧取得
+		//有給申請一覧取得
 		List<PaidAppEntity> paidList = paidappservice.getUserPaidRequests(loginId, requeststates);
 		model.addAttribute("paidList", paidList);
 
-		// 修正申請一覧取得
+		//修正申請一覧取得
 		List<CorrectRequestEntity> correctList = correctrequestservice.getUserCorrectRequests(loginId, requeststates);
 		model.addAttribute("correctList", correctList);
 
-		// ユーザー詳細画面を表示
+		//ユーザー詳細画面を表示
 		return "admin/requestRecordADM";
 
 		
