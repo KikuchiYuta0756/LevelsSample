@@ -19,7 +19,7 @@ public class CorrectRequestForm {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date correctRequestDate;
 	
-	private String requestStaId;
+	private Integer requestStaId;
 	
 	@NotNull
 	private Integer correctRequestId;

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.example.domainUser.model.PaidAppEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 
 @Mapper
 public interface PaidAppRepository {
@@ -27,8 +28,10 @@ public interface PaidAppRepository {
 	public  void updateStaRemand(
 			@Param("paidAppId")int paidAppId);
 	
+	/**申請ステータス更新(差し戻し)*/
+	public  void updateStaRemove(
+			@Param("paidAppId")int paidAppId);
+	
 	/**有給申請取得（ユーザー）*/
-	public List<PaidAppEntity>userFindMany(String paidLoginId);
-
-
+	public List<PaidAppEntity>paidRequestFindMany(String loginId, RequestStatesEntity requeststates);
 }

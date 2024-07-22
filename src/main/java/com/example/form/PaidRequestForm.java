@@ -24,7 +24,7 @@ public class PaidRequestForm {
 	private Date paidDateApp;
 	
 	private Integer paidAppId;
-	private String requestStaId;
+	private Integer requestStaId;
 	
 	@NotNull(groups = ValidGroup1.class)
 	@Size(min = 1, max = 200, groups = ValidGroup2.class)

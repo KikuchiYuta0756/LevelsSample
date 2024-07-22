@@ -78,12 +78,18 @@
 			</table>
 			<!--ボタンエリア-->
 			<div class="text-center">
-				<!--削除ボタン-->
+			  <div th:if="*{requestStaId == 10}">
+				<!--承認ボタン-->
 				<button class="btn btn-danger" type="submit" name="approval">承認</button>
-
-				<!--更新ボタン-->
+				<!--差し戻しボタン-->
 				<button class="btn btn-primary" type="submit" name="remand">差し戻し</button>
+				<!--却下ボタン-->
+				<button class="btn btn-primary" type="submit" name="remove">却下</button>
 			</div>
+			  <div th:if="*{requestStaId == 20}">
+				<!--却下ボタン-->
+				<button class="btn btn-primary" type="submit" name="remove">却下</button>
+			</div>			
 		</form>
 	</div>
 </body>

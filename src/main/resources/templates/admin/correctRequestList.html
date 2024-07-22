@@ -20,7 +20,8 @@
 				<div class="form-group mx-sm-3">
 					<label for="status" class="mr-2">申請ステータス</label>
 					<select class="form-control" th:field="*{requestStaId}">
-						<option th:each="status : ${requestStatesList}" th:value="${status.requestStaId}" th:text="${status.requestStaName}">
+						<option th:each="status : ${requestStatesList}" th:value="${status.requestStaId}"
+							th:text="${status.requestStaName}">
 						</option>
 					</select>
 				</div>

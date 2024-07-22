@@ -32,8 +32,6 @@ public class CorrectRequestDetailADMController {
 		//修正申請を1件取得
 		CorrectRequestEntity correctDetailADM = correctRequestservice.getCorrectRequestOne(correctRequestId);
 		
-		System.out.println("修正申請詳細のユーザ情報" + correctDetailADM);
-		
 		//UserMapperEntityをformに変換
 		form = modelMapper.map(correctDetailADM, CorrectRequestForm.class);
 		
@@ -44,7 +42,7 @@ public class CorrectRequestDetailADMController {
 		return"admin/correctRequestDetail";		
 	}
 	
-	/**修正申請の承認処理*/
+	/**申請の承認処理*/
 	@PostMapping(value = "/correctRequestDetail", params = "approval")
 	public String updateCorrectRequestApproval(CorrectRequestForm form, Model model){
 		
@@ -55,7 +53,7 @@ public class CorrectRequestDetailADMController {
 		return"redirect:/admin/correctRequestList";
 	}
 
-	/**修正申請の差し戻し処理*/
+	/**申請の差し戻し処理*/
 	@PostMapping(value = "/correctRequestDetail", params = "remand")
 	public String updateCorrectRequestRemand(CorrectRequestForm form, Model model){
 		
@@ -65,5 +63,17 @@ public class CorrectRequestDetailADMController {
 		//ユーザー一覧画面にリダイレクト
 		return"redirect:/admin/correctRequestList";
 	}
+	
+	/**申請の却下処理*/
+	@PostMapping(value = "/correctRequestDetail", params = "remove")
+	public String updateCorrectRequestRemove(CorrectRequestForm form, Model model){
+		
+		//申請ステータスを更新
+		correctRequestservice.updateRequestStaRemove(form.getCorrectRequestId());
+		
+		//ユーザー一覧画面にリダイレクト
+		return"redirect:/admin/correctRequestList";
+	}
+
 	
 }

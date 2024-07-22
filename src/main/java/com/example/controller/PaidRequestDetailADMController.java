@@ -62,4 +62,16 @@ public String updatePaidRequestRemand(PaidRequestForm form, Model model){
 	//ユーザー一覧画面にリダイレクト
 	return"redirect:/admin/paidRequestList";
 }
+
+/**有給申請の差し戻し処理*/
+@PostMapping(value = "/paidRequestDetail", params = "remove")
+public String updatePaidRequestRemove(PaidRequestForm form, Model model){
+	
+	//申請ステータスを更新
+	paidappservice.updateRequestStaRemove(form.getPaidAppId());
+	
+	//ユーザー一覧画面にリダイレクト
+	return"redirect:/admin/paidRequestList";
+}
+
 }

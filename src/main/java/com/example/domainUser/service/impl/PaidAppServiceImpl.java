@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.domainUser.model.PaidAppEntity;
+import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.service.PaidAppService;
 import com.example.repository.PaidAppRepository;
 
@@ -43,10 +44,15 @@ public class PaidAppServiceImpl implements PaidAppService {
 		paidapprepository.updateStaRemand(paidAppId);
 	}
 
+	/**申請ステータス更新*/
+	@Override
+	public void updateRequestStaRemove(int paidAppId){
+		paidapprepository.updateStaRemove(paidAppId);
+	}	
+	
 	/**有給申請取得（ユーザー）*/
 	@Override
-	public List<PaidAppEntity> getUserPaidRequests(String paidLoginId){
-	return paidapprepository.userFindMany(paidLoginId);
+	public List<PaidAppEntity> getUserPaidRequests(String loginId, RequestStatesEntity requeststates){
+	return paidapprepository.paidRequestFindMany(loginId, requeststates);
 	}
-
 }

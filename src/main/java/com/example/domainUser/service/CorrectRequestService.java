@@ -22,6 +22,9 @@ public interface CorrectRequestService {
 
 	/**申請ステータス更新(差し戻し)*/
 	public void updateRequestStaRemand(int correctRequestId);
+	
+	/**申請ステータス更新(差し戻し)*/
+	public void updateRequestStaRemove(int correctRequestId);
 
 	/**勤怠修正申請取得（ユーザー）*/
 	public List<CorrectRequestEntity> getUserCorrectRequests(String correctLoginId);

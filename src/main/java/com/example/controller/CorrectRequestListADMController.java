@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domainUser.model.CorrectRequestEntity;
 import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.service.CorrectRequestService;
-import com.example.domainUser.service.UserService;
 import com.example.form.CorrectListForm;
 
 @Controller
@@ -37,11 +36,11 @@ public class CorrectRequestListADMController {
 
 		// formをCorrectRequestEntityクラスに変換
 		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
-		System.out.println("getcorrectは" + correct);
 
 		// 修正申請一覧取得
 		List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
-
+		System.out.println("correctList"+correctList);
+		
 		// modelに登録
 		model.addAttribute("correctList", correctList);
 
@@ -59,12 +58,11 @@ public class CorrectRequestListADMController {
 
 		// formをCorrectRequestEntityクラスに変換
 		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
-		System.out.println("correctは" + correct);
 
 		// 修正申請一覧取得
 		List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
-		System.out.println("correctListは" + correctList);
-
+        System.out.println("correctList"+correctList);
+		
 		// modelに登録
 		model.addAttribute("correctList", correctList);
 

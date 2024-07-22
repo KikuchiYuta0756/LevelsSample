@@ -8,6 +8,6 @@ import lombok.Data;
 public class CorrectListForm {
 		private String correctLoginId;
 		private String correctUserName;
-		private String requestStaId;
+		private Integer requestStaId;
 		private RequestStatesEntity requestStates;
 }

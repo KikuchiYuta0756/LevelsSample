@@ -71,6 +71,7 @@ SELECT
  ,user_name
  ,correct_app_date
  ,m_request_sta.request_sta_id
+ ,m_request_sta.request_sta_name
  ,correct_app_id
  ,correct_date  
 FROM m_correction_app 
@@ -107,7 +108,7 @@ ORDER BY
 <!--申請ステータスの更新（承認済み）-->
 <update id="updateStaApproval">
 	update m_correction_app set 
-	request_sta_id = '承認済み' 
+	request_sta_id = 30 
 	where 
 	correct_app_id = #{correctRequestId}
 </update>
@@ -115,7 +116,15 @@ ORDER BY
 <!--申請ステータスの更新（差し戻し）-->
 <update id="updateStaRemand">
 	update m_correction_app set 
-	request_sta_id = '差し戻し' 
+	request_sta_id = 20 
+	where 
+	correct_app_id = #{correctRequestId}
+</update>
+
+<!--申請ステータスの更新（却下）-->
+<update id="updateStaRemove">
+	update m_correction_app set 
+	request_sta_id = 40  
 	where 
 	correct_app_id = #{correctRequestId}
 </update>

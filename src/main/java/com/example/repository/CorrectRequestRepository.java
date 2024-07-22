@@ -28,6 +28,10 @@ public interface CorrectRequestRepository {
 	/**申請ステータス更新(差し戻し)*/
 	public  void updateStaRemand(
 			@Param("correctRequestId")int correctRequestId);
+	
+	/**申請ステータス更新(差し戻し)*/
+	public  void updateStaRemove(
+			@Param("correctRequestId")int correctRequestId);
 
 	//勤怠修正申請取得（ユーザー）
 	public List<CorrectRequestEntity>userFindMany(String correctLoginId);

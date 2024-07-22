@@ -1,101 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
- "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
-  <!--PaidAppRepositoryとxmlのマッピング-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--PaidAppRepositoryとxmlのマッピング-->
 <mapper namespace="com.example.repository.PaidAppRepository">
-	
+
 	<!--マッピング定義（有給申請テーブル）-->
-<resultMap type="com.example.domainUser.model.PaidAppEntity" id="paidApp">
-	<result column="login_id" property="paidLoginId" />
-	<result column="user_name" property="paidUserName" />
-	<result column="paid_requestdate_app" property="paidRequestDateApp" />
-	<result column="paid_date_app" property="paidDateApp" />
-	<result column="paid_app_id" property="paidAppId" />
-	<result column="request_sta_id" property="requestStaId" />
-	<result column="paid_app_reason" property="paidAppReason" />
-</resultMap>
-	
+	<resultMap type="com.example.domainUser.model.PaidAppEntity" id="paidApp">
+		<result column="login_id" property="paidLoginId" />
+		<result column="user_name" property="paidUserName" />
+		<result column="paid_requestdate_app" property="paidRequestDateApp" />
+		<result column="paid_date_app" property="paidDateApp" />
+		<result column="paid_app_id" property="paidAppId" />
+		<result column="request_sta_id" property="requestStaId" />
+		<result column="paid_app_reason" property="paidAppReason" />
+		<association property="requestStates" resultMap="requestStates" />
+	</resultMap>
+
+	<!--マッピング定義(申請ステータス)-->
+	<resultMap type="com.example.domainUser.model.RequestStatesEntity" id="requestStates">
+		<id column="request_sta_id" property="requestStaId" />
+		<result column="request_sta_name" property="requestStaName" />
+	</resultMap>
+
 	<!--有給申請1件登録-->
-<insert id="insertPaidApp" parameterType="map">
-	<!--ログインIDからユーザ名を取得-->
-	<selectKey keyProperty="paidUserName" resultType="string" order="BEFORE" >
-		SELECT user_name 
-		FROM m_user 
-		WHERE login_id = #{paidLoginId}
-	</selectKey>
+	<insert id="insertPaidApp" parameterType="map">
+		<!--ログインIDからユーザ名を取得-->
+	<selectKey
+			keyProperty="paidUserName" resultType="string" order="BEFORE">
+			SELECT user_name
+			FROM m_user
+			WHERE login_id = #{paidLoginId}
+		</selectKey>
+		insert into m_paid_app( 
+		login_id 
+	   ,user_name
+	   ,paid_requestdate_app
+	   ,paid_app_reason 
+	   ,paid_date_app 
+	   ,request_sta_id 
+	   ) value( 
+	    #{paidLoginId}
+	   ,#{paidUserName} 
+	   ,#{paidRequestDateApp} 
+	   ,#{paidAppReason} 
+	   ,NOW() 
+	   ,10 
+	   ) 
+	 </insert>
+
+	<!--有給申請の数件取得-->
+	<select id="findMany" resultMap="paidApp">
+		SELECT 
+		login_id
+		,user_name
+		,paid_requestdate_app
+		,paid_date_app
+		,paid_app_id
+		,m_request_sta.request_sta_id
+		,m_request_sta.request_sta_name
+		FROM m_paid_app
+		left join m_request_sta on m_paid_app.request_sta_id = m_request_sta.request_sta_id
+		WHERE 
+		  m_paid_app.request_sta_id = #{requestStaId}
+		AND 
+		  (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%', #{paidLoginId}, '%')) 
+		AND 
+		  (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{paidUserName}, '%'))
+		ORDER BY 
+		  request_sta_id ASC,
+		  paid_app_id DESC;
+	</select>
+
+	<!--有給申請１件検索-->
+	<select id="findOne" resultMap="paidApp">
+		select 
+		login_id,
+		user_name,
+		paid_requestdate_app,
+		paid_date_app,
+		paid_app_id,
+		request_sta_id,
+		paid_app_reason
+		from m_paid_app
+		where paid_app_id = #{paidAppId}
+	</select>
+
+	<!--申請ステータスの更新（承認済み）-->
+	<update id="updateStaApproval">
+		update m_paid_app set
+		request_sta_id = 30 
+		where
+		paid_app_id = #{paidAppId}
+	</update>
+
+	<!--申請ステータスの更新（差し戻し）-->
+	<update id="updateStaRemand">
+		update m_paid_app set
+		request_sta_id = 20 
+		where
+		paid_app_id = #{paidAppId}
+	</update>
 	
-	 insert into m_paid_app(
-	  login_id
-	 ,user_name 
-	 ,paid_requestdate_app
-	 ,paid_app_reason
-	 ,paid_date_app
-	 ,request_sta_id
-	 )
-	 value(
-	 #{paidLoginId}
-	,#{paidUserName} 
-	,#{paidRequestDateApp}
-	,#{paidAppReason}
-	,NOW()
-	,'承認待ち'
-	)
-</insert>
-
-<!--有給申請の数件取得-->
-<select id="findMany" resultMap="paidApp">
-SELECT * FROM m_paid_app 
-WHERE
-    (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%', #{paidLoginId}, '%'))
-    AND
-    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%', #{paidUserName}, '%'))  
-ORDER BY 
-    CASE request_sta_id 
-        WHEN '承認待ち' THEN 0 
-        WHEN '差し戻し' THEN 1 
-        WHEN '承認済み' THEN 2 
-        ELSE 2 
-    END,
-    request_sta_id ASC, 
-    paid_app_id DESC; 
-</select>
-
-<!--有給申請１件検索-->
-<select id="findOne" resultMap="paidApp">
-	select 
-	login_id,
-	user_name,
-	paid_requestdate_app,
-	paid_date_app,
-	paid_app_id,
-	request_sta_id,
-	paid_app_reason  
-	from m_paid_app 
-	where paid_app_id = #{paidAppId}
-</select>
-
-<!--申請ステータスの更新（承認済み）-->
-<update id="updateStaApproval">
+<!--申請ステータスの更新（却下）-->
+<update id="updateStaRemove">
 	update m_paid_app set 
-	request_sta_id = '承認済み' 
+	request_sta_id = 40 
 	where 
 	paid_app_id = #{paidAppId}
 </update>
 
-<!--申請ステータスの更新（差し戻し）-->
-<update id="updateStaRemand">
-	update m_paid_app set 
-	request_sta_id = '差し戻し' 
-	where 
-	paid_app_id = #{paidAppId}
-</update>
 
-<!--有給申請の数件取得（ユーザー）-->
-<select id="userFindMany" resultMap="paidApp">
-SELECT * FROM m_paid_app 
-where 
-login_id = #{loginId}
-</select>
-	
+	<!--有給申請の数件取得（ユーザー）-->
+	<select id="paidRequestFindMany" resultMap="paidApp">
+		SELECT * FROM m_paid_app
+		where
+		login_id = #{loginId}
+		AND 
+		request_sta_id = #{requestStaId}
+	</select>
+
 </mapper>

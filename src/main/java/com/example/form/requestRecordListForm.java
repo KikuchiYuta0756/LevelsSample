@@ -5,10 +5,10 @@ import com.example.domainUser.model.RequestStatesEntity;
 import lombok.Data;
 
 @Data
-public class PaidRequestListForm {
+public class requestRecordListForm {
 	
-	private String paidLoginId;
-	private String paidUserName;
 	private Integer requestStaId;
 	private RequestStatesEntity requestStates;
+
+
 }

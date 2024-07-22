@@ -44,6 +44,13 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 	public void updateRequestStaRemand(int correctRequestId){
 		correctrequestrepository.updateStaRemand(correctRequestId);
 	}
+	
+	/**申請ステータス更新(却下)*/
+	@Override
+	public void updateRequestStaRemove(int correctRequestId){
+		correctrequestrepository.updateStaRemove(correctRequestId);
+	}
+
 
 	/**勤怠修正申請取得（ユーザー）*/
 	@Override
