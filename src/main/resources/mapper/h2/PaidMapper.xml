@@ -17,7 +17,8 @@
 	</resultMap>
 
 	<!--マッピング定義(申請ステータス)-->
-	<resultMap type="com.example.domainUser.model.RequestStatesEntity" id="requestStates">
+	<resultMap type="com.example.domainUser.model.RequestStatesEntity"
+		id="requestStates">
 		<id column="request_sta_id" property="requestStaId" />
 		<result column="request_sta_name" property="requestStaName" />
 	</resultMap>
@@ -31,26 +32,25 @@
 			FROM m_user
 			WHERE login_id = #{paidLoginId}
 		</selectKey>
-		insert into m_paid_app( 
-		login_id 
-	   ,user_name
-	   ,paid_requestdate_app
-	   ,paid_app_reason 
-	   ,paid_date_app 
-	   ,request_sta_id 
-	   ) value( 
-	    #{paidLoginId}
-	   ,#{paidUserName} 
-	   ,#{paidRequestDateApp} 
-	   ,#{paidAppReason} 
-	   ,NOW() 
-	   ,10 
-	   ) 
-	 </insert>
+		insert into m_paid_app(
+		 login_id 
+		 ,user_name 
+		 ,paid_requestdate_app
+		 ,paid_app_reason 
+		 ,paid_date_app 
+		 ,request_sta_id 
+		 ) value( 
+		 #{paidLoginId}
+		,#{paidUserName} 
+		,#{paidRequestDateApp} 
+		,#{paidAppReason} 
+		,NOW() 
+		,10 ) 
+		</insert>
 
 	<!--有給申請の数件取得-->
 	<select id="findMany" resultMap="paidApp">
-		SELECT 
+		SELECT
 		login_id
 		,user_name
 		,paid_requestdate_app
@@ -59,21 +59,64 @@
 		,m_request_sta.request_sta_id
 		,m_request_sta.request_sta_name
 		FROM m_paid_app
-		left join m_request_sta on m_paid_app.request_sta_id = m_request_sta.request_sta_id
-		WHERE 
-		  m_paid_app.request_sta_id = #{requestStaId}
-		AND 
-		  (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%', #{paidLoginId}, '%')) 
-		AND 
-		  (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{paidUserName}, '%'))
-		ORDER BY 
-		  request_sta_id ASC,
-		  paid_app_id DESC;
+		left join m_request_sta on m_paid_app.request_sta_id =
+		m_request_sta.request_sta_id
+		WHERE
+		m_paid_app.request_sta_id = #{requestStaId}
+		AND
+		(IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%', #{paidLoginId},
+		'%'))
+		AND
+		(IFNULL(user_name, '') = '' OR user_name LIKE
+		CONCAT('%',#{paidUserName}, '%'))
+		ORDER BY
+		request_sta_id ASC,
+		paid_app_id DESC;
 	</select>
+
+	<!--有給申請の数件取得初期表示用（ユーザー）-->
+	<select id="getUserPaidRequest" resultMap="paidApp">
+		SELECT 
+		login_id
+		,user_name
+		,paid_requestdate_app
+		,paid_date_app
+		,paid_app_id
+		,m_request_sta.request_sta_id
+		,m_request_sta.request_sta_name 
+		FROM m_paid_app 
+		left join m_request_sta on m_paid_app.request_sta_id = m_request_sta.request_sta_id 
+		where 
+		login_id = #{paidLoginId} 
+		AND 
+		m_paid_app.request_sta_id IN(10,20) 
+		ORDER BY 
+		request_sta_id ASC,
+		paid_app_id DESC;
+	</select>
+	
+	<!--有給申請の数件取得検索処理以降（ユーザー）-->
+	<select id="selectUserPaidRequests" resultMap="paidApp">
+		SELECT 
+		login_id
+		,user_name
+		,paid_requestdate_app
+		,paid_date_app
+		,paid_app_id
+		,m_request_sta.request_sta_id
+		,m_request_sta.request_sta_name 
+		FROM m_paid_app 
+		left join m_request_sta on m_paid_app.request_sta_id = m_request_sta.request_sta_id 
+		where 
+		login_id = #{paidLoginId} 
+		AND 
+		m_paid_app.request_sta_id = #{requestStaId};
+	</select>
+
 
 	<!--有給申請１件検索-->
 	<select id="findOne" resultMap="paidApp">
-		select 
+		select
 		login_id,
 		user_name,
 		paid_requestdate_app,
@@ -88,7 +131,7 @@
 	<!--申請ステータスの更新（承認済み）-->
 	<update id="updateStaApproval">
 		update m_paid_app set
-		request_sta_id = 30 
+		request_sta_id = 30
 		where
 		paid_app_id = #{paidAppId}
 	</update>
@@ -96,27 +139,16 @@
 	<!--申請ステータスの更新（差し戻し）-->
 	<update id="updateStaRemand">
 		update m_paid_app set
-		request_sta_id = 20 
+		request_sta_id = 20
 		where
 		paid_app_id = #{paidAppId}
 	</update>
-	
-<!--申請ステータスの更新（却下）-->
-<update id="updateStaRemove">
-	update m_paid_app set 
-	request_sta_id = 40 
-	where 
-	paid_app_id = #{paidAppId}
-</update>
 
-
-	<!--有給申請の数件取得（ユーザー）-->
-	<select id="paidRequestFindMany" resultMap="paidApp">
-		SELECT * FROM m_paid_app　
-		where　
-		login_id = #{loginId}
-		AND 
-		request_sta_id = #{requestStaId}
-	</select>
-
+	<!--申請ステータスの更新（却下）-->
+	<update id="updateStaRemove">
+		update m_paid_app set
+		request_sta_id = 40
+		where
+		paid_app_id = #{paidAppId}
+	</update>
 </mapper>

@@ -1,151 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
- "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
-  <!--PaidAppRepositoryとxmlのマッピング-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--PaidAppRepositoryとxmlのマッピング-->
 <mapper namespace="com.example.repository.CorrectRequestRepository">
-	
-		<!--マッピング定義（ユーザー）-->
-<resultMap type="com.example.domainUser.model.CorrectRequestEntity" id="correctRequest">
-	<id column="login_id" property="correctLoginId" />
-	<result column="user_name" property="correctUserName" />
-	<result column="correct_app_date" property="correctRequestDate" />
-	<result column="request_sta_id" property="requestStaId" />
-	<result column="correct_app_id" property="correctRequestId" />
-	<result column="correct_date" property="correctDate" />
-	<result column="correct_starttime" property="correctStartTime" />
-	<result column="correct_closetime" property="correctCloseTime" />
-	<result column="correct_resttime" property="correctRestTime" />
-	<result column="worktime_sta_id" property="worktimeStaId" />
-	<result column="correct_reason" property="correctReason" />
-	<association property="requestStates" resultMap="requestStates" />
-</resultMap>
 
-<!--マッピング定義(申請ステータス)-->
-<resultMap type="com.example.domainUser.model.RequestStatesEntity" id="requestStates">
-	<id column="request_sta_id" property="requestStaId" />
-	<result column="request_sta_name" property="requestStaName" />
-</resultMap>
+	<!--マッピング定義（ユーザー）-->
+	<resultMap type="com.example.domainUser.model.CorrectRequestEntity"
+		id="correctRequest">
+		<id column="login_id" property="correctLoginId" />
+		<result column="user_name" property="correctUserName" />
+		<result column="correct_app_date" property="correctRequestDate" />
+		<result column="request_sta_id" property="requestStaId" />
+		<result column="correct_app_id" property="correctRequestId" />
+		<result column="correct_date" property="correctDate" />
+		<result column="correct_starttime" property="correctStartTime" />
+		<result column="correct_closetime" property="correctCloseTime" />
+		<result column="correct_resttime" property="correctRestTime" />
+		<result column="worktime_sta_id" property="worktimeStaId" />
+		<result column="correct_reason" property="correctReason" />
+		<association property="requestStates" resultMap="requestStates" />
+	</resultMap>
+
+	<!--マッピング定義(申請ステータス)-->
+	<resultMap type="com.example.domainUser.model.RequestStatesEntity"
+		id="requestStates">
+		<id column="request_sta_id" property="requestStaId" />
+		<result column="request_sta_name" property="requestStaName" />
+	</resultMap>
 
 
-<!--修正申請1件登録-->
-<insert id="insertOne" parameterType="map">
+	<!--修正申請1件登録-->
+	<insert id="insertOne" parameterType="map">
 		<!--ログインIDからユーザ名を取得-->
-	<selectKey keyProperty="correctUserName" resultType="string" order="BEFORE" >
-		SELECT user_name 
-		FROM m_user 
+	<selectKey
+			keyProperty="correctUserName" resultType="string" order="BEFORE">
+		SELECT user_name
+			FROM m_user
+			WHERE login_id = #{correctLoginId}
+		</selectKey>
+		insert into m_correction_app(
+		 login_id 
+		 ,user_name 
+		 ,correct_date
+		 ,correct_starttime 
+		 ,correct_closetime 
+		 ,correct_resttime 
+		 ,worktime_sta_id
+		 ,correct_reason 
+		 ,request_sta_id 
+		 ,correct_app_date 
+		 ) value(
+		 #{correctLoginId} 
+		 ,#{correctUserName} 
+		 ,#{correctDate}
+		 ,#{correctStartTime} 
+		 ,#{correctCloseTime} 
+		 ,#{correctRestTime}
+		 ,#{worktimeStaId} 
+		 ,#{correctReason} 
+		 ,10 
+		 ,NOW() ) 
+		 </insert>
+
+
+	<!--修正申請の数件取得-->
+	<select id="findMany" resultMap="correctRequest">
+		SELECT
+		login_id
+		,user_name
+		,correct_app_date
+		,m_request_sta.request_sta_id
+		,m_request_sta.request_sta_name
+		,correct_app_id
+		,correct_date
+		FROM m_correction_app
+		left join m_request_sta on m_correction_app.request_sta_id =
+		m_request_sta.request_sta_id
+		WHERE
+		m_correction_app.request_sta_id = #{requestStaId}
+		AND
+		(IFNULL(login_id, '') = '' OR login_id LIKE
+		CONCAT('%',#{correctLoginId}, '%'))
+		AND
+		(IFNULL(user_name, '') = '' OR user_name LIKE
+		CONCAT('%',#{correctUserName}, '%'))
+		ORDER BY
+		request_sta_id ASC,
+		correct_app_id DESC;
+	</select>
+
+	<!--修正申請の数件取得初期表示用（ユーザー）-->
+	<select id="getUserCorrectRequest" resultMap="correctRequest">
+		SELECT
+		login_id
+		,user_name
+		,correct_app_date
+		,m_request_sta.request_sta_id
+		,m_request_sta.request_sta_name
+		,correct_app_id
+		,correct_date
+		,correct_starttime
+		,correct_closetime
+		,correct_resttime
+		,worktime_sta_id
+		,correct_reason 
+		FROM m_correction_app
+		LEFT JOIN m_request_sta ON m_correction_app.request_sta_id = m_request_sta.request_sta_id
 		WHERE login_id = #{correctLoginId}
-	</selectKey>
+		AND m_correction_app.request_sta_id IN (10, 20)
+		ORDER BY
+		m_request_sta.request_sta_id ASC,
+		correct_app_id DESC;
+	</select>
 
-	 insert into m_correction_app(
-	  login_id
-	 ,user_name
-	 ,correct_date
-	 ,correct_starttime
-	 ,correct_closetime
-	 ,correct_resttime
-	 ,worktime_sta_id
-	 ,correct_reason
-	 ,request_sta_id
-	 ,correct_app_date
-	 )
-	 value(
-	 #{correctLoginId}
-	,#{correctUserName}
-	,#{correctDate}
-	,#{correctStartTime}
-	,#{correctCloseTime}
-	,#{correctRestTime}
-	,#{worktimeStaId}
-	,#{correctReason}
-	,10
-	,NOW()
-	)
-</insert>
-
-		
-<!--修正申請の数件取得-->
-<select id="findMany" resultMap="correctRequest">
-SELECT 
-  login_id
- ,user_name
- ,correct_app_date
- ,m_request_sta.request_sta_id
- ,m_request_sta.request_sta_name
- ,correct_app_id
- ,correct_date  
-FROM m_correction_app 
-left join m_request_sta on m_correction_app.request_sta_id = m_request_sta.request_sta_id 
-WHERE 
-    m_correction_app.request_sta_id = #{requestStaId} 
-    AND 
-    (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{correctLoginId}, '%'))
-    AND 
-    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{correctUserName}, '%'))
-ORDER BY 
-    request_sta_id ASC, 
-    correct_app_id DESC; 
-</select>
-
-<!--修正申請１件検索-->
-<select id="findOne" resultMap="correctRequest">
-	select 
-	login_id,
-	user_name,
-	correct_app_date,
-	request_sta_id,
-	correct_app_id,
-	correct_date,
-	correct_starttime,
-	correct_closetime,
-	correct_resttime,
-	worktime_sta_id,
-	correct_reason 
-	from m_correction_app 
-	where correct_app_id = #{correctRequestId};
-</select>
-
-<!--申請ステータスの更新（承認済み）-->
-<update id="updateStaApproval">
-	update m_correction_app set 
-	request_sta_id = 30 
-	where 
-	correct_app_id = #{correctRequestId}
-</update>
-
-<!--申請ステータスの更新（差し戻し）-->
-<update id="updateStaRemand">
-	update m_correction_app set 
-	request_sta_id = 20 
-	where 
-	correct_app_id = #{correctRequestId}
-</update>
-
-<!--申請ステータスの更新（却下）-->
-<update id="updateStaRemove">
-	update m_correction_app set 
-	request_sta_id = 40  
-	where 
-	correct_app_id = #{correctRequestId}
-</update>
-
-
-<!--修正申請の数件取得（ユーザー申請履歴画面）-->
-<select id="correctRequestFindMany" resultMap="correctRequest">
-SELECT * 
-FROM 
- m_correction_app 
-where
- login_id = #{correctLoginId}　
- AND 
- request_sta_id =#{requestStaId}
-</select>
-
-<!--申請ステータス複数件取得-->
-<select id="findAllRequestStates" resultType="RequestStatesEntity">
-	select * from m_request_sta
-</select>
-
-
+	<!--申請の数件取得検索処理以降（ユーザー）-->
+	<select id="selectUserCorrectRequests" resultMap="correctRequest">
+		SELECT
+		login_id
+		,user_name
+		,correct_app_date
+		,m_request_sta.request_sta_id
+		,m_request_sta.request_sta_name
+		,correct_app_id
+		,correct_date
+		,correct_starttime
+		,correct_closetime
+		,correct_resttime
+		,worktime_sta_id
+		,correct_reason
+		from m_correction_app
+		left join m_request_sta on m_correction_app.request_sta_id = m_request_sta.request_sta_id
+		where
+		login_id = #{correctLoginId}
+		AND
+		m_correction_app.request_sta_id = #{requestStaId};
+	</select>
 	
+	
+		<!--修正申請の詳細画面用（ユーザー）-->
+	<select id="findOne" resultMap="correctRequest">
+		SELECT
+		login_id
+		,user_name
+		,correct_app_date
+		,m_request_sta.request_sta_id
+		,m_request_sta.request_sta_name
+		,correct_app_id
+		,correct_date
+		,correct_starttime
+		,correct_closetime
+		,correct_resttime
+		,worktime_sta_id
+		,correct_reason
+		from m_correction_app
+		left join m_request_sta on m_correction_app.request_sta_id = m_request_sta.request_sta_id
+		where
+		correct_app_id = #{correctRequestId}
+	</select>
+
+
+
+	<!--申請ステータスの更新（承認済み）-->
+	<update id="updateStaApproval">
+		update m_correction_app set
+		request_sta_id = 30
+		where
+		correct_app_id = #{correctRequestId}
+	</update>
+
+	<!--申請ステータスの更新（差し戻し）-->
+	<update id="updateStaRemand">
+		update m_correction_app set
+		request_sta_id = 20
+		where
+		correct_app_id = #{correctRequestId}
+	</update>
+
+	<!--申請ステータスの更新（却下）-->
+	<update id="updateStaRemove">
+		update m_correction_app set
+		request_sta_id = 40
+		where
+		correct_app_id = #{correctRequestId}
+	</update>
+
+
+	<!--修正申請の数件取得（ユーザー申請履歴画面）-->
+	<select id="correctRequestFindMany" resultMap="correctRequest">
+		SELECT *
+		FROM
+		m_correction_app
+		where
+		login_id = #{correctLoginId}
+		AND
+		request_sta_id =#{requestStaId}
+	</select>
+
+	<!--申請ステータス複数件取得-->
+	<select id="findAllRequestStates" resultType="RequestStatesEntity">
+		select * from m_request_sta
+	</select>
+
+
 </mapper>

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.domainUser.model.PaidAppEntity;
-import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.service.PaidAppService;
 import com.example.repository.PaidAppRepository;
 
@@ -20,12 +19,24 @@ public class PaidAppServiceImpl implements PaidAppService {
 	public void paidAppCreate(PaidAppEntity paidapp) {
 		paidapprepository.insertPaidApp(paidapp);
 	}
-	/**有給申請取得*/
+	/**有給申請取得(Admin)*/
 	@Override
 	public List<PaidAppEntity> getPaidRequests(PaidAppEntity paid){
-		return paidapprepository.findMany(paid);		
+		return paidapprepository.findMany(paid);
 	}
 	
+	/**有給申請取得初期表示用（ユーザー）*/
+	@Override
+	public List<PaidAppEntity> getUserPaidRequests(PaidAppEntity paid){
+	return paidapprepository.getUserPaidRequest(paid);
+	}
+	
+	/**有給申請取得検索後（ユーザー）*/
+	@Override
+	public List<PaidAppEntity> selectUserPaidRequests(PaidAppEntity paid){
+	return paidapprepository.selectUserPaidRequests(paid);
+	}	
+		
 	/**有給申請取得(１件)*/
 	@Override
 	public PaidAppEntity getPaidAppOne(int paidAppId) {
@@ -50,9 +61,4 @@ public class PaidAppServiceImpl implements PaidAppService {
 		paidapprepository.updateStaRemove(paidAppId);
 	}	
 	
-	/**有給申請取得（ユーザー）*/
-	@Override
-	public List<PaidAppEntity> getUserPaidRequests(String loginId, RequestStatesEntity requeststates){
-	return paidapprepository.paidRequestFindMany(loginId, requeststates);
-	}
 }

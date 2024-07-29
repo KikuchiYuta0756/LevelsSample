@@ -27,10 +27,17 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 		return correctrequestrepository.findMany(correct);
 	}
 	
-	/**勤怠修正申請取得（ユーザー）*/
+	/**修正申請取得初期表示用（ユーザー）*/
 	@Override
-	public List<CorrectRequestEntity> getUserCorrectRequests(String loginId, RequestStatesEntity requeststates){
-		return correctrequestrepository.correctRequestFindMany(loginId, requeststates);
+	public List<CorrectRequestEntity> getUserCorrectRequests(CorrectRequestEntity correct){
+		return correctrequestrepository.getUserCorrectRequest(correct);
+	};
+
+	
+	/**修正申請取得検索後（ユーザー）*/
+	@Override
+	public List<CorrectRequestEntity> selectUserCorrectRequests(CorrectRequestEntity correct){
+		return correctrequestrepository.selectUserCorrectRequests(correct);
 	};
 	
 	//修正申請取得（1件）

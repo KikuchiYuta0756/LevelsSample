@@ -13,8 +13,11 @@ public interface CorrectRequestService {
 	/**勤怠修正申請取得(ADMIN)*/
 	public List<CorrectRequestEntity> getCorrectRequests(CorrectRequestEntity correct);
 
-	/**勤怠修正申請取得（ユーザー）*/
-	public List<CorrectRequestEntity> getUserCorrectRequests(String loginId, RequestStatesEntity requeststates);
+	/**修正申請一覧初期表示取得（ユーザー）*/
+	public List<CorrectRequestEntity> getUserCorrectRequests(CorrectRequestEntity correct);
+
+	/**有給申請取得検索後(ユーザー）*/
+	public List<CorrectRequestEntity> selectUserCorrectRequests(CorrectRequestEntity correct);
 	
 	//修正申請取得（1件）
 	public CorrectRequestEntity getCorrectRequestOne(int correctRequestId);

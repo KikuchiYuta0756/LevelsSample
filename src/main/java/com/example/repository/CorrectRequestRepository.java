@@ -18,8 +18,11 @@ public interface CorrectRequestRepository {
 	//勤怠修正申請一覧取得
 	public List<CorrectRequestEntity>findMany(CorrectRequestEntity correct);
 	
-	//勤怠修正申請取得（ユーザー）
-	public List<CorrectRequestEntity>correctRequestFindMany(String loginId, RequestStatesEntity requeststates );
+	//修正申請取得初期表示（ユーザー）
+	public List<CorrectRequestEntity>getUserCorrectRequest(CorrectRequestEntity correct);
+
+	//修正申請取得検索後（ユーザー）
+	public List<CorrectRequestEntity>selectUserCorrectRequests(CorrectRequestEntity correct);
 	
 	//申請の詳細取得（１件）
 	public CorrectRequestEntity findOne(int correctRequestId);	

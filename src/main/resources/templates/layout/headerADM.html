@@ -7,13 +7,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--共通CSS読込-->
 	<link rel="stylesheet" th:href="@{/css/admin/headerADM.css}" />
-<!--	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-	共通JS読込
+	<!--共通JS読込-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
---></head>
+</head>
 <body>
 	<nav layout:fragment="header" class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark navbar-full-width">
 		<div class="container-fluid">
@@ -22,7 +22,16 @@
 			</div>
 			<a class="top-link" th:href="@{'/admin/clockInADM'}">勤怠打刻</a>
 			<a class="top-link" th:href="@{'/admin/clockInListADM'}">勤怠一覧</a>
-			<a class="top-link" th:href="@{'/admin/requestRecordADM'}">申請履歴</a>
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="requestDropdownButton"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					申請履歴
+				</button>
+				<div class="dropdown-menu" aria-labelledby="requestDropdownButton">
+					<a class="dropdown-item" th:href="@{'/admin/userPaidRequestList'}">有給申請</a>
+					<a class="dropdown-item" th:href="@{'/admin/userCorrectRequestList'}">修正申請</a>
+				</div>
+			</div>
 			<div class="dropdown">
 				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
