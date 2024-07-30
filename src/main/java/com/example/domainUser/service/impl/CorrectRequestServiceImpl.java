@@ -64,6 +64,12 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 		correctrequestrepository.updateStaRemove(correctRequestId);
 	}
 
+	/**申請ステータス更新(却下)*/
+	@Override
+	public void updateRequestStaSubmission(int correctRequestId){
+		correctrequestrepository.updateStaSubmission(correctRequestId);
+	}	
+	
 	/**申請ステータスの取得*/
 	@Override
 	public List<RequestStatesEntity> getAllRequestStates(){

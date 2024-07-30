@@ -53,6 +53,17 @@ public class UserCorrectRequestDetailController {
 		return"redirect:/admin/userCorrectRequestList";
 	}
 
+	/**申請の却下処理*/
+	@PostMapping(value = "/userCorrectRequestDetail", params = "submission")
+	public String updateUserCorrectRequestSubmission(CorrectRequestForm form, Model model){
+		
+		//申請ステータスを更新
+		correctrequestservice.updateRequestStaSubmission(form.getCorrectRequestId());
+		
+		//ユーザー一覧画面にリダイレクト
+		return"redirect:/admin/userCorrectRequestList";
+	}
+
 
 
 }

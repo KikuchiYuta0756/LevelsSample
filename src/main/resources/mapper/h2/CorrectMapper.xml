@@ -184,6 +184,13 @@
 		correct_app_id = #{correctRequestId}
 	</update>
 
+	<!--申請ステータスの更新（却下）-->
+	<update id="updateStaSubmission">
+		update m_correction_app set
+		request_sta_id = 10
+		where
+		correct_app_id = #{correctRequestId}
+	</update>
 
 	<!--修正申請の数件取得（ユーザー申請履歴画面）-->
 	<select id="correctRequestFindMany" resultMap="correctRequest">

@@ -28,8 +28,11 @@ public interface CorrectRequestService {
 	/**申請ステータス更新(差し戻し)*/
 	public void updateRequestStaRemand(int correctRequestId);
 	
-	/**申請ステータス更新(差し戻し)*/
+	/**申請ステータス更新(却下)*/
 	public void updateRequestStaRemove(int correctRequestId);
+
+	/**申請ステータス更新(再提出)*/
+	public void updateRequestStaSubmission(int correctRequestId);
 	
 	/**申請ステータスの取得*/
 	public List<RequestStatesEntity> getAllRequestStates();

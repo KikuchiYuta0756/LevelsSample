@@ -35,8 +35,12 @@ public interface CorrectRequestRepository {
 	public  void updateStaRemand(
 			@Param("correctRequestId")int correctRequestId);
 	
-	/**申請ステータス更新(差し戻し)*/
+	/**申請ステータス更新(却下)*/
 	public  void updateStaRemove(
+			@Param("correctRequestId")int correctRequestId);
+
+	/**申請ステータス更新(却下)*/
+	public  void updateStaSubmission(
 			@Param("correctRequestId")int correctRequestId);
 	
 	/**申請ステータスの取得*/

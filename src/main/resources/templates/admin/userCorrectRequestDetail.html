@@ -40,31 +40,36 @@
 					<tr>
 						<th>変更日</th>
 						<td>
-							<div th:text="*{#dates.format(correctDate,'YYYY/MM/dd')}" />
+							<div th:if="*{requestStaId != 20}" th:text="*{#dates.format(correctDate,'YYYY/MM/dd')}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctDate}" />
 						</td>
 					</tr>
 					<tr>
 						<th>開始時間</th>
 						<td>
-							<div　th:if="*{correctStartTime != null}" th:text="*{correctStartTime}" />
+							<div th:if="*{requestStaId != 20}" th:text="*{correctStartTime}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctStartTime}" />
 						</td>
 					</tr>
 					<tr>
 						<th>終了時間</th>
 						<td>
-							<div　th:if="*{correctCloseTime != null}" th:text="*{correctCloseTime}" />
+							<div th:if="*{requestStaId != 20}" th:text="*{correctCloseTime}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctCloseTime}" />
 						</td>
 					</tr>
 					<tr>
 						<th>休憩時間</th>
 						<td>
-							<div　th:if="*{correctRestTime != null}" th:text="*{correctRestTime}" />
+							<div th:if="*{requestStaId != 20}" th:text="*{correctRestTime}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctRestTime}" />
 						</td>
 					</tr>
 					<tr>
 						<th>修正申請理由</th>
 						<td>
-							<div　th:if="*{correctReason != null}" th:text="*{correctReason}" />
+							<div th:if="*{requestStaId != 20}" th:text="*{correctReason}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctReason}" />
 						</td>
 					</tr>
 				</tbody>
