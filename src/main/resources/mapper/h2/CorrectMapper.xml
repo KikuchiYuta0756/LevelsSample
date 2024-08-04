@@ -18,6 +18,7 @@
 		<result column="correct_resttime" property="correctRestTime" />
 		<result column="worktime_sta_id" property="worktimeStaId" />
 		<result column="correct_reason" property="correctReason" />
+		<result column="rejection_reason" property="rejectionReason" />		
 		<association property="requestStates" resultMap="requestStates" />
 	</resultMap>
 
@@ -184,9 +185,14 @@
 		correct_app_id = #{correctRequestId}
 	</update>
 
-	<!--申請ステータスの更新（却下）-->
+	<!--申請ステータスの更新（再申請）-->
 	<update id="updateStaSubmission">
-		update m_correction_app set
+		update m_correction_app set 
+		correct_date =#{correctDate},
+		correct_starttime = #{correctStartTime}
+		correct_closetime = #{correctCloseTime}
+		correct_resttime = #{correctRestTime}
+		correct_reason = #{correctReason}
 		request_sta_id = 10
 		where
 		correct_app_id = #{correctRequestId}

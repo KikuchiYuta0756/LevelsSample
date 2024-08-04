@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -41,7 +42,14 @@ public interface CorrectRequestRepository {
 
 	/**申請ステータス更新(却下)*/
 	public  void updateStaSubmission(
-			@Param("correctRequestId")int correctRequestId);
+			@Param("correctRequestId")int correctRequestId,
+			@Param("correctDate")Date correctDate,
+			@Param("correctStartTime")String correctStartTime,
+			@Param("correctCloseTime")String correctCloseTime,
+			@Param("correctRestTime")String correctRestTime,
+			@Param("correctReason")String correctReason
+			
+			);
 	
 	/**申請ステータスの取得*/
 	public List<RequestStatesEntity>findAllRequestStates();

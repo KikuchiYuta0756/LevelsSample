@@ -1,5 +1,6 @@
 package com.example.domainUser.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,22 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 
 	/**申請ステータス更新(却下)*/
 	@Override
-	public void updateRequestStaSubmission(int correctRequestId){
-		correctrequestrepository.updateStaSubmission(correctRequestId);
+	public void updateRequestStaSubmission(
+			int correctRequestId,
+			Date correctDate,
+			String correctStartTime,
+			String correctCloseTime,
+			String correctRestTime,
+			String correctReason
+			){
+		correctrequestrepository.updateStaSubmission(
+				correctRequestId,
+				correctDate,
+				correctStartTime,
+				correctCloseTime,
+				correctRestTime,
+				correctReason
+				);
 	}	
 	
 	/**申請ステータスの取得*/

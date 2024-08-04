@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,6 @@ public class UserCorrectRequestDetailController {
 
 	@Autowired
 	private ModelMapper modelMapper;
-
 
 	/** 修正申請詳細画面を表示 */
 	@GetMapping("/userCorrectRequestDetail/{correctRequestId}")
@@ -42,7 +42,7 @@ public class UserCorrectRequestDetailController {
 		return "admin/userCorrectRequestDetail";
 	}
 	
-	/**申請の却下処理*/
+	/**申請の取り消し処理*/
 	@PostMapping(value = "/userCorrectRequestDetail", params = "remove")
 	public String updateUserCorrectRequestRemove(CorrectRequestForm form, Model model){
 		
@@ -53,17 +53,21 @@ public class UserCorrectRequestDetailController {
 		return"redirect:/admin/userCorrectRequestList";
 	}
 
-	/**申請の却下処理*/
+	/**申請の提出処理*/
 	@PostMapping(value = "/userCorrectRequestDetail", params = "submission")
-	public String updateUserCorrectRequestSubmission(CorrectRequestForm form, Model model){
+	public String updateUserCorrectRequestSubmission(Model model
+			,@ModelAttribute CorrectRequestForm form){
 		
 		//申請ステータスを更新
-		correctrequestservice.updateRequestStaSubmission(form.getCorrectRequestId());
+		correctrequestservice.updateRequestStaSubmission(
+				form.getCorrectRequestId(),
+		        form.getCorrectDate(),
+		        form.getCorrectStartTime(),
+		        form.getCorrectCloseTime(),
+		        form.getCorrectRestTime(),
+		        form.getCorrectReason());
 		
 		//ユーザー一覧画面にリダイレクト
 		return"redirect:/admin/userCorrectRequestList";
 	}
-
-
-
 }

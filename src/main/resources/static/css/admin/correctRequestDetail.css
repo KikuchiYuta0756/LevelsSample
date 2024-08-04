@@ -1,0 +1,46 @@
+/* list.css */
+
+#custom-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+#custom-table th,
+#custom-table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+#custom-table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+#custom-table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+#custom-table.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+#custom-table.table-bordered th,
+#custom-table.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+#custom-table.table-bordered thead th,
+#custom-table.table-bordered thead td {
+    border-bottom-width: 2px;
+}
+
+#custom-table.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#custom-table.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}

@@ -19,5 +19,6 @@ public class CorrectRequestEntity {
 	private String correctRestTime;
 	private String worktimeStaId;
 	private String correctReason;
+	private String rejectionReason;	
 	private RequestStatesEntity requestStates;
 }

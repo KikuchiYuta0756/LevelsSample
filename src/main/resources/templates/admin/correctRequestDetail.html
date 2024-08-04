@@ -1,96 +1,154 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layoutADM}">
+    layout:decorate="~{layout/layoutADM}">
 
 <head>
-	<title>修正申請詳細</title>
-	<!--CSS読込-->
-	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
+    <title>修正申請詳細</title>
+    <!--CSS読込-->
+    <link rel="stylesheet" th:href="@{/css/admin/list.css}">
+    <!-- Bootstrap CSS 読込 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- JavaScript 読込 -->
+    <script th:src="@{/js/confirmRejection.js}"></script>
 </head>
 
 <body>
-	　　　<div layout:fragment="content">
-		　　　<div class="header border-bottom">
-			<h1 class="h2">修正申請詳細</h1>
-		</div>
-		<form id="user-detail-form" method="post" th:action="@{/admin/correctRequestDetail}" class="form-signup"
-			th:object="${CorrectRequestForm}">
-			<input type="hidden" th:field="*{correctRequestId}" />			
-			<!--ユーザー詳細情報-->
-			<table class="table table-striped table-bordered table-hover">
-				<tbody>
-					<tr>
-						<th>修正申請ID</th>
-						<td>
-							<div th:text="*{correctRequestId}" />
-						</td>
-					</tr>
-					<tr>
-						<th>ログインID</th>
-						<td>
-							<div　th:if="*{correctLoginId != null}" th:text="*{correctLoginId}" />
-						</td>
-					</tr>
-					<tr>
-						<th>ユーザ名</th>
-						<td>
-							<div　th:if="*{correctUserName != null}" th:text="*{correctUserName}" />
-						</td>
-					</tr>
-					<tr>
-						<th>変更日</th>
-						<td>
-							<div th:text="*{#dates.format(correctDate,'YYYY/MM/dd')}" />
-						</td>
-					</tr>
-					<tr>
-						<th>開始時間</th>
-						<td>
-							<div　th:if="*{correctStartTime != null}" th:text="*{correctStartTime}" />
-						</td>
-					</tr>
-					<tr>
-						<th>終了時間</th>
-						<td>
-							<div　th:if="*{correctCloseTime != null}" th:text="*{correctCloseTime}" />
-						</td>
-					</tr>
-					<tr>
-						<th>休憩時間</th>
-						<td>
-							<div　th:if="*{correctRestTime != null}" th:text="*{correctRestTime}" />
-						</td>
-					</tr>
-					<tr>
-						<th>勤怠区分</th>
-						<td>
-							<div　 th:text="*{worktimeStaId}" />
-						</td>
-					</tr>
-					<tr>
-						<th>修正申請理由</th>
-						<td>
-							<div　th:if="*{correctReason != null}" th:text="*{correctReason}" />
-						</td>
-					</tr>
+    <div layout:fragment="content">
+        <div class="header border-bottom">
+            <h1 class="h2">修正申請詳細</h1>
+        </div>
+        <form id="user-detail-form" method="post" th:action="@{/admin/correctRequestDetail}" class="form-signup"
+            th:object="${CorrectRequestForm}">
+            <input type="hidden" th:field="*{correctRequestId}" />
+            <!--ユーザー詳細情報-->
+            <table class="table table-striped table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>修正申請ID</th>
+                        <td>
+                            <div th:text="*{correctRequestId}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>ログインID</th>
+                        <td>
+                            <div th:if="*{correctLoginId != null}" th:text="*{correctLoginId}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>ユーザ名</th>
+                        <td>
+                            <div th:if="*{correctUserName != null}" th:text="*{correctUserName}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>変更日</th>
+                        <td>
+                            <div th:text="*{#dates.format(correctDate,'YYYY/MM/dd')}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>開始時間</th>
+                        <td>
+                            <div th:if="*{correctStartTime != null}" th:text="*{correctStartTime}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>終了時間</th>
+                        <td>
+                            <div th:if="*{correctCloseTime != null}" th:text="*{correctCloseTime}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>休憩時間</th>
+                        <td>
+                            <div th:if="*{correctRestTime != null}" th:text="*{correctRestTime}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>勤怠区分</th>
+                        <td>
+                            <div th:text="*{worktimeStaId}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>修正申請理由</th>
+                        <td>
+                            <div th:if="*{correctReason != null}" th:text="*{correctReason}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>却下理由</th>
+                        <td>
+                            <textarea rows="10" cols="60" th:field="*{rejectionReason}"></textarea>
+                        </td>
+                    </tr>
 
-				</tbody>
-			</table>
-			<!--ボタンエリア-->
-			<div class="text-center">
-			  <div th:if="*{requestStaId == 10}">
-				<!--承認ボタン-->
-				<button class="btn btn-danger" type="submit" name="approval">承認</button>
-				<!--差し戻しボタン-->
-				<button class="btn btn-primary" type="submit" name="remand">差し戻し</button>
-				<!--却下ボタン-->
-				<button class="btn btn-primary" type="submit" name="remove">却下</button>
-			</div>
-			  <div th:if="*{requestStaId == 20}">
-				<!--却下ボタン-->
-				<button class="btn btn-primary" type="submit" name="remove">却下</button>
-			</div>			
-		</form>
-	</div>
+
+                </tbody>
+            </table>
+            <!--ボタンエリア-->
+            <div class="text-center">
+                <div th:if="*{requestStaId == 10}">
+                    <!--承認ボタン-->
+                    <button class="btn btn-danger" type="submit" name="approval">承認</button>
+                    <!--差し戻しボタン-->
+                    <button class="btn btn-primary" type="submit" name="remand">差し戻し</button>
+                    <!--却下ボタン-->
+                    <button class="btn btn-primary" type="button" name="remove" onclick="confirmRejection()">却下</button>
+                </div>
+                <div th:if="*{requestStaId == 20}">
+                    <!--却下ボタン-->
+                    <button class="btn btn-primary" type="button" name="remove" onclick="confirmRejection()">却下</button>
+                </div>
+        </form>
+    </div>
+    <!-- モーダルウィンドウ -->
+    <div class="modal fade" id="rejectionModal" tabindex="-1" role="dialog" aria-labelledby="rejectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectionModalLabel">却下理由を入力してください</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" id="modalRejectionReason" rows="5"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary" onclick="submitRejectionReason()">送信</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery 読込 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Popper.js 読込 -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap JS 読込 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function showRejectionModal() {
+            $('#rejectionModal').modal('show');
+        }
+
+        function submitRejectionReason() {
+            const rejectionReason = document.getElementById('modalRejectionReason').value;
+            if (!rejectionReason) {
+                alert('却下理由を入力してください。');
+            } else {
+                document.querySelector('[name="rejectionReason"]').value = rejectionReason;
+                document.getElementById('user-detail-form').submit();
+            }
+        }
+
+        function confirmRejection() {
+            showRejectionModal();
+        }
+    </script>
 </body>
+
 </html>

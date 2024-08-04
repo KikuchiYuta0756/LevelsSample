@@ -1,5 +1,6 @@
 package com.example.domainUser.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.domainUser.model.CorrectRequestEntity;
@@ -32,7 +33,14 @@ public interface CorrectRequestService {
 	public void updateRequestStaRemove(int correctRequestId);
 
 	/**申請ステータス更新(再提出)*/
-	public void updateRequestStaSubmission(int correctRequestId);
+	public void updateRequestStaSubmission(
+			int correctRequestId,
+			Date correctDate,
+			String correctStartTime,
+			String correctCloseTime,
+			String correctRestTime,
+			String correctReason
+			);
 	
 	/**申請ステータスの取得*/
 	public List<RequestStatesEntity> getAllRequestStates();

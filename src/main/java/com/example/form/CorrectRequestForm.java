@@ -40,6 +40,8 @@ public class CorrectRequestForm {
 	@Size(min = 1, max = 200, groups = ValidGroup2.class)
 	private String correctReason;
 	
+	private String rejectionReason;
+	
 	private RequestStatesEntity requestStates;
 
 }
