@@ -6,12 +6,10 @@
     <title>修正申請詳細</title>
     <!--CSS読込-->
     <link rel="stylesheet" th:href="@{/css/admin/list.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/correctRequestDetail.css}">
     <!-- Bootstrap CSS 読込 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- JavaScript 読込 -->
-    <script th:src="@{/js/confirmRejection.js}"></script>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
 </head>
-
 <body>
     <div layout:fragment="content">
         <div class="header border-bottom">
@@ -21,7 +19,7 @@
             th:object="${CorrectRequestForm}">
             <input type="hidden" th:field="*{correctRequestId}" />
             <!--ユーザー詳細情報-->
-            <table class="table table-striped table-bordered table-hover">
+            <table id="custom-table">
                 <tbody>
                     <tr>
                         <th>修正申請ID</th>
@@ -80,11 +78,9 @@
                     <tr>
                         <th>却下理由</th>
                         <td>
-                            <textarea rows="10" cols="60" th:field="*{rejectionReason}"></textarea>
+                            <textarea rows="10" cols="60" th:field="*{rejectionReason}" name="rejectionReason"></textarea>
                         </td>
                     </tr>
-
-
                 </tbody>
             </table>
             <!--ボタンエリア-->
@@ -95,60 +91,41 @@
                     <!--差し戻しボタン-->
                     <button class="btn btn-primary" type="submit" name="remand">差し戻し</button>
                     <!--却下ボタン-->
-                    <button class="btn btn-primary" type="button" name="remove" onclick="confirmRejection()">却下</button>
+                    <button class="btn btn-primary" type="submit" id="rejectOne-button" name="remove">却下</button>
                 </div>
                 <div th:if="*{requestStaId == 20}">
                     <!--却下ボタン-->
-                    <button class="btn btn-primary" type="button" name="remove" onclick="confirmRejection()">却下</button>
+                    <button class="btn btn-primary" type="submit" id="rejectSecond-button" name="remove">却下</button>
                 </div>
+             </div>
         </form>
     </div>
-    <!-- モーダルウィンドウ -->
-    <div class="modal fade" id="rejectionModal" tabindex="-1" role="dialog" aria-labelledby="rejectionModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="rejectionModalLabel">却下理由を入力してください</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <textarea class="form-control" id="modalRejectionReason" rows="5"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                    <button type="button" class="btn btn-primary" onclick="submitRejectionReason()">送信</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <!-- jQuery 読込 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Popper.js 読込 -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <!-- Bootstrap JS 読込 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        function showRejectionModal() {
-            $('#rejectionModal').modal('show');
-        }
 
-        function submitRejectionReason() {
-            const rejectionReason = document.getElementById('modalRejectionReason').value;
-            if (!rejectionReason) {
-                alert('却下理由を入力してください。');
-            } else {
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+		document.getElementById('rejectOne-button').addEventListener('click', confirmRejection);
+		document.getElementById('rejectSecond-button').addEventListener('click', confirmRejection);
+
+        
+        function confirmRejection() {
+            const rejectionReason = prompt('却下理由を入力してください。');
+            if (rejectionReason !== null && rejectionReason.trim() !== '') {
                 document.querySelector('[name="rejectionReason"]').value = rejectionReason;
                 document.getElementById('user-detail-form').submit();
+            } else {
+                alert('却下理由を入力してください。');
             }
         }
+    });
+</script>
 
-        function confirmRejection() {
-            showRejectionModal();
-        }
-    </script>
 </body>
 
 </html>
