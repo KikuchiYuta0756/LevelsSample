@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<nav layout:fragment="header" class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark navbar-full-width">
+	<nav layout:fragment="header" class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark navbar-full-width header">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand">Welcome, <span sec:authentication="name"></span>さん!</a>
@@ -34,9 +34,10 @@
 				</div>
 			</div>
 			<div class="dropdown">
+				<!-- ボタンを画像に変更 -->
 				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					MENU
+					<img src="/images/ヘッダードロップメニュー.png" alt="メニューアイコン" style="width: 25px; height: 25px;">
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<a class="dropdown-item" th:href="@{'/common/afterPasswordChange'}">パスワード</a>

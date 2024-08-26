@@ -44,8 +44,9 @@ public class CorrectRequestController {
 	public String postCorrectRequest(Model model
 			,@ModelAttribute @Validated(GroupOrder.class) CorrectRequestForm form
 			,BindingResult bindingResult){
+
+	    //ログイン認証に使用したログインIDを利用する。		
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    //ログイン認証に使用したログインIDを利用する。
 	    String correctLoginId = auth.getName();
 		
 		//入力チェック結果

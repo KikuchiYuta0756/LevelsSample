@@ -57,7 +57,7 @@
 						<td>
 							<span th:if="*{department != null}" th:text="*{department.departmentName}" />
 							</br>
-							<select th:field="*{departmentId}">
+							<select class="form-control" th:field="*{departmentId}">
 								<option th:each="item:${departmentList}" th:value="${item.departmentId}"
 									th:text="${item.departmentName}">
 								</option>
@@ -69,7 +69,7 @@
 						<td>
 							<span th:if="*{role != null}" th:text="*{role.roleName}" />
 							</br>
-							<select th:field="*{roleId}">
+							<select class="form-control" th:field="*{roleId}">
 								<option th:each="item:${roleList}" th:value="${item.roleId}" th:text="${item.roleName}">
 								</option>
 							</select>
@@ -110,11 +110,10 @@
 			</table>
 			<!--ボタンエリア-->
 			<div class="text-center">
+				<!--更新ボタン-->
+				<button class="btn btn-primary" type="submit" name="update">更新</button>				
 				<!--削除ボタン-->
 				<button class="btn btn-danger" type="submit" name="delete">削除</button>
-
-				<!--更新ボタン-->
-				<button class="btn btn-primary" type="submit" name="update">更新</button>
 			</div>
 		</form>
 	</div>

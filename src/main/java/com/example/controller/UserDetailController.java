@@ -41,9 +41,9 @@ public class UserDetailController {
 	
 	/**ユーザー詳細画面を表示*/
 @GetMapping("/userDetail/{loginId}")
-public String getUserDetail(UserDetailForm form, Model model,
+public String getUserDetail(Model model, UserDetailForm form,
 		@PathVariable("loginId")String loginId) {
-		
+	
 		//ユーザーを1件取得
 		UserMapperEntity user = userService.getUserOne(loginId);
 		
@@ -79,6 +79,8 @@ public String updateUser(Model model
 		,@ModelAttribute @Validated(GroupOrder.class) UserDetailForm form
 		,BindingResult bindingResult){
 	
+	System.out.println("updateUserの値は" + form);
+	
 	// パスワードフォームが空の場合、nullをセットする
 	if (form.getPassword().isEmpty()) {
 		form.setPassword(null);
@@ -86,12 +88,14 @@ public String updateUser(Model model
 
 	// 入力チェック結果
 	if (bindingResult.hasErrors()) {
-        String loginId = form.getLoginId();
-		// NG：ユーザー登録画面に戻る
-		return getUserDetail(form,model,loginId);
+	    model.addAttribute("departmentList", userService.getAllDepartment());
+	    model.addAttribute("roleList", userService.getAllRole());
+	    model.addAttribute("validationMap", userApplicationService.getValidationMap());
+	    model.addAttribute("authorityMap", userApplicationService.getAuthorityMap());
+	    return "admin/userDetail";
 	}
 	
-	log.info(form.toString());
+	log.error("Validation error: {}",bindingResult.hasErrors());
 	
 	//ユーザーを更新
 	userService.updateUserOne(

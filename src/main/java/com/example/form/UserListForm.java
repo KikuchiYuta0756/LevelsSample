@@ -6,4 +6,5 @@ import lombok.Data;
 public class UserListForm {
 	private String loginId;
 	private String userName;
+	private Integer validation;
 }

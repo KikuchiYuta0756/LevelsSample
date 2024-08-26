@@ -20,8 +20,11 @@ public interface UserMapperRepository {
 	/**ユーザー登録*/
 	public void insertOne(UserMapperEntity user);
 	
-	/**ユーザー取得*/
-	public List<UserMapperEntity>findMany(UserMapperEntity user);
+	/**ユーザー取得（有効)*/
+	public List<UserMapperEntity>findValidationUsers(UserMapperEntity user);
+
+	/**ユーザー取得(無効)*/
+	public List<UserMapperEntity>findNotValidationUsers(UserMapperEntity user);
 	
 	/**ユーザー取得（1件）*/
 	public UserMapperEntity findOne(String loginId);

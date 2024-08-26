@@ -1,6 +1,7 @@
 package com.example.domainUser.service.impl;
 
-import org.springframework.security.core.userdetails.User;
+import java.util.Collections;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,16 +23,17 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserMapperEntity user = customUserService.getUserByUsername(loginId);
         System.out.println("userは"+user);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found: " + loginId);
+            throw new UsernameNotFoundException("ユーザーが存在しません。");
         }
 
-        return User.builder()
-                .username(user.getLoginId())
-                .password(user.getPassword())
-                .build();
-        
-    }
+        // カスタムユーザーディテールを返す
+        return new CustomUserDetails(
+                user.getLoginId(),
+                user.getPassword(),
+                Collections.emptyList(), // 権限リストを適宜設定
+                user.getValidation()
+        );
    
-
+    }
 
 }

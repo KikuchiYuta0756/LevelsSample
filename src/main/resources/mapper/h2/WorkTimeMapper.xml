@@ -37,16 +37,6 @@ AND work_date = #{workDate}
 </update>
 
 <!--退勤時間の登録-->
-<!--<update id="insertCloseTime">
-update m_worktime 
-set close_time = #{closeTime},
-    gen_work_time = TIMEDIFF(close_time, start_time),
-    act_work_time = IF(TIMEDIFF(TIMEDIFF(#{closeTime}, start_time), rest_time) > 0,
-                       TIMEDIFF(TIMEDIFF(#{closeTime}, start_time), rest_time),
-                       '00:00:00') 
-where login_id = #{loginId} 
-AND work_date = #{workDate}
-</update>-->
 <update id="insertCloseTime">
 update m_worktime 
 set close_time = #{closeTime},
@@ -233,6 +223,14 @@ GROUP BY DATE_FORMAT(work_date, '%Y-%m');
 	AND DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
 </select>
 
-
+<!--m_worktimeテーブルのremarksカラムを更新-->
+<update id="updateWorkTimeRemarks">
+    update m_worktime set
+    remarks = '有給'
+    where 
+    work_date = #{paidRequestDateApp} 
+    and 
+    login_id = #{paidLoginId};
+</update>
 
 </mapper>

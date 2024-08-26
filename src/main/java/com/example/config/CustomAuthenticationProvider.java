@@ -10,12 +10,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.example.domainUser.service.impl.CustomUserDetails;
+
 //Componentを付与することで、このクラスがSpringのコンテナにBeanとして登録される。
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	private final UserDetailsService userDetailsService;
-
 	private final PasswordEncoder passwordEncoder;
 	
 	
@@ -30,22 +31,27 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     	String username = authentication.getName();
         String password = (String) authentication.getCredentials();           
         
-        
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        System.out.println("userDetailsの値は:" + userDetails);
 
+        // validationフィールドが2の場合はログイン不可
+        if (userDetails instanceof CustomUserDetails) {
+            CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+            if (customUserDetails.getValidation() == 2) {
+                throw new CustomValidationException("システム管理者へ問い合わせてください。");
+            }
+        }
+        
+        
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
             return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
         } else {
-        throw new BadCredentialsException("Authentication failed");
+        throw new BadCredentialsException("ログインIDもしくはパスワードが間違っています。");
     }
    }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        boolean supported = authentication.equals(UsernamePasswordAuthenticationToken.class);
-        System.out.println("Supported authenticationの結果は: " + supported);
-        return supported;
+        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
     
 } 

@@ -16,7 +16,11 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
             return true;
         }
     	
-        if (password == null || password.length() < 7 || password.length() > 15) {
+        // 長さチェック
+        if (password.length() < 7 || password.length() > 15) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("パスワードは7文字以上15文字以内でなければなりません。")
+                   .addConstraintViolation();
             return false;
         }
 
@@ -26,6 +30,13 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
         if (password.matches(".*\\d.*")) count++;
         if (password.matches(".*[!@#$%^&*].*")) count++;
 
-        return count >= 3;
+        if (count < 3) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("パスワードは小文字、大文字、数字、特殊文字のうち3種類以上を含む必要があります。")
+                   .addConstraintViolation();
+            return false;
+        }
+
+        return true;
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.model.WorkTimeTotalEntity;
 
@@ -70,6 +71,7 @@ public interface WorkTimeMapperRepository {
 	//選択された年月の勤怠一覧を取得
 	public  List<WorkTimeEntity> findSelectCorrectYearMonth(String loginId, String selectedYearMonth);
 	
-	
+	 //承認された有給使用の日付更新
+	public void updateWorkTimeRemarks(PaidAppEntity paid);
 	
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.domainUser.model.RequestStatesEntity;
+import com.example.validation.ValidCorrectDate;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,6 +27,7 @@ public class CorrectRequestForm {
 	
 	@NotNull(groups = ValidGroup1.class)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@ValidCorrectDate (groups = ValidGroup2.class)
 	private Date correctDate;
 
 	private String correctStartTime;

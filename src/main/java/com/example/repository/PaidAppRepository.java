@@ -26,8 +26,7 @@ public interface PaidAppRepository {
 	public PaidAppEntity findOne(int paidAppId);
 	
 	/**申請ステータス更新(承認)*/
-	public  void updateStaApproval(
-			@Param("paidAppId")int paidAppId);
+	public  void updateStaApproval(PaidAppEntity paid);
 
 	/**申請ステータス更新(差し戻し)*/
 	public  void updateStaRemand(

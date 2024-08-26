@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.service.PaidAppService;
+import com.example.domainUser.service.WorkTimeService;
 import com.example.form.PaidRequestForm;
 
 @Controller
@@ -19,6 +20,9 @@ public class PaidRequestDetailADMController {
 	
 	@Autowired
 	private PaidAppService paidappservice;
+	
+	@Autowired
+	private WorkTimeService worktimeservice;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -45,8 +49,14 @@ public String getPaidRequestDetailADM(PaidRequestForm form, Model model,
 @PostMapping(value = "/paidRequestDetail", params = "approval")
 public String updatePaidRequestApproval(PaidRequestForm form, Model model){
 	
+	PaidAppEntity paid = modelMapper.map(form, PaidAppEntity.class);
+	System.out.println("PaidAppEntity"+ paid);
+	
 	//申請ステータスを更新
-	paidappservice.updateRequestStaApproval(form.getPaidAppId());
+	paidappservice.updateRequestStaApproval(paid);
+	
+	//対象日付の備考カラム更新
+	worktimeservice.updateWorkTimeRemarks(paid);
 	
 	//ユーザー一覧画面にリダイレクト
 	return"redirect:/admin/paidRequestList";

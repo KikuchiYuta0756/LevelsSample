@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
+import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.model.WorkTimeTotalEntity;
@@ -67,6 +68,7 @@ public interface WorkTimeService {
 	//選択された年月の勤怠一覧を取得
 	public List<WorkTimeEntity> getSelectCorrectYearMonth(String loginId, String selectedYearMonth);
 
-
+    //承認された有給使用の日付更新
+	public void updateWorkTimeRemarks(PaidAppEntity paid);
 	
 }

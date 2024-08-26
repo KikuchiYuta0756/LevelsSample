@@ -22,7 +22,7 @@ public interface PaidAppService {
 	public PaidAppEntity getPaidAppOne(int paidAppId);
 	
 	/**申請ステータス更新(承認済み)*/
-	public void updateRequestStaApproval(int paidAppId);
+	public void updateRequestStaApproval(PaidAppEntity paid);
 
 	/**申請ステータス更新(差し戻し)*/
 	public void updateRequestStaRemand(int paidAppId);

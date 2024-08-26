@@ -92,13 +92,26 @@
 insert into m_paid(login_id, hire_date) values(#{loginId}, #{hire});
 </insert>
 
-<!--ユーザー複数件取得-->
-<select id="findMany" resultType="UserMapperEntity">
+<!--ユーザー複数件取得(有効)-->
+<select id="findValidationUsers" resultType="UserMapperEntity">
 SELECT * FROM m_user
 WHERE
     (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{loginId}, '%'))
     AND
-    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{userName}, '%'));
+    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{userName}, '%'))
+    AND
+    validation = 1;
+</select>
+
+<!--ユーザー複数件取得(無効)-->
+<select id="findNotValidationUsers" resultType="UserMapperEntity">
+SELECT * FROM m_user
+WHERE
+    (IFNULL(login_id, '') = '' OR login_id LIKE CONCAT('%',#{loginId}, '%'))
+    AND
+    (IFNULL(user_name, '') = '' OR user_name LIKE CONCAT('%',#{userName}, '%'))
+    AND
+    validation = 2;
 </select>
 
 <!--部署複数件取得-->

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.domainUser.model.PaidAppEntity;
 import com.example.domainUser.model.UserMapperEntity;
 import com.example.domainUser.model.WorkTimeEntity;
 import com.example.domainUser.model.WorkTimeTotalEntity;
@@ -117,6 +118,10 @@ public class WorkTimeServiceImpl implements WorkTimeService{
 		return worktimemapper.findSelectCorrectYearMonth(loginId, selectedYearMonth);
 	}
 
+	//承認された有給使用の日付更新
+	public void updateWorkTimeRemarks(PaidAppEntity paid) {
+		worktimemapper.updateWorkTimeRemarks(paid);
+	}
 
 
 	

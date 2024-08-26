@@ -14,8 +14,11 @@ public interface UserService {
 	/**ユーザー登録*/
 	public void userCreate(UserMapperEntity user);
 
-	/**ユーザー取得 */
-	public List<UserMapperEntity> getUsers(UserMapperEntity user);
+	/**ユーザー取得（有効) */
+	public List<UserMapperEntity> findValidationUsers(UserMapperEntity user);
+
+	/**ユーザー取得（無効) */
+	public List<UserMapperEntity> findNotValidationUsers(UserMapperEntity user);
 	
 	/**ユーザー取得(１件：パスワードなし)*/
 	public UserMapperEntity getUserOne(String loginId);	

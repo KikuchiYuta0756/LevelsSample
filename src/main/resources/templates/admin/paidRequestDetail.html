@@ -15,7 +15,9 @@
 		</div>
 		<form id="user-detail-form" method="post" th:action="@{/admin/paidRequestDetail}" class="form-signup"
 			th:object="${PaidRequestForm}">
-			<input type="hidden" th:field="*{paidAppId}" />			
+			<input type="hidden" th:field="*{paidAppId}" />	
+			<input type="hidden" th:field="*{paidLoginId}" />	
+			<input type="hidden" th:field="*{paidRequestDateApp}" />			
 			<!--ユーザー詳細情報-->
 			<table class="table table-striped table-bordered table-hover">
 				<tbody>
