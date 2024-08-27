@@ -2,11 +2,13 @@ package com.example.domainUser.service.impl;
 
 import java.util.Collections;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.config.CustomUserDetails;
 import com.example.domainUser.model.UserMapperEntity;
 
 @Service
@@ -21,9 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
         UserMapperEntity user = customUserService.getUserByUsername(loginId);
-        System.out.println("userは"+user);
+        
         if (user == null) {
-            throw new UsernameNotFoundException("ユーザーが存在しません。");
+            throw new BadCredentialsException("ログインIDもしくはパスワードが正しくありません。");
         }
 
         // カスタムユーザーディテールを返す
@@ -33,7 +35,5 @@ public class CustomUserDetailsService implements UserDetailsService {
                 Collections.emptyList(), // 権限リストを適宜設定
                 user.getValidation()
         );
-   
     }
-
 }

@@ -13,20 +13,18 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
     
-    // CustomAuthenticationProvider Beanをこのクラスに注入する
-    private final CustomAuthenticationProvider customAuthenticationProvider;
-    
-    public SecurityConfig(CustomAuthenticationProvider customAuthenticationProvider) {
-    	this.customAuthenticationProvider = customAuthenticationProvider;
-    }
-	
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    public SecurityConfig(CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+    }	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
      
 		//ログイン不要ページの区分け
 		http     
 		// カスタム認証プロバイダを設定
-        .authenticationProvider(customAuthenticationProvider)
+//        .authenticationProvider()
 //        // CORSの設定を適用
 //        .cors(customizer -> customizer.configurationSource(corsConfigurationSource()))
 //        // CSRFの保護を無効にする
@@ -41,7 +39,7 @@ public class SecurityConfig {
 	   ).formLogin(login -> login
 			 .loginPage("/login")//ログインページの指定
 	         .defaultSuccessUrl("/common/division", false)// ログイン成功時のリダイレクト先URLを指定
-		     .failureUrl("/login?error")
+	         .failureHandler(customAuthenticationFailureHandler)
 		     .permitAll()
 	   ).logout(logout -> logout
              .logoutUrl("/logout")
