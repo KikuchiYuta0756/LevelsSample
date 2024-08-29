@@ -13,6 +13,7 @@
 		<result column="paid_app_id" property="paidAppId" />
 		<result column="request_sta_id" property="requestStaId" />
 		<result column="paid_app_reason" property="paidAppReason" />
+		<result column="reject_reason" property="rejectReason" />
 		<association property="requestStates" resultMap="requestStates" />
 	</resultMap>
 
@@ -124,6 +125,7 @@
 		paid_app_id,
 		request_sta_id,
 		paid_app_reason
+		reject_reason
 		from m_paid_app
 		where paid_app_id = #{paidAppId}
 	</select>
@@ -139,7 +141,8 @@
 	<!--申請ステータスの更新（差し戻し）-->
 	<update id="updateStaRemand">
 		update m_paid_app set
-		request_sta_id = 20
+		request_sta_id = 20 
+	    ,reject_reason = #{rejectReason} 
 		where
 		paid_app_id = #{paidAppId}
 	</update>
@@ -147,8 +150,29 @@
 	<!--申請ステータスの更新（却下）-->
 	<update id="updateStaRemove">
 		update m_paid_app set
-		request_sta_id = 40
+		request_sta_id = 40 
+		,reject_reason = #{rejectReason} 
 		where
 		paid_app_id = #{paidAppId}
 	</update>
+
+	<!--申請ステータスの更新（自己却下）-->
+	<update id="updateUserStaRemove">
+		update m_paid_app set
+		request_sta_id = 40 
+		where
+		paid_app_id = #{paidAppId}
+	</update>
+	
+	<!--申請ステータスの更新（再申請）-->
+	<update id="updatePaidStaSubmission">
+		update m_paid_app set 
+		paid_requestdate_app = #{paidRequestDateApp},
+		paid_app_reason = #{paidAppReason} ,
+		request_sta_id = 10
+		where
+		paid_app_id = #{paidAppId}
+	</update>
+	
+	
 </mapper>

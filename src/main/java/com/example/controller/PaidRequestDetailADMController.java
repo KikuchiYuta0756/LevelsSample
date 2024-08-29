@@ -65,9 +65,15 @@ public String updatePaidRequestApproval(PaidRequestForm form, Model model){
 /**有給申請の差し戻し処理*/
 @PostMapping(value = "/paidRequestDetail", params = "remand")
 public String updatePaidRequestRemand(PaidRequestForm form, Model model){
+	System.out.println("formの値は"+ form);
+	
+	//formをUserMapperEntityに変換
+	PaidAppEntity paid= modelMapper.map(form , PaidAppEntity.class);
+	
+	System.out.println("paidの値は"+ paid);
 	
 	//申請ステータスを更新
-	paidappservice.updateRequestStaRemand(form.getPaidAppId());
+	paidappservice.updateRequestStaRemand(paid);
 	
 	//ユーザー一覧画面にリダイレクト
 	return"redirect:/admin/paidRequestList";
@@ -76,9 +82,12 @@ public String updatePaidRequestRemand(PaidRequestForm form, Model model){
 /**有給申請の差し戻し処理*/
 @PostMapping(value = "/paidRequestDetail", params = "remove")
 public String updatePaidRequestRemove(PaidRequestForm form, Model model){
+
+	//formをUserMapperEntityに変換
+	PaidAppEntity paid= modelMapper.map(form , PaidAppEntity.class);
 	
 	//申請ステータスを更新
-	paidappservice.updateRequestStaRemove(form.getPaidAppId());
+	paidappservice.updateRequestStaRemove(paid);
 	
 	//ユーザー一覧画面にリダイレクト
 	return"redirect:/admin/paidRequestList";

@@ -40,14 +40,21 @@
 					<tr>
 						<th>利用日付</th>
 						<td>
-							<span th:text="*{#dates.format(paidRequestDateApp,'YYYY/MM/dd')}" />
+							<div th:if="*{requestStaId != 20}" th:text="*{#dates.format(paidRequestDateApp,'YYYY/MM/dd')}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{paidRequestDateApp}" />
 						</td>
 					</tr>
 					<tr>
 						<th>有給申請理由</th>
 						<td>
-							<div th:text="*{paidAppReason}" />
+							<div th:if="*{requestStaId != 20}" th:text="*{paidAppReason}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{paidAppReason}" />							
 						</td>
+					</tr>
+					<!-- 却下理由を表示 -->
+					<tr th:if="*{rejectReason != null}">
+						<th>却下理由</th>
+						<td th:text="*{rejectReason}"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -59,7 +66,7 @@
 				</div>
 				<div th:if="*{requestStaId == 20}">
 					<!--承認ボタン-->
-					<button class="btn btn-danger" type="submit" name="submission">提出</button>
+					<button class="btn btn-danger" type="submit" name="submission">再提出</button>
 					<!--却下ボタン-->
 					<button class="btn btn-primary" type="submit" name="remove">取り消し</button>
 				</div>

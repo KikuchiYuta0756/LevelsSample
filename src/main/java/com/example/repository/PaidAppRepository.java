@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -29,11 +30,20 @@ public interface PaidAppRepository {
 	public  void updateStaApproval(PaidAppEntity paid);
 
 	/**申請ステータス更新(差し戻し)*/
-	public  void updateStaRemand(
-			@Param("paidAppId")int paidAppId);
+	public  void updateStaRemand(PaidAppEntity paid);
 	
-	/**申請ステータス更新(差し戻し)*/
-	public  void updateStaRemove(
-			@Param("paidAppId")int paidAppId);
+	/**申請ステータス更新(却下)*/
+	public  void updateStaRemove(PaidAppEntity paid);
+
+	/**申請ステータス更新(自己却下)*/
+	public  void updateUserStaRemove(int paidAppId);
+	
+	/**申請ステータス更新(再提出)*/
+	public  void updatePaidStaSubmission(
+			@Param("paidAppId")int paidAppId,
+			@Param("paidRequestDateApp")Date paidRequestDateApp,
+			@Param("paidAppReason")String paidAppReason
+			);
+		
 	
 }

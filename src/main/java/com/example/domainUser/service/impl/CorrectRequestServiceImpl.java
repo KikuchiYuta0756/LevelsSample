@@ -49,23 +49,29 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 	
 	/**申請ステータス更新(承認済み)*/
 	@Override
-	public void updateRequestStaApproval(int correctRequestId){
-		correctrequestrepository.updateStaApproval(correctRequestId);
+	public void updateRequestStaApproval(CorrectRequestEntity correct){
+		correctrequestrepository.updateStaApproval(correct);
 	}
 
 	/**申請ステータス更新(差し戻し)*/
 	@Override
-	public void updateRequestStaRemand(int correctRequestId){
-		correctrequestrepository.updateStaRemand(correctRequestId);
+	public void updateRequestStaRemand(CorrectRequestEntity correct){
+		correctrequestrepository.updateStaRemand(correct);
 	}
 	
 	/**申請ステータス更新(却下)*/
 	@Override
-	public void updateRequestStaRemove(int correctRequestId){
-		correctrequestrepository.updateStaRemove(correctRequestId);
+	public void updateRequestStaRemove(CorrectRequestEntity correct){
+		correctrequestrepository.updateStaRemove(correct);
 	}
 
-	/**申請ステータス更新(却下)*/
+	/**申請ステータス更新(自己却下)*/
+	@Override
+	public void updateUserRequestStaRemove(int correctRequestId){
+		correctrequestrepository.updateUserStaRemove(correctRequestId);
+	}
+
+	/**申請ステータス更新(再提出)*/
 	@Override
 	public void updateRequestStaSubmission(
 			int correctRequestId,

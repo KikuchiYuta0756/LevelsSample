@@ -24,13 +24,16 @@ public interface CorrectRequestService {
 	public CorrectRequestEntity getCorrectRequestOne(int correctRequestId);
 	
 	/**申請ステータス更新(承認済み)*/
-	public void updateRequestStaApproval(int correctRequestId);
+	public void updateRequestStaApproval(CorrectRequestEntity correct);
 
 	/**申請ステータス更新(差し戻し)*/
-	public void updateRequestStaRemand(int correctRequestId);
+	public void updateRequestStaRemand(CorrectRequestEntity correct);
 	
 	/**申請ステータス更新(却下)*/
-	public void updateRequestStaRemove(int correctRequestId);
+	public void updateRequestStaRemove(CorrectRequestEntity correct);
+	
+	/**申請ステータス更新(却下)*/
+	public void updateUserRequestStaRemove(int correctRequestId);	
 
 	/**申請ステータス更新(再提出)*/
 	public void updateRequestStaSubmission(

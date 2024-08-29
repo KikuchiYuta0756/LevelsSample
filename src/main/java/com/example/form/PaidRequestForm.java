@@ -34,6 +34,7 @@ public class PaidRequestForm {
 	@NotNull(groups = ValidGroup1.class)
 	@Size(min = 1, max = 200, groups = ValidGroup2.class)
 	private String paidAppReason;
+	private String rejectReason;
 	private RequestStatesEntity requestStates;
 
 }

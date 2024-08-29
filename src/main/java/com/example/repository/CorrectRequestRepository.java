@@ -29,18 +29,18 @@ public interface CorrectRequestRepository {
 	public CorrectRequestEntity findOne(int correctRequestId);	
 	
 	/**申請ステータス更新(承認)*/
-	public  void updateStaApproval(
-			@Param("correctRequestId")int correctRequestId);
+	public  void updateStaApproval(CorrectRequestEntity correct);
 	
 	/**申請ステータス更新(差し戻し)*/
-	public  void updateStaRemand(
-			@Param("correctRequestId")int correctRequestId);
+	public  void updateStaRemand(CorrectRequestEntity correct);
 	
 	/**申請ステータス更新(却下)*/
-	public  void updateStaRemove(
-			@Param("correctRequestId")int correctRequestId);
-
+	public  void updateStaRemove(CorrectRequestEntity correct);
+	
 	/**申請ステータス更新(却下)*/
+	public  void updateUserStaRemove(int correctRequestId);	
+
+	/**申請ステータス更新(再提出)*/
 	public  void updateStaSubmission(
 			@Param("correctRequestId")int correctRequestId,
 			@Param("correctDate")Date correctDate,

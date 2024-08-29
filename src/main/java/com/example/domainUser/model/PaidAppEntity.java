@@ -15,6 +15,7 @@ public class PaidAppEntity {
 	private Integer requestStaId;
 	private String requestStaName;
 	private String paidAppReason;
+	private String rejectReason;	
 	private RequestStatesEntity requestStates;
 
 }

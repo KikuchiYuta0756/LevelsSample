@@ -18,7 +18,7 @@
 		<result column="correct_resttime" property="correctRestTime" />
 		<result column="worktime_sta_id" property="worktimeStaId" />
 		<result column="correct_reason" property="correctReason" />
-		<result column="rejection_reason" property="rejectionReason" />		
+		<result column="reject_reason" property="rejectReason" />		
 		<association property="requestStates" resultMap="requestStates" />
 	</resultMap>
 
@@ -147,7 +147,7 @@
 		,m_request_sta.request_sta_id
 		,m_request_sta.request_sta_name
 		,correct_app_id
-		,correct_date
+		,correct_date		
 		,correct_starttime
 		,correct_closetime
 		,correct_resttime
@@ -173,12 +173,22 @@
 	<update id="updateStaRemand">
 		update m_correction_app set
 		request_sta_id = 20
+	    ,reject_reason = #{rejectReason}
 		where
 		correct_app_id = #{correctRequestId}
 	</update>
 
 	<!--申請ステータスの更新（却下）-->
 	<update id="updateStaRemove">
+		update m_correction_app set
+		request_sta_id = 40
+	    ,reject_reason = #{rejectReason}
+		where
+		correct_app_id = #{correctRequestId}
+	</update>
+
+	<!--申請ステータスの更新（自己却下）-->
+	<update id="updateUserStaRemove">
 		update m_correction_app set
 		request_sta_id = 40
 		where

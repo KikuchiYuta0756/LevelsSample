@@ -1,5 +1,6 @@
 package com.example.domainUser.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.domainUser.model.PaidAppEntity;
@@ -25,9 +26,18 @@ public interface PaidAppService {
 	public void updateRequestStaApproval(PaidAppEntity paid);
 
 	/**申請ステータス更新(差し戻し)*/
-	public void updateRequestStaRemand(int paidAppId);
+	public void updateRequestStaRemand(PaidAppEntity paid);
 
 	/**申請ステータス更新(却下)*/
-	public void updateRequestStaRemove(int paidAppId);
+	public void updateRequestStaRemove(PaidAppEntity paid);
+
+	/**申請ステータス更新(自己却下)*/
+	public void updateUserRequestStaRemove(int paidAppId);
 	
+	/**申請ステータス更新(再提出)*/
+	public void updatePaidRequestStaSubmission(
+			int paidAppId,
+			Date paidRequestDateApp,
+			String paidAppReason
+			);	
 }

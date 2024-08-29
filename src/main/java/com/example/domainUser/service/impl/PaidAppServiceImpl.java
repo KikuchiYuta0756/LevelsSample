@@ -1,5 +1,6 @@
 package com.example.domainUser.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,22 +44,42 @@ public class PaidAppServiceImpl implements PaidAppService {
 		return paidapprepository.findOne(paidAppId);	
 	}
 	
-	/**申請ステータス更新*/
+	/**申請ステータス更新(承認済み)*/
 	@Override
 	public void updateRequestStaApproval(PaidAppEntity paid){
 		paidapprepository.updateStaApproval(paid);
 	}
 
-	/**申請ステータス更新*/
+	/**申請ステータス更新(差し戻し)*/
 	@Override
-	public void updateRequestStaRemand(int paidAppId){
-		paidapprepository.updateStaRemand(paidAppId);
+	public void updateRequestStaRemand(PaidAppEntity paid){
+		paidapprepository.updateStaRemand(paid);
 	}
 
-	/**申請ステータス更新*/
+	/**申請ステータス更新(却下)*/
 	@Override
-	public void updateRequestStaRemove(int paidAppId){
-		paidapprepository.updateStaRemove(paidAppId);
+	public void updateRequestStaRemove(PaidAppEntity paid){
+		paidapprepository.updateStaRemove(paid);
+	}	
+
+	/**申請ステータス更新(自己却下)*/
+	@Override
+	public void updateUserRequestStaRemove(int paidAppId){
+		paidapprepository.updateUserStaRemove(paidAppId);
+	}	
+	
+	/**申請ステータス更新(再提出)*/
+	@Override
+	public void updatePaidRequestStaSubmission(
+			int paidAppId,
+			Date paidRequestDateApp,
+			String paidAppReason
+			){
+		paidapprepository.updatePaidStaSubmission(
+				 paidAppId,
+				 paidRequestDateApp,
+				 paidAppReason
+				);
 	}	
 	
 }

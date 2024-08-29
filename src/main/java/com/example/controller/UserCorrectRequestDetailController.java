@@ -47,7 +47,7 @@ public class UserCorrectRequestDetailController {
 	public String updateUserCorrectRequestRemove(CorrectRequestForm form, Model model){
 		
 		//申請ステータスを更新
-		correctrequestservice.updateRequestStaRemove(form.getCorrectRequestId());
+		correctrequestservice.updateUserRequestStaRemove(form.getCorrectRequestId());
 		
 		//ユーザー一覧画面にリダイレクト
 		return"redirect:/admin/userCorrectRequestList";

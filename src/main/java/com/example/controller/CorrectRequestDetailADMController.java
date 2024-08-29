@@ -46,8 +46,10 @@ public class CorrectRequestDetailADMController {
 	@PostMapping(value = "/correctRequestDetail", params = "approval")
 	public String updateCorrectRequestApproval(CorrectRequestForm form, Model model){
 		
+		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
+		
 		//申請ステータスを更新
-		correctRequestservice.updateRequestStaApproval(form.getCorrectRequestId());
+		correctRequestservice.updateRequestStaApproval(correct);
 		
 		//ユーザー一覧画面にリダイレクト
 		return"redirect:/admin/correctRequestList";
@@ -57,8 +59,11 @@ public class CorrectRequestDetailADMController {
 	@PostMapping(value = "/correctRequestDetail", params = "remand")
 	public String updateCorrectRequestRemand(CorrectRequestForm form, Model model){
 		
+		//formをCorrectRequestEntityに変換
+		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);		
+
 		//申請ステータスを更新
-		correctRequestservice.updateRequestStaRemand(form.getCorrectRequestId());
+		correctRequestservice.updateRequestStaRemand(correct);
 		
 		//ユーザー一覧画面にリダイレクト
 		return"redirect:/admin/correctRequestList";
@@ -67,9 +72,12 @@ public class CorrectRequestDetailADMController {
 	/**申請の却下処理*/
 	@PostMapping(value = "/correctRequestDetail", params = "remove")
 	public String updateCorrectRequestRemove(CorrectRequestForm form, Model model){
+
+		//formをCorrectRequestEntityに変換
+		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);		
 		
 		//申請ステータスを更新
-		correctRequestservice.updateRequestStaRemove(form.getCorrectRequestId());
+		correctRequestservice.updateRequestStaRemove(correct);
 		
 		//ユーザー一覧画面にリダイレクト
 		return"redirect:/admin/correctRequestList";
