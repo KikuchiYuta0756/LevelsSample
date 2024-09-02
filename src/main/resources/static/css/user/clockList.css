@@ -4,14 +4,7 @@ a{
   text-decoration: none; /* リンクの下線を消去 */
 }
 
-.button-text{
-  text-align: right;
-}
-
 .header{
-	padding-top: 1rem!important;
-	padding-bottom: .5rem!important;
-	padding-bottom: 1rem!important;
 	text-align: center;
 }
 
@@ -37,8 +30,4 @@ a{
     padding: 5px 10px; /* 任意の余白を設定してください */
     background-color: lightblue; /* リンクの範囲を確認するために背景色を設定 */
 
-}
-
-.link-containerTwo{
-	display:inline-block;
 }

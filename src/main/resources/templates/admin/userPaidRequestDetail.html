@@ -5,7 +5,7 @@
 <head>
 	<title>有給申請詳細</title>
 	<!--CSS読込-->
-	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/tableStyle.css}">
 </head>
 
 <body>
@@ -40,20 +40,23 @@
 					<tr>
 						<th>利用日付</th>
 						<td>
-							<div th:if="*{requestStaId != 20}" th:text="*{#dates.format(paidRequestDateApp,'YYYY/MM/dd')}" />
-							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{paidRequestDateApp}" />
+							<div th:if="*{requestStaId != 20}"
+								th:text="*{#dates.format(paidRequestDateApp,'YYYY/MM/dd')}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control"
+								th:field="*{paidRequestDateApp}" />
 						</td>
 					</tr>
 					<tr>
 						<th>有給申請理由</th>
 						<td>
 							<div th:if="*{requestStaId != 20}" th:text="*{paidAppReason}" />
-							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{paidAppReason}" />							
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control"
+								th:field="*{paidAppReason}" />
 						</td>
 					</tr>
 					<!-- 却下理由を表示 -->
 					<tr th:if="*{rejectReason != null}">
-						<th>却下理由</th>
+						<th>差し戻し理由</th>
 						<td th:text="*{rejectReason}"></td>
 					</tr>
 				</tbody>

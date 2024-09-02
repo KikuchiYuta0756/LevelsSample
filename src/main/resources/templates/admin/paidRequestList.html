@@ -5,11 +5,12 @@
 <head>
 	<title>有給申請一覧</title>
 	<!--個別CSS読込-->
-	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/paidRequestList.css}">
 </head>
 
 <body>
 	<div layout:fragment="content">
+		<!--見出し-->
 		<div class="header border-bottom">
 			<h1 class="h2">有給申請一覧</h1>
 		</div>
@@ -33,12 +34,12 @@
 					<label for="userName" class="mr-2">ユーザー名</label>
 					<input type="text" class="form-control" th:field="*{paidUserName}" />
 				</div>
+				
 				<button class="btn btn-primary" type="submit">検索</button>
 			</form>
 		</div>
-
 		<!--有給一覧表示-->
-		<div>
+		<div class="table-container scrollable-table">
 			<table class="table table-striped table-bordered table-hover">
 				<thead class="thead-light">
 					<tr>
@@ -65,7 +66,6 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
 </body>
 
 </html>

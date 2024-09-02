@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layoutADM}">
+
 <head>
 	<meta charset="UTF-8">
 	</meta>
 	<title　th:text="#{paidRequest}"></title>
 	<!--CSS読込-->
 	<link rel="stylesheet" th:href="@{/css/admin/create.css}">
-	<!--JS読込-->
-	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-	<script th:src="@{/webjars/bootstrap/bootstrap.min.js}" defer></script>
 </head>
+
 <body>
-	<span layout:fragment="content">
-		<div th:if="${paidDays != null}">
-			<p>有給日数：<span th:text="${paidDays}"></span>日</p>
-		</div>
-		<div th:if="${paidDays == null}">
-			<p>有給日数：0日</p>
-		</div>
-		<div class="header border-bottom"></div>
-		<form id="create-form" method="post" th:action="@{/admin/paidRequestADM}"
-		 class="form-create" th:object="${paidRequestForm}">
-		 <h1 class="2" th:text="#{paidRequest}"></h1>
+	<div layout:fragment="content">
+        <div class="header border-bottom">
+            <h1 class="h2">有給申請</h1>
+        </div>
+		<form id="create-form" method="post" th:action="@{/admin/paidRequestADM}" class="form-create"
+			th:object="${paidRequestForm}">
 			<!--申請日付-->
 			<div class="form-group">
-				<label for="loginId"　th:text="#{paidRequestDateApp}"></label>
-				<input type ="text" class ="form-control" placeholder ="yyyy/MM/dd" th:field="*{paidRequestDateApp}" th:errorclass="is-invalid" />
+				<label for="loginId" 　th:text="#{paidRequestDateApp}"></label>
+				<input type="text" class="form-control" placeholder="yyyy/MM/dd" th:field="*{paidRequestDateApp}"
+					th:errorclass="is-invalid" />
 				<div class="invalid-feedback" th:errors="*{paidRequestDateApp}"></div>
+			</div>
+			<!--有給残数-->
+			<div class="form-group">
+				<div th:if="${paidDays != null}">
+					<p>有給残数：<span th:text="${paidDays}"></span>日</p>
+				</div>
+				<div th:if="${paidDays == null}">
+					<p>有給残数：0日</p>
+				</div>
 			</div>
 			<!--申請理由-->
 			<div class="form-group">
-				<label for ="password" th:text="#{paidAppReason}"></label>
+				<label for="password" th:text="#{paidAppReason}"></label>
 				<textarea row="10" cols="60" th:field="*{paidAppReason}" th:errorclass="is-invalid"></textarea>
 				<div class="invalid-feedback" th:errors="*{paidAppReason}"></div>
 			</div>
-			
+
 			<!--申請ボタン-->
 			<input type="submit" th:value="#{request}" class="btn btn-primary w-100 mt-3" />
 		</form>
-	</span>
+	</div>
 </body>
 
 </html>

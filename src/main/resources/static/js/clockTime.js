@@ -1,21 +1,30 @@
-setInterval('clock()', 500); //0.5秒毎にclock()を実行
+document.addEventListener("DOMContentLoaded", function() {
+  function clock() {
+    var viewClockElement = document.getElementById("view_clock");
+    if (viewClockElement) {
+      viewClockElement.innerHTML = getNow();
+    }
 
-function clock() {
-	document.getElementById("view_clock").innerHTML = getNow();
-}
+    var realtimeClockElement = document.getElementById("RealtimeClock");
+    var realtimeDayElement = document.getElementById("RealtimeDay");
+    if (realtimeClockElement && realtimeDayElement) {
+      var now = new Date();
+      var year = now.getFullYear();
+      var mon = now.getMonth() + 1;
+      var day = now.getDate();
+      var hour = now.getHours();
+      var min = now.getMinutes();
+      var sec = now.getSeconds();
 
-function getNow() {
-	var now = new Date();
-	var year = now.getFullYear();
-	var mon = now.getMonth() + 1;
-	var day = now.getDate();
-	var hour = now.getHours();
-	var min = now.getMinutes();
-	var sec = now.getSeconds();
+      // 出力用
+      var s = year + "年" + mon + "月" + day + "日";
+      var d = hour + "時" + min + "分" + sec + "秒";
 
-	//出力用
-	var s = year + "年" + mon + "月" + day + "日";
-	document.getElementById("RealtimeClock").innerHTML = s;
-	var d = hour + "時" + min + "分" + sec + "秒";
-	document.getElementById("RealtimeDay").innerHTML = d;
-}
+      realtimeClockElement.innerHTML = s;
+      realtimeDayElement.innerHTML = d;
+    }
+  }
+
+  // 0.5秒毎にclock()を実行
+  setInterval(clock, 500);
+});

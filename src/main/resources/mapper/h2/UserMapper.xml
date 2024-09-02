@@ -293,7 +293,4 @@ GROUP BY DATE_FORMAT(work_date, '%Y-%m')
   from m_paid 
   where login_id = #{loginId}
 </select>
-
-
-
  </mapper>

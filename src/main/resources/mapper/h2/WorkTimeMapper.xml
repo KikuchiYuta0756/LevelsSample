@@ -30,8 +30,7 @@
 <!--出勤時間の登録-->
 <update id="insertStartTime">
 update m_worktime 
-set start_time = #{startTime},
-    rest_time = '01:00:00' 
+set start_time = #{startTime} 
 where login_id = #{loginId} 
 AND work_date = #{workDate}
 </update>

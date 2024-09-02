@@ -1,3 +1,11 @@
+/* テーブルを中央に配置するための親要素 */
+/*.table-container {
+    display: flex;
+    justify-content: center;  水平方向の中央揃え 
+    align-items: center;  垂直方向の中央揃え 
+    height: 100vh;  ビューポートの高さ全体を使用 
+}*/
+
 /* ベースのテーブルスタイル */
 .table {
     width: 70%;
@@ -14,15 +22,8 @@
     border: 1px solid #dee2e6;
 }
 
-.thead-light {
-  position: sticky;
-  top: 0;
-  z-index: 1000; /* ヘッダーをテーブル行より前面に表示するためにz-indexを高く設定 */
-  background-color: #f8f9fa; /* 背景色を指定して、スクロール時の透明部分を防ぐ */
-}
-
 /* ヘッダーのスタイル */
-.thead-light th {	
+.thead-light th {
     background-color: #f8f9fa;
     color: #495057;
     text-align: left;

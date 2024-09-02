@@ -1,0 +1,28 @@
+/* テーブル全体の幅を指定 */
+.table {
+    width: 60%; 
+}
+
+/* 特定の列の幅を指定 */
+.table th {
+	width: 20%; 
+}
+
+.table td {
+    width: 40%; 
+}
+
+/* custom-table用のCSS */
+/* テーブル全体の幅を指定 */
+.custom-table {
+    width: 60% !important; 
+}
+
+/* 特定の列の幅を指定 */
+.custom-table th {
+    width: 20% !important; 
+}
+
+.custom-table td {
+    width: 40% !important; 
+}

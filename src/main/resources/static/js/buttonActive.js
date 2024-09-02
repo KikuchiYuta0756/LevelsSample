@@ -1,4 +1,6 @@
-/*    // HTMLから値を取得
+ document.addEventListener("DOMContentLoaded", function() {
+ 
+    // HTMLから値を取得
     var workFlgAttendanceValue = document.getElementById("workFlg").value;
 
     // 出勤ボタン　値が10ならボタンを活性化、値が20なら非活性化
@@ -17,4 +19,4 @@
     } else if (workFlgLeavingValue === "10") {
         document.getElementById("leavingButton").disabled = true;
     }
-*/
+});

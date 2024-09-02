@@ -49,9 +49,6 @@
             background-color: #f1f1f1; /* ヘッダーの背景色 */
             z-index: 1; /* ヘッダーを前面に表示 */
         }
-        .thead-light th {
-            background-color: #f8f9fa; /* カスタム背景色 */
-        }
     </style>
 
 </head>
@@ -166,6 +163,9 @@
 			</div>
 			　　　
 		</div>
+		<!-- JavaScript読み込み -->
+		<script th:src="@{/js/clockList.js}"></script>
+		
 		<script>
 			document.getElementById('csvForm').addEventListener('submit', function (event) {
 				event.preventDefault();

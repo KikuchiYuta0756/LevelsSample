@@ -4,27 +4,15 @@
 
 <head>
     <title>有給申請詳細</title>
-    <!--CSS読込-->
-    <link rel="stylesheet" th:href="@{/css/admin/list.css}">
-    <!--bootstrapの情報-->
+    <!--CSS読込-->    
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/admin/tableStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/paidRequestDetail.css}">
+    <!--bootstrapの情報-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        function setFormAction(action) {
-            document.getElementById('modalSubmitButton').onclick = function() {
-                var form = document.getElementById('user-detail-form');
-                if(action === 'remand') {
-                    form.action = '/admin/paidRequestDetail?remand';
-                } else if(action === 'remove') {
-                    form.action = '/admin/paidRequestDetail?remove';
-                }
-                form.submit();
-            };
-        }
-    </script>
+    <script th:src="@{/js/modalReturnSetting.js}"></script>
 </head>
 
 <body>
@@ -38,7 +26,7 @@
             <input type="hidden" th:field="*{paidLoginId}" />
             <input type="hidden" th:field="*{paidRequestDateApp}" />
             <!--ユーザー詳細情報-->
-            <table class="table table-striped table-bordered table-hover">
+            <table id="custom-table">
                 <tbody>
                     <tr>
                         <th>有給申請ID</th>
@@ -65,11 +53,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>有給申請理由</th>
+                        <th>申請理由</th>
                         <td>
-                            <div th:text="*{paidAppReason}" />
+                            <div th:if="*{paidAppReason != null}" th:text="*{paidAppReason}" ></div>
                         </td>
                     </tr>
+					<!-- 却下理由を表示 -->
+					<tr th:if="*{rejectReason != null}">
+						<th>差し戻し理由</th>
+						<td th:text="*{rejectReason}"></td>
+					</tr>
                 </tbody>
             </table>
             <!--モーダル情報設定-->
@@ -115,6 +108,7 @@
                     <button class="btn btn-primary" type="button" data-toggle="modal"
                         data-target="#exampleModal" onclick="setFormAction('remove')">却下</button>
                 </div>
+            </div>
         </form>
     </div>
 </body>

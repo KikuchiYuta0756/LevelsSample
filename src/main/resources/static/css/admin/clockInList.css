@@ -14,16 +14,8 @@
     border: 1px solid #dee2e6;
 }
 
-.thead-light {
-  position: sticky;
-  top: 0;
-  z-index: 1000; /* ヘッダーをテーブル行より前面に表示するためにz-indexを高く設定 */
-  background-color: #f8f9fa; /* 背景色を指定して、スクロール時の透明部分を防ぐ */
-}
-
 /* ヘッダーのスタイル */
-.thead-light th {	
-    background-color: #f8f9fa;
+.thead-light th {
     color: #495057;
     text-align: left;
     padding: 8px;

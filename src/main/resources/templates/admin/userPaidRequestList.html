@@ -11,6 +11,7 @@
 
 <body>
 	<div layout:fragment="content">
+		<!--見出し-->
 		<div class="header border-bottom">
 			<h1 class="h2">有給申請一覧</h1>
 		</div>
@@ -21,7 +22,6 @@
 				<div class="form-group mx-sm-3">
 					<label for="status" class="mr-2">申請ステータス</label>
 					<select class="form-control" th:field="*{requestStaId}">
-						<option value="0">申請ステータスを選択</option>
 						<option th:each="status : ${requestStatesList}" th:value="${status.requestStaId}"
 							th:text="${status.requestStaName}">
 						</option>

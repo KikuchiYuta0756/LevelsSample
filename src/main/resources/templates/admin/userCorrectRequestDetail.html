@@ -5,7 +5,7 @@
 <head>
 	<title>修正申請詳細</title>
 	<!--CSS読込-->
-	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/tableStyle.css}">
 </head>
 
 <body>
@@ -28,48 +28,53 @@
 					<tr>
 						<th>ログインID</th>
 						<td>
-							<div　th:if="*{correctLoginId != null}" th:text="*{correctLoginId}" />
+							<div　th:if="*{correctLoginId !=null}" th:text="*{correctLoginId}" />
 						</td>
 					</tr>
 					<tr>
 						<th>ユーザ名</th>
 						<td>
-							<div　th:if="*{correctUserName != null}" th:text="*{correctUserName}" />
+							<div　th:if="*{correctUserName !=null}" th:text="*{correctUserName}" />
 						</td>
 					</tr>
 					<tr>
 						<th>変更日</th>
 						<td>
 							<div th:if="*{requestStaId != 20}" th:text="*{#dates.format(correctDate,'YYYY/MM/dd')}" />
-							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctDate}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control"
+								th:field="*{correctDate}" />
 						</td>
 					</tr>
 					<tr>
 						<th>開始時間</th>
 						<td>
 							<div th:if="*{requestStaId != 20}" th:text="*{correctStartTime}" />
-							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctStartTime}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control"
+								th:field="*{correctStartTime}" />
 						</td>
 					</tr>
 					<tr>
 						<th>終了時間</th>
 						<td>
 							<div th:if="*{requestStaId != 20}" th:text="*{correctCloseTime}" />
-							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctCloseTime}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control"
+								th:field="*{correctCloseTime}" />
 						</td>
 					</tr>
 					<tr>
 						<th>休憩時間</th>
 						<td>
 							<div th:if="*{requestStaId != 20}" th:text="*{correctRestTime}" />
-							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctRestTime}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control"
+								th:field="*{correctRestTime}" />
 						</td>
 					</tr>
 					<tr>
 						<th>修正申請理由</th>
 						<td>
 							<div th:if="*{requestStaId != 20}" th:text="*{correctReason}" />
-							<input th:if="*{requestStaId == 20}" type="text" class="form-control" th:field="*{correctReason}" />
+							<input th:if="*{requestStaId == 20}" type="text" class="form-control"
+								th:field="*{correctReason}" />
 						</td>
 					</tr>
 					<!-- 却下理由を表示 -->
@@ -81,17 +86,18 @@
 			</table>
 			<!--ボタンエリア-->
 			<div class="text-center">
-			  <div th:if="*{requestStaId == 10}">
-				<!--却下ボタン-->
-				<button class="btn btn-primary" type="submit" name="remove">取り消し</button>
-			</div>
-			  <div th:if="*{requestStaId == 20}">
-		　　　　　  <!--承認ボタン-->
-				<button class="btn btn-danger" type="submit" name="submission">再申請</button>
-				<!--却下ボタン-->
-				<button class="btn btn-primary" type="submit" name="remove">取り消し</button>
-			</div>			
+				<div th:if="*{requestStaId == 10}">
+					<!--却下ボタン-->
+					<button class="btn btn-primary" type="submit" name="remove">取り消し</button>
+				</div>
+				<div th:if="*{requestStaId == 20}">
+					<!--承認ボタン-->
+					<button class="btn btn-danger" type="submit" name="submission">再申請</button>
+					<!--却下ボタン-->
+					<button class="btn btn-primary" type="submit" name="remove">取り消し</button>
+				</div>
 		</form>
 	</div>
 </body>
+
 </html>
