@@ -16,12 +16,11 @@ public class LoginController {
 		return "login/login";
 	}
 	
-	/**ユーザー一覧画面にリダイレクト*/
+	/**TopPageControllerにレスポンス*/
     @PostMapping("/login")
     public String postLogin(){
 
     	return "redirect:/common/division";
-
     }    
     
 	// 認証エラーが発生した場合の処理

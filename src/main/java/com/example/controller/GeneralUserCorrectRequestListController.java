@@ -13,18 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domainUser.model.PaidAppEntity;
+import com.example.domainUser.model.CorrectRequestEntity;
 import com.example.domainUser.model.RequestStatesEntity;
 import com.example.domainUser.service.CorrectRequestService;
-import com.example.domainUser.service.PaidAppService;
-import com.example.form.PaidRequestListForm;
+import com.example.form.CorrectListForm;
 
 @Controller
-@RequestMapping("/admin")
-public class UserPaidRequestListController {
-
-	@Autowired
-	private PaidAppService paidappservice;
+@RequestMapping("/user")
+public class GeneralUserCorrectRequestListController {
 	
 	@Autowired
 	private CorrectRequestService correctrequestservice;
@@ -32,52 +28,52 @@ public class UserPaidRequestListController {
 	@Autowired
 	private ModelMapper modelMapper;	
 
-	/** 有給一覧初期表示画面(ユーザー)を表示 */
-	@GetMapping("/userPaidRequestList")
-	public String getUserPaidRequestListADM(@ModelAttribute PaidRequestListForm form, Model model) {
+	/** 修正申請一覧初期表示画面(ユーザー)を表示 */
+	@GetMapping("/generalUserCorrectRequestList")
+	public String getUserCorrectRequestListADM(@ModelAttribute CorrectListForm form, Model model) {
 
 		// ログイン認証に使用したログインIDを利用する。
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String paidLoginId = auth.getName();		
+		String correctLoginId = auth.getName();		
 		
 		// 申請ステータスリストを取得
 		List<RequestStatesEntity> requestStatesList = correctrequestservice.getAllRequestStates();
 		model.addAttribute("requestStatesList", requestStatesList);	
 		
 		//formをPaidAppEntityクラスに変換
-		PaidAppEntity paid = modelMapper.map(form, PaidAppEntity.class);
-		paid.setPaidLoginId(paidLoginId);
+		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
+		correct.setCorrectLoginId(correctLoginId);
 				
 		// 有給申請一覧取得
-		List<PaidAppEntity> userPaidList = paidappservice.getUserPaidRequests(paid);
-		model.addAttribute("userPaidList", userPaidList);
+		List<CorrectRequestEntity> userCorrectList = correctrequestservice.getUserCorrectRequests(correct);
+		model.addAttribute("userCorrectList", userCorrectList);
 
 		// ユーザー一覧画面を表示
-		return "admin/userPaidRequestList";
+		return "user/generalUserCorrectRequestList";
 	}
 	
-	/** 有給申請の検索処理 */
-	@PostMapping("/userPaidRequestList")
-	public String postUserPaidRequestListADM(@ModelAttribute PaidRequestListForm form,  Model model) {
+	/** 修正申請の検索処理 */
+	@PostMapping("/generalUserCorrectRequestList")
+	public String postUserCorrectRequestListADM(@ModelAttribute CorrectListForm form,  Model model) {
 		
 		// ログイン認証に使用したログインIDを利用する。
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String paidLoginId = auth.getName();				
+		String correctLoginId = auth.getName();				
 		
 		// 申請ステータスリストを取得
 		List<RequestStatesEntity> requestStatesList = correctrequestservice.getAllRequestStates();
 		model.addAttribute("requestStatesList", requestStatesList);
 				
 		//formをPaidAppEntityクラスに変換
-		PaidAppEntity paid = modelMapper.map(form, PaidAppEntity.class);
-		paid.setPaidLoginId(paidLoginId);
+		CorrectRequestEntity correct = modelMapper.map(form, CorrectRequestEntity.class);
+		correct.setCorrectLoginId(correctLoginId);
 		
 		// 有給申請一覧取得
-		List<PaidAppEntity> userPaidList = paidappservice.selectUserPaidRequests(paid);
-		model.addAttribute("userPaidList", userPaidList);
+		List<CorrectRequestEntity> userCorrectList = correctrequestservice.selectUserCorrectRequests(correct);
+		model.addAttribute("userCorrectList", userCorrectList);
 
 		// ユーザー一覧画面を表示
-		return "admin/userPaidRequestList";
+		return "user/generalUserCorrectRequestList";
 	}
 		
 }

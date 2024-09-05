@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,9 +32,6 @@ public class CorrectClockInListController {
 	@Autowired
 	private UserService userService;	
 
-	@Autowired
-	private ModelMapper modelMapper;
-
 	// 勤怠一覧（月次）の表示（ユーザ毎）
 	@GetMapping("/correctClockInList/{loginId}")
 	public String getCorrectBeforeClockInList(CorrectWorkTimeForm form, Model model,
@@ -51,13 +51,20 @@ public class CorrectClockInListController {
 		//Modelに登録
 		model.addAttribute("clockList", clockList);
 		
-		
-		//年月リストを作成
-		List<String> yearMonths = Arrays.asList(
-				"2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12");
-		
-		//Modelに追加
-		model.addAttribute("yearMonths", yearMonths);
+		//年月リスト作成のため、現在の年月日情報を取得
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+
+		// 今月
+		String currentMonth = now.format(formatter);
+		// 先月
+		String previousMonth = now.minusMonths(1).format(formatter);
+
+        // 勤怠確認用の年月リスト作成
+        List<String> yearMonths = new ArrayList<>();
+        yearMonths.add(currentMonth);
+        yearMonths.add(previousMonth);
+        model.addAttribute("yearMonths", yearMonths);
 		
 		    return "admin/correctClockInList";
 }
@@ -79,17 +86,24 @@ public class CorrectClockInListController {
 		
 		//選択された年月の勤怠一覧を表示する
 		List<WorkTimeEntity> clockList =worktimeService.getSelectYearMonth(loginId, selectedYearMonth);
-
 		//Modelに登録
 		model.addAttribute("clockList", clockList);
 
-		//年月リストを作成
-		List<String> yearMonths = Arrays.asList(
-				"2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12");
-		
-		//Modelに追加
-		model.addAttribute("yearMonths", yearMonths);	
+		//年月リスト作成のため、現在の年月日情報を取得
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
 
+		// 今月
+		String currentMonth = now.format(formatter);
+		// 先月
+		String previousMonth = now.minusMonths(1).format(formatter);
+
+        // 勤怠確認用の年月リスト作成
+        List<String> yearMonths = new ArrayList<>();
+        yearMonths.add(currentMonth);
+        yearMonths.add(previousMonth);
+        model.addAttribute("yearMonths", yearMonths);
+	
 	
 		return "admin/correctClockInList";
 }

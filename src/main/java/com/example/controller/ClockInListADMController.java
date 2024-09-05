@@ -86,15 +86,13 @@ import com.opencsv.CSVWriter;
 	        csvyearMonths.add(previousMonth);
             model.addAttribute("csvYearMonths", csvyearMonths);
             
-	        // csv出力用の年月リスト作成
+	        // 勤怠確認用の年月リスト作成
 	        List<String> yearMonths = new ArrayList<>();
 	        yearMonths.add(currentMonth);
 	        yearMonths.add(previousMonth);
 	        yearMonths.add(nextMonth);
 	        yearMonths.add(monthAfterNext);
 	        model.addAttribute("yearMonths", yearMonths);
-
-	        
 
 		return "admin/clockInListADM";
 		}
@@ -127,12 +125,32 @@ import com.opencsv.CSVWriter;
 			model.addAttribute("clockList", clockList);
 			model.addAttribute("workTimeTotalForm", form);
 			
-			//年月リストを作成
-			List<String> yearMonths = Arrays.asList(
-					"2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12");
-			
-			//Modelに追加
-			model.addAttribute("yearMonths", yearMonths);
+	        LocalDate now = LocalDate.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+
+	        // 今月
+	        String currentMonth = now.format(formatter);
+	        // 先月
+	        String previousMonth = now.minusMonths(1).format(formatter);
+	        // 来月
+	        String nextMonth = now.plusMonths(1).format(formatter);
+	        // 再来月
+	        String monthAfterNext = now.plusMonths(2).format(formatter);
+
+	        // csv出力用の年月リスト作成
+	        List<String> csvyearMonths = new ArrayList<>();
+	        csvyearMonths.add(currentMonth);
+	        csvyearMonths.add(previousMonth);
+            model.addAttribute("csvYearMonths", csvyearMonths);
+            
+	        // 勤怠確認用の年月リスト作成
+	        List<String> yearMonths = new ArrayList<>();
+	        yearMonths.add(currentMonth);
+	        yearMonths.add(previousMonth);
+	        yearMonths.add(nextMonth);
+	        yearMonths.add(monthAfterNext);
+	        model.addAttribute("yearMonths", yearMonths);
+
 			
 		return "admin/clockInListADM";
 		}

@@ -8,14 +8,11 @@
 	<title　th:text="#{clockCorrection}"></title>
 	<!--CSS読込-->	
 	<link rel="stylesheet" th:href="@{/css/admin/create.css}">
-	<!--JS読込-->
-	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-	<script th:src="@{/webjars/bootstrap/bootstrap.min.js}" defer></script>
 </head>
 <body>
 	<span layout:fragment="content">
 		<div class="header border-bottom"></div>
-		<form id="create-form" method="post" th:action="@{/user/correctRequest}"
+		<form id="create-form" method="post" th:action="@{/admin/correctRequestADM}"
 		 class="form-create" th:object="${correctRequestForm}">
 		 <h1 class="2" th:text="#{clockCorrection}"></h1>
 			<!--申請日付-->
@@ -24,9 +21,9 @@
 				<input type ="text" class ="form-control" placeholder ="yyyy/MM/dd"　th:field="*{correctDate}"　th:errorclass="is-invalid" />
                 <div class="invalid-feedback" th:errors="*{correctDate}"></div>
 			</div>
-			
+						
 			<!--出勤時間-->
-			<div class="form-group">
+			<div class="form-group">	
 				<label for="correctStartTime" th:text="#{correctStartTime}"></label>
 				<input type ="text" class ="form-control" placeholder ="HH:MM"　th:field="*{correctStartTime}" th:errorclass="is-invalid"/>
 			    <div class="invalid-feedback" th:errors="*{correctStartTime}"></div>

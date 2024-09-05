@@ -6,58 +6,41 @@
 <head>
 	<meta charset="UTF-8">
 	</meta>
-	<title　th:text="#{AttendanceEngraving}"></title>
+	<title th:text="#{AttendanceEngraving}"></title>
 	<!--個別CSS読込-->
 	<link rel="stylesheet" th:href="@{/css/user/clockIn.css}" />
+	<link rel="stylesheet" th:href="@{/css/admin/clockTime.css}" />
+	<link rel="stylesheet" th:href="@{/css/admin/clockInButton.css}" />
 	<!--JSで現在日時の取得-->
 	<script th:src="@{/js/clockTime.js}"></script>
 	<script th:src="@{/js/attendanceAlert.js}"></script>
+	<script th:src="@{/js/buttonActive.js}"></script>
 </head>
+
 <body>
 	<span layout:fragment="content">
 		<div class="header border-bottom">
 			<h1 th:text="#{AttendanceEngraving}" class="h2"></h1>
 		</div>
-	
-	<div class="form-clockIn">
+
+		<div class="form-clockIn">
 			<span id="RealtimeClock"></span>
 			</br>
 			<span id="RealtimeDay"></span>
 			</br>
-	<!--出勤、退勤ボタン-->
-	<form id="clockIn-form" method="post" th:action="@{/user/clockIn}" th:object="${userWorkFlg}">
-		<input type="hidden" th:field="*{workFlg}" />		
-		<div class="text-cenbtnClickter">
-			<!--出勤ボタン-->
-			<button  id="attendanceButton" class="btn btn-danger" type="submit" name="attendance">出勤</button>
-			<!--退勤ボタン-->
-			<button  id="leavingButton" class="btn btn-primary" type="submit" name="leaving" >退勤</button>
+			<!--出勤、退勤ボタン-->
+			<form id="clockIn-form" method="post" th:action="@{/admin/clockInADM}" th:object="${userWorkFlg}">
+				<input type="hidden" th:field="*{workFlg}" id="workFlg" />
+				<div class="text-cenbtnClickter">
+					<!--出勤ボタン-->
+					<button id="attendanceButton" class="btn btn-danger" type="submit" name="attendance">出勤</button>
+					<!--退勤ボタン-->
+					<button id="leavingButton" class="btn btn-primary" type="submit" name="leaving">退勤</button>
+				</div>
+			</form>
 		</div>
-	</div>
-	</form>
-	<script>
-    // HTMLから値を取得
-    var workFlgAttendanceValue = document.getElementById("workFlg").value;
-
-    // 出勤ボタン　値が10ならボタンを活性化、値が20なら非活性化
-    if (workFlgAttendanceValue === "10") {
-        document.getElementById("attendanceButton").disabled = false;
-    } else if (workFlgAttendanceValue === "20") {
-        document.getElementById("attendanceButton").disabled = true;
-    }
-    
-    // HTMLから値を取得
-    var workFlgLeavingValue = document.getElementById("workFlg").value;
-
-   // 退勤ボタン　値が20ならボタンを活性化、値が10なら非活性化
-    if (workFlgLeavingValue === "20") {
-        document.getElementById("leavingButton").disabled = false;
-    } else if (workFlgLeavingValue === "10") {
-        document.getElementById("leavingButton").disabled = true;
-    }
-	</script>
 	</span>
-	
+
 </body>
 
 </html>

@@ -20,8 +20,8 @@ import com.example.domainUser.service.PaidAppService;
 import com.example.form.PaidRequestListForm;
 
 @Controller
-@RequestMapping("/admin")
-public class UserPaidRequestListController {
+@RequestMapping("/user")
+public class GeneralUserPaidRequestListController {
 
 	@Autowired
 	private PaidAppService paidappservice;
@@ -33,7 +33,7 @@ public class UserPaidRequestListController {
 	private ModelMapper modelMapper;	
 
 	/** 有給一覧初期表示画面(ユーザー)を表示 */
-	@GetMapping("/userPaidRequestList")
+	@GetMapping("/generalUserPaidRequestList")
 	public String getUserPaidRequestListADM(@ModelAttribute PaidRequestListForm form, Model model) {
 
 		// ログイン認証に使用したログインIDを利用する。
@@ -52,12 +52,12 @@ public class UserPaidRequestListController {
 		List<PaidAppEntity> userPaidList = paidappservice.getUserPaidRequests(paid);
 		model.addAttribute("userPaidList", userPaidList);
 
-		// ユーザー一覧画面を表示
-		return "admin/userPaidRequestList";
+		// 有給一覧初期表示画面(ユーザー)を表示
+		return "user/generalUserPaidRequestList";
 	}
 	
 	/** 有給申請の検索処理 */
-	@PostMapping("/userPaidRequestList")
+	@PostMapping("/generalUserPaidRequestList")
 	public String postUserPaidRequestListADM(@ModelAttribute PaidRequestListForm form,  Model model) {
 		
 		// ログイン認証に使用したログインIDを利用する。
@@ -76,8 +76,8 @@ public class UserPaidRequestListController {
 		List<PaidAppEntity> userPaidList = paidappservice.selectUserPaidRequests(paid);
 		model.addAttribute("userPaidList", userPaidList);
 
-		// ユーザー一覧画面を表示
-		return "admin/userPaidRequestList";
+		// 有給一覧初期表示画面(ユーザー)を表示
+		return "user/generalUserPaidRequestList";
 	}
 		
 }

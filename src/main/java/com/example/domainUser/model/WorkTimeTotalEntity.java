@@ -1,9 +1,6 @@
 package com.example.domainUser.model;
 
-import java.sql.Time;
 import java.time.LocalTime;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 

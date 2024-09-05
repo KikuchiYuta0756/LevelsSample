@@ -70,9 +70,9 @@
 
 /* スクロール可能なテーブル */
 .scrollable-table {
-	display: flex;
+	display: block;
     justify-content: center; /* 水平方向の中央揃え */
     align-items: center; /* 垂直方向の中央揃え */
-    height: 300px; /* 固定したい高さを設定 */
+    height: 500px; /* 固定したい高さを設定 */
     overflow-y: auto;
 }

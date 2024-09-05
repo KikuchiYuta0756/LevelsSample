@@ -6,51 +6,7 @@
 	<title>勤怠一覧</title>
 	<!--CSS読込-->
 	<link rel="stylesheet" th:href="@{/css/user/clockList.css}">
-	<style>
-		.popup {
-			display: none;
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background-color: #fff;
-			padding: 20px;
-			border: 1px solid #ccc;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		}
-
-		.overlay {
-			display: none;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-	</style>
-    <style>
-        .table-wrapper {
-            max-height: 400px; /* 必要に応じて高さを調整 */
-            overflow-y: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            position: sticky;
-            top: 0;
-            background-color: #f1f1f1; /* ヘッダーの背景色 */
-            z-index: 1; /* ヘッダーを前面に表示 */
-        }
-    </style>
-
+	<link rel="stylesheet" th:href="@{/css/admin/clockInList.css}">	
 </head>
 
 <body>
@@ -113,27 +69,8 @@
 					<button id="closeButton">完了</button>
 				</div>
 			</form>
-			<script>
-				document.getElementById("popupButton").addEventListener("click", function (event) {
-					event.preventDefault(); //フォームのデフォルトの送信防止
-
-					document.getElementById("overlay").style.display = "block";
-					document.getElementById("popup").style.display = "block";
-
-					setTimeout(function () {
-						document.getElementById("overlay").style.display = "none";
-						document.getElementById("popup").style.display = "none";
-					}, 2000); //2秒後にポップアップを自動的に閉じる
-				});
-
-				document.getElementById("closeButton").addEventListener("click", function () {
-					document.getElementById("overlay").style.display = "none";
-					document.getElementById("popup"), style.display = "none";
-				});
-			</script>
-
 			<!--月次勤怠情報-->
-			<div>
+			<div class="scrollable-table">
 				<table class="table">	
 					<thead class="thead-light">
 						<tr>
@@ -165,17 +102,6 @@
 		</div>
 		<!-- JavaScript読み込み -->
 		<script th:src="@{/js/clockList.js}"></script>
-		
-		<script>
-			document.getElementById('csvForm').addEventListener('submit', function (event) {
-				event.preventDefault();
-				var data = document.getElementById('clockListDate').value;
-				generateCSV(data);
-			});
-
-			function generateCSV(data) {
-				// Ajaxやサーブレットを使ってサーバーにデータを送信し、CSVファイルを生成する処理を記述
-			}
-		</script>
-</body>
+		<script th:src="@{/js/csvOutput.js}"></script>		
+		</body>
 </html>

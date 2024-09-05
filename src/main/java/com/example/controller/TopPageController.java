@@ -18,7 +18,7 @@ public class TopPageController {
 	@Autowired
 	private UserService userService;
 	
-	/**トップページを表示*/
+	/**ログインユーザの権限による画面遷移の分岐*/
 	@GetMapping("/division")
 	public String getDivisionLogin(UserDetailForm form, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

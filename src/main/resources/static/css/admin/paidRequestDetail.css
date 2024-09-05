@@ -1,9 +1,9 @@
 /* テーブル全体のスタイル */
 #custom-table {
-    width: 100%;
-    margin-bottom: 1rem;
+    width: 60% !important;
+    margin-bottom: 1rem !important;;
     color: #212529;
-    border-collapse: collapse;
+    border-collapse: collapse !important;;
 }
 
 /* ストライプ効果 */

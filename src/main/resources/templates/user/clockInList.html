@@ -6,30 +6,7 @@
 	<title>勤怠一覧</title>
 	<!--CSS読込-->
 	<link rel="stylesheet" th:href="@{/css/user/clockList.css}">
-	<style>
-		.popup {
-			display: none;
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background-color: #fff;
-			padding: 20px;
-			border: 1px solid #ccc;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		}
-
-		.overlay {
-			display: none;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-	</style>
-
+	<link rel="stylesheet" th:href="@{/css/admin/clockInList.css}">	
 </head>
 
 <body>
@@ -37,7 +14,7 @@
 		<div class="header border-bottom">
 			<span class="h2">月次勤怠一覧</span>
 			<!--年月選択フォーム-->
-			<form id="select-year-month" method="post" th:action="@{/user/selectYearMonths}">
+			<form id="select-year-month" method="post" th:action="@{/admin/selectYearMonths}">
 				<label for="yearMonth">年月選択</label>
 				<select name="selectYearMonth" id="yearMonth">
 					<option th:each="yearMonth : ${yearMonths}" th:value="${yearMonth}" th:text="${yearMonth}">
@@ -75,13 +52,13 @@
 				</table>
 			</form>
 			<div　class="link-containerOne">
-				<a class="nav-link" th:href="@{'/user/paidRequest'}">有給申請</a>
-				<a class="nav-link" th:href="@{'/user/correctRequest'}">修正申請</a>
+				<a class="nav-link" th:href="@{'/admin/paidRequestADM'}">有給申請</a>
+				<a class="nav-link" th:href="@{'/admin/correctRequestADM'}">修正申請</a>
 			</div>
 			<!--CSV出力フォーム-->
-			<form id="select-year-month" method="post" th:action="@{/user/csvOutput}" class="select-year-month">
+			<form id="select-year-month" method="post" th:action="@{/admin/csvOutput}" class="select-year-month">
 				<select name="selectYearMonth" id="yearMonth">
-					<option th:each="yearMonth : ${yearMonths}" th:value="${yearMonth}" th:text="${yearMonth}">
+					<option th:each="yearMonth : ${csvYearMonths}" th:value="${yearMonth}" th:text="${yearMonth}">
 					</option>
 				</select>
 				<button id="popupButton" type="submit" class="btn btn-success">CSV出力</button>
@@ -92,28 +69,9 @@
 					<button id="closeButton">完了</button>
 				</div>
 			</form>
-			<script>
-				document.getElementById("popupButton").addEventListener("click", function (event) {
-					event.preventDefault(); //フォームのデフォルトの送信防止
-
-					document.getElementById("overlay").style.display = "block";
-					document.getElementById("popup").style.display = "block";
-
-					setTimeout(function () {
-						document.getElementById("overlay").style.display = "none";
-						document.getElementById("popup").style.display = "none";
-					}, 2000); //2秒後にポップアップを自動的に閉じる
-				});
-
-				document.getElementById("closeButton").addEventListener("click", function () {
-					document.getElementById("overlay").style.display = "none";
-					document.getElementById("popup"), style.display = "none";
-				});
-			</script>
-
 			<!--月次勤怠情報-->
-			<div>
-				<table class="table table-striped table-bordered table-hover">
+			<div class="scrollable-table">
+				<table class="table">	
 					<thead class="thead-light">
 						<tr>
 							<th class="th-width">日付</th>
@@ -135,23 +93,15 @@
 							<td th:text="${#temporals.format(items.restTime,'HH:mm')}"></td>
 							<td th:text="${#temporals.format(items.actWorkTime,'HH:mm')}"></td>
 							<td th:text="${#temporals.format(items.overTime,'HH:mm')}"></td>
-							<td></td>
+							<td th:text="${items.remarks}"></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			　　　
 		</div>
-		<script>
-			document.getElementById('csvForm').addEventListener('submit', function (event) {
-				event.preventDefault();
-				var data = document.getElementById('clockListDate').value;
-				generateCSV(data);
-			});
-
-			function generateCSV(data) {
-				// Ajaxやサーブレットを使ってサーバーにデータを送信し、CSVファイルを生成する処理を記述
-			}
-		</script>
-</body>
+		<!-- JavaScript読み込み -->
+		<script th:src="@{/js/clockList.js}"></script>
+		<script th:src="@{/js/csvOutput.js}"></script>		
+		</body>
 </html>
