@@ -47,6 +47,7 @@ public class UserCorrectRequestListController {
 		// 有給申請一覧取得
 		List<CorrectRequestEntity> userCorrectList = correctrequestservice.getUserCorrectRequests(correct);
 		model.addAttribute("userCorrectList", userCorrectList);
+		System.out.println("List size: " + userCorrectList.size());
 
 		// ユーザー一覧画面を表示
 		return "admin/userCorrectRequestList";
@@ -71,6 +72,7 @@ public class UserCorrectRequestListController {
 		// 有給申請一覧取得
 		List<CorrectRequestEntity> userCorrectList = correctrequestservice.selectUserCorrectRequests(correct);
 		model.addAttribute("userCorrectList", userCorrectList);
+		System.out.println("List size: " + userCorrectList.size());
 
 		// ユーザー一覧画面を表示
 		return "admin/userCorrectRequestList";

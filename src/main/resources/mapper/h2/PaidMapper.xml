@@ -124,7 +124,7 @@
 		paid_date_app,
 		paid_app_id,
 		request_sta_id,
-		paid_app_reason
+		paid_app_reason,
 		reject_reason
 		from m_paid_app
 		where paid_app_id = #{paidAppId}

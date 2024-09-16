@@ -5,13 +5,9 @@
 <head>
 	<title>修正申請詳細</title>
 	<!--CSS読込-->
-	<link rel="stylesheet" th:href="@{/css/admin/modal-only.css}">
 	<link rel="stylesheet" th:href="@{/css/admin/correctRequestDetail.css}">
-	<!--bootstrapの情報-->
-	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/js/modalReturnSetting.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/admin/modal-only.css}">
+	<script th:src="@{/js/customModalSetCR.js}"></script>
 </head>
 
 <body>
@@ -84,53 +80,38 @@
 						<th>却下理由</th>
 						<td th:text="*{rejectReason}"></td>
 					</tr>
-
 				</tbody>
 			</table>
-			<!--モーダル情報設定-->
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">コメント</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-
-						<!-- 以下にモーダルの内容を記述します。 -->
-						<div class="modal-body">
-							<div class="form-group">
-								<textarea class="form-control" id="rejectReason" rows="3" th:field="*{rejectReason}"
-									value="コメントを入力してください。"></textarea>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-							<button type="button" class="btn btn-primary" id="modalSubmitButton">送信</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--ボタンエリア-->
-			<div class="text-center">
-				<div th:if="*{requestStaId == 10}">
-					<!--承認ボタン-->
-					<button class="btn btn-danger" type="submit" name="approval">承認</button>
-					<!--差し戻しボタン-->
-					<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal"
-						onclick="setFormAction('remand')">差し戻し</button>
-					<!--却下ボタン-->
-					<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal"
-						onclick="setFormAction('remove')">却下</button>
-				</div>
-				<div th:if="*{requestStaId == 20}">
-					<!--却下ボタン-->
-					<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal"
-						onclick="setFormAction('remove')">却下</button>
-				</div>
-			</div>
+            <!-- カスタムモーダルの実装 -->
+            <div id="customModal" class="custom-modal">
+                <div class="custom-modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h5 class="modal-title">コメント</h5>
+                    <div class="form-group">
+                        <textarea class="form-control" id="rejectReason" rows="3"
+                            th:field="*{rejectReason}" placeholder="コメントを入力してください。"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="modalCloseButton">閉じる</button>
+                        <button type="button" class="btn btn-primary" id="modalSubmitButton">送信</button>
+                    </div>
+                </div>
+            </div>
+            <!-- ボタンエリア -->
+            <div class="text-center">
+                <div th:if="*{requestStaId == 10}">
+                    <!-- 承認ボタン -->
+                    <button class="btn btn-danger" type="submit" name="approval">承認</button>
+                    <!-- 差し戻しボタン -->
+                    <button class="btn btn-primary" type="button" onclick="openModal('remand')">差し戻し</button>
+                    <!-- 却下ボタン -->
+                    <button class="btn btn-primary" type="button" onclick="openModal('remove')">却下</button>
+                </div>
+                <div th:if="*{requestStaId == 20}">
+                    <!-- 却下ボタン -->
+                    <button class="btn btn-primary" type="button" onclick="openModal('remove')">却下</button>
+                </div>
+            </div>
 		</form>
 	</div>
 </body>

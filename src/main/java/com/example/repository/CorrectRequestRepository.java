@@ -16,9 +16,8 @@ public interface CorrectRequestRepository {
 	public int insertOne(CorrectRequestEntity correct);
 
 	
-	//勤怠修正申請一覧取得
+	//勤怠修正申請一覧取得(Admin)
 	public List<CorrectRequestEntity>findMany(CorrectRequestEntity correct);
-	
 	//修正申請取得初期表示（ユーザー）
 	public List<CorrectRequestEntity>getUserCorrectRequest(CorrectRequestEntity correct);
 

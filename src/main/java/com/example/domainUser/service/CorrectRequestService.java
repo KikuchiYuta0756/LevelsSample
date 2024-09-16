@@ -14,6 +14,7 @@ public interface CorrectRequestService {
 	/**勤怠修正申請取得(ADMIN)*/
 	public List<CorrectRequestEntity> getCorrectRequests(CorrectRequestEntity correct);
 
+
 	/**修正申請一覧初期表示取得（ユーザー）*/
 	public List<CorrectRequestEntity> getUserCorrectRequests(CorrectRequestEntity correct);
 

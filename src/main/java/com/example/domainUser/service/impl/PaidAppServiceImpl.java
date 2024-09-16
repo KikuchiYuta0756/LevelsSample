@@ -22,7 +22,8 @@ public class PaidAppServiceImpl implements PaidAppService {
 	}
 	/**有給申請取得(Admin)*/
 	@Override
-	public List<PaidAppEntity> getPaidRequests(PaidAppEntity paid){
+	public List<PaidAppEntity> getPaidRequests(PaidAppEntity paid){	
+		
 		return paidapprepository.findMany(paid);
 	}
 	

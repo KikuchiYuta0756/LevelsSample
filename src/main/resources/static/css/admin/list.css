@@ -21,14 +21,6 @@
   background-color: #f8f9fa; /* 背景色を指定して、スクロール時の透明部分を防ぐ */
 }
 
-/* ヘッダーのスタイル */
-.thead-light th {	
-    background-color: #f8f9fa;
-    color: #495057;
-    text-align: left;
-    padding: 8px;
-}
-
 /* セルのパディング */
 .table th, .table td {
     padding: 8px;
@@ -73,6 +65,6 @@
 	display: block;
     justify-content: center; /* 水平方向の中央揃え */
     align-items: center; /* 垂直方向の中央揃え */
-    height: 500px; /* 固定したい高さを設定 */
+    height: 800px; /* 固定したい高さを設定 */
     overflow-y: auto;
 }

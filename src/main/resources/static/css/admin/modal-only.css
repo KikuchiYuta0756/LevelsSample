@@ -1,59 +1,39 @@
-/* モーダルウィンドウに必要な基本スタイル */
-.modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1050;
-  display: none;
-  overflow: hidden;
-  outline: 0;
-}
+        /* カスタムモーダルのスタイル */
+        .custom-modal {
+        	display: none;
+        	position: fixed;
+        	z-index: 1;
+        	left: 0;
+        	top: 0;
+        	width: 100%;
+        	height: 100%;
+        	background-color: rgba(0, 0, 0, 0.5);
+        }
 
-.modal-dialog {
-  position: relative;
-  width: auto;
-  margin: 0.5rem;
-  pointer-events: none;
-}
+        .custom-modal-content {
+        	background-color: #fff;
+        	margin: 15% auto;
+        	padding: 20px;
+        	border: 1px solid #888;
+        	width: 80%;
+        	max-width: 500px;
+        	border-radius: 8px;
+        	text-align: center;
+        }
 
-.modal-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
-  outline: 0;
-}
+        .close-btn {
+        	color: #aaa;
+        	float: right;
+        	font-size: 28px;
+        	font-weight: bold;
+        }
 
-.modal-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 1rem 1rem;
-  border-bottom: 1px solid #dee2e6;
-  border-top-left-radius: 0.3rem;
-  border-top-right-radius: 0.3rem;
-}
+        .close-btn:hover,
+        .close-btn:focus {
+        	color: #000;
+        	cursor: pointer;
+        }
 
-.modal-title {
-  margin-bottom: 0;
-  line-height: 1.5;
-}
-
-.modal-body {
-  position: relative;
-  flex: 1 1 auto;
-  padding: 1rem;
-}
-
-.modal-footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 1rem;
-  border-top: 1px solid #dee2e6;
-}
+        .modal-footer {
+        	margin-top: 10px;
+        }

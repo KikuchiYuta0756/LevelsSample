@@ -41,6 +41,7 @@ public class CorrectRequestListADMController {
 		List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
 		model.addAttribute("correctList", correctList);
 
+		
 		// 修正申請一覧を表示
 		return "admin/correctRequestList";
 	}
@@ -59,6 +60,7 @@ public class CorrectRequestListADMController {
 		// 修正申請一覧取得
 		List<CorrectRequestEntity> correctList = correctrequestservice.getCorrectRequests(correct);
 		model.addAttribute("correctList", correctList);
+		System.out.println("List size: " + correctList.size());
 
 		// 修正申請一覧を表示
 		return "admin/correctRequestList";

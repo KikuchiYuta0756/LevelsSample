@@ -13,24 +13,22 @@ import lombok.Data;
 
 @Data
 public class PaidRequestForm {
-	
+
 	private String paidLoginId;
 	private String paidUserName;
-	
-	
-	
+
 	@NotNull(groups = ValidGroup1.class)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	@ValidPaidDate (groups = ValidGroup2.class)
+	@ValidPaidDate(groups = ValidGroup2.class)
 	private Date paidRequestDateApp;
-	
+
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date paidDateApp;
-	
+
 	private Integer paidAppId;
 	private Integer requestStaId;
 	private String requestStaName;
-	
+
 	@NotNull(groups = ValidGroup1.class)
 	@Size(min = 1, max = 200, groups = ValidGroup2.class)
 	private String paidAppReason;

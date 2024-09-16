@@ -25,6 +25,8 @@ public class CorrectRequestServiceImpl implements CorrectRequestService {
 	//勤怠修正申請取得(ユーザー)
 	@Override
 	public List<CorrectRequestEntity>getCorrectRequests(CorrectRequestEntity correct){
+        // CorrectRequestEntityの内容をログに出力
+        System.out.println("CorrectRequestEntity: " + correct);
 		return correctrequestrepository.findMany(correct);
 	}
 	
