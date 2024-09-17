@@ -1,235 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
- "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
-  <!--WorkTimeMapperRepositoryとxmlのマッピング-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--WorkTimeMapperRepositoryとxmlのマッピング-->
 <mapper namespace="com.example.repository.WorkTimeMapperRepository">
-	
-<!--マッピング定義（労働時間）-->
-<resultMap type="com.example.domainUser.model.WorkTimeEntity" id="worktime">
-	<id column="work_date" property="workDate" />
-	<result column="dayofweek_id" property="dayofweekId" />
-	<result column="login_id" property="loginId" />
-	<result column="start_time" property="startTime" />
-	<result column="close_time" property="closeTime" />
-	<result column="gen_work_time" property="genWorkTime" />
-	<result column="rest_time" property="restTime" />
-	<result column="act_work_time" property="actWorkTime" />	
-	<result column="over_time" property="overTime" />
-</resultMap>
 
-<!--マッピング定義（月合計労働時間）-->
-<resultMap type="com.example.domainUser.model.WorkTimeTotalEntity" id="worktimetotal">
-	<id column="work_date_month" property="workDateMonth" />
-	<result column="login_id" property="loginId" />
-	<result column="work_date_total" property="workDateTotal" />
-	<result column="act_work_time_total" property="actWorkTimeTotal" />
-	<result column="over_time_total" property="overTimeTotal" />
-</resultMap>
+	<!--マッピング定義（労働時間）-->
+	<resultMap type="com.example.domainUser.model.WorkTimeEntity" id="worktime">
+		<id column="work_date" property="workDate" />
+		<result column="dayofweek_id" property="dayofweekId" />
+		<result column="login_id" property="loginId" />
+		<result column="start_time" property="startTime" />
+		<result column="close_time" property="closeTime" />
+		<result column="gen_work_time" property="genWorkTime" />
+		<result column="rest_time" property="restTime" />
+		<result column="act_work_time" property="actWorkTime" />
+		<result column="over_time" property="overTime" />
+	</resultMap>
 
-<!--出勤時間の登録-->
-<update id="insertStartTime">
-update m_worktime 
-set start_time = #{startTime} 
-where login_id = #{loginId} 
-AND work_date = #{workDate}
-</update>
+	<!--マッピング定義（月合計労働時間）-->
+	<resultMap type="com.example.domainUser.model.WorkTimeTotalEntity"
+		id="worktimetotal">
+		<id column="work_date_month" property="workDateMonth" />
+		<result column="login_id" property="loginId" />
+		<result column="work_date_total" property="workDateTotal" />
+		<result column="act_work_time_total" property="actWorkTimeTotal" />
+		<result column="over_time_total" property="overTimeTotal" />
+	</resultMap>
 
-<!--退勤時間の登録-->
-<update id="insertCloseTime">
-update m_worktime 
-set close_time = #{closeTime},
-    gen_work_time = TIMEDIFF(#{closeTime}, start_time),
+	<!--出勤時間の登録-->
+	<update id="insertStartTime">
+		update m_worktime
+		set start_time = #{startTime}
+		where login_id = #{loginId}
+		AND work_date = #{workDate}
+	</update>
+
+	<!--退勤時間の登録-->
+	<update id="insertCloseTime">	
+    update m_worktime
+    set close_time = #{closeTime},
+    
+    -- close_timeとstart_timeの差分を計算
+    gen_work_time = TIMEDIFF(close_time, start_time),
+    
+    -- 労働基準法に基づいた休憩時間の算出
     rest_time = CASE
-                  WHEN TIMESTAMPDIFF(MINUTE, start_time, #{closeTime}) > 480 THEN '01:00:00'
-                  WHEN TIMESTAMPDIFF(MINUTE, start_time, #{closeTime}) > 360 THEN '00:45:00'
-                  ELSE '00:00:00'
-                END,
-    act_work_time = CASE
-                      WHEN TIMESTAMPDIFF(MINUTE, start_time, #{closeTime}) > 480 THEN
-                        TIMEDIFF(TIMEDIFF(#{closeTime}, start_time), '01:00:00')
-                      WHEN TIMESTAMPDIFF(MINUTE, start_time, #{closeTime}) > 360 THEN
-                        TIMEDIFF(TIMEDIFF(#{closeTime}, start_time), '00:45:00')
-                      ELSE
-                        TIMEDIFF(#{closeTime}, start_time)
-                    END
-where login_id = #{loginId} 
-AND work_date = #{workDate}
-</update>
-<!--残業時間の登録-->
-<update id="insertOverTime">
-update 
-   m_worktime 
-set 
-   over_time =  
-  case 
-    when TIMEDIFF(act_work_time, '08:00:00') > 0  
-    then TIMEDIFF(act_work_time, '08:00:00') 
-    else 0 
-  end 
-where login_id = #{loginId} 
-AND work_date = #{workDate}
-</update>
+        WHEN TIMESTAMPDIFF(MINUTE, start_time, close_time) > 480 THEN '01:00:00'
+        WHEN TIMESTAMPDIFF(MINUTE, start_time, close_time) > 360 THEN '00:45:00'
+        ELSE '00:00:00'
+    END,
 
-<!--月次の勤怠を取得-->
-<select id="findMany" resultType="WorkTimeEntity">
-	select * 
-	from m_worktime 
-	where 
-	login_id = #{loginId} 
-	AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
-</select>
+    -- gen_work_timeからrest_timeを引いた時間を計算してact_work_timeに格納
+    act_work_time = TIMEDIFF(TIMEDIFF(close_time, start_time), rest_time)
+    
+    where login_id = #{loginId}
+    AND work_date = #{workDate}	</update>
+	<!--残業時間の登録-->
+	<update id="insertOverTime">
+		update
+		m_worktime
+		set
+		over_time =
+		case
+		when TIMEDIFF(act_work_time, '08:00:00') > 0
+		then TIMEDIFF(act_work_time, '08:00:00')
+		else 0
+		end
+		where login_id = #{loginId}
+		AND work_date = #{workDate}
+	</update>
 
-<!--月次の勤怠を取得（ユーザー毎）-->
-<select id="findManyOne" resultType="WorkTimeEntity">
-	select * 
-	from m_worktime 
-	where 
-	login_id = #{loginId} 
-	AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
-</select>
+	<!--月次の勤怠を取得-->
+	<select id="findMany" resultType="WorkTimeEntity">
+		select *
+		from m_worktime
+		where
+		login_id = #{loginId}
+		AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
+	</select>
+
+	<!--月次の勤怠を取得（ユーザー毎）-->
+	<select id="findManyOne" resultType="WorkTimeEntity">
+		select *
+		from m_worktime
+		where
+		login_id = #{loginId}
+		AND DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m');
+	</select>
 
 
+	<!--選択された年月の勤怠一覧を取得-->
+	<select id="findSelectYearMonth" resultType="WorkTimeEntity">
+		select *
+		from m_worktime
+		where login_id = #{loginId}
+		AND DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
+	</select>
 
-<!--選択された年月の勤怠一覧を取得-->
-<select id="findSelectYearMonth" resultType="WorkTimeEntity">
-	select * 
-	from m_worktime 
-	where login_id = #{loginId} 
-	AND DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
-</select>
+	<!--来月の月次の勤怠を取得-->
+	<select id="findManyNextMonth" resultType="WorkTimeEntity">
+		select *
+		from m_worktime
+		where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW() + INTERVAL 1
+		MONTH, '%Y-%m');
+	</select>
 
-<!--来月の月次の勤怠を取得-->
-<select id="findManyNextMonth" resultType="WorkTimeEntity">
-	select * 
-	from m_worktime 
-	where DATE_FORMAT(work_date, '%Y-%m') = DATE_FORMAT(NOW() + INTERVAL 1 MONTH, '%Y-%m');
-</select>
+	<!--m_worktime_totalテーブルより月次の合計時間を取得-->
+	<select id="totalWorkTime" resultMap="worktimetotal">
+		select
+		work_date_month
+		,work_date_total
+		,act_work_time_total
+		,over_time_total
+		from m_worktime_total
+		where
+		login_id = #{loginId}
+		AND work_date_month = DATE_FORMAT(NOW(), '%Y-%m');
+	</select>
 
-<!--m_worktime_totalテーブルより月次の合計時間を取得-->
-<select id="totalWorkTime" resultMap="worktimetotal">
-	select 
-	 work_date_month
-	,work_date_total
-	,act_work_time_total
-	,over_time_total 
-	from  m_worktime_total 
-	where 
-	login_id = #{loginId} 
-	AND work_date_month = DATE_FORMAT(NOW(), '%Y-%m');
-</select>
+	<!--選択した月次の合計時間を取得-->
+	<select id="selectTotalWorkTime" resultMap="worktimetotal">
+		select
+		work_date_month
+		,work_date_total
+		,act_work_time_total
+		,over_time_total
+		from m_worktime_total
+		where login_id = #{loginId}
+		AND work_date_month = #{selectedYearMonth};
+	</select>
 
-<!--選択した月次の合計時間を取得-->
-<select id="selectTotalWorkTime" resultMap="worktimetotal">
-	select 
-	 work_date_month
-	,work_date_total
-	,act_work_time_total
-	,over_time_total 
-	from  m_worktime_total 
-	where login_id = #{loginId} 
-	AND work_date_month = #{selectedYearMonth};
-</select>
+	<!--ｍ_worktime_totalのカラム更新（最新化）-->
+	<update id="updateTotalWorkTime">
+		UPDATE m_worktime_total t1
+		SET
+		t1.act_work_time_total = (
+		SELECT sec_to_time(SUM(time_to_sec(act_work_time)))
+		FROM m_worktime t2
+		WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+		AND t2.login_id = t1.login_id
+		),
+		t1.over_time_total = (
+		SELECT sec_to_time(SUM(time_to_sec(over_time)))
+		FROM m_worktime t2
+		WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+		AND t2.login_id = t1.login_id
+		),
+		t1.work_date_total = (
+		SELECT COUNT(start_time)
+		FROM m_worktime t2
+		WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month
+		AND t2.login_id = t1.login_id
+		)
+		where login_id = #{loginId};
+	</update>
 
-<!--ｍ_worktime_totalのカラム更新（最新化）-->
-<update id="updateTotalWorkTime" >
-UPDATE m_worktime_total t1 
-SET 
-t1.act_work_time_total = (
-    SELECT sec_to_time(SUM(time_to_sec(act_work_time))) 
-    FROM m_worktime t2 
-    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month 
-    AND t2.login_id = t1.login_id
-),
-t1.over_time_total = (
-    SELECT sec_to_time(SUM(time_to_sec(over_time))) 
-    FROM m_worktime t2 
-    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month  
-    AND t2.login_id = t1.login_id
-),
-t1.work_date_total = (
-    SELECT COUNT(start_time) 
-    FROM m_worktime t2 
-    WHERE DATE_FORMAT(t2.work_date, '%Y-%m') = t1.work_date_month 
-    AND t2.login_id = t1.login_id
-) 
-where login_id = #{loginId};
-</update>
+	<!--ユーザ毎の勤怠（日次）の検索-->
+	<select id="workTimeOne" resultMap="worktime">
+		select
+		work_date
+		,login_id
+		,start_time
+		,close_time
+		,rest_time
+		from m_worktime
+		where login_id = #{loginId}
+		and work_date = #{workDate}
+	</select>
 
-<!--ユーザ毎の勤怠（日次）の検索-->
-<select id="workTimeOne" resultMap="worktime">
-	select 
-	 work_date
-	,login_id
-	,start_time
-	,close_time
-	,rest_time 
-	from m_worktime 
-	where login_id = #{loginId} 
-	and work_date = #{workDate}
-</select>
+	<!--勤怠（日次）の１件更新-->
+	<update id="updateWorkTimeOne">
+		update m_worktime set
+		start_time =#{startTime},
+		close_time =#{closeTime},
+		rest_time =#{restTime},
+		gen_work_time = TIMEDIFF(close_time, start_time),
+		act_work_time = case
+		when TIMEDIFF(gen_work_time, rest_time) > 0
+		then TIMEDIFF(gen_work_time, rest_time)
+		else 0
+		end,
+		over_time = case
+		when TIMEDIFF(act_work_time, '08:00:00') > 0
+		then TIMEDIFF(act_work_time, '08:00:00')
+		else 0
+		end
+		where
+		login_id = #{loginId}
+		and work_date =#{workDate}
+	</update>
 
-<!--勤怠（日次）の１件更新-->
-<update id="updateWorkTimeOne">
-	update m_worktime set 
-	start_time =#{startTime},
-	close_time =#{closeTime},
-	rest_time =#{restTime},
-	gen_work_time = TIMEDIFF(close_time, start_time),
-	act_work_time = case 
-	     when TIMEDIFF(gen_work_time, rest_time) > 0 
-	     then TIMEDIFF(gen_work_time, rest_time) 
-	     else 0 
-	end, 
-	over_time = case 
-	     when TIMEDIFF(act_work_time, '08:00:00') > 0 
-	     then TIMEDIFF(act_work_time, '08:00:00') 
-	     else 0 
-	end 
-	where 
-	login_id = #{loginId} 
-	and work_date =#{workDate}
-</update>
+	<!--新規ユーザ用の勤怠テーブルの365日作成-->
+	<insert id="insertUserWorkTimeCreate">
+		INSERT INTO m_worktime (work_date, login_id)
+		SELECT date_value, #{loginId}
+		FROM (
+		SELECT DATE('2024-01-01') + INTERVAL (a.a + (10 * b.a) + (100 * c.a))
+		DAY AS date_value
+		FROM (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL
+		SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION
+		ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS a
+		CROSS JOIN (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION
+		ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6
+		UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS b
+		CROSS JOIN (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION
+		ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6
+		UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS c
+		WHERE DATE('2024-01-01') + INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY
+		&lt;= '2024-12-31'
+		) AS dates;
+	</insert>
 
-<!--新規ユーザ用の勤怠テーブルの365日作成-->
-<insert id="insertUserWorkTimeCreate">
-INSERT INTO m_worktime (work_date, login_id) 
-SELECT date_value, #{loginId} 
-FROM (
-    SELECT DATE('2024-01-01') + INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY AS date_value 
-    FROM (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS a 
-    CROSS JOIN (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS b 
-    CROSS JOIN (SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS c 
-    WHERE DATE('2024-01-01') + INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY &lt;= '2024-12-31' 
-) AS dates;
-</insert>
+	<!--ユーザー登録時に勤怠トータルテーブルに12ヵ月ごとの勤怠集計レコードを作成する-->
+	<insert id="insertUserWorkTimeTotalCreate">
+		INSERT INTO m_worktime_total
+		(work_date_month, login_id, work_date_total, act_work_time_total,
+		over_time_total)
+		SELECT
+		DATE_FORMAT(work_date, '%Y-%m'), #{login_id}, COUNT(start_time),
+		SUM(act_work_time), sec_to_time(SUM(time_to_sec(over_time)))
+		FROM m_worktime
+		GROUP BY DATE_FORMAT(work_date, '%Y-%m');
+	</insert>
 
-<!--ユーザー登録時に勤怠トータルテーブルに12ヵ月ごとの勤怠集計レコードを作成する-->
-<insert id="insertUserWorkTimeTotalCreate">
-INSERT INTO m_worktime_total 
-(work_date_month, login_id, work_date_total, act_work_time_total, over_time_total)  
-SELECT 
-DATE_FORMAT(work_date, '%Y-%m'), #{login_id}, COUNT(start_time), SUM(act_work_time), sec_to_time(SUM(time_to_sec(over_time))) 
-FROM m_worktime 
-GROUP BY DATE_FORMAT(work_date, '%Y-%m');
-</insert>
+	<!--対象ユーザの選択した年月の勤怠一覧を取得-->
+	<select id="findSelectCorrectYearMonth" resultType="WorkTimeEntity">
+		select *
+		from m_worktime
+		where login_id = #{loginId}
+		AND DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
+	</select>
 
-<!--対象ユーザの選択した年月の勤怠一覧を取得-->
-<select id="findSelectCorrectYearMonth" resultType="WorkTimeEntity">
-	select * 
-	from m_worktime 
-	where login_id = #{loginId} 
-	AND DATE_FORMAT(work_date, '%Y-%m') = #{selectedYearMonth};
-</select>
-
-<!--m_worktimeテーブルのremarksカラムを更新-->
-<update id="updateWorkTimeRemarks">
-    update m_worktime set
-    remarks = '有給'
-    where 
-    work_date = #{paidRequestDateApp} 
-    and 
-    login_id = #{paidLoginId};
-</update>
+	<!--m_worktimeテーブルのremarksカラムを更新-->
+	<update id="updateWorkTimeRemarks">
+		update m_worktime set
+		remarks = '有給'
+		where
+		work_date = #{paidRequestDateApp}
+		and
+		login_id = #{paidLoginId};
+	</update>
 
 </mapper>

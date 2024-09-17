@@ -42,7 +42,7 @@
 								<span th:text="*{workDateTotal != null ? workDateTotal : '0'}">日</span>
 							</td>
 							<td>
-								<span th:text="*{actWorkTimeTotal != null ? actWorkTimeTotal : '00:00'}"></span>
+								<span th:text="*{#temporals.format(actWorkTimeTotal, 'HH:mm')}"></span>
 							</td>
 							<td>
 								<span th:text="*{overTimeTotal != null ? overTimeTotal : '00:00'}"></span>
@@ -75,7 +75,6 @@
 					<thead class="thead-light">
 						<tr>
 							<th class="th-width">日付</th>
-							<th class="th-width">曜日</th>
 							<th class="th-width">出勤時間</th>
 							<th class="th-width">退勤時間</th>
 							<th class="th-width">休憩時間</th>
@@ -87,9 +86,8 @@
 					　　　　　　<tbody th:if="${clockList != null}">
 						<tr th:each="items:${clockList}" name="clockListDate">
 							<td th:text="${items.workDate}"></td>
-							<td th:text="${items.dayofweekId}"></td>
-							<td th:text="${items.startTime}"></td>
-							<td th:text="${items.closeTime}"></td>
+							<td th:text="${#temporals.format(items.startTime,'HH:mm')}"></td>
+							<td th:text="${#temporals.format(items.closeTime,'HH:mm')}"></td>
 							<td th:text="${#temporals.format(items.restTime,'HH:mm')}"></td>
 							<td th:text="${#temporals.format(items.actWorkTime,'HH:mm')}"></td>
 							<td th:text="${#temporals.format(items.overTime,'HH:mm')}"></td>

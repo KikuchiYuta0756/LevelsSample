@@ -9,8 +9,8 @@ public class WorkTimeEntity {
 	private String workDate;
 	private String loginId;
 	private String dayofweekId;
-	private String startTime;
-	private String closeTime;
+	private LocalTime startTime;
+	private LocalTime closeTime;
 	private LocalTime genWorkTime;
 	private LocalTime restTime;
 	private LocalTime actWorkTime;

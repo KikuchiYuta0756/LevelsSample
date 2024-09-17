@@ -11,9 +11,9 @@ public class WorkTimeForm {
 		private String dayofweekId;
 		private String loginId;
 		@DateTimeFormat(pattern = "hh:mm")
-		private String startTime;
+		private LocalTime startTime;
 		@DateTimeFormat(pattern = "hh:mm")
-		private String closeTime;
+		private LocalTime closeTime;
 		
 		@DateTimeFormat(pattern = "hh:mm")
 	    private LocalTime genWorkTime;

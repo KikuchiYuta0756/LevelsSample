@@ -192,8 +192,8 @@ import com.opencsv.CSVWriter;
 			for(WorkTimeEntity record : csvRecords) {
 				String[] data = {
 						record.getWorkDate(),
-						record.getStartTime(),
-						record.getCloseTime(),
+						formatLocalTime(record.getStartTime(), timeFormatter),
+						formatLocalTime(record.getCloseTime(), timeFormatter),
 						formatLocalTime(record.getRestTime(), timeFormatter),
 						formatLocalTime(record.getActWorkTime(), timeFormatter),
 						formatLocalTime(record.getOverTime(), timeFormatter)

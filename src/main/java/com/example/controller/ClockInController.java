@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import org.modelmapper.ModelMapper;
@@ -79,11 +80,11 @@ public class ClockInController {
         
 		//Date出力形式を指定
 		DateTimeFormatter dtfdate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		DateTimeFormatter dtftime = DateTimeFormatter.ofPattern("HH:mm");
 		
 		//日付型をString型に変換
 		String strdate = adjustedDateTime.format(dtfdate);
-		String strtime = adjustedDateTime.format(dtftime);
+	    // LocalTime型の取得
+	    LocalTime strtime = adjustedDateTime.toLocalTime();
 		
 		WorkTimeEntity worktime = new WorkTimeEntity();
 		worktime.setWorkDate(strdate);
@@ -121,16 +122,15 @@ public class ClockInController {
         
 		//Date出力形式を指定
 		DateTimeFormatter dtfdate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		DateTimeFormatter dtftime = DateTimeFormatter.ofPattern("HH:mm");
 		
 		//日付型をString型に変換
 		String strdate = adjustedDateTime.format(dtfdate);
-		String strtime = adjustedDateTime.format(dtftime);
+	    // LocalTime型の取得
+	    LocalTime strtime = adjustedDateTime.toLocalTime();
 		
-		//
 		WorkTimeEntity worktime = new WorkTimeEntity();
 		worktime.setWorkDate(strdate);
-		worktime.setCloseTime(strtime);
+		worktime.setStartTime(strtime);
 		worktime.setLoginId(loginId);
 		
         //退勤時間のDB登録

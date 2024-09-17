@@ -183,10 +183,14 @@ public class ClockInListController {
 
 			// DBレコードをCSVに書き込む
 			for (WorkTimeEntity record : csvRecords) {
-				String[] data = { record.getWorkDate(), record.getStartTime(), record.getCloseTime(),
+				String[] data = { 						
+						record.getWorkDate(),
+						formatLocalTime(record.getStartTime(), timeFormatter),
+						formatLocalTime(record.getCloseTime(), timeFormatter),
 						formatLocalTime(record.getRestTime(), timeFormatter),
 						formatLocalTime(record.getActWorkTime(), timeFormatter),
-						formatLocalTime(record.getOverTime(), timeFormatter) };
+						formatLocalTime(record.getOverTime(), timeFormatter)
+						};
 				writer.writeNext(data);
 			}
 			System.out.println("CSV ファイルにデータを書き込みました: " + csvFilePath);
